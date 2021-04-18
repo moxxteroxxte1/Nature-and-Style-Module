@@ -1,0 +1,20 @@
+{
+  "name": "nature-and-style/core-module",
+  "description": "Nature and Style core module",
+  "type": "oxideshop-module",
+  "keywords": ["oxid", "modules", "eShop", "demo"],
+  "homepage": "https://www.natureandstyle.com",
+  "license": [
+    "GPL-3.0-only"
+  ],
+  "require": {
+    "oxid-esales/event_logger_demo": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "NatureAndStyle\\CoreModule\\": ""
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
