@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="44e176e1-4abe-4361-b162-84d7bcc04c05" name="Shop Dev" url="http://s867949693.online.de">
+        <fileTransfer rootFolder="/shop/source" accessType="SFTP" host="access867949694.webspace-data.io" port="22" sshConfigId="52f7a9ba-3081-4af4-af62-cb5f5be518b0" sshConfig="u104447192@access867949694.webspace-data.io:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
