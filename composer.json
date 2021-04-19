@@ -7,9 +7,6 @@
   "license": [
     "GPL-3.0-only"
   ],
-  "require": {
-    "oxid-esales/event_logger_demo": "dev-master"
-  },
   "autoload": {
     "psr-4": {
       "NatureAndStyle\\CoreModule\\": ""
