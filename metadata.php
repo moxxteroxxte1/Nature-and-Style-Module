@@ -21,8 +21,10 @@ $aModule = array(
     'url'           => 'http://www.natureandstyle.com/',
     'email'         => 'info@natureandstyle.de',
     'extend'        => array(
-        \OxidEsales\Eshop\Application\Model\User::class => \NatureAndStyle\CoreModule\Application\Model\User::class,
-        \OxidEsales\Eshop\Application\Model\Basket::class => \NatureAndStyle\CoreModule\Application\Model\Basket::class,
+        \OxidEsales\GdprOptinModule\Component\UserComponent::class                => \NatureAndStyle\CoreModule\Application\Component\UserComponent::class,
+        \OxidEsales\Eshop\Application\Model\User::class                             => \NatureAndStyle\CoreModule\Application\Model\User::class,
+        \OxidEsales\Eshop\Application\Model\Basket::class                           => \NatureAndStyle\CoreModule\Application\Model\Basket::class,
+        \OxidEsales\Eshop\Core\Price::class                                         => \NatureAndStyle\CoreModule\Core\Price::class,
     ),
     'events'       => array(
         'onActivate'   => '\NatureAndStyle\CoreModule\Core\Events::onActivate',
@@ -32,6 +34,11 @@ $aModule = array(
             'template'  => 'article_pictures.tpl',
             'block'     => 'admin_article_pictures_main',
             'file'      => '/views/blocks/article_pictures_extend.tpl',
+        ),
+        array(
+            'template'  => 'user_main.tpl',
+            'block'     => 'admin_user_main_assign_groups',
+            'file'      => '/views/blocks/user_main.tpl',
         ),
     ),
 );
