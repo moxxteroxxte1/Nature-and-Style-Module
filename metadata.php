@@ -21,8 +21,9 @@ $aModule = array(
     'url'           => 'http://www.natureandstyle.com/',
     'email'         => 'info@natureandstyle.de',
     'extend'        => array(
-        \OxidEsales\Eshop\Application\Component\UserComponent::class                  => \NatureAndStyle\CoreModule\Application\Component\UserComponent::class,
+        \OxidEsales\Eshop\Application\Component\UserComponent::class                => \NatureAndStyle\CoreModule\Application\Component\UserComponent::class,
         \OxidEsales\Eshop\Application\Model\User::class                             => \NatureAndStyle\CoreModule\Application\Model\User::class,
+        \OxidEsales\Eshop\Application\Model\Article::class                          => \NatureAndStyle\CoreModule\Application\Model\Article::class,
         \OxidEsales\Eshop\Application\Model\Discount::class                         => \NatureAndStyle\CoreModule\Application\Model\Discount::class,
         \OxidEsales\Eshop\Core\Price::class                                         => \NatureAndStyle\CoreModule\Core\Price::class,
     ),
