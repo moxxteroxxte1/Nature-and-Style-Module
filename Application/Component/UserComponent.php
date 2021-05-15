@@ -10,7 +10,6 @@ class UserComponent extends UserComponent_parent
     {
         parent::createUser();
 
-        if($this->validateRegistrationOptin()){
         $oUser = $this->getUser();
         $oUser->oxuser__oxactive = new \OxidEsales\Eshop\Core\Field(0);
         $oUser->save();
@@ -18,6 +17,5 @@ class UserComponent extends UserComponent_parent
 
         $sUrl = Registry::getConfig()->getShopHomeUrl() . 'cl=content&tpl=user_inactive.tpl';
         Registry::getUtils()->redirect($sUrl, true, 302);
-        }
     }
 }
