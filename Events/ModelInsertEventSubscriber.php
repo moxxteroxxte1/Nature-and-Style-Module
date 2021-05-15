@@ -2,6 +2,7 @@
 
 namespace NatureAndStyle\CoreModule\Events;
 
+use OxidEsales\Eshop\Core\Field;
 use OxidEsales\EshopCommunity\Internal\Framework\Event\AbstractShopAwareEventSubscriber;
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\AfterModelInsertEvent;
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\AfterModelUpdateEvent;
@@ -13,27 +14,37 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
     /** @var LoggerInterface */
     private $category = 'unique';
 
-    public function logDatabaseActivity(Event $event)
+    public function onUpdate(Event $event)
     {
         $model = $event->getModel();
 
-        if (is_a($model, "OxidEsales\Eshop\Application\Model\Article") && $model->isUnique() && $model->oxarticles__oxstockflag->value != 2)
-        {
-            $model->oxarticles__oxstockflag = new \OxidEsales\Eshop\Core\Field(2);
+        if (is_a($model, "OxidEsales\Eshop\Application\Model\Article") && $model->isUnique() && $model->oxarticles__oxstockflag->value != 2) {
+            $model->oxarticles__oxstockflag = new Field(2);
             $model->save();
-        }else if(is_a($model, "OxidEsales\Eshop\Application\Model\Object2Category") && strpos($model->getCategoryId(), $this->category) !== false){
-            $oxarticle  = oxNew('oxarticle');
+        } else if (is_a($model, "OxidEsales\Eshop\Application\Model\Object2Category") && strpos($model->getCategoryId(), $this->category) !== false) {
+            $oxarticle = oxNew('oxarticle');
             $oxarticle->load($model->getProductId());
-            if($oxarticle->oxarticles__oxstockflag->value != 2){
-                $oxarticle->oxarticles__oxstockflag = new \OxidEsales\Eshop\Core\Field(2);
+            if ($oxarticle->oxarticles__oxstockflag->value != 2) {
+                $oxarticle->oxarticles__oxstockflag = new Field(2);
                 $oxarticle->save();
             }
         }
     }
 
+    public function onInsert(Event $event)
+    {
+        $model = $event->getModel();
+
+        if(is_a($model, "OxidEsales\Eshop\Application\Model\Article"))
+        {
+            $model->oxarticles__oxid = new Field($model->oxarticles__oxartnum->value);
+            $model->save();
+        }
+    }
+
     public static function getSubscribedEvents()
     {
-        return [AfterModelUpdateEvent::NAME => 'logDatabaseActivity',
-            AfterModelInsertEvent::NAME => 'logDatabaseActivity'];
+        return [AfterModelUpdateEvent::NAME => 'onUpdate',
+            AfterModelInsertEvent::NAME => 'onInsert'];
     }
 }
