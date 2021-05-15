@@ -41,6 +41,9 @@
 # *.iml
 # *.ipr
 
+.idea/deployment.xml
+.idea/webServers.xml
+
 # CMake
 cmake-build-*/
 

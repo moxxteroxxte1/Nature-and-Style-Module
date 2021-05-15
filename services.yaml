@@ -1,0 +1,9 @@
+services:
+
+  _defaults:
+    public: false
+    autowire: true
+
+  NatureAndStyle\CoreModule\Events\ModelInsertEventSubscriber:
+    class: NatureAndStyle\CoreModule\Events\ModelInsertEventSubscriber
+    tags: ['kernel.event_subscriber']
