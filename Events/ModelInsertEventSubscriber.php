@@ -28,7 +28,7 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
             }elseif (!$model->isNew() && $model->inCategory($this->category_new)){
                 try{
                     $query = "DELETE FROM `oxobject2category` WHERE OXOBJECTID = ? AND OXCATNID = 'new_articles'";
-                    \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->execSql($query, [$model->getId()]);
+                    \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->execute($query, [$model->getId()]);
                 }catch (\OxidEsales\Eshop\Core\Exeption\DatabaseException $exception){
                     \OxidEsales\Eshop\Core\Registry::getUtilsView()->addErrorToDisplay($exception, false, true);
                 }
