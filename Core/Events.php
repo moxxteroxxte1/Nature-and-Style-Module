@@ -9,23 +9,14 @@ class Events {
 
     public static function onActivate()
     {
-       self::createCategory();
-       self::insertVECol();
-    }
-
-    public function insertVECol(){
-    }
-
-    public function createCategory(){
         $oCategory = oxNew('oxcategory');
         $oCategory->assign(array(
-            'oxtitle' => 'Unikate',
+            "oxid" => 'new_articles',
+            'oxtitle' => 'Unsere Neuheiten',
             'oxactive' => 1,
             "oxparentid" => "oxrootid",
-            "oxid" => 'unique',
             'oxsort' => 0
         ));
         $oCategory->save();
     }
-
 }

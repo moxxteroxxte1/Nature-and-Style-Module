@@ -28,15 +28,6 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
                 $oxarticle->oxarticles__oxstockflag = new Field(2);
                 $oxarticle->save();
             }
-        } else if (is_a($model, "OxidEsales\Eshop\Application\Model\Object2Group")){
-            $sGroupId = $model->getFieldData('oxgroupsid');
-            if($sGroupId != null && strpos($sGroupId, 'oxiddealer') !== false){
-                $oxObject2Group = oxNew('oxobject2group');
-                $sObjectId = $model->getFieldData('oxobjectid');
-                $oxObject2Group->oxobject2group__oxobjectid = new Field($sObjectId);
-                $oxObject2Group->oxobject2group__oxgroupsid = new Field('oxpricea');
-                $oxObject2Group->save();
-            }
         }
     }
 
@@ -48,6 +39,14 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
             $sArtNum = $model->oxarticles__oxid->value;
             $model->oxarticles__oxartnum = new Field($sArtNum);
             $model->save();
+            if($model->oxarticles__oxnew->value && !$model->inCategory('new_articles')){
+                $obj2cat = oxNew('object2category');
+                $obj2cat->assign(array(
+                    'oxcatnid'      => 'new_articles',
+                    "oxobjectid"    => $sArtNum
+                ));
+                $obj2cat->save();
+            }
         }
     }
 

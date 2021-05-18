@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../Nature-and-Style-Template/.idea/Nature-and-Style-Template.iml" filepath="$PROJECT_DIR$/../Nature-and-Style-Template/.idea/Nature-and-Style-Template.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Nature-and-Style-core-module.iml" filepath="$PROJECT_DIR$/.idea/Nature-and-Style-core-module.iml" />
     </modules>
   </component>

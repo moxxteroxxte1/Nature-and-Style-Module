@@ -14,6 +14,11 @@ class Article extends Article_parent
         return $this->oxarticles__oxunique->value || $this->_uniqueCategory();
     }
 
+    public function isNew(): bool
+    {
+        return $this->oxarticles__oxnew->value;
+    }
+
     private function _uniqueCategory(): bool
     {
         foreach ($this->getCategoryIds() as $id) {
