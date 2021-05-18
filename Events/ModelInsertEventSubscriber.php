@@ -58,7 +58,7 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
 
     private function articleToCategory($sAId, $sCid){
         $obj2cat = oxNew('oxobject2category');
-        $obj2cat->init('object2category');
+        $obj2cat->init('oxobject2category');
         $obj2cat->assign(array(
             'oxcatnid'      => $sCid,
             "oxobjectid"    => $sAId
