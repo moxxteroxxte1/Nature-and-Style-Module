@@ -12,16 +12,21 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
 {
 
     /** @var LoggerInterface */
-    private $category = 'unique';
+    private $category_unique = 'unique';
+    private $category_new = 'new_articles';
 
     public function onUpdate(Event $event)
     {
         $model = $event->getModel();
 
-        if (is_a($model, "OxidEsales\Eshop\Application\Model\Article") && $model->isUnique() && $model->oxarticles__oxstockflag->value != 2) {
-            $model->oxarticles__oxstockflag = new Field(2);
-            $model->save();
-        } else if (is_a($model, "OxidEsales\Eshop\Application\Model\Object2Category") && strpos($model->getCategoryId(), $this->category) !== false) {
+        if (is_a($model, "OxidEsales\Eshop\Application\Model\Article")) {
+            if($model->isUnique() && $model->oxarticles__oxstockflag->value != 2){
+                $model->oxarticles__oxstockflag = new Field(2);
+                $model->save();
+            }elseif ($model->isNew() && !$model->inCategory($this->category_new)){
+                $this->articleToCategory($model->oxarticles__oxid->value, $this->category_new);
+            }
+        } else if (is_a($model, "OxidEsales\Eshop\Application\Model\Object2Category") && strpos($model->getCategoryId(), $this->category_unique) !== false) {
             $oxarticle = oxNew('oxarticle');
             $oxarticle->load($model->getProductId());
             if ($oxarticle->oxarticles__oxstockflag->value != 2) {
@@ -40,12 +45,7 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
             $model->oxarticles__oxartnum = new Field($sArtNum);
             $model->save();
             if($model->oxarticles__oxnew->value && !$model->inCategory('new_articles')){
-                $obj2cat = oxNew('object2category');
-                $obj2cat->assign(array(
-                    'oxcatnid'      => 'new_articles',
-                    "oxobjectid"    => $sArtNum
-                ));
-                $obj2cat->save();
+                $this->articleToCategory($model->oxarticles__oxid->value, $this->category_new);
             }
         }
     }
@@ -54,5 +54,15 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
     {
         return [AfterModelUpdateEvent::NAME => 'onUpdate',
             AfterModelInsertEvent::NAME => 'onInsert'];
+    }
+
+    private function articleToCategory($sAId, $sCid){
+        $obj2cat = oxNew('object2category');
+        $obj2cat->init('object2category');
+        $obj2cat->assign(array(
+            'oxcatnid'      => $sCid,
+            "oxobjectid"    => $sAId
+        ));
+        $obj2cat->save();
     }
 }
