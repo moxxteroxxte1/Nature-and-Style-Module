@@ -20,11 +20,10 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
         $model = $event->getModel();
 
         if (is_a($model, "OxidEsales\Eshop\Application\Model\Article")) {
+            $this->articleToCategory($model->oxarticles__oxid->value, $this->category_new);
             if($model->isUnique() && $model->oxarticles__oxstockflag->value != 2){
                 $model->oxarticles__oxstockflag = new Field(2);
                 $model->save();
-            }elseif ($model->isNew() && !$model->inCategory($this->category_new)){
-                $this->articleToCategory($model->oxarticles__oxid->value, $this->category_new);
             }
         } else if (is_a($model, "OxidEsales\Eshop\Application\Model\Object2Category") && strpos($model->getCategoryId(), $this->category_unique) !== false) {
             $oxarticle = oxNew('oxarticle');
@@ -44,9 +43,7 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
             $sArtNum = $model->oxarticles__oxid->value;
             $model->oxarticles__oxartnum = new Field($sArtNum);
             $model->save();
-            if($model->oxarticles__oxnew->value && !$model->inCategory('new_articles')){
-                $this->articleToCategory($model->oxarticles__oxid->value, $this->category_new);
-            }
+            $this->articleToCategory($sArtNum, $this->category_new);
         }
     }
 
@@ -57,12 +54,16 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
     }
 
     private function articleToCategory($sAId, $sCid){
-        $obj2cat = oxNew('oxobject2category');
-        $obj2cat->init('oxobject2category');
-        $obj2cat->assign(array(
-            'oxcatnid'      => $sCid,
-            "oxobjectid"    => $sAId
-        ));
-        $obj2cat->save();
+        $oArticle = oxNew('oxarticle');
+        $oArticle->load($sAId);
+        if($oArticle->isNew() && $oArticle->inCategory($this->category_new)){
+            $obj2cat = oxNew('oxobject2category');
+            $obj2cat->init('oxobject2category');
+            $obj2cat->assign(array(
+                'oxcatnid'      => $sCid,
+                "oxobjectid"    => $sAId
+            ));
+            $obj2cat->save();
+        }
     }
 }
