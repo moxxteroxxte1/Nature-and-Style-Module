@@ -12,7 +12,7 @@ class Events
     {
         $oCategory = oxNew('oxcategory');
         $oCategory->load('new_articles');
-        if ($oCategory !== null) {
+        if ($oCategory === null) {
             $oCategory->assign(array(
                 "oxid" => 'new_articles',
                 'oxtitle' => 'Unsere Neuheiten',
