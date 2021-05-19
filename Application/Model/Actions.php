@@ -74,6 +74,7 @@ class Actions extends Actions_parent
             }
 
             if ($object->load($sObjId)) {
+                $logger->info($object->getId());
                 return $object;
             }
         }
