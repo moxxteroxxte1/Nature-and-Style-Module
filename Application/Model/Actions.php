@@ -63,6 +63,9 @@ class Actions extends Actions_parent
         $sObjId = $this->fetchBannerObjectId();
         $sObjClass = $this->fetchBannerObjectClass();
 
+        $logger = \OxidEsales\Eshop\Core\Registry::getLogger();
+        $logger->info($sObjId . " " . $sObjClass);
+
         if ($sObjId && $sObjClass) {
             $object = oxNew($sObjClass);
 
@@ -89,7 +92,10 @@ class Actions extends Actions_parent
             $sUrl = $oUtilsUlr->processUrl($sUrl);
         } else {
             $object = $this->getBannerObject();
-                // if article is assigned to banner, getting article link
+
+            $logger = \OxidEsales\Eshop\Core\Registry::getLogger();
+            $logger->info(get_class($object));
+
             if($object !== null){
                 $sUrl = $object->getLink();
             }
