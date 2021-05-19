@@ -25,7 +25,7 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
             if($model->isUnique() && $model->oxarticles__oxstockflag->value != 2){
                 $model->oxarticles__oxstockflag = new Field(2);
                 $model->save();
-            }elseif (!$model->isNew() && $model->inCategory($this->category_new)){
+            }elseif ($model->oxarticles__oxnew->value !== 1 && $model->inCategory($this->category_new)){
                 try{
                     $query = "DELETE FROM `oxobject2category` WHERE OXOBJECTID = ? AND OXCATNID = 'new_articles'";
                     \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->execute($query, [$model->getId()]);
@@ -55,14 +55,6 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
         }
     }
 
-    public function onDelete(Event $event)
-    {
-        $model = $event->getModel();
-
-        $logger = \OxidEsales\Eshop\Core\Registry::getLogger();
-        $logger->error(get_class($model));
-    }
-
     private function articleToCategory($sAId, $sCid){
         $oArticle = oxNew('oxarticle');
         $oArticle->load($sAId);
@@ -80,7 +72,6 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
     public static function getSubscribedEvents()
     {
         return [AfterModelUpdateEvent::NAME => 'onUpdate',
-            AfterModelInsertEvent::NAME => 'onInsert',
-            AfterModelDeleteEvent::NAME => 'onDelete'];
+            AfterModelInsertEvent::NAME => 'onInsert'];
     }
 }

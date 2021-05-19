@@ -25,6 +25,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Model\User::class                             => \NatureAndStyle\CoreModule\Application\Model\User::class,
         \OxidEsales\Eshop\Application\Model\Article::class                          => \NatureAndStyle\CoreModule\Application\Model\Article::class,
         \OxidEsales\Eshop\Application\Model\Discount::class                         => \NatureAndStyle\CoreModule\Application\Model\Discount::class,
+        \OxidEsales\Eshop\Application\Model\Actions::class                          => \NatureAndStyle\CoreModule\Application\Model\Actions::class,
         \OxidEsales\Eshop\Core\Price::class                                         => \NatureAndStyle\CoreModule\Core\Price::class,
     ),
     'events'       => array(

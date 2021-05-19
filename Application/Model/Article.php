@@ -4,6 +4,12 @@ namespace NatureAndStyle\CoreModule\Application\Model;
 
 class Article extends Article_parent
 {
+
+    public function getTitle()
+    {
+        return $this->oxarticles__oxtitle->value;
+    }
+
     public function getPackagingUnit(): int
     {
         return $this->oxarticles__oxpackagingunit->value;
