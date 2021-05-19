@@ -9,24 +9,27 @@ class Actions extends Actions_parent
 
     public function getBannerTitle()
     {
-        if (isset($this->oxactions__oxtitle)) {
-            return $this->oxactions__oxtitle->value;
-        }else{
+        $oBannerObject = $this->getBannerObject();
+        if($oBannerObject){
             return $this->getBannerObject()->getTitle();
+        }elseif(isset($this->oxactions__oxtitle)){
+            return $this->oxactions__oxtitle->value;
         }
 
-        return false;
+        return null;
     }
 
     public function getLongDesc()
     {
-        if(isset($this->oxactions__oxlongdesc)){
-            parent::getLongDesc();
-        }else{
-            $this->getBannerObject()->getLongDesc();
+
+        $oBannerObject = $this->getBannerObject();
+        if($oBannerObject){
+            return $this->getBannerObject()->getLongDesc();
+        }elseif(isset($this->oxactions__oxlongdesc)){
+            return $this->oxactions__oxlongdesc->value;
         }
 
-        return false;
+        return null;
     }
 
     protected function fetchBannerObjectId()
