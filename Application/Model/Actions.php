@@ -75,7 +75,7 @@ class Actions extends Actions_parent
             }
         }
 
-        return null;
+        return false;
     }
 
     public function getBannerLink()
