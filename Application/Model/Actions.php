@@ -88,10 +88,10 @@ class Actions extends Actions_parent
             $sUrl = $oUtilsUlr->addShopHost($this->oxactions__oxlink->value);
             $sUrl = $oUtilsUlr->processUrl($sUrl);
         } else {
-            if ($object = $this->getBannerObject()) {
+            $object = $this->getBannerObject();
                 // if article is assigned to banner, getting article link
-                $sUrl = $object->getLink();
-            }
+            $sUrl = $object->getLink();
+
         }
 
         return $sUrl;
