@@ -90,7 +90,7 @@ class Actions extends Actions_parent
         } else {
             $object = $this->getBannerObject();
                 // if article is assigned to banner, getting article link
-            if($object != null){
+            if($object !== null){
                 $sUrl = $object->getLink();
             }
         }
