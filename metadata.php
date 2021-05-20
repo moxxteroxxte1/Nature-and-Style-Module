@@ -21,6 +21,7 @@ $aModule = array(
     'url'           => 'http://www.natureandstyle.com/',
     'email'         => 'info@natureandstyle.de',
     'extend'        => array(
+        \OxidEsales\Eshop\Application\Controller\Admin\ActionsMain::class            => \NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsMain::class,
         \OxidEsales\Eshop\Application\Component\UserComponent::class                => \NatureAndStyle\CoreModule\Application\Component\UserComponent::class,
         \OxidEsales\Eshop\Application\Model\User::class                             => \NatureAndStyle\CoreModule\Application\Model\User::class,
         \OxidEsales\Eshop\Application\Model\Article::class                          => \NatureAndStyle\CoreModule\Application\Model\Article::class,
@@ -28,7 +29,10 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Model\Actions::class                          => \NatureAndStyle\CoreModule\Application\Model\Actions::class,
         \OxidEsales\Eshop\Core\Price::class                                         => \NatureAndStyle\CoreModule\Core\Price::class,
     ),
-    'events'       => array(
+    'templates'     => array(
+        'actions_category.tpl' => 'nature-and-style/core-module/Application/views/admin/tpl/actions_category.tpl',
+    ),
+    'events'        => array(
         'onActivate'   => '\NatureAndStyle\CoreModule\Core\Events::onActivate',
     ),
     'blocks'        => array(
