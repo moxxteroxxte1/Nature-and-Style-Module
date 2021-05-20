@@ -52,5 +52,10 @@ $aModule = array(
             'block'     => 'admin_discount_main_form',
             'file'      => '/Application/views/blocks/discount_main_extend.tpl',
         ),
+        array(
+            'template'  => 'actions_main.tpl',
+            'block'     => 'admin_actions_main_product',
+            'file'      => '/Application/views/blocks/actions_main_extend.tpl'
+        )
     ),
 );
