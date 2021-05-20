@@ -9,8 +9,6 @@ class ActionsMain extends ActionsMain_parent
 
     public function render()
     {
-        $result = parent::render();
-
         $soxId = $this->_aViewData["oxid"] = $this->getEditObjectId();
 
         if (($oPromotion = $this->getViewDataElement("edit"))) {
@@ -39,7 +37,7 @@ class ActionsMain extends ActionsMain_parent
                 }
             }
         }
-
+        $result = parent::render();
         return $result;
     }
 
