@@ -49,21 +49,12 @@
         <b>[{oxmultilang ident="PROMOTIONS_BANNER_TEXT"}]:</b>
     </td>
     <td class="edittext">
-        <input type="text" class="editinput" size="32" maxlength="[{$edit->oxactions__oxlongdesc->fldmax_length}]" id="oLockTarget" name="editval[oxactions__oxlongdesc]" value="[{$edit->oxactions__oxlongdesc->value}]">
+        <input type="text" class="editinput" size="32" maxlength="64" id="oLockTarget" name="editval[oxactions__oxlongdesc]" value="[{$edit->oxactions__oxlongdesc->value}]">
     </td>
 </tr>
-
 <tr>
     <td class="text">
-        <b>
-            [{if $edit->getBannerObjectClass === null}]
-                [{oxmultilang ident="PROMOTIONS_BANNER_NONE"}]
-            [{elseif $edit->getBannerObjectClass === 'oxarticle'}]
-                [{oxmultilang ident="PROMOTIONS_BANNER_ASSIGNEDARTICLE"}]
-            [{else}]
-                [{oxmultilang ident="PROMOTIONS_BANNER_ASSIGNEDCATEGORY"}]
-            [{/if}]:
-        </b>
+        <b>[{oxmultilang ident="PROMOTIONS_BANNER_NONE"}]</b>
     </td>
     <td class="text" colspan="2">
         <b>
