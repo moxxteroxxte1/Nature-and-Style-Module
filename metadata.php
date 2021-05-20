@@ -30,7 +30,7 @@ $aModule = array(
         \OxidEsales\Eshop\Core\Price::class                                         => \NatureAndStyle\CoreModule\Core\Price::class,
     ),
     'templates'     => array(
-        'actions_category.tpl' => 'nature-and-style/core-module/Application/views/admin/tpl/actions_category.tpl',
+        'actions_category.tpl' => 'nature-and-style/core-module/Application/views/admin/tpl/popups/actions_category.tpl',
     ),
     'events'        => array(
         'onActivate'   => '\NatureAndStyle\CoreModule\Core\Events::onActivate',
