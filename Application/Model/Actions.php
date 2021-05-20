@@ -93,9 +93,6 @@ class Actions extends Actions_parent
         } else {
             $object = $this->getBannerObject();
 
-            $logger = \OxidEsales\Eshop\Core\Registry::getLogger();
-            $logger->info(get_class($object));
-
             if($object){
                 $sUrl = $object->getLink();
             }
