@@ -31,7 +31,7 @@ class ActionsMain extends ActionsMain_parent
                     }
 
                     if ($sPopup) {
-                        $oActionsCategoryAjax = oxNew($sPopup . "_ajax");
+                        $oActionsCategoryAjax = oxNew(ActionsCategoryAjax::class);
                         $this->_aViewData['oxajax'] = $oActionsCategoryAjax->getColumns();
 
                         return "{$sPopup}.tpl";

@@ -59,8 +59,8 @@
         }
         YAHOO.oxid.container1.onRemove = function()
         {
-            $('actionarticle_artnum').innerHTML = '';
-            $('actionarticle_title').innerHTML  = '';
+            $('actionobject_id').innerHTML = '';
+            $('actionobject_title').innerHTML  = '';
             $('remBtn').disabled = true;
             $D.setStyle( $('_article'), 'visibility', 'hidden' );
 
@@ -74,7 +74,7 @@
                 failure: YAHOO.oxid.container1.onFailure,
                 scope:   YAHOO.oxid.container1
             };
-            YAHOO.util.Connect.asyncRequest( 'GET', '[{$oViewConf->getAjaxLink()}]&cmpid=container1&container=actions_article&fnc=removeactionarticle&oxid=[{$oxid}]', callback );
+            YAHOO.util.Connect.asyncRequest( 'GET', '[{$oViewConf->getAjaxLink()}]&cmpid=container1&container=actions_category&fnc=removeactionarticle&oxid=[{$oxid}]', callback );
 
         }
         // subscribint event listeners on buttons
