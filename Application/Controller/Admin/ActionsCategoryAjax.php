@@ -3,7 +3,7 @@
 
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
-class actions_category_ajax extends \OxidEsales\Eshop\Application\Controller\Admin\ListComponentAjax
+class ActionsCategoryAjax extends \OxidEsales\Eshop\Application\Controller\Admin\ListComponentAjax
 {
     protected $_blAllowExtColumns = true;
 
@@ -15,42 +15,35 @@ class actions_category_ajax extends \OxidEsales\Eshop\Application\Controller\Adm
 
     protected function _getQuery() // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
     {
-        $myConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
+        // active AJAX component
+        $sGroupTable = $this->_getViewName('oxcategories');
         $oDb = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
-        $sCategoryTable = $this->_getViewName('oxcategories');
-        $sViewName = $this->_getViewName('oxobject2category');
 
-        $sSelId = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter('oxid');
-        $sSynchSelId = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter('synchoxid');
+        $sId = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter('oxid');
+        $sSynchId = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter('synchoxid');
 
         // category selected or not ?
-        if (!$sSelId) {
-            $sQAdd = " from $sCategoryTable where 1 ";
-            $sQAdd .= $myConfig->getConfigParam('blVariantsSelection') ? '' : " and $sCategoryTable.oxparentid = '' ";
+        if (!$sId) {
+            $sQAdd = " from {$sGroupTable} where 1 ";
         } else {
-            // selected category ?
-            if ($sSynchSelId) {
-                $blVariantsSelectionParameter = $myConfig->getConfigParam('blVariantsSelection');
-                $sSqlIfTrue = " ({$sCategoryTable}.oxid=oxobject2category.oxobjectid " .
-                    "or {$sCategoryTable}.oxparentid=oxobject2category.oxobjectid)";
-                $sSqlIfFalse = " {$sCategoryTable}.oxid=oxobject2category.oxobjectid ";
-                $sVariantSelection = $blVariantsSelectionParameter ? $sSqlIfTrue : $sSqlIfFalse;
-                $sQAdd = " from {$sViewName} as oxobject2category left join {$sCategoryTable} on " . $sVariantSelection .
-                    " where oxobject2category.oxcatnid = " . $oDb->quote($sSelId) . " ";
-            }
+            $sQAdd = " from oxobject2action, {$sGroupTable} where {$sGroupTable}.oxid=oxobject2action.oxobjectid " .
+                " and oxobject2action.oxactionid = " . $oDb->quote($sId) .
+                " and oxobject2action.oxclass = 'oxcategory' ";
         }
-        // #1513C/#1826C - skip references, to not existing articles
-        $sQAdd .= " and $sCategoryTable.oxid IS NOT NULL ";
 
-        // skipping self from list
-        $sQAdd .= " and $sCategoryTable.oxid != " . $oDb->quote($sSynchSelId) . " ";
+        if ($sSynchId && $sSynchId != $sId) {
+            $sQAdd .= " and {$sGroupTable}.oxid not in ( select {$sGroupTable}.oxid " .
+                "from oxobject2action, {$sGroupTable} where $sGroupTable.oxid=oxobject2action.oxobjectid " .
+                " and oxobject2action.oxactionid = " . $oDb->quote($sSynchId) .
+                " and oxobject2action.oxclass = 'oxcategory' ) ";
+        }
 
         return $sQAdd;
     }
 
     protected function _addFilter($sQ) // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
     {
-        $sArtTable = $this->_getViewName('oxarticles');
+        $sArtTable = $this->_getViewName('oxcategories');
         $sQ = parent::_addFilter($sQ);
 
         // display variants or not ?
