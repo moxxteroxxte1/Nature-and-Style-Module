@@ -35,8 +35,8 @@
             var aSelRows= YAHOO.oxid.container1.getSelectedRows();
             if ( aSelRows.length ) {
                 oParam = YAHOO.oxid.container1.getRecord(aSelRows[0]);
-                $('actionobject_id').innerHTML = oParam._oData._0;
-                $('actionobject_title').innerHTML  = oParam._oData._1;
+                $('actionobject_title').innerHTML  = oParam._oData._0;
+                $('actionobject_id').innerHTML = oParam._oData._1;
                 $('remBtn').disabled = false;
                 $D.setStyle( $('_article'), 'visibility', '' );
 
@@ -53,7 +53,7 @@
             var aSelRows= YAHOO.oxid.container1.getSelectedRows();
             if ( aSelRows.length ) {
                 oParam = YAHOO.oxid.container1.getRecord(aSelRows[0]);
-                sRequest = '&oxcategoryid=' + oParam._oData._6;
+                sRequest = '&oxcategoryid=' + oParam._oData._1;
             }
             YAHOO.util.Connect.asyncRequest( 'GET', '[{$oViewConf->getAjaxLink()}]&cmpid=container1&container=actions_category&fnc=setactioncategory&oxid=[{$oxid}]'+sRequest, callback );
         }
@@ -118,13 +118,13 @@
     <tr>
         <td>
             <input id="saveBtn" type="button" class="edittext oxid-aoc-button" value="[{oxmultilang ident="PROMOTIONS_ARTICLE_ASSIGNARTICLE"}]">
-            <input id="remBtn" type="button" class="edittext oxid-aoc-button" value="[{oxmultilang ident="PROMOTIONS_ARTICLE_UNASSIGNARTICLE"}]" [{if !$actionarticle_artnum}] disabled [{/if}]>
+            <input id="remBtn" type="button" class="edittext oxid-aoc-button" value="[{oxmultilang ident="PROMOTIONS_ARTICLE_UNASSIGNARTICLE"}]" [{if !$actionobject_id}] disabled [{/if}]>
         </td>
     </tr>
     <tr>
         <td valign="top" class="edittext" id="_article" [{if !$actionobject_id}] style="visibility:hidden" [{/if}]>
             <b>[{oxmultilang ident="PROMOTIONS_ARTICLE_ASSIGNEDARTICLE"}]:</b>
-            <b id="actionarticle_artnum">[{$actionobject_id}]</b> <b id="actionarticle_title">[{$actionobject_id}]</b>
+            <b id="actionobject_id">[{$actionobject_id}]</b> <b id="actionobject_title">[{$actionobject_title}]</b>
         </td>
     </tr>
 </table>
