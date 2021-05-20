@@ -34,7 +34,7 @@ class ActionsMain extends ActionsMain_parent
                         $oActionsArticleAjax = oxNew(ActionsCategoryAjax::class);
                         $this->_aViewData['oxajax'] = $oActionsArticleAjax->getColumns();
 
-                        return "/Application/views/admin/tpl/popups/{$sPopup}.tpl";
+                        return "nature-and-style/core-module/Application/views/admin/tpl/popups/{$sPopup}.tpl";
                     }
                 }
             }
