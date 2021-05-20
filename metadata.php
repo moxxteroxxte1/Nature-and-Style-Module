@@ -32,6 +32,9 @@ $aModule = array(
     'templates'     => array(
         'actions_category.tpl' => 'nature-and-style/core-module/Application/views/admin/tpl/popups/actions_category.tpl',
     ),
+    'controllers'   => array(
+        'actions_category_ajax' => \NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsCategoryAjax::class,
+    ),
     'events'        => array(
         'onActivate'   => '\NatureAndStyle\CoreModule\Core\Events::onActivate',
     ),
