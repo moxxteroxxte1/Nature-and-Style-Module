@@ -24,11 +24,10 @@
             if ( aSelRows.length ) {
                 oParam = YAHOO.oxid.container1.getRecord(aSelRows[0]);
                 $('actionobject_title').innerHTML  = oParam._oData._0;
-                $('actionobject_id').innerHTML = oParam._oData._1;
                 $('remBtn').disabled = false;
                 $D.setStyle( $('_article'), 'visibility', '' );
 
-                updateParentFrame( oParam._oData._0);
+                updateParentFrame(oParam._oData._0);
             }
         }
 
@@ -48,7 +47,6 @@
         }
         YAHOO.oxid.container1.onRemove = function()
         {
-            $('actionobject_id').innerHTML = '';
             $('actionobject_title').innerHTML  = '';
             $('remBtn').disabled = true;
             $D.setStyle( $('_article'), 'visibility', 'hidden' );
@@ -98,7 +96,7 @@
     </tr>
     <tr>
         <td valign="top" class="edittext" id="_article" [{if !$actionobject_id}] style="visibility:hidden" [{/if}]>
-            <b>[{oxmultilang ident="PROMOTIONS_ARTICLE_ASSIGNEDARTICLE"}]:</b>
+            <b>[{oxmultilang ident="PROMOTIONS_BANNER_ASSIGNEDCATEGORY"}]:</b>
             <b id="actionobject_title">[{$actionobject_title}]</b>
         </td>
     </tr>

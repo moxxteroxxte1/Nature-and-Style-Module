@@ -12,4 +12,6 @@ $aLang = array(
     'PROMOTIONS_BANNER_NONE'                        => 'Zugeordnetes Object',
     'GENERAL_ASSIGNCATEGORY'                        => 'Kategorie zuordnen',
     'PROMOTIONS_BANNER_TEXT'                        => 'Freitexteingabe',
+    'PROMOTIONS_ARTICLE_ASSIGNARTICLE'              => "Kategorie zuordnen",
+    'PROMOTIONS_ARTICLE_UNASSIGNARTICLE'            => "Kategoriezuordnung löschen"
 );
