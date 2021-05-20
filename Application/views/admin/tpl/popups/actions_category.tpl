@@ -28,7 +28,7 @@
                 $('remBtn').disabled = false;
                 $D.setStyle( $('_article'), 'visibility', '' );
 
-                updateParentFrame( oParam._oData._0 + ' ' + oParam._oData._1 );
+                updateParentFrame( oParam._oData._0);
             }
         }
 
@@ -99,7 +99,7 @@
     <tr>
         <td valign="top" class="edittext" id="_article" [{if !$actionobject_id}] style="visibility:hidden" [{/if}]>
             <b>[{oxmultilang ident="PROMOTIONS_ARTICLE_ASSIGNEDARTICLE"}]:</b>
-            <b id="actionobject_id">[{$actionobject_id}]</b> <b id="actionobject_title">[{$actionobject_title}]</b>
+            <b id="actionobject_title">[{$actionobject_title}]</b>
         </td>
     </tr>
 </table>

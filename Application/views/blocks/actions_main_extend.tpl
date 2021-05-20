@@ -44,10 +44,26 @@
         [{/if}]
     </td>
 </tr>
+<tr>
+    <td class="text">
+        <b>[{oxmultilang ident="PROMOTIONS_BANNER_TEXT"}]:</b>
+    </td>
+    <td class="edittext">
+        <input type="text" class="editinput" size="32" maxlength="[{$edit->oxactions__oxlongdesc->fldmax_length}]" id="oLockTarget" name="editval[oxactions__oxlongdesc]" value="[{$edit->oxactions__oxlongdesc->value}]">
+    </td>
+</tr>
 
 <tr>
     <td class="text">
-        <b>[{oxmultilang ident="PROMOTIONS_BANNER_ASSIGNEDARTICLE"}]:</b>
+        <b>
+            [{if $edit->getBannerObjectClass === null}]
+                [{oxmultilang ident="PROMOTIONS_BANNER_NONE"}]
+            [{elseif $edit->getBannerObjectClass === 'oxarticle'}]
+                [{oxmultilang ident="PROMOTIONS_BANNER_ASSIGNEDARTICLE"}]
+            [{else}]
+                [{oxmultilang ident="PROMOTIONS_BANNER_ASSIGNEDCATEGORY"}]
+            [{/if}]:
+        </b>
     </td>
     <td class="text" colspan="2">
         <b>
@@ -64,6 +80,6 @@
 
 <tr>
     <td>
-        <input type="button" value="Test" class="edittext" onclick="JavaScript:showDialog('&cl=actions_main&oxpromotionaoc=category&oxid=[{$oxid}]');" [{$readonly}]>
+        <input type="button" value="[{oxmultilang ident="GENERAL_ASSIGNCATEGORY"}]" class="edittext" onclick="JavaScript:showDialog('&cl=actions_main&oxpromotionaoc=category&oxid=[{$oxid}]');" [{$readonly}]>
     </td>
 </tr>
