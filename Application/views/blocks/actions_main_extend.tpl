@@ -1,4 +1,3 @@
-[{$smarty.block.parent}]
 <colgroup>
     <col width="1%" nowrap>
     <col width="1%" nowrap>
@@ -35,10 +34,10 @@
         <b>[{oxmultilang ident="PROMOTIONS_BANNER_LINK"}]:</b>
     </td>
     <td class="text">
-        <input type="text" class="editinput" size="43" name="editval[oxactions__oxlink]" value="[{$edit->oxactions__oxlink->value}]" [{$readonly}]>
+        <input type="text" class="editinput" size="43" name="editval[oxactions__oxlink]" value="[{$edit->getBannerLink()}]" [{$readonly}]>
     </td>
     <td nowrap="nowrap">
-        [{if $edit->oxactions__oxlink->value}]
+        [{if $edit->getBannerLink()}]
         <div style="display: inline-block;">
             <a href="[{$edit->getBannerLink()}]" class="zoomText" target="_blank"><span class="ico"></span><span style="float: left;>">[{oxmultilang ident="ARTICLE_PICTURES_PREVIEW"}]</span></a>
         </div>
@@ -54,7 +53,7 @@
         <b>
             <span id="assignedArticleTitle">
                 [{if $object}]
-                    [{$object->getId()}] [{$edit->getBannerTitle()}]
+                    [{$edit->getBannerTitle()}]
                 [{else}]
                     ---
                 [{/if}]
@@ -62,4 +61,9 @@
         </b>
     </td>
 </tr>
-<input type="button" value="[{oxmultilang ident="GENERAL_ASSIGNARTICLE"}]" class="edittext" onclick="JavaScript:showDialog('&cl=actions_main&oxpromotionaoc=category&oxid=[{$oxid}]');" [{$readonly}]>
+
+<tr>
+    <td>
+        <input type="button" value="Test" class="edittext" onclick="JavaScript:showDialog('&cl=actions_main&oxpromotionaoc=category&oxid=[{$oxid}]');" [{$readonly}]>
+    </td>
+</tr>
