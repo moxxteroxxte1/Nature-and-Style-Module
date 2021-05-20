@@ -85,17 +85,14 @@ class Actions extends Actions_parent
     {
         $sUrl = null;
 
-        if (isset($this->oxactions__oxlink) && $this->oxactions__oxlink->value) {
+        $object = $this->getBannerObject();
+        if($object){
+            $sUrl = $object->getLink();
+        }else if (isset($this->oxactions__oxlink) && $this->oxactions__oxlink->value) {
             /** @var \OxidEsales\Eshop\Core\UtilsUrl $oUtilsUlr */
             $oUtilsUlr = \OxidEsales\Eshop\Core\Registry::getUtilsUrl();
             $sUrl = $oUtilsUlr->addShopHost($this->oxactions__oxlink->value);
             $sUrl = $oUtilsUlr->processUrl($sUrl);
-        } else {
-            $object = $this->getBannerObject();
-
-            if($object){
-                $sUrl = $object->getLink();
-            }
         }
 
         return $sUrl;

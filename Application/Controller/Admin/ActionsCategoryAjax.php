@@ -64,12 +64,6 @@ class ActionsCategoryAjax extends \OxidEsales\Eshop\Application\Controller\Admin
             . ' and oxclass = "oxcategory"',
             [':oxactionid' => $sActionId]
         );
-
-        $oAction = oxNew('oxaction');
-        $oAction->load($sActionId);
-        $oAction->oxactions__oxlink = new OxidEsales\Eshop\Core\Field('');
-        $oAction->oxactions__oxtitle = new OxidEsales\Eshop\Core\Field('');
-        $oAction->save();
     }
 
     public function setActionCategory()
@@ -91,11 +85,5 @@ class ActionsCategoryAjax extends \OxidEsales\Eshop\Application\Controller\Admin
         $oObject2Promotion->oxobject2action__oxobjectid = new \OxidEsales\Eshop\Core\Field($sCategoryId);
         $oObject2Promotion->oxobject2action__oxclass = new \OxidEsales\Eshop\Core\Field("oxcategory");
         $oObject2Promotion->save();
-
-        $oAction = oxNew('oxaction');
-        $oAction->load($sActionId);
-        $oAction->oxactions__oxlink = new OxidEsales\Eshop\Core\Field('');
-        $oAction->oxactions__oxtitle = new OxidEsales\Eshop\Core\Field('');
-        $oAction->save();
     }
 }

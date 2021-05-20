@@ -18,18 +18,6 @@
             { selectionMode: "single" }
         );
 
-        YAHOO.oxid.container1.modRequest = function( sRequest )
-        {
-            oSelect = $('artcat');
-            if ( oSelect.selectedIndex ) {
-                sRequest += '&oxid='+oSelect.options[oSelect.selectedIndex].value+'&synchoxid=[{$oxid}]';
-            }
-            return sRequest;
-        }
-        YAHOO.oxid.container1.filterCat = function( e, OObj )
-        {
-            YAHOO.oxid.container1.getPage( 0 );
-        }
         YAHOO.oxid.container1.onSave = function()
         {
             var aSelRows= YAHOO.oxid.container1.getSelectedRows();
@@ -43,6 +31,7 @@
                 updateParentFrame( oParam._oData._0 + ' ' + oParam._oData._1 );
             }
         }
+
         YAHOO.oxid.container1.addArticle = function()
         {
             var callback = {
@@ -66,7 +55,7 @@
 
             updateParentFrame( "---" );
         }
-        YAHOO.oxid.container1.onFailure = function() { /* currently does nothing */ }
+
         YAHOO.oxid.container1.remArticle = function()
         {
             var callback = {
@@ -75,10 +64,8 @@
                 scope:   YAHOO.oxid.container1
             };
             YAHOO.util.Connect.asyncRequest( 'GET', '[{$oViewConf->getAjaxLink()}]&cmpid=container1&container=actions_category&fnc=removeactioncategory&oxid=[{$oxid}]', callback );
-
         }
-        // subscribint event listeners on buttons
-        $E.addListener( $('artcat'), "change", YAHOO.oxid.container1.filterCat, $('artcat') );
+
         $E.addListener( $('remBtn'), "click", YAHOO.oxid.container1.remArticle, $('remBtn') );
         $E.addListener( $('saveBtn'), "click", YAHOO.oxid.container1.addArticle, $('saveBtn') );
     }
@@ -98,19 +85,7 @@
 
 <table width="100%">
     <tr class="edittext">
-        <td >[{oxmultilang ident="GENERAL_FILTERING"}]<br /><br /></td>
-    </tr>
-    <tr class="edittext">
         <td align="center"><b>[{oxmultilang ident="PROMOTIONS_ARTICLE_ALLITEMS"}]</b></td>
-    </tr>
-    <tr>
-        <td style="padding-left:4px;padding-right:10px">
-            <select name="artcat" id="artcat" style="width:100%;" class="editinput">
-                [{foreach from=$artcattree->aList item=pcat}]
-                <option value="[{$pcat->oxcategories__oxid->value}]">[{$pcat->oxcategories__oxtitle->value}]</option>
-                [{/foreach}]
-            </select>
-        </td>
     </tr>
     <tr>
         <td valign="top" id="container1"></td>
@@ -118,7 +93,7 @@
     <tr>
         <td>
             <input id="saveBtn" type="button" class="edittext oxid-aoc-button" value="[{oxmultilang ident="PROMOTIONS_ARTICLE_ASSIGNARTICLE"}]">
-            <input id="remBtn" type="button" class="edittext oxid-aoc-button" value="[{oxmultilang ident="PROMOTIONS_ARTICLE_UNASSIGNARTICLE"}]" [{if !$actionobject_id}] disabled [{/if}]>
+            <input id="remBtn"  type="button" class="edittext oxid-aoc-button" value="[{oxmultilang ident="PROMOTIONS_ARTICLE_UNASSIGNARTICLE"}]" [{if !$actionobject_id}] disabled [{/if}]>
         </td>
     </tr>
     <tr>
