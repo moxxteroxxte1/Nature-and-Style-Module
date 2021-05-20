@@ -3,10 +3,6 @@
 
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
-use oxRegistry;
-use oxDb;
-use oxField;
-
 class ActionsCategoryAjax extends \OxidEsales\Eshop\Application\Controller\Admin\ListComponentAjax
 {
     protected $_blAllowExtColumns = true;

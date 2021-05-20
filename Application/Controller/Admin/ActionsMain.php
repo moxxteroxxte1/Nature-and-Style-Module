@@ -15,7 +15,7 @@ class ActionsMain extends ActionsMain_parent
 
         if (($oPromotion = $this->getViewDataElement("edit"))) {
             if ($oPromotion->oxactions__oxtype->value == 3) {
-                if ($iAoc = Registry::getConfig()->getRequestParameter("oxpromotionaoc")) {
+                if ($iAoc = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter("oxpromotionaoc")) {
                     $sPopup = false;
                     switch ($iAoc) {
                         case 'category':
