@@ -8,8 +8,8 @@ class ActionsCategoryAjax extends \OxidEsales\Eshop\Application\Controller\Admin
     protected $_blAllowExtColumns = true;
 
     protected $_aColumns = ['container1' => [ // field , table,         visible, multilanguage, ident
-        ['oxid', 'oxcategories', 0, 0, 0],
         ['oxtitle', 'oxcategories', 1, 1, 0],
+        ['oxid', 'oxcategories', 0, 0, 1],
     ]
     ];
 
