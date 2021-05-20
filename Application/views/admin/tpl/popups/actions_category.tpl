@@ -55,7 +55,7 @@
                 oParam = YAHOO.oxid.container1.getRecord(aSelRows[0]);
                 sRequest = '&oxcategoryid=' + oParam._oData._6;
             }
-            YAHOO.util.Connect.asyncRequest( 'GET', '[{$oViewConf->getAjaxLink()}]&cmpid=container1&container=actions_category&fnc=setactionarticle&oxid=[{$oxid}]'+sRequest, callback );
+            YAHOO.util.Connect.asyncRequest( 'GET', '[{$oViewConf->getAjaxLink()}]&cmpid=container1&container=actions_category&fnc=setactioncategory&oxid=[{$oxid}]'+sRequest, callback );
         }
         YAHOO.oxid.container1.onRemove = function()
         {
@@ -74,7 +74,7 @@
                 failure: YAHOO.oxid.container1.onFailure,
                 scope:   YAHOO.oxid.container1
             };
-            YAHOO.util.Connect.asyncRequest( 'GET', '[{$oViewConf->getAjaxLink()}]&cmpid=container1&container=actions_category&fnc=removeactionarticle&oxid=[{$oxid}]', callback );
+            YAHOO.util.Connect.asyncRequest( 'GET', '[{$oViewConf->getAjaxLink()}]&cmpid=container1&container=actions_category&fnc=removeactioncategory&oxid=[{$oxid}]', callback );
 
         }
         // subscribint event listeners on buttons

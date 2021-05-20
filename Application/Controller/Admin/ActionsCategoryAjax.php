@@ -13,7 +13,7 @@ class ActionsCategoryAjax extends \OxidEsales\Eshop\Application\Controller\Admin
     ]
     ];
 
-    protected function _getQuery() // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+    protected function _getQuery()
     {
         // active AJAX component
         $sGroupTable = $this->_getViewName('oxcategories');
@@ -22,7 +22,6 @@ class ActionsCategoryAjax extends \OxidEsales\Eshop\Application\Controller\Admin
         $sId = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter('oxid');
         $sSynchId = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter('synchoxid');
 
-        // category selected or not ?
         if (!$sId) {
             $sQAdd = " from {$sGroupTable} where 1 ";
         } else {
