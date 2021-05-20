@@ -3,7 +3,7 @@
 
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
-class ActionsCategoryAjax extends \OxidEsales\Eshop\Application\Controller\Admin\ListComponentAjax
+class actions_category_ajax extends \OxidEsales\Eshop\Application\Controller\Admin\ListComponentAjax
 {
     protected $_blAllowExtColumns = true;
 
