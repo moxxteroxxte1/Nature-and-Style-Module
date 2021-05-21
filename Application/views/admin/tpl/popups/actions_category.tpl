@@ -90,8 +90,8 @@
     </tr>
     <tr>
         <td>
-            <input id="saveBtn" type="button" class="edittext oxid-aoc-button" value="[{oxmultilang ident="PROMOTIONS_ARTICLE_ASSIGNARTICLE"}]">
-            <input id="remBtn"  type="button" class="edittext oxid-aoc-button" value="[{oxmultilang ident="PROMOTIONS_ARTICLE_UNASSIGNARTICLE"}]" [{if !$actionobject_id}] disabled [{/if}]>
+            <input id="saveBtn" type="button" class="edittext oxid-aoc-button" value="[{oxmultilang ident="PROMOTIONS_ARTICLE_ASSIGNCATEGORY"}]">
+            <input id="remBtn"  type="button" class="edittext oxid-aoc-button" value="[{oxmultilang ident="PROMOTIONS_ARTICLE_UNASSIGNACATEGORY"}]" [{if !$actionobject_id}] disabled [{/if}]>
         </td>
     </tr>
     <tr>

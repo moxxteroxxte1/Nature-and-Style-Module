@@ -21,12 +21,11 @@ class Actions extends Actions_parent
 
     public function getLongDesc()
     {
-
         $oBannerObject = $this->getBannerObject();
-        if($oBannerObject){
-            return $this->getBannerObject()->getLongDesc();
-        }elseif(isset($this->oxactions__oxlongdesc)){
+        if(isset($this->oxactions__oxlongdesc)){
             return $this->oxactions__oxlongdesc->value;
+        }elseif($oBannerObject){
+            return $this->getBannerObject()->getLongDesc();
         }
 
         return null;
