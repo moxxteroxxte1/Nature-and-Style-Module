@@ -14,7 +14,7 @@ class Article extends Article_parent
         $aIds = $this->discountIdQuery();
         $sResult = '';
         foreach ($aIds as $id){
-            $sResult .= $id . " \n ";
+            $sResult .= implode($id) . " \n ";
         }
         return $sResult;
     }
