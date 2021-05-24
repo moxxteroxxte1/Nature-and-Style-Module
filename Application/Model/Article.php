@@ -5,6 +5,20 @@ namespace NatureAndStyle\CoreModule\Application\Model;
 class Article extends Article_parent
 {
 
+    public function hasPackagingUnitDiscount(){
+       $user = \OxidEsales\Eshop\Core\Registry::getSession()->getUser();
+       if($user){
+           $aDiscounts = new \OxidEsales\Eshop\Application\Model\DiscountList();
+           $aDiscounts->getArticleDiscounts($this, $user)->getArray();
+           foreach ($aDiscounts as $oDiscount){
+               if($oDiscount->oxdiscount__oxamountpackageunit->value){
+                    return true;
+               }
+           }
+       }
+       return false;
+    }
+
     public function getTitle()
     {
         return $this->oxarticles__oxtitle->value;
