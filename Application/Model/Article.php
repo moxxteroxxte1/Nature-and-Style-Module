@@ -12,11 +12,11 @@ class Article extends Article_parent
     public function hasPackagingUnitDiscount(): array
     {
         $aIds = $this->discountIdQuery();
-        $ids = implode(" , ", $aIds);
-        Registry::getLogger()->warning($ids);
+        Registry::getLogger()->warning(empty($aIds));
         $sResult = [];
         if (!empty($aIds)){
             foreach ($aIds as $id){
+                Registry::getLogger()->warning($id);
                 $oDiscount = oxNew('oxdiscount');
                 $oDiscount->load($id);
                 $sResult[] = $oDiscount;
@@ -107,6 +107,8 @@ class Article extends Article_parent
             )";
 
         $sQ .= " order by $sTable.oxsort ";
+
+        Registry::getLogger()->warning($sQ);
 
         $resultSet = $oDb->select($sQ);
         return $resultSet->fetchAll();
