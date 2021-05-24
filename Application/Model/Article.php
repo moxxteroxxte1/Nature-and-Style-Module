@@ -10,7 +10,7 @@ use function React\Promise\all;
 class Article extends Article_parent
 {
 
-    public function hasPackagingUnitDiscount(): array
+    public function getDiscounts(): array
     {
         return $this->fetchDiscounts();
     }
