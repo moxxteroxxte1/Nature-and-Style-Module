@@ -12,8 +12,7 @@ class Article extends Article_parent
 
     public function hasPackagingUnitDiscount(): array
     {
-        $aIds = $this->discountIdQuery();
-        return [];
+        return $this->fetchDiscounts();
     }
 
     public function getTitle()
@@ -46,7 +45,7 @@ class Article extends Article_parent
         return false;
     }
 
-    private function discountIdQuery(){
+    private function fetchDiscounts(){
         $aDiscountList = new DiscountList();
         $oBaseObject = $aDiscountList->getBaseObject();
 
@@ -101,9 +100,12 @@ class Article extends Article_parent
 
         $resultSet = $oDb->select($sQ);
         $allResults = $resultSet->fetchAll();
+        $aDiscounts = [];
         foreach($allResults as $row) {
-            Registry::getLogger()->warning(implode(", ",$row));
+            $oDiscount = oxNew('oxdiscount');
+            $oDiscount->load($row[0]);
+            $aDiscounts[] = $oDiscount;
         }
-        return $allResults;
+        return $aDiscounts;
     }
 }
