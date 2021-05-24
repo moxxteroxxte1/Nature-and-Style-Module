@@ -9,6 +9,14 @@
 </tr>
 <tr>
     <td class="edittext" width="120">
+        [{oxmultilang ident="NASCORE_ARTICLE_MAIN_NEW"}]
+    </td>
+    <td class="edittext">
+        <input class="edittext" type="hidden" name="editval[oxarticles__oxnew]" value='0'>
+        <input class="edittext" type="checkbox" name="editval[oxarticles__oxnew]" value='1' [{if $edit->oxarticles__oxnew->value == 1}]checked[{/if}] [{$readonly}]>
+        [{oxinputhelp ident="HELP_GENERAL_ACTIVE"}]
+    </td>
+    <td class="edittext" width="120">
         [{oxmultilang ident="NASCORE_ARTICLE_MAIN_UNIQUE"}]
     </td>
     <td class="edittext">
@@ -22,8 +30,8 @@
         [{oxmultilang ident="NASCORE_ARTICLE_MAIN_NEW"}]
     </td>
     <td class="edittext">
-        <input class="edittext" type="hidden" name="editval[oxarticles__oxnew]" value='0'>
-        <input class="edittext" type="checkbox" name="editval[oxarticles__oxnew]" value='1' [{if $edit->oxarticles__oxnew->value == 1}]checked[{/if}] [{$readonly}]>
+        <input class="edittext" type="hidden" name="editval[oxarticles__oxamountinpu]" value='0'>
+        <input class="edittext" type="checkbox" name="editval[oxarticles__oxamountinpu]" value='1' [{if $edit->oxarticles__oxamountinpu->value == 1}]checked[{/if}] [{$readonly}]>
         [{oxinputhelp ident="HELP_GENERAL_ACTIVE"}]
     </td>
 </tr>
