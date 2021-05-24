@@ -5,6 +5,7 @@ namespace NatureAndStyle\CoreModule\Application\Model;
 use OxidEsales\Eshop\Application\Model\DiscountList;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Registry;
+use function React\Promise\all;
 
 class Article extends Article_parent
 {
@@ -12,17 +13,7 @@ class Article extends Article_parent
     public function hasPackagingUnitDiscount(): array
     {
         $aIds = $this->discountIdQuery();
-        Registry::getLogger()->warning(empty($aIds));
-        $sResult = [];
-        if (!empty($aIds)){
-            foreach ($aIds as $id){
-                Registry::getLogger()->warning($id);
-                $oDiscount = oxNew('oxdiscount');
-                $oDiscount->load($id);
-                $sResult[] = $oDiscount;
-            }
-        }
-        return $sResult;
+        return [];
     }
 
     public function getTitle()
@@ -108,9 +99,11 @@ class Article extends Article_parent
 
         $sQ .= " order by $sTable.oxsort ";
 
-        Registry::getLogger()->warning($sQ);
-
         $resultSet = $oDb->select($sQ);
-        return $resultSet->fetchAll();
+        $allResults = $resultSet->fetchAll();
+        if(!empty($allResults)){
+            Registry::getLogger()->warning(implode(", ", $allResults));
+        }
+        return $allResults;
     }
 }
