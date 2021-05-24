@@ -9,12 +9,14 @@ use OxidEsales\Eshop\Core\Registry;
 class Article extends Article_parent
 {
 
-    public function hasPackagingUnitDiscount()
+    public function hasPackagingUnitDiscount(): array
     {
         $aIds = $this->discountIdQuery();
-        $sResult = '';
+        $sResult = [];
         foreach ($aIds as $id){
-            $sResult .= implode($id) . " \n ";
+            $oDiscount = oxNew('oxdiscount');
+            $oDiscount->load($id);
+            $sResult[] = $oDiscount;
         }
         return $sResult;
     }
@@ -54,7 +56,7 @@ class Article extends Article_parent
         $oBaseObject = $aDiscountList->getBaseObject();
 
         $sTable = $oBaseObject->getViewName();
-        $sQ = "select $sTable.oxid, $sTable.oxtitle, $sTable.oxaddsumtype, $sTable.oxaddsum from $sTable ";
+        $sQ = "select $sTable.oxid from $sTable ";
         $sQ .= "where " . $oBaseObject->getSqlActiveSnippet() . ' ';
 
 

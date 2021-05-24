@@ -27,7 +27,7 @@ class Discount extends Discount_parent
                     $dAmount += $oBasketItem->getAmount();
                     if($this->oxdiscount__oxamountpackageunit->value){
                         $dPackUnit = $oBasketArticle->getPackagingUnit();
-                        if($dAmount%$dPackUnit==0) {
+                        if($dPackUnit > 1 && ($dAmount%$dPackUnit==0)) {
                             return true;
                         }
                         return false;
@@ -37,6 +37,10 @@ class Discount extends Discount_parent
         }
 
         return $this->isForAmount($dAmount) ;
+    }
+
+    public function getShortDesc(){
+        return $this->oxdiscount__oxshortdesc->value;
     }
 
 }
