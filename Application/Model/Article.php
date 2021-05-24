@@ -56,7 +56,7 @@ class Article extends Article_parent
         $oBaseObject = $aDiscountList->getBaseObject();
 
         $sTable = $oBaseObject->getViewName();
-        $sQ = "select $sTable.oxdiscountid from $sTable ";
+        $sQ = "select $sTable.oxid from $sTable ";
         $sQ .= "where " . $oBaseObject->getSqlActiveSnippet() . ' ';
 
 
