@@ -9,10 +9,10 @@ class Article extends Article_parent
        $user = \OxidEsales\Eshop\Core\Registry::getSession()->getUser();
        if($user){
            $aDiscounts = new \OxidEsales\Eshop\Application\Model\DiscountList();
-           $aDiscounts->getArticleDiscounts($this, $user)->getArray();
+           $aDiscounts->getArticleDiscounts($this, $user);
            foreach ($aDiscounts as $oDiscount){
                if($oDiscount->oxdiscount__oxamountpackageunit->value){
-                    return true;
+                   return $oDiscount->oxdiscounts__oxtitle->value;
                }
            }
        }
