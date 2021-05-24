@@ -57,7 +57,7 @@ class Article extends Article_parent
         $sUserId = null;
         $sGroupIds = null;
         $oUser = Registry::getSession()->getUser();
-        $sCountryId = $this->getCountryId($oUser);
+        $sCountryId = $aDiscountList->getCountryId($oUser);
         $oDb = DatabaseProvider::getDb();
 
         // checking for current session user which gives additional restrictions for user itself, users group and country
