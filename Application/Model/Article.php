@@ -101,8 +101,8 @@ class Article extends Article_parent
 
         $resultSet = $oDb->select($sQ);
         $allResults = $resultSet->fetchAll();
-        if(!empty($allResults)){
-            Registry::getLogger()->warning(implode(", ", $allResults));
+        foreach($allResults as $row) {
+            Registry::getLogger()->warning(implode(", ",$row));
         }
         return $allResults;
     }
