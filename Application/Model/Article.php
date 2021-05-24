@@ -12,11 +12,14 @@ class Article extends Article_parent
     public function hasPackagingUnitDiscount(): array
     {
         $aIds = $this->discountIdQuery();
+        Registry::getLogger()->warning(implode(" , ",$aIds));
         $sResult = [];
-        foreach ($aIds as $id){
-            $oDiscount = oxNew('oxdiscount');
-            $oDiscount->load($id);
-            $sResult[] = $oDiscount;
+        if ($aIds){
+            foreach ($aIds as $id){
+                $oDiscount = oxNew('oxdiscount');
+                $oDiscount->load($id);
+                $sResult[] = $oDiscount;
+            }
         }
         return $sResult;
     }
