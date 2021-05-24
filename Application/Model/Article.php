@@ -12,9 +12,10 @@ class Article extends Article_parent
     public function hasPackagingUnitDiscount(): array
     {
         $aIds = $this->discountIdQuery();
-        Registry::getLogger()->warning(implode(" , ",$aIds));
+        $ids = implode(" , ", $aIds);
+        Registry::getLogger()->warning($ids);
         $sResult = [];
-        if ($aIds){
+        if (!empty($aIds)){
             foreach ($aIds as $id){
                 $oDiscount = oxNew('oxdiscount');
                 $oDiscount->load($id);
