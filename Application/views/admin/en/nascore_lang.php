@@ -12,6 +12,7 @@ $aLang = array(
     'PROMOTIONS_BANNER_NONE'                        => 'Assigned object',
     'GENERAL_ASSIGNCATEGORY'                        => 'Assign category',
     'PROMOTIONS_BANNER_TEXT'                        => 'Free text input',
-    'PROMOTIONS_ARTICLE_ASSIGNCATEGORY'              => "Assign category",
-    'PROMOTIONS_ARTICLE_UNASSIGNACATEGORY'            => "Delete category assignment",
+    'PROMOTIONS_ARTICLE_ASSIGNCATEGORY'             => "Assign category",
+    'PROMOTIONS_ARTICLE_UNASSIGNACATEGORY'          => "Delete category assignment",
+    'NASCORE_ARTICLE_MAIN_NEW'                      => 'Article can be ordered only in PU.'
 );

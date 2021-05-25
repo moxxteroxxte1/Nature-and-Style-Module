@@ -16,6 +16,8 @@
         <input class="edittext" type="checkbox" name="editval[oxarticles__oxnew]" value='1' [{if $edit->oxarticles__oxnew->value == 1}]checked[{/if}] [{$readonly}]>
         [{oxinputhelp ident="HELP_GENERAL_ACTIVE"}]
     </td>
+</tr>
+<tr>
     <td class="edittext" width="120">
         [{oxmultilang ident="NASCORE_ARTICLE_MAIN_UNIQUE"}]
     </td>
