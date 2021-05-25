@@ -14,5 +14,5 @@ $aLang = array(
     'PROMOTIONS_BANNER_TEXT'                        => 'Freitexteingabe',
     'PROMOTIONS_ARTICLE_ASSIGNCATEGORY'             => "Kategorie zuordnen",
     'PROMOTIONS_ARTICLE_UNASSIGNACATEGORY'          => "Kategoriezuordnung löschen",
-    'NASCORE_ARTICLE_MAIN_NEW'                      => 'Artikel kann nur in VE bestellt werden.'
+    'NASCORE_ARTICLE_MAIN_AMOUNT_IN_PU'                      => 'Artikel kann nur in VE bestellt werden.'
 );

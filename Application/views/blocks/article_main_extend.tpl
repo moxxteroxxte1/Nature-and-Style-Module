@@ -29,7 +29,7 @@
 </tr>
 <tr>
     <td class="edittext" width="120">
-        [{oxmultilang ident="NASCORE_ARTICLE_MAIN_NEW"}]
+        [{oxmultilang ident="NASCORE_ARTICLE_MAIN_AMOUNT_IN_PU"}]
     </td>
     <td class="edittext">
         <input class="edittext" type="hidden" name="editval[oxarticles__oxamountinpu]" value='0'>
