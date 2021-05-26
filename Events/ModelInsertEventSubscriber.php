@@ -54,7 +54,10 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
 
             $oArticle = oxNew('oxarticle');
             $oArticle->load($sId);
-            $oArticle->oxarticles__oxid = new Field($sArtNum);
+            $oArticle->setId($sArtNum);
+            $oArticle->save();
+
+            $model->delete();
 
             $this->articleToCategory($sArtNum, $this->category_new);
         }
