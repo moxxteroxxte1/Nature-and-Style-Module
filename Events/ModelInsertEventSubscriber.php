@@ -52,7 +52,6 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
 
             $model->setId($model->oxarticles__oxartnum->value);
             $model->save();
-            $model = $model->load($model->oxarticles__oxid->value);
 
             $this->articleToCategory($model->getId(), $this->category_new);
         }
