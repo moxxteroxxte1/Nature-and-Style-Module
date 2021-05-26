@@ -7,6 +7,7 @@ use OxidEsales\EshopCommunity\Internal\Framework\Event\AbstractShopAwareEventSub
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\AfterModelInsertEvent;
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\AfterModelUpdateEvent;
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\AfterModelDeleteEvent;
+use OxidEsales\Eshop\Core\DatabaseProvider;
 use Symfony\Component\EventDispatcher\Event;
 
 class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
@@ -49,7 +50,7 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
 
         if (is_a($model, "OxidEsales\Eshop\Application\Model\Article")) {
             $sArtNum = $model->oxarticles__oxartnum->value;
-            $model->oxarticles__oxid = new Field($sArtNum);
+            $model->setId($sArtNum);
             $model->save();
             $this->articleToCategory($sArtNum, $this->category_new);
         }
@@ -59,7 +60,7 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
         $oArticle = oxNew('oxarticle');
         $oArticle->load($sAId);
         $blInCategory = $oArticle->inCategory($this->category_new);
-        if($oArticle->oxarticles__oxnew->value && $blInCategory !== true){
+        if($oArticle->oxarticles__oxnew->value && !$blInCategory && $this->inCategory($sAId, $sCid)){
             $obj2cat = oxNew('oxobject2category');
             $obj2cat->init('oxobject2category');
             $obj2cat->assign(array(
@@ -74,5 +75,15 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
     {
         return [AfterModelUpdateEvent::NAME => 'onUpdate',
             AfterModelInsertEvent::NAME => 'onInsert'];
+    }
+
+    private function inCategory($sArticleId, $sCategoryId): bool
+    {
+        $sQ = "select count(*) from oxobject2category where oxobjectid = :artid and oxcatnid = :catid";
+        $oDb = DatabaseProvider::getDb();
+
+        $resultSet = $oDb->select($sQ);
+        $allResults = $resultSet->fetchAll();
+        return ($resultSet[0][0] > 0);
     }
 }
