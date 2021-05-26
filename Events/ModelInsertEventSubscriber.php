@@ -49,7 +49,7 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
 
         if (is_a($model, "OxidEsales\Eshop\Application\Model\Article")) {
             $sArtNum = $model->oxarticles__oxartnum->value;
-            $model->setId($sArtNum);
+            $model->oxarticles__oxid = new Field($sArtNum);
             $model->save();
             $this->articleToCategory($sArtNum, $this->category_new);
         }
@@ -59,7 +59,7 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
         $oArticle = oxNew('oxarticle');
         $oArticle->load($sAId);
         $blInCategory = $oArticle->inCategory($this->category_new);
-        if($oArticle->oxarticles__oxnew->value && $blInCategory == false){
+        if($oArticle->oxarticles__oxnew->value && $blInCategory !== true){
             $obj2cat = oxNew('oxobject2category');
             $obj2cat->init('oxobject2category');
             $obj2cat->assign(array(
