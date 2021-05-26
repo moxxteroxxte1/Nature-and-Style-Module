@@ -49,15 +49,10 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
         $model = $event->getModel();
 
         if (is_a($model, "OxidEsales\Eshop\Application\Model\Article")) {
-            $sId = $model->oxarticles__oxartnum->value;
             $sArtNum = $model->oxarticles__oxid->value;
 
-            $oArticle = oxNew('oxarticle');
-            $oArticle->load($sId);
-            $oArticle->setId($sArtNum);
-            $oArticle->save();
-
-            $model->delete();
+            $model->setId($sArtNum);
+            $model->update();
 
             $this->articleToCategory($sArtNum, $this->category_new);
         }
@@ -87,7 +82,7 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
     private function inCategory($sArticleId, $sCategoryId): bool
     {
         $oDb = DatabaseProvider::getDb();
-        $sQ = "select count(*) from oxobject2category where oxobjectid =" . $oDb->quote($sArticleId) . " and oxcatnid =" . $oDb->qoute($sCategoryId);
+        $sQ = "select count(*) from oxobject2category where oxobjectid =" . $oDb->quote($sArticleId) . " and oxcatnid =" . $oDb->quote($sCategoryId);
 
         $resultSet = $oDb->select($sQ);
         $allResults = $resultSet->fetchAll();
