@@ -53,6 +53,10 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
             $model->setId($model->oxarticles__oxartnum->value);
             $model->save();
 
+            $oDb = DatabaseProvider::getDb();
+            $sQ = 'delete from oxarticles where oxartnum='.$oDb->quote($model->oxarticles__oxartnum->value). " and oxartnum != oxid";
+            $oDb->execute($sQ);
+
             $this->articleToCategory($model->getId(), $this->category_new);
         }
     }
