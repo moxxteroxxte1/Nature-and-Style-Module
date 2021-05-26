@@ -52,7 +52,6 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
             $sArtNum = $model->oxarticles__oxartnum->value;
 
             $model->setId($sArtNum);
-            $model->save();
 
             $this->articleToCategory($sArtNum, $this->category_new);
         }
