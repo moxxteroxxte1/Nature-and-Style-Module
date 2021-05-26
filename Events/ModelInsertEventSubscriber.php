@@ -65,7 +65,15 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
         $oArticle = oxNew('oxarticle');
         $oArticle->load($sAId);
         $blInCategory = $oArticle->inCategory($this->category_new);
-        if($oArticle->oxarticles__oxnew->value && !$blInCategory){
+
+        $oDb = DatabaseProvider::getDb();
+        $sQ = "SELECT count(OXID) FROM oxobject2category WHERE OXOBJECTID =".$oDb->quote($sAId)." and oxcatnid =".$oDb->quote($sCid);
+        $resultSet = $oDb->select($sQ);
+        $allResults = $resultSet->fetchAll();
+        $blDuplicateKey = $allResults[0][0] > 0;
+
+
+        if($oArticle->oxarticles__oxnew->value && !$blInCategory && !$blDuplicateKey){
             $obj2cat = oxNew('oxobject2category');
             $obj2cat->init('oxobject2category');
             $obj2cat->assign(array(
