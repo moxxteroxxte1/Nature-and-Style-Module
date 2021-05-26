@@ -79,11 +79,11 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
 
     private function inCategory($sArticleId, $sCategoryId): bool
     {
-        $sQ = "select count(*) from oxobject2category where oxobjectid = :artid and oxcatnid = :catid";
         $oDb = DatabaseProvider::getDb();
+        $sQ = "select count(*) from oxobject2category where oxobjectid =" . $oDb->quote($sArticleId) . " and oxcatnid =" . $oDb->qoute($sCategoryId);
 
         $resultSet = $oDb->select($sQ);
         $allResults = $resultSet->fetchAll();
-        return ($resultSet[0][0] > 0);
+        return ($allResults[0][0] > 0);
     }
 }
