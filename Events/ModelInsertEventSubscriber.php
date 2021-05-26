@@ -49,10 +49,11 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
         $model = $event->getModel();
 
         if (is_a($model, "OxidEsales\Eshop\Application\Model\Article")) {
-            $sArtNum = $model->oxarticles__oxartnum->value;
+            $sID = $model->getId();
 
-            $model->oxarticles__oxid = new Field($sArtNum);
-            $model->save();
+            $oArticle = oxNew('oxarticles');
+            $sArtNum = $oArticle->oxarticles__oxartnum->value;
+            $oArticle->setId($sArtNum);
 
             $this->articleToCategory($sArtNum, $this->category_new);
         }
