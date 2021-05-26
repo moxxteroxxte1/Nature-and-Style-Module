@@ -52,6 +52,7 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
             $sArtNum = $model->oxarticles__oxartnum->value;
 
             $model->oxarticles__oxid = new Field($sArtNum);
+            $model->save();
 
             $this->articleToCategory($sArtNum, $this->category_new);
         }
@@ -61,7 +62,7 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
         $oArticle = oxNew('oxarticle');
         $oArticle->load($sAId);
         $blInCategory = $oArticle->inCategory($this->category_new);
-        if($oArticle->oxarticles__oxnew->value && !$blInCategory && !$this->inCategory($sAId, $sCid)){
+        if($oArticle->oxarticles__oxnew->value && !$blInCategory){
             $obj2cat = oxNew('oxobject2category');
             $obj2cat->init('oxobject2category');
             $obj2cat->assign(array(
@@ -78,13 +79,4 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
             AfterModelInsertEvent::NAME => 'onInsert'];
     }
 
-    private function inCategory($sArticleId, $sCategoryId): bool
-    {
-        $oDb = DatabaseProvider::getDb();
-        $sQ = "select count(*) from oxobject2category where oxobjectid =" . $oDb->quote($sArticleId) . " and oxcatnid =" . $oDb->quote($sCategoryId);
-
-        $resultSet = $oDb->select($sQ);
-        $allResults = $resultSet->fetchAll();
-        return ($allResults[0][0] > 0);
-    }
 }
