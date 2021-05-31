@@ -28,7 +28,7 @@ class ActionsList extends ActionsList_parent
                     break;
             }
         }
-        $sQ .= " and {$sTable}.oxtype > 4";
+        $sQ .= " and {$sTable}.oxtype < 4";
 
         return $sQ;
     }
