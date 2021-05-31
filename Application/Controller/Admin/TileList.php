@@ -94,6 +94,8 @@ class TileList extends AdminListController
             $query = $this->_prepareOrderByQuery($query);
             $query = $this->_changeselect($query);
 
+            oxRegistry::getLogger()->warning($query);
+
             // calculates count of list items
             $this->_calcListItemsCount($query);
 
