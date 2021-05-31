@@ -57,7 +57,7 @@ class TileMain extends AdminDetailsController
                             $oTileCategoryAjax = oxNew(TileCategoryAjax::class);
                             $this->_aViewData['oxajax'] = $oTileCategoryAjax->getColumns();
 
-                            return "popups/tile_category.tpl";
+                            return "tile_category.tpl";
                     }
                 }
             }
