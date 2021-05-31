@@ -18,4 +18,5 @@ $aLang = array(
     'nastiles'                                      => 'Kacheln',
     'tbctile_main'                                  => 'Stamm',
     'PROMOTIONS_MAIN_TYPE_TILE'                     => 'Kachel',
+    'PROMOTIONS_TILE_PICTUREANDLINK'                => 'Kachel-Einstellungen',
 );

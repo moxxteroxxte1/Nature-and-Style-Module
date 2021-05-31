@@ -18,4 +18,5 @@ $aLang = array(
     'nastiles'                                      => 'Tiles',
     'tbctile_main'                                  => 'Main',
     'PROMOTIONS_MAIN_TYPE_TILE'                     => 'Tile',
+    'PROMOTIONS_TILE_PICTUREANDLINK'                => 'Tile settings',
 );

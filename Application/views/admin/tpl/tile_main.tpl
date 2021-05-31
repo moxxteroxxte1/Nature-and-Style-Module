@@ -142,8 +142,7 @@
                                 </colgroup>
                                 <tr>
                                     <th colspan="5" valign="top">
-                                        [{oxmultilang ident="PROMOTIONS_BANNER_PICTUREANDLINK"}]
-                                        [{oxinputhelp ident="HELP_PROMOTIONS_BANNER_PICTUREANDLINK"}]
+                                        [{oxmultilang ident="PROMOTIONS_TILE_PICTUREANDLINK"}]
                                     </th>
                                 </tr>
 
