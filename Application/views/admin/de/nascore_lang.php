@@ -16,4 +16,5 @@ $aLang = array(
     'PROMOTIONS_ARTICLE_UNASSIGNACATEGORY'          => "Kategoriezuordnung löschen",
     'NASCORE_ARTICLE_MAIN_AMOUNT_IN_PU'             => 'Artikel kann nur in VE bestellt werden.',
     'nastile'                                       => 'Kacheln',
+    'tbctile_main'                                  => 'Stamm',
 );

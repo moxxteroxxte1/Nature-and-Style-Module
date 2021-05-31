@@ -206,8 +206,6 @@
                 </table>
             </td>
             <!-- Ende rechte Seite -->
-            [{/if}]
-
         </tr>
     </table>
 

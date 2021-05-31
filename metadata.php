@@ -39,7 +39,7 @@ $aModule = array(
     'controllers'   => array(
         'actions_category_ajax' => \NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsCategoryAjax::class,
         'tile_category_ajax'    => \NatureAndStyle\CoreModule\Application\Controller\Admin\TileCategoryAjax::class,
-        'tile'        => \NatureAndStyle\CoreModule\Application\Controller\Admin\TileController::class,
+        'tile'                  => \NatureAndStyle\CoreModule\Application\Controller\Admin\TileController::class,
         'tile_list'             => \NatureAndStyle\CoreModule\Application\Controller\Admin\TileList::class,
         'tile_main'             => \NatureAndStyle\CoreModule\Application\Controller\Admin\TileMain::class,
     ),
