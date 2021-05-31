@@ -78,7 +78,7 @@ class TileMain extends AdminDetailsController
     {
         parent::save();
 
-        $tile = oxNew(Tile::class);
+        $tile = oxNew(\NatureAndStyle\CoreModule\Application\Model\Tile::class);
 
         if ($this->isNewEditObject() !== true) {
             $tile->load($this->getEditObjectId());
