@@ -23,7 +23,7 @@
 <div id="liste">
 
     <form name="search" id="search" action="[{$oViewConf->getSelfLink()}]" method="post">
-        [{include file="_formparams.tpl" cl="actions_list" lstrt=$lstrt actedit=$actedit oxid=$oxid fnc="" language=$actlang editlanguage=$actlang}]
+        [{include file="_formparams.tpl" cl="tile_list" lstrt=$lstrt actedit=$actedit oxid=$oxid fnc="" language=$actlang editlanguage=$actlang}]
         <table cellspacing="0" cellpadding="0" border="0" width="100%">
             <colgroup>
                 [{block name="admin_actions_list_colgroup"}]
