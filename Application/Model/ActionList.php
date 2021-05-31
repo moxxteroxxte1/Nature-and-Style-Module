@@ -1,10 +1,8 @@
 <?php
 
-
 namespace NatureAndStyle\CoreModule\Application\Model;
 
-
-class ActionList extends ActionsList_parent
+class ActionList extends ActionList_parent
 {
 
     public function loadTiles(){
