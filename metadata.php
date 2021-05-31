@@ -23,6 +23,7 @@ $aModule = array(
     'extend'        => array(
         \OxidEsales\Eshop\Application\Controller\Admin\ActionsMain::class           => \NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsMain::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ActionsList::class           => \NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsList::class,
+        \OxidEsales\Eshop\Application\Controller\StartController::class             => \NatureAndStyle\CoreModule\Application\Controller\StartController::class,
         \OxidEsales\Eshop\Application\Component\UserComponent::class                => \NatureAndStyle\CoreModule\Application\Component\UserComponent::class,
         \OxidEsales\Eshop\Application\Model\User::class                             => \NatureAndStyle\CoreModule\Application\Model\User::class,
         \OxidEsales\Eshop\Application\Model\Article::class                          => \NatureAndStyle\CoreModule\Application\Model\Article::class,
