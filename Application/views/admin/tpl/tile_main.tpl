@@ -182,6 +182,14 @@
                                         </b>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td class="text">
+                                        <b>[{oxmultilang ident="PROMOTIONS_BANNER_TEXT"}]:</b>
+                                    </td>
+                                    <td class="edittext">
+                                        <input type="text" class="editinput" size="32" maxlength="64" id="oLockTarget" name="editval[oxactions__oxlongdesc]" value="[{$edit->oxactions__oxlongdesc->value}]">
+                                    </td>
+                                </tr>
                                 [{/block}]
                             </table>
 

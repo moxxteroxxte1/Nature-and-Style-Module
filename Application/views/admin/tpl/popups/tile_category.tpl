@@ -25,7 +25,7 @@
                 oParam = YAHOO.oxid.container1.getRecord(aSelRows[0]);
                 $('tilecategory_title').innerHTML  = oParam._oData._0;
                 $('remBtn').disabled = false;
-                $D.setStyle( $('_article'), 'visibility', '' );
+                $D.setStyle( $('_category'), 'visibility', '' );
 
                 updateParentFrame(oParam._oData._0);
             }
@@ -49,7 +49,7 @@
         {
             $('tilecategory_title').innerHTML  = '';
             $('remBtn').disabled = true;
-            $D.setStyle( $('_article'), 'visibility', 'hidden' );
+            $D.setStyle( $('_category'), 'visibility', 'hidden' );
 
             updateParentFrame( "---" );
         }
@@ -70,11 +70,11 @@
     $E.onDOMReady( initAoc );
 
     // updating parent frame after assignment..
-    function updateParentFrame( sArticleTitle )
+    function updateParentFrame( sCategoryTitle )
     {
         try {
             if (window.opener && window.opener.document && window.opener.document.myedit) {
-                window.opener.document.getElementById("assignedCategoryTitle").innerHTML = sArticleTitle;
+                window.opener.document.getElementById("assignedCategoryTitle").innerHTML = sCategoryTitle;
             }
         } catch ( oErr ) {}
     }
@@ -91,13 +91,13 @@
     <tr>
         <td>
             <input id="saveBtn" type="button" class="edittext oxid-aoc-button" value="[{oxmultilang ident="PROMOTIONS_ARTICLE_ASSIGNCATEGORY"}]">
-            <input id="remBtn"  type="button" class="edittext oxid-aoc-button" value="[{oxmultilang ident="PROMOTIONS_ARTICLE_UNASSIGNACATEGORY"}]" [{if !$actionobject_id}] disabled [{/if}]>
+            <input id="remBtn"  type="button" class="edittext oxid-aoc-button" value="[{oxmultilang ident="PROMOTIONS_ARTICLE_UNASSIGNACATEGORY"}]" [{if !$tilecategory_id}] disabled [{/if}]>
         </td>
     </tr>
     <tr>
-        <td valign="top" class="edittext" id="_article" [{if !$actionobject_id}] style="visibility:hidden" [{/if}]>
+        <td valign="top" class="edittext" id="_category" [{if !$tilecategory_id}] style="visibility:hidden" [{/if}]>
             <b>[{oxmultilang ident="PROMOTIONS_BANNER_ASSIGNEDCATEGORY"}]:</b>
-            <b id="actionobject_title">[{$actionobject_title}]</b>
+            <b id="tilecategory_title">[{$tilecategory_title}]</b>
         </td>
     </tr>
 </table>
