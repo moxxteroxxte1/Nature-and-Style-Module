@@ -185,7 +185,7 @@
                                 [{/block}]
                             </table>
 
-                            <input type="button" value="[{oxmultilang ident="GENERAL_ASSIGNCATEGORY"}]" class="edittext" onclick="JavaScript:showDialog('&cl=tile_main&oxtileaoc=category&oxid=[{$oxid}]');" [{$readonly}]>
+                            <input type="button" value="[{oxmultilang ident="GENERAL_ASSIGNCATEGORY"}]" class="edittext" onclick="JavaScript:showDialog('&cl=tile_main&oxpromotionaoc=category&oxid=[{$oxid}]');" [{$readonly}]>
 
                         </td>
                     </tr>
