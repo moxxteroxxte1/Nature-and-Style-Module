@@ -110,12 +110,6 @@ class Tile extends MultiLanguageModel
         return null;
     }
 
-
-    /**
-     * Fetch the oxobjectid of the article corresponding this action.
-     *
-     * @return string The id of the oxobjectid belonging to this action.
-     */
     protected function fetchCategory()
     {
         $database = DatabaseProvider::getDb();
@@ -132,11 +126,6 @@ class Tile extends MultiLanguageModel
         return $sCatId;
     }
 
-    /**
-     * Returns assigned banner article picture url
-     *
-     * @return string
-     */
     public function getPictureUrl()
     {
         if (isset($this->oxactions__oxpic) && $this->oxactions__oxpic->value) {
@@ -148,12 +137,6 @@ class Tile extends MultiLanguageModel
         }
     }
 
-    /**
-     * Returns assigned banner link. If no link is defined and article is
-     * assigned to banner, article link will be returned.
-     *
-     * @return string
-     */
     public function getLink()
     {
         $sUrl = null;
@@ -161,5 +144,13 @@ class Tile extends MultiLanguageModel
             $sUrl = $oCategory->getLink();
         }
         return $sUrl;
+    }
+
+    public function getShortDesc(){
+        $sShortDesc = null;
+        if($oCategory = $this->getCategory()){
+            $sShortDesc = $oCategory->oxactions__oxlongdesc->value;
+        }
+        return $sShortDesc;
     }
 }
