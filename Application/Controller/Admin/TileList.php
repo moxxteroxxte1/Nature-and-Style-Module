@@ -3,42 +3,22 @@
 
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
+use OxidEsales\Eshop\Application\Controller\Admin\AdminListController;
 use oxRegistry;
 
-class TileList extends \OxidEsales\Eshop\Application\Controller\Admin\AdminListController
+class TileList extends AdminListController
 {
-    /**
-     * Current class template name.
-     *
-     * @var string
-     */
     protected $_sThisTemplate = 'tile_list.tpl';
-
-    /**
-     * Name of chosen object class (default null).
-     *
-     * @var string
-     */
     protected $_sListClass = 'oxactions';
-
-    /**
-     * Default SQL sorting parameter (default null).
-     *
-     * @var string
-     */
     protected $_sDefSortField = 'oxtitle';
 
-    /**
-     * Calls parent::render() and returns name of template to render
-     *
-     * @return string
-     */
     public function render()
     {
         parent::render();
 
         // passing display type back to view
         $this->_aViewData["displaytype"] = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter("displaytype");
+        $this->_aViewData['mylist'] = $this->getItemList();
 
         return $this->_sThisTemplate;
     }
@@ -82,5 +62,50 @@ class TileList extends \OxidEsales\Eshop\Application\Controller\Admin\AdminListC
     protected function _buildSelectString($listObject = null)
     {
         return $listObject !== null ? $listObject->buildSelectString(null) . " and oxtype = 4" : "";
+    }
+
+    public function getItemList()
+    {
+        if ($this->_oList === null && $this->_sListClass) {
+            $this->_oList = oxNew($this->_sListType);
+            $this->_oList->clear();
+            $this->_oList->init($this->_sListClass);
+
+            $where = $this->buildWhere();
+
+            $listObject = $this->_oList->getBaseObject();
+
+            \OxidEsales\Eshop\Core\Registry::getSession()->setVariable('tabelle', $this->_sListClass);
+            $this->_aViewData['listTable'] = getViewName($listObject->getCoreTableName());
+            \OxidEsales\Eshop\Core\Registry::getConfig()->setGlobalParameter('ListCoreTable', $listObject->getCoreTableName());
+
+            if ($listObject->isMultilang()) {
+                // is the object multilingual?
+                /** @var \OxidEsales\Eshop\Core\Model\MultiLanguageModel $listObject */
+                $listObject->setLanguage(\OxidEsales\Eshop\Core\Registry::getLang()->getBaseLanguage());
+
+                if (isset($this->_blEmployMultilanguage)) {
+                    $listObject->setEnableMultilang($this->_blEmployMultilanguage);
+                }
+            }
+
+            $query = $this->_buildSelectString($listObject);
+            $query = $this->_prepareWhereQuery($where, $query);
+            $query = $this->_prepareOrderByQuery($query);
+            $query = $this->_changeselect($query);
+
+            // calculates count of list items
+            $this->_calcListItemsCount($query);
+
+            // setting current list position (page)
+            $this->_setCurrentListPosition(\OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter('jumppage'));
+
+            // setting addition params for list: current list size
+            $this->_oList->setSqlLimit($this->_iCurrListPos, $this->_getViewListSize());
+
+            $this->_oList->selectString($query);
+        }
+
+        return $this->_oList;
     }
 }
