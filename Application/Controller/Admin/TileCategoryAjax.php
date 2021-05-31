@@ -1,10 +1,8 @@
 <?php
 
-
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
-
-class TileCategoryAjax
+class TileCategoryAjax extends \OxidEsales\Eshop\Application\Controller\Admin\ListComponentAjax
 {
     protected $_blAllowExtColumns = true;
 
