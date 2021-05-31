@@ -30,10 +30,18 @@ $aModule = array(
         \OxidEsales\Eshop\Core\Price::class                                         => \NatureAndStyle\CoreModule\Core\Price::class,
     ),
     'templates'     => array(
-        'actions_category.tpl' => 'nature-and-style/core-module/Application/views/admin/tpl/popups/actions_category.tpl',
+        'actions_category.tpl'  => 'nature-and-style/core-module/Application/views/admin/tpl/popups/actions_category.tpl',
+        'tile_category.tpl'     => 'nature-and-style/core-module/Application/views/admin/tpl/popups/tile_category.tpl',
+        'tile.tpl'              => 'nature-and-style/core-module/Application/views/admin/tpl/tile.tpl',
+        'tile_list.tpl'         => 'nature-and-style/core-module/Application/views/admin/tpl/tile_list.tpl',
+        'tile_main.tpl'         => 'nature-and-style/core-module/Application/views/admin/tpl/tile_main.tpl',
     ),
     'controllers'   => array(
         'actions_category_ajax' => \NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsCategoryAjax::class,
+        'tile_category_ajax'    => \NatureAndStyle\CoreModule\Application\Controller\Admin\TileCategoryAjax::class,
+        'tilecontroller'        => \NatureAndStyle\CoreModule\Application\Controller\Admin\TileController::class,
+        'tile_list'             => \NatureAndStyle\CoreModule\Application\Controller\Admin\TileList::class,
+        'tile_main'             => \NatureAndStyle\CoreModule\Application\Controller\Admin\TileMain::class,
     ),
     'events'        => array(
         'onActivate'   => '\NatureAndStyle\CoreModule\Core\Events::onActivate',
