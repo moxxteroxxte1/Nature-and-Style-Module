@@ -17,7 +17,7 @@ class TileMain extends AdminDetailsController
         $soxId = $this->_aViewData["oxid"] = $this->getEditObjectId();
 
         if ($this->isNewEditObject() !== true) {
-            $oTile = oxNew(Tile::class);
+            $oTile = oxNew(\NatureAndStyle\CoreModule\Application\Model\Tile::class);
             $oTile->loadInLang($this->_iEditLang, $soxId);
 
             $oOtherLang = $oTile->getAvailableInLangs();
