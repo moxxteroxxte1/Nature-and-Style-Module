@@ -137,6 +137,15 @@ class Tile extends MultiLanguageModel
         }
     }
 
+    public function getTitle()
+    {
+        $sTitle = null;
+        if ($oCategory = $this->getCategory()) {
+            $sTitle = $oCategory->getTitle();
+        }
+        return $sTitle;
+    }
+
     public function getLink()
     {
         $sUrl = null;
