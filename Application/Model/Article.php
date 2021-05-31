@@ -83,7 +83,7 @@ class Article extends Article_parent
         $sUserSql = $sUserId ? "EXISTS(select oxobject2discount.oxid from oxobject2discount where oxobject2discount.OXDISCOUNTID=$sTable.OXID and oxobject2discount.oxtype='oxuser' and oxobject2discount.OXOBJECTID=" . $oDb->quote($sUserId) . ")" : '0';
         $sGroupSql = $sGroupIds ? "EXISTS(select oxobject2discount.oxid from oxobject2discount where oxobject2discount.OXDISCOUNTID=$sTable.OXID and oxobject2discount.oxtype='oxgroups' and oxobject2discount.OXOBJECTID in ($sGroupIds) )" : '0';
 
-        $sQ .= "and ($sTable.oxamountpackageunit = 1) and (
+        $sQ .= " and (
             select
                 if(EXISTS(select 1 from oxobject2discount, $sCountryTable where $sCountryTable.oxid=oxobject2discount.oxobjectid and oxobject2discount.OXDISCOUNTID=$sTable.OXID and oxobject2discount.oxtype='oxcountry' LIMIT 1),
                         $sCountrySql,
@@ -104,6 +104,9 @@ class Article extends Article_parent
         foreach($allResults as $row) {
             $oDiscount = oxNew('oxdiscount');
             $oDiscount->load($row[0]);
+            if($oDiscount->oxdiscount__oxamountpackageunit->value && !($this->oxarticles__oxpackagingunit->value > 1)){
+                continue;
+            }
             $aDiscounts[] = $oDiscount;
         }
         return $aDiscounts;
