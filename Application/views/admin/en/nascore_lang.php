@@ -15,6 +15,7 @@ $aLang = array(
     'PROMOTIONS_ARTICLE_ASSIGNCATEGORY'             => "Assign category",
     'PROMOTIONS_ARTICLE_UNASSIGNACATEGORY'          => "Delete category assignment",
     'NASCORE_ARTICLE_MAIN_AMOUNT_IN_PU'             => 'Article can be ordered only in PU.',
-    'nastile'                                       => 'Tiles',
+    'nastiles'                                      => 'Tiles',
     'tbctile_main'                                  => 'Main',
+    'PROMOTIONS_MAIN_TYPE_TILE'                     => 'Tile',
 );

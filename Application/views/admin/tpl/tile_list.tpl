@@ -93,13 +93,7 @@
                 <td valign="top" class="[{$listclass}]" height="15"><div class="listitemfloating"><a href="Javascript:top.oxid.admin.editThis('[{$listitem->oxactions__oxid->value}]');" class="[{$listclass}]">[{$listitem->oxactions__oxactivefrom->value}]</a></div></td>
                 <td valign="top" class="[{$listclass}]" height="15"><div class="listitemfloating">
                         <a href="Javascript:top.oxid.admin.editThis('[{$listitem->oxactions__oxid->value}]');" class="[{$listclass}]">
-                            [{if $listitem->oxactions__oxtype->value == 3}]
-                            [{oxmultilang ident="PROMOTIONS_MAIN_TYPE_BANNER"}]
-                            [{elseif $listitem->oxactions__oxtype->value == 2}]
-                            [{oxmultilang ident="PROMOTIONS_MAIN_TYPE_PROMO"}]
-                            [{else}]
-                            [{oxmultilang ident="PROMOTIONS_MAIN_TYPE_ACTION"}]
-                            [{/if}]
+                            [{oxmultilang ident="PROMOTIONS_MAIN_TYPE_TILE"}]
                         </a></div></td>
                 <td class="[{$listclass}]">[{if !$listitem->isOx() && !$readonly && $listitem->oxactions__oxtype->value > 0}]<a href="Javascript:top.oxid.admin.deleteThis('[{$listitem->oxactions__oxid->value}]');" class="delete" id="del.[{$_cnt}]" [{include file="help.tpl" helpid=item_delete}]></a>[{/if}]</td>
                 [{/block}]

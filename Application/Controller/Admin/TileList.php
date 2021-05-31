@@ -78,4 +78,9 @@ class TileList extends \OxidEsales\Eshop\Application\Controller\Admin\AdminListC
 
         return $sQ;
     }
+
+    protected function _buildSelectString($listObject = null)
+    {
+        return $listObject !== null ? $listObject->buildSelectString(null) . " and oxtype = 4" : "";
+    }
 }

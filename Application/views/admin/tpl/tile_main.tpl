@@ -35,6 +35,7 @@
     <input type="hidden" name="fnc" value="">
     <input type="hidden" name="oxid" value="[{$oxid}]">
     <input type="hidden" name="editval[oxactions__oxid]" value="[{$oxid}]">
+    <input type="hidden" name="editval[oxactions__oxtype]" value="4">
     <input type="hidden" name="sorting" value="">
     <input type="hidden" name="stable" value="">
     <input type="hidden" name="starget" value="">
@@ -81,20 +82,6 @@
                             [{oxinputhelp ident="HELP_GENERAL_ACTIVFROMTILL"}]
                         </td>
                     </tr>
-                    [{if $oxid == "-1"}]
-                    <tr>
-                        <td class="edittext">
-                            [{oxmultilang ident="GENERAL_TYPE"}]&nbsp;
-                        </td>
-                        <td class="edittext">
-                            <select class="editinput" name="editval[oxactions__oxtype]">
-                                <option value="1">[{oxmultilang ident="PROMOTIONS_MAIN_TYPE_ACTION"}]</option>
-                                <option value="2">[{oxmultilang ident="PROMOTIONS_MAIN_TYPE_PROMO"}]</option>
-                                <option value="3">[{oxmultilang ident="PROMOTIONS_MAIN_TYPE_BANNER"}]</option>
-                            </select>
-                        </td>
-                    </tr>
-                    [{/if}]
                     [{/block}]
                     <tr>
                         <td class="edittext">
