@@ -89,5 +89,4 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
         return [AfterModelUpdateEvent::NAME => 'onUpdate',
             AfterModelInsertEvent::NAME => 'onInsert'];
     }
-
 }

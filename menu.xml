@@ -4,7 +4,7 @@
         <MAINMENU id="mxcustnews">
             <SUBMENU id="nastiles" cl="tile" list="tile_list">
                 <TAB id="tbctile_main" cl="tile_main" />
-                <BTN id="actions_new" />
+                <BTN id="tiles_new" />
             </SUBMENU>
         </MAINMENU>
     </OXMENU>
