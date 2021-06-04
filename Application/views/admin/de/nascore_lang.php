@@ -11,7 +11,7 @@ $aLang = array(
     'PROMOTIONS_BANNER_ASSIGNEDCATEGORY'            => 'Zugeordnete Kategorie',
     'PROMOTIONS_BANNER_NONE'                        => 'Zugeordnetes Object',
     'GENERAL_ASSIGNCATEGORY'                        => 'Kategorie zuordnen',
-    'PROMOTIONS_BANNER_TEXT'                        => 'Freitexteingabe',
+    'PROMOTIONS_BANNER_TEXT'                        => 'Kurzbeschreibung',
     'PROMOTIONS_ARTICLE_ASSIGNCATEGORY'             => "Kategorie zuordnen",
     'PROMOTIONS_ARTICLE_UNASSIGNACATEGORY'          => "Kategoriezuordnung löschen",
     'NASCORE_ARTICLE_MAIN_AMOUNT_IN_PU'             => 'Artikel kann nur in VE bestellt werden.',
@@ -19,5 +19,5 @@ $aLang = array(
     'tbctile_main'                                  => 'Stamm',
     'PROMOTIONS_MAIN_TYPE_TILE'                     => 'Kachel',
     'PROMOTIONS_TILE_PICTUREANDLINK'                => 'Kachel-Einstellungen',
-    'tiles_new'                                     => 'Neue Kachel',
+    'TOOLTIPS_NEWTILE'                              => 'Neue Kachel',
 );

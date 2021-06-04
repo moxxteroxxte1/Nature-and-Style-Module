@@ -11,7 +11,7 @@ $aLang = array(
     'PROMOTIONS_BANNER_ASSIGNEDCATEGORY'            => 'Assigned category',
     'PROMOTIONS_BANNER_NONE'                        => 'Assigned object',
     'GENERAL_ASSIGNCATEGORY'                        => 'Assign category',
-    'PROMOTIONS_BANNER_TEXT'                        => 'Free text input',
+    'PROMOTIONS_BANNER_TEXT'                        => 'Short Description',
     'PROMOTIONS_ARTICLE_ASSIGNCATEGORY'             => "Assign category",
     'PROMOTIONS_ARTICLE_UNASSIGNACATEGORY'          => "Delete category assignment",
     'NASCORE_ARTICLE_MAIN_AMOUNT_IN_PU'             => 'Article can be ordered only in PU.',
@@ -19,5 +19,5 @@ $aLang = array(
     'tbctile_main'                                  => 'Main',
     'PROMOTIONS_MAIN_TYPE_TILE'                     => 'Tile',
     'PROMOTIONS_TILE_PICTUREANDLINK'                => 'Tile settings',
-    'tiles_new'                                     => 'New Tile',
+    'TOOLTIPS_NEWTILE'                              => 'New Tile',
 );
