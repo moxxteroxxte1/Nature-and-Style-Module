@@ -185,8 +185,8 @@
                                         <b>[{oxmultilang ident="PROMOTIONS_TILE_COLOR"}]</b>
                                     </td>
                                     <td class="edittext">
-                                        <input class="editinput" name="myfile[PROMO@oxactions__oxcolor]" type="color"[{$readonly_fields}]>
-                                        <input id="oxcolor" type="hidden" name="editval[oxactions__oxcolor]" value="[{$edit->oxactions__oxcolor->value}]" readonly>
+                                        <input type="color" class="editinput" name="editval[oxactions__oxcolor]" [{if $edit->oxactions__oxcolor->value != ""}] value="[{$edit->oxactions__oxcolor->value}]" [{/if}]>
+                                        <input type="hidden" id="oxcolor" name="editval[oxactions__oxcolor]">
                                     </td>
                                     <td nowrap="nowrap">
                                         [{if !$edit->oxactions__oxcolor->value=="" && !$readonly}]
