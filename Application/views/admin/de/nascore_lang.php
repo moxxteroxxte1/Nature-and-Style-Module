@@ -20,4 +20,5 @@ $aLang = array(
     'PROMOTIONS_MAIN_TYPE_TILE'                     => 'Kachel',
     'PROMOTIONS_TILE_PICTUREANDLINK'                => 'Kachel-Einstellungen',
     'TOOLTIPS_NEWTILE'                              => 'Neue Kachel',
+    'PROMOTIONS_TILE_COLOR'                         => 'Farbe auswählen',
 );

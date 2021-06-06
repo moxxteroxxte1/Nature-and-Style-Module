@@ -19,6 +19,14 @@
         oForm.submit();
     }
 
+    function DeleteColor(sField)
+    {
+        var oForm = document.getElementById("myedit");
+        document.getElementById(sField).value="";
+        oForm.fnc.value='save';
+        oForm.submit();
+    }
+
     //-->
 </script>
 
@@ -169,6 +177,23 @@
                                     </td>
                                     <td class="edittext">
                                         <input type="text" class="editinput" size="32" maxlength="64" id="oLockTarget" name="editval[oxactions__oxlongdesc]" value="[{$edit->oxactions__oxlongdesc->value}]">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text">
+                                        <b>[{oxmultilang ident="PROMOTIONS_TILE_COLOR"}]</b>
+                                    </td>
+                                    <td class="edittext">
+                                        <input class="editinput" name="myfile[PROMO@oxactions__oxcolor]" type="color"[{$readonly_fields}]>
+                                        <input id="oxcolor" type="hidden" name="editval[oxactions__oxcolor]" value="[{$edit->oxactions__oxcolor->value}]" readonly>
+                                    </td>
+                                    <td nowrap="nowrap">
+                                        [{if !$edit->oxactions__oxcolor->value=="" && !$readonly}]
+                                        <div style="display: inline-block;">
+                                            <a href="Javascript:DeleteColor('oxcolor');" class="deleteText"><span class="ico"></span><span style="float: left;>">[{oxmultilang ident="GENERAL_DELETE"}]</span></a>
+                                        </div>
+                                        [{/if}]
                                     </td>
                                 </tr>
 

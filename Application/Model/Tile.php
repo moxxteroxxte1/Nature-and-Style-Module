@@ -40,6 +40,11 @@ class Tile extends MultiLanguageModel
         return $iFrom - $iNow;
     }
 
+    public function getColor()
+    {
+        return $this->oxactions__oxcolor->value;
+    }
+
     /**
      * return time left until start
      *

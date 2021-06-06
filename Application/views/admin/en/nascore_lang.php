@@ -20,4 +20,5 @@ $aLang = array(
     'PROMOTIONS_MAIN_TYPE_TILE'                     => 'Tile',
     'PROMOTIONS_TILE_PICTUREANDLINK'                => 'Tile settings',
     'TOOLTIPS_NEWTILE'                              => 'New Tile',
+    'PROMOTIONS_TILE_COLOR'                         => 'Select color',
 );
