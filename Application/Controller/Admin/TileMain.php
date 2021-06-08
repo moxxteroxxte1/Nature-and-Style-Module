@@ -7,6 +7,7 @@ use stdClass;
 use OxidEsales\Eshop\Application\Model\Actions;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\Request;
+use OxidEsales\Eshop\Core\Field;
 
 class TileMain extends AdminDetailsController
 {
@@ -48,16 +49,22 @@ class TileMain extends AdminDetailsController
                     $sPopup = false;
                     switch ($iAoc) {
                         case 'category':
+                            {
+                                if ($oCategory = $oTile->getCategory()) {
+                                    $this->_aViewData['tilecategory_id'] = $oCategory->oxcategories__oxid->value;
+                                    $this->_aViewData['tilecategory_title'] = $oCategory->oxcategories__oxtitle->value;
+                                }
 
-                            if ($oCategory = $oTile->getCategory()) {
-                                $this->_aViewData['tilecategory_id'] = $oCategory->oxcategories__oxid->value;
-                                $this->_aViewData['tilecategory_title'] = $oCategory->oxcategories__oxtitle->value;
+                                $oTileCategoryAjax = oxNew(TileCategoryAjax::class);
+                                $this->_aViewData['oxajax'] = $oTileCategoryAjax->getColumns();
+
+                                return "tile_category.tpl";
+                            }
+                        case 'rmcolor':
+                            {
+                                $oTile->oxactions__oxcolor = new Field(null);
                             }
 
-                            $oTileCategoryAjax = oxNew(TileCategoryAjax::class);
-                            $this->_aViewData['oxajax'] = $oTileCategoryAjax->getColumns();
-
-                            return "tile_category.tpl";
                     }
                 }
             }

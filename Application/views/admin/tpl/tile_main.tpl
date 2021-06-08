@@ -190,7 +190,7 @@
                                     <td nowrap="nowrap">
                                         [{if !$edit->oxactions__oxcolor->value=="" && !$readonly}]
                                         <div style="display: inline-block;">
-                                            <a href="Javascript:DeleteColor('oxcolor');" class="deleteText"><span class="ico"></span><span style="float: left;>">[{oxmultilang ident="GENERAL_DELETE"}]</span></a>
+                                            <a href="'&cl=tile_main&oxpromotionaoc=rmcolor&oxid=[{$oxid}]'" class="deleteText"><span class="ico"></span><span style="float: left;>">[{oxmultilang ident="GENERAL_DELETE"}]</span></a>
                                         </div>
                                         [{/if}]
                                     </td>
