@@ -3,6 +3,7 @@
 
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
+use stdClass;
 
 class DeliveryMain extends DeliveryMain_parent
 {
