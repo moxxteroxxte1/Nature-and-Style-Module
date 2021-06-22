@@ -21,4 +21,6 @@ $aLang = array(
     'PROMOTIONS_TILE_PICTUREANDLINK'                => 'Tile settings',
     'TOOLTIPS_NEWTILE'                              => 'New Tile',
     'PROMOTIONS_TILE_COLOR'                         => 'Select color',
+    'NASCORE_ARTICLE_STOCK_PACKAGINGPOINTS'         => 'Packaging-Points',
+    'NASCORE_ARTICLE_STOCK_SPOT'                    => 'Storage-Place',
 );

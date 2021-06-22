@@ -23,15 +23,17 @@ $aModule = array(
     'extend'        => array(
         \OxidEsales\Eshop\Application\Controller\Admin\ActionsMain::class           => \NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsMain::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ActionsList::class           => \NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsList::class,
+        \OxidEsales\Eshop\Application\Controller\Admin\DeliveryMain::class          => \NatureAndStyle\CoreModule\Application\Controller\Admin\DeliveryMain::class,
         \OxidEsales\Eshop\Application\Controller\StartController::class             => \NatureAndStyle\CoreModule\Application\Controller\StartController::class,
         \OxidEsales\Eshop\Application\Controller\BasketController::class            => \NatureAndStyle\CoreModule\Application\Controller\BasketController::class,
         \OxidEsales\Eshop\Application\Component\UserComponent::class                => \NatureAndStyle\CoreModule\Application\Component\UserComponent::class,
         \OxidEsales\Eshop\Application\Model\User::class                             => \NatureAndStyle\CoreModule\Application\Model\User::class,
-        \OxidEsales\Eshop\Application\Model\OrderArticle::class                     => NatureAndStyle\CoreModule\Application\Model\OrderArticle::class,
+        \OxidEsales\Eshop\Application\Model\OrderArticle::class                     => \NatureAndStyle\CoreModule\Application\Model\OrderArticle::class,
         \OxidEsales\Eshop\Application\Model\Article::class                          => \NatureAndStyle\CoreModule\Application\Model\Article::class,
         \OxidEsales\Eshop\Application\Model\Discount::class                         => \NatureAndStyle\CoreModule\Application\Model\Discount::class,
         \OxidEsales\Eshop\Application\Model\Actions::class                          => \NatureAndStyle\CoreModule\Application\Model\Actions::class,
         \OxidEsales\Eshop\Application\Model\ActionList::class                       => \NatureAndStyle\CoreModule\Application\Model\ActionList::class,
+        \OxidEsales\Eshop\Application\Model\Delivery::class                         => \NatureAndStyle\CoreModule\Application\Model\Delivery::class,
         \OxidEsales\Eshop\Core\Price::class                                         => \NatureAndStyle\CoreModule\Core\Price::class,
     ),
     'templates'     => array(
@@ -53,6 +55,21 @@ $aModule = array(
     ),
     'blocks'        => array(
         array(
+            'template'  => 'article_main.tpl',
+            'block'     => 'admin_article_main_extended',
+            'file'      => '/Application/views/blocks/article_main_extend.tpl',
+        ),
+        array(
+            'template'  => 'article_extend.tpl',
+            'block'     => 'admin_article_extend_form',
+            'file'      => 'Application/views/blocks/article_extend_extend.tpl',
+        ),
+        array(
+            'template'  => 'article_stock.tpl',
+            'block'     => 'admin_article_stock_form',
+            'file'      => '/Application/views/blocks/article_stock_extend.tpl'
+        ),
+        array(
             'template'  => 'article_pictures.tpl',
             'block'     => 'admin_article_pictures_main',
             'file'      => '/Application/views/blocks/article_pictures_extend.tpl',
@@ -63,11 +80,6 @@ $aModule = array(
             'file'      => '/Application/views/blocks/user_main_extend.tpl',
         ),
         array(
-            'template'  => 'article_main.tpl',
-            'block'     => 'admin_article_main_extended',
-            'file'      => '/Application/views/blocks/article_main_extend.tpl',
-        ),
-        array(
             'template'  => 'discount_main.tpl',
             'block'     => 'admin_discount_main_form',
             'file'      => '/Application/views/blocks/discount_main_extend.tpl',
@@ -76,6 +88,6 @@ $aModule = array(
             'template'  => 'actions_main.tpl',
             'block'     => 'admin_actions_main_product',
             'file'      => '/Application/views/blocks/actions_main_extend.tpl'
-        )
+        ),
     ),
 );
