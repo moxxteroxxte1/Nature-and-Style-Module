@@ -57,7 +57,7 @@ class DeliveryMain extends DeliveryMain_parent
 
                 $logger->warning((string)$row[0]);
 
-                $data[$row[0]] = $row[1];
+                $data[(string)$row[0]] = $row[1];
                 $resultSet->fetchRow();
             }
         }

@@ -61,19 +61,21 @@ class Delivery extends Delivery_parent
         $blForBasket = false;
         $iAllPoints = 0;
 
-        if ($this->checkArticleRestriction()) {
-            if ($this->getCalculationRule() == self::CALCULATION_RULE_FIT_PER_CART) {
-                foreach ($oBasket->getContents() as $oContent) {
-                    $oArticle = $oContent->getArticle(false);
+        if ($this->getCalculationRule() == self::CALCULATION_RULE_FIT_PER_CART) {
+            $blForBasket = true;
+            foreach ($oBasket->getContents() as $oContent) {
+                $oArticle = $oContent->getArticle(false);
+                if($this->checkArticleRestriction($oArticle)){
                     $dAmount = $oContent->getAmount();
                     $iDeliveryPoints = $oArticle->oxarticles__oxpackagingpoints->value;
                     $iAllPoints += ($dAmount * $iDeliveryPoints);
+                }else{
+                    $blForBasket = false;
                 }
-                $this->iAmount = ceil(($iAllPoints / $this->getConditionTo()));
-                $blForBasket = true;
-            } else {
-                $blForBasket = parent::isForBasket($oBasket);
             }
+            $this->iAmount = ceil(($iAllPoints / $this->getConditionTo()));
+        } else {
+            $blForBasket = parent::isForBasket($oBasket);
         }
         return $blForBasket;
     }
