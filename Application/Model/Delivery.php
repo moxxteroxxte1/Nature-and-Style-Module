@@ -3,11 +3,12 @@
 
 namespace NatureAndStyle\CoreModule\Application\Model;
 
+use OxidEsales\Eshop\Core\Registry;
 
 class Delivery extends Delivery_parent
 {
 
-    protected $iAmount = 1;
+    private $iAmount = 1;
 
     /**
      * Calculation rule
@@ -40,6 +41,8 @@ class Delivery extends Delivery_parent
     protected function _getMultiplier()
     {
         if ($this->getCalculationRule() == self::CALCULATION_RULE_FIT_PER_CART) {
+            $logger = Registry::getLogger();
+            $logger->debug($this->iAmount);
             return $this->iAmount;
         } else {
             return parent::_getMultiplier();
