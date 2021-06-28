@@ -25,4 +25,5 @@ $aLang = array(
     'NASCORE_ARTICLE_STOCK_SPOT'                    => 'Lagerplatz',
     'points'                                        => 'Punkte',
     'DELIVERY_MAIN_CHILD'                           => 'Kind',
+    'DELIVERY_MAIN_FIT_BY_CART'                     => 'Mehrfach anwenden',
 );

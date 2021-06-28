@@ -55,9 +55,10 @@ class DeliveryMain extends DeliveryMain_parent
             while (!$resultSet->EOF) {
                 $row = $resultSet->getFields();
 
-                $logger->warning((string)$row[0]);
+                $id = (string)$row[0];
+                $title = (string)$row[1];
 
-                $data[(string)$row[0]] = $row[1];
+                $data[$id] = $title;
                 $resultSet->fetchRow();
             }
         }
