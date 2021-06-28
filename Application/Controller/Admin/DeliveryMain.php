@@ -42,8 +42,7 @@ class DeliveryMain extends DeliveryMain_parent
 
     public function getAllDeliverys()
     {
-        $logger = Registry::getLogger();
-
+        $data = [];
 
         $oDb = DatabaseProvider::getDb();
         $sQ = "select oxid, oxtitle from oxdelivery where oxid != {$oDb->quote($this->getEditObjectId())}";
@@ -53,7 +52,7 @@ class DeliveryMain extends DeliveryMain_parent
         if ($resultSet != false && $resultSet->count() > 0) {
             while (!$resultSet->EOF) {
                 $row = $resultSet->getFields();
-                $logger->warning($row[0]);
+                $data[$row[0]] = $row[1];
                 $resultSet->fetchRow();
             }
         }
