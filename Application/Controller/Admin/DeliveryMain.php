@@ -53,7 +53,7 @@ class DeliveryMain extends DeliveryMain_parent
         }
 
         $logger = Registry::getLogger();
-        $logger->warning(implode($aResult));
+        $logger->warning(implode(',', array_map(function($el){ return $el['tag_id']; }, $aResult)));
 
         return $aResult;
     }
