@@ -39,15 +39,11 @@ class Delivery extends Delivery_parent
 
     protected function _getMultiplier()
     {
-        $dAmount = 0;
-
         if ($this->getCalculationRule() == self::CALCULATION_RULE_FIT_PER_CART) {
-            $dAmount = $this->iAmount;
+            return $this->iAmount;
         } else {
-            $dAmount = parent::_getMultiplier();
+            return parent::_getMultiplier();
         }
-
-        return $dAmount;
     }
 
 
@@ -66,7 +62,7 @@ class Delivery extends Delivery_parent
                     $iDeliveryPoints = $this->getDeliveryAmount($oContent);
                     $iAllPoints += ($dAmount * $iDeliveryPoints);
                 }else{
-                    $blForBasket = false;
+                    return false;
                 }
             }
             $this->iAmount = ceil(($iAllPoints / $this->getConditionTo()));
