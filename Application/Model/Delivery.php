@@ -63,7 +63,7 @@ class Delivery extends Delivery_parent
                 $oArticle = $oContent->getArticle(false);
                 if($this->checkArticleRestriction($oArticle)){
                     $dAmount = $oContent->getAmount();
-                    $iDeliveryPoints = $oArticle->oxarticles__oxpackagingpoints->value;
+                    $iDeliveryPoints = $this->getDeliveryAmount();
                     $iAllPoints += ($dAmount * $iDeliveryPoints);
                 }else{
                     $blForBasket = false;
