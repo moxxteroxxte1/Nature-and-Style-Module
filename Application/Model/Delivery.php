@@ -60,11 +60,11 @@ class Delivery extends Delivery_parent
             $blForBasket = true;
             foreach ($oBasket->getContents() as $oContent) {
                 $oArticle = $oContent->getArticle(false);
-                if($this->checkArticleRestriction($oArticle)){
-                    $dAmount = $oContent->getAmount();
+                $dAmount = $oContent->getAmount();
+                if ($this->checkArticleRestriction($oArticle) && $this->isDeliveryRuleFitByArticle($dAmount)) {
                     $iDeliveryPoints = $this->getDeliveryAmount($oContent);
                     $iAllPoints += ($dAmount * $iDeliveryPoints);
-                }else{
+                } else {
                     return false;
                 }
             }
