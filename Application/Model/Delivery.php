@@ -8,7 +8,7 @@ use OxidEsales\Eshop\Core\Registry;
 class Delivery extends Delivery_parent
 {
 
-    private $iAmount = 1;
+    var int $iAmount = 1;
 
     /**
      * Calculation rule
