@@ -23,4 +23,6 @@ $aLang = array(
     'PROMOTIONS_TILE_COLOR'                         => 'Farbe auswählen',
     'NASCORE_ARTICLE_STOCK_PACKAGINGPOINTS'         => 'Versandpunkte',
     'NASCORE_ARTICLE_STOCK_SPOT'                    => 'Lagerplatz',
+    'points'                                        => 'Punkte',
+    'DELIVERY_MAIN_CHILD'                           => 'Kind',
 );

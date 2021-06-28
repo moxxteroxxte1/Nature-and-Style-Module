@@ -54,6 +54,14 @@ $aModule = array(
         'onActivate'   => '\NatureAndStyle\CoreModule\Core\Events::onActivate',
     ),
     'blocks'        => array(
+        //Actions
+        array(
+            'template'  => 'actions_main.tpl',
+            'block'     => 'admin_actions_main_product',
+            'file'      => '/Application/views/blocks/actions_main_extend.tpl'
+        ),
+
+        //Article
         array(
             'template'  => 'article_main.tpl',
             'block'     => 'admin_article_main_extended',
@@ -74,20 +82,25 @@ $aModule = array(
             'block'     => 'admin_article_pictures_main',
             'file'      => '/Application/views/blocks/article_pictures_extend.tpl',
         ),
+        //Delivery
         array(
-            'template'  => 'user_main.tpl',
-            'block'     => 'admin_user_main_assign_groups',
-            'file'      => '/Application/views/blocks/user_main_extend.tpl',
+            'template'  => 'delivery_main.tpl',
+            'block'     => 'admin_delivery_main_form',
+            'file'      => '/Application/views/blocks/delivery_main_extend.tpl',
         ),
+
+        //Discount
         array(
             'template'  => 'discount_main.tpl',
             'block'     => 'admin_discount_main_form',
             'file'      => '/Application/views/blocks/discount_main_extend.tpl',
         ),
+
+        //User
         array(
-            'template'  => 'actions_main.tpl',
-            'block'     => 'admin_actions_main_product',
-            'file'      => '/Application/views/blocks/actions_main_extend.tpl'
+            'template'  => 'user_main.tpl',
+            'block'     => 'admin_user_main_assign_groups',
+            'file'      => '/Application/views/blocks/user_main_extend.tpl',
         ),
     ),
 );

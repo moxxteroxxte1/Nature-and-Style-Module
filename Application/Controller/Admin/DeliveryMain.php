@@ -3,6 +3,8 @@
 
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
+use OxidEsales\Eshop\Core\DatabaseProvider;
+use OxidEsales\Eshop\Core\Registry;
 use stdClass;
 
 class DeliveryMain extends DeliveryMain_parent
@@ -10,7 +12,7 @@ class DeliveryMain extends DeliveryMain_parent
 
     public function getDeliveryTypes()
     {
-        $oLang = \OxidEsales\Eshop\Core\Registry::getLang();
+        $oLang = Registry::getLang();
         $iLang = $oLang->getTplLanguage();
 
         $aDelTypes = [];
@@ -36,5 +38,15 @@ class DeliveryMain extends DeliveryMain_parent
         $aDelTypes['pp'] = $oType;
 
         return $aDelTypes;
+    }
+
+    public function getAllDeliverys()
+    {
+        $oDb = DatabaseProvider::getDb();
+        $sQ = "select oxid,oxtitle from oxdelivery 
+                where oxid != :oxid ";
+        return $oDb->getAssoc($sQ, [
+            ':oxid' => $this->getEditObjectId(),
+        ]);
     }
 }
