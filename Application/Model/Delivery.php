@@ -84,7 +84,7 @@ class Delivery extends Delivery_parent
 
         Registry::getLogger()->warning($sMinDel);
 
-        if (!is_null($sMinDel)) {
+        if (isset($sMinDel)) {
             return ($sMinDel == $this->oxdelivery__oxid->value) || $this->isParent($sMinDel, $this->oxdelivery__oxchildid->value);
         }
 
