@@ -42,20 +42,22 @@ class DeliveryMain extends DeliveryMain_parent
 
     public function getAllDeliverys()
     {
-        $aResult = [];
-        $oDb = DatabaseProvider::getDb(DatabaseProvider::FETCH_MODE_ASSOC);
+        $logger = Registry::getLogger();
+
+
+        $oDb = DatabaseProvider::getDb();
         $sQ = "select oxid, oxtitle from oxdelivery where oxid != {$oDb->quote($this->getEditObjectId())}";
 
-        $aResultSet = $oDb->select($sQ, []);
+        $resultSet  = $oDb->select($sQ);
 
-        $logger = Registry::getLogger();
-        foreach ($aResultSet as $item){
-            $logger->warning(implode($item));
-            $logger->error(implode($item[0]));
+        if ($resultSet != false && $resultSet->count() > 0) {
+            while (!$resultSet->EOF) {
+                $row = $resultSet->getFields();
+                $logger->warning($row[0]);
+                $resultSet->fetchRow();
+            }
         }
 
-
-
-        return $aResult;
+        return $resultSet;
     }
 }
