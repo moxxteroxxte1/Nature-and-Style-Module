@@ -49,7 +49,7 @@ class DeliveryMain extends DeliveryMain_parent
         $aResult = $oDb->select($sQ, []);
 
         foreach ($aResult as $item){
-            $logger->info($item);
+            $logger->info($item[0]);
         }
 
 
