@@ -44,13 +44,12 @@ class DeliveryMain extends DeliveryMain_parent
     {
         $logger = Registry::getLogger();
 
+        $sQ = "select oxid, oxtitle from oxdelivery where oxid != '" . $this->getEditObjectId() . "'";
+
         $oDb = DatabaseProvider::getDb(DatabaseProvider::FETCH_MODE_ASSOC);
-        $logger->info($this->getEditObjectId());
-        $sQ = "select oxid, oxtitle from oxdelivery where oxid != '" . $this->getEditObjectId() . "'" ;
-        $logger->debug($sQ);
         $aResult = $oDb->select($sQ, []);
 
-        $logger->error(implode($aResult));
+        $logger->info(count($aResult));
 
         return $aResult;
     }
