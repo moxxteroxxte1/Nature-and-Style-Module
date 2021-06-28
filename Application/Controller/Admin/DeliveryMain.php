@@ -43,10 +43,13 @@ class DeliveryMain extends DeliveryMain_parent
     public function getAllDeliverys()
     {
         $oDb = DatabaseProvider::getDb();
-        $sQ = "select oxid,oxtitle from oxdelivery 
-                where oxid != :oxid ";
-        return $oDb->getAssoc($sQ, [
-            ':oxid' => $this->getEditObjectId(),
-        ]);
+        $oDb->setFetchMode(DatabaseProvider::FETCH_MODE_ASSOC);
+        $sQ = "select oxid, oxtitle from oxdelivery where oxid != ?";
+        $aResult = $oDb->getAll($sQ, array($this->getEditObjectId()));
+
+        $logger = Registry::getLogger();
+        $logger->debug(implode($aResult));
+
+        return $aResult;
     }
 }
