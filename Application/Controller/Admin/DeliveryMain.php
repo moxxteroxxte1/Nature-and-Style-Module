@@ -48,7 +48,10 @@ class DeliveryMain extends DeliveryMain_parent
         $oDb = DatabaseProvider::getDb(DatabaseProvider::FETCH_MODE_ASSOC);
         $aResult = $oDb->select($sQ, []);
 
-        $logger->info($aResult);
+        foreach ($aResult as $item){
+            $logger->info($item);
+        }
+
 
         return $aResult;
     }
