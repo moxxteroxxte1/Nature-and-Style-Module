@@ -29,7 +29,7 @@ class Delivery extends Delivery_parent
         }
 
         if ($this->getConditionType() == self::CONDITION_TYPE_POINTS) {
-            $dAmount += $oProduct->oxarticles__oxpackagingpoints->value;
+            $dAmount = $oProduct->oxarticles__oxpackagingpoints->value;
         } else {
             $dAmount = parent::getDeliveryAmount($oBasketItem);
         }
@@ -41,14 +41,10 @@ class Delivery extends Delivery_parent
     {
         $dAmount = 0;
 
-        if ($this->getCalculationRule() == self::CALCULATION_RULE_ONCE_PER_CART) {
-            $dAmount = 1;
-        } elseif ($this->getCalculationRule() == self::CALCULATION_RULE_FOR_EACH_DIFFERENT_PRODUCT) {
-            $dAmount = $this->_iProdCnt;
-        } elseif ($this->getCalculationRule() == self::CALCULATION_RULE_FOR_EACH_PRODUCT) {
-            $dAmount = $this->_iItemCnt;
-        } elseif ($this->getCalculationRule() == self::CALCULATION_RULE_FIT_PER_CART) {
+        if ($this->getCalculationRule() == self::CALCULATION_RULE_FIT_PER_CART) {
             $dAmount = $this->iAmount;
+        } else {
+            $dAmount = parent::_getMultiplier();
         }
 
         return $dAmount;
