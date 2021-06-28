@@ -48,12 +48,13 @@ class DeliveryMain extends DeliveryMain_parent
 
         $aResultSet = $oDb->select($sQ, []);
 
+        $logger = Registry::getLogger();
         foreach ($aResultSet as $item){
-            array_push($aResult, $item);
+            $logger->warning(implode($item));
+            $logger->error(implode($item[0]));
         }
 
-        $logger = Registry::getLogger();
-        $logger->warning(implode(',', array_map(function($el){ return $el['tag_id']; }, $aResult)));
+
 
         return $aResult;
     }
