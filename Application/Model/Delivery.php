@@ -64,8 +64,8 @@ class Delivery extends Delivery_parent
                 $oArticle = $oContent->getArticle(false);
                 $iDeliveryPoints = $this->getDeliveryAmount($oContent);
 
-                $logger->info("1" . $this->checkArticleRestriction($oArticle));
-                $logger->info("2" . parent::isDeliveryRuleFitByArticle($iDeliveryPoints));
+                $logger->info("1 " . $this->checkArticleRestriction($oArticle));
+                $logger->info("2 " . $this->getDeliveryAmount($oContent));
 
                 if ($this->checkArticleRestriction($oArticle) && $this->isDeliveryRuleFitByArticle($iDeliveryPoints)) {
 
