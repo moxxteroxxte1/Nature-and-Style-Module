@@ -45,9 +45,8 @@ class DeliveryMain extends DeliveryMain_parent
         $logger = Registry::getLogger();
 
         $oDb = DatabaseProvider::getDb(DatabaseProvider::FETCH_MODE_ASSOC);
-        $sQ = "select oxid, oxtitle from oxdelivery where oxid != {$oDb->quote( $this->_aViewData["oxid"])}";
+        $sQ = "select oxid, oxtitle from oxdelivery where oxid != " + $oDb->quote($this->getEditObjectId());
         $logger->debug($sQ);
-        $logger->warning($this->_aViewData["oxid"]);
         $aResult = $oDb->select($sQ, []);
 
         $logger->error(implode($aResult));
