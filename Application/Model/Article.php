@@ -112,12 +112,8 @@ class Article extends Article_parent
         return $aDiscounts;
     }
 
-    public function getMinDelivery(): mixed
+    public function getMinDelivery()
     {
-        if(isset($this->oxarticles__oxdeliverymin) && !is_null($this->oxarticles__oxdeliverymin->value)){
-            return $this->oxarticles__oxdeliverymin->value;
-        }
-
-        return false;
+        return $this->oxarticles__oxdeliverymin->value;
     }
 }
