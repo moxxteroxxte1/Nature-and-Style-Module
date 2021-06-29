@@ -72,7 +72,8 @@ class Delivery extends Delivery_parent
         }
 
         $logger = Registry::getLogger();
-        $logger->warning($this->getDeliveryPrice()->getPrice());
+        $logger->warning($iAllPoints);
+        $logger->warning($this->iAmount);
 
         return $blForBasket;
     }
