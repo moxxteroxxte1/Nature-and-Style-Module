@@ -34,6 +34,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Model\Actions::class                          => \NatureAndStyle\CoreModule\Application\Model\Actions::class,
         \OxidEsales\Eshop\Application\Model\ActionList::class                       => \NatureAndStyle\CoreModule\Application\Model\ActionList::class,
         \OxidEsales\Eshop\Application\Model\Delivery::class                         => \NatureAndStyle\CoreModule\Application\Model\Delivery::class,
+        \OxidEsales\Eshop\Application\Model\Basket::class                           => \NatureAndStyle\CoreModule\Application\Model\Basket::class,
     ),
     'templates'     => array(
         'actions_category.tpl'  => 'nature-and-style/core-module/Application/views/admin/tpl/popups/actions_category.tpl',
