@@ -57,15 +57,13 @@ class Delivery extends Delivery_parent
         $iAllPoints = 0;
 
         if ($this->getCalculationRule() == self::CALCULATION_RULE_FIT_PER_CART) {
-
             $blForBasket = true;
-
             foreach ($oBasket->getContents() as $oContent) {
                 $oArticle = $oContent->getArticle(false);
                 $iDeliveryPoints = $this->getDeliveryAmount($oContent);
-
                 if ($this->checkArticleRestriction($oArticle) && parent::isDeliveryRuleFitByArticle($iDeliveryPoints)) {
-
+                    $logger = Registry::getLogger();
+                    $logger->info(1);
                     $dAmount = $oContent->getAmount();
                     $iAllPoints += ($dAmount * $iDeliveryPoints);
                 } else {
