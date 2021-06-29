@@ -60,12 +60,11 @@ class Delivery extends Delivery_parent
             $blForBasket = true;
             foreach ($oBasket->getContents() as $oContent) {
                 $oArticle = $oContent->getArticle(false);
-                $iDeliveryPoints = $this->getDeliveryAmount($oContent);
                 if ($this->checkArticleRestriction($oArticle)) {
                     $logger = Registry::getLogger();
                     $logger->info(1);
                     $dAmount = $oContent->getAmount();
-                    $iAllPoints += ($dAmount * $iDeliveryPoints);
+                    $iAllPoints += ($dAmount *  $this->getDeliveryAmount($oContent));
                 } else {
                     return false;
                 }
@@ -85,15 +84,16 @@ class Delivery extends Delivery_parent
         $blFit = true;
 
         $logger = Registry::getLogger();
-        $logger->info("1 " . $blFit);
 
         if (isset($sMinDel)) {
             $blFit = (($sMinDel == $this->oxdelivery__oxid->value) || $this->isParent($sMinDel, $this->oxdelivery__oxchildid->value));
-            $logger->info("2 " . $blFit);
         }
 
-        $blFit &= parent::isDeliveryRuleFitByArticle($oArticle->oxarticles__oxpackagingpoints->value);
-        $logger->info("3 " . $blFit);
+        $iDeliveryAmount = $oArticle->oxarticles__oxpackagingpoints->value;
+        $logger->info("3 " . $iDeliveryAmount);
+
+        $blFit &= ($iDeliveryAmount >= $this->getConditionFrom() && $iDeliveryAmount <= $this->getConditionTo());
+        $logger->info("4 " . $blFit);
 
         return $blFit;
     }
