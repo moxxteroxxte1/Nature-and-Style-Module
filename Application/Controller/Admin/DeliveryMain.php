@@ -63,6 +63,8 @@ class DeliveryMain extends DeliveryMain_parent
             }
         }
 
+        $logger->info(implode($data));
+
         return $resultSet;
     }
 }
