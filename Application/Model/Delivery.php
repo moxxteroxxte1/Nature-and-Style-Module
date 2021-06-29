@@ -90,10 +90,7 @@ class Delivery extends Delivery_parent
         }
 
         $iDeliveryAmount = $oArticle->oxarticles__oxpackagingpoints->value;
-        $logger->info("3 " . $iDeliveryAmount);
-
         $blFit &= ($iDeliveryAmount >= $this->getConditionFrom() && $iDeliveryAmount <= $this->getConditionTo());
-        $logger->info("4 " . $blFit);
 
         return $blFit;
     }
@@ -116,5 +113,35 @@ class Delivery extends Delivery_parent
     public function getMultiplier()
     {
         return $this->_getMultiplier();
+    }
+
+    public function getDeliveryPrice($dVat = null)
+    {
+        if ($this->_oPrice === null) {
+            // loading oxPrice object for final price calculation
+            $oPrice = oxNew(\OxidEsales\Eshop\Core\Price::class);
+            $oPrice->setNettoMode($this->_blDelVatOnTop);
+            $oPrice->setVat($dVat);
+
+            // if article is free shipping, price for delivery will be not calculated
+            if (!$this->_blFreeShipping) {
+                $oPrice->add($this->_getCostSum());
+            }
+            $this->setDeliveryPrice($oPrice);
+        }
+
+        return $this->_oPrice;
+    }
+
+    protected function _getCostSum() // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+    {
+        if ($this->getAddSumType() == 'abs') {
+            $oCur = \OxidEsales\Eshop\Core\Registry::getConfig()->getActShopCurrencyObject();
+            $dPrice = $this->getAddSum() * $oCur->rate * $this->_getMultiplier();
+        } else {
+            $dPrice = $this->_dPrice / 100 * $this->getAddSum();
+        }
+
+        return $dPrice;
     }
 }
