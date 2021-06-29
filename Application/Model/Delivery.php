@@ -38,11 +38,9 @@ class Delivery extends Delivery_parent
         return $dAmount;
     }
 
-    protected function _getMultiplier()
+    public function _getMultiplier()
     {
         if ($this->getCalculationRule() == self::CALCULATION_RULE_FIT_PER_CART) {
-            $logger = Registry::getLogger();
-            $logger->debug($this->iAmount);
             return $this->iAmount;
         } else {
             return parent::_getMultiplier();
@@ -61,8 +59,6 @@ class Delivery extends Delivery_parent
             foreach ($oBasket->getContents() as $oContent) {
                 $oArticle = $oContent->getArticle(false);
                 if ($this->checkArticleRestriction($oArticle)) {
-                    $logger = Registry::getLogger();
-                    $logger->info(1);
                     $dAmount = $oContent->getAmount();
                     $iAllPoints += ($dAmount *  $this->getDeliveryAmount($oContent));
                 } else {
@@ -82,8 +78,6 @@ class Delivery extends Delivery_parent
     {
         $sMinDel = $oArticle->getMinDelivery();
         $blFit = true;
-
-        $logger = Registry::getLogger();
 
         if (isset($sMinDel)) {
             $blFit = (($sMinDel == $this->oxdelivery__oxid->value) || $this->isParent($sMinDel, $this->oxdelivery__oxchildid->value));
@@ -113,35 +107,5 @@ class Delivery extends Delivery_parent
     public function getMultiplier()
     {
         return $this->_getMultiplier();
-    }
-
-    public function getDeliveryPrice($dVat = null)
-    {
-        if ($this->_oPrice === null) {
-            // loading oxPrice object for final price calculation
-            $oPrice = oxNew(\OxidEsales\Eshop\Core\Price::class);
-            $oPrice->setNettoMode($this->_blDelVatOnTop);
-            $oPrice->setVat($dVat);
-
-            // if article is free shipping, price for delivery will be not calculated
-            if (!$this->_blFreeShipping) {
-                $oPrice->add($this->_getCostSum());
-            }
-            $this->setDeliveryPrice($oPrice);
-        }
-
-        return $this->_oPrice;
-    }
-
-    protected function _getCostSum() // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
-    {
-        if ($this->getAddSumType() == 'abs') {
-            $oCur = \OxidEsales\Eshop\Core\Registry::getConfig()->getActShopCurrencyObject();
-            $dPrice = $this->getAddSum() * $oCur->rate * $this->_getMultiplier();
-        } else {
-            $dPrice = $this->_dPrice / 100 * $this->getAddSum();
-        }
-
-        return $dPrice;
     }
 }
