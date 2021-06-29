@@ -5,12 +5,12 @@ namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
 class ArticleStock extends ArticleStock_parent
 {
-    public function getAllDeliverys()
+    public function getAllDeliveries()
     {
         $data = [];
 
         $oDb = DatabaseProvider::getDb();
-        $sQ = "select oxid, oxtitle from oxdelivery where oxid != {$oDb->quote($this->getEditObjectId())}";
+        $sQ = "select oxid, oxtitle from oxdelivery";
 
         $resultSet = $oDb->select($sQ);
 

@@ -6,9 +6,9 @@
     <td class="edittext">
         <select name="editval[oxarticles__oxdeliverymin]" class="editinput" [{$readonly}]>
             <option>----</option>
-            [{assign var="aDeliveries" value=$oView->getAllDeliverys()}]
+            [{assign var="aDeliveries" value=$oView->getAllDeliveries()}]
             [{foreach from=$aDeliveries item=oDelivery}]
-            <option value="[{$oDelivery[0]}]" [{if $edit->oxdelivery__oxchildid->value == $oDelivery[0]}]SELECTED[{/if}]>[{$oDelivery[1]}]</option>
+            <option value="[{$oDelivery[0]}]" [{if $edit->oxarticles__oxdeliverymin->value == $oDelivery[0]}]SELECTED[{/if}]>[{$oDelivery[1]}]</option>
             [{/foreach}]
         </select>
     </td>

@@ -21,13 +21,20 @@ $aModule = array(
     'url'           => 'http://www.natureandstyle.com/',
     'email'         => 'info@natureandstyle.de',
     'extend'        => array(
+        //Admin Controller
         \OxidEsales\Eshop\Application\Controller\Admin\ActionsMain::class           => \NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsMain::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ActionsList::class           => \NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsList::class,
         \OxidEsales\Eshop\Application\Controller\Admin\DeliveryMain::class          => \NatureAndStyle\CoreModule\Application\Controller\Admin\DeliveryMain::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ArticleStock::class          => \NatureAndStyle\CoreModule\Application\Controller\Admin\ArticleStock::class,
+
+        //Controller
         \OxidEsales\Eshop\Application\Controller\StartController::class             => \NatureAndStyle\CoreModule\Application\Controller\StartController::class,
         \OxidEsales\Eshop\Application\Controller\BasketController::class            => \NatureAndStyle\CoreModule\Application\Controller\BasketController::class,
+
+        //Components
         \OxidEsales\Eshop\Application\Component\UserComponent::class                => \NatureAndStyle\CoreModule\Application\Component\UserComponent::class,
+
+        //Models
         \OxidEsales\Eshop\Application\Model\User::class                             => \NatureAndStyle\CoreModule\Application\Model\User::class,
         \OxidEsales\Eshop\Application\Model\OrderArticle::class                     => \NatureAndStyle\CoreModule\Application\Model\OrderArticle::class,
         \OxidEsales\Eshop\Application\Model\Article::class                          => \NatureAndStyle\CoreModule\Application\Model\Article::class,
