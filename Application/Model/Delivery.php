@@ -113,8 +113,8 @@ class Delivery extends Delivery_parent
         if (is_null($this->_oPrice)) {
             // loading oxPrice object for final price calculation
             $oPrice = oxNew(\OxidEsales\Eshop\Core\Price::class);
-            $oPrice->setNettoMode($this->_blDelVatOnTop);
-            $oPrice->setVat($dVat);
+            //$oPrice->setNettoMode($this->_blDelVatOnTop);
+            //$oPrice->setVat($dVat);
 
             // if article is free shipping, price for delivery will be not calculated
             if (!$this->_blFreeShipping) {
@@ -137,10 +137,5 @@ class Delivery extends Delivery_parent
         }
 
         return $dPrice;
-    }
-
-    public function setDeliveryPrice($oPrice)
-    {
-        $this->_oPrice = $oPrice;
     }
 }
