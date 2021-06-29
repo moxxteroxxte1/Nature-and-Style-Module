@@ -61,7 +61,7 @@ class Delivery extends Delivery_parent
             foreach ($oBasket->getContents() as $oContent) {
                 $oArticle = $oContent->getArticle(false);
                 $iDeliveryPoints = $this->getDeliveryAmount($oContent);
-                if ($this->checkArticleRestriction($oArticle) && self::isDeliveryRuleFitByArticle($iDeliveryPoints)) {
+                if ($this->checkArticleRestriction($oArticle) AND $this->isDeliveryRuleFitByArticle($iDeliveryPoints)) {
                     $logger = Registry::getLogger();
                     $logger->info(1);
                     $dAmount = $oContent->getAmount();
