@@ -52,8 +52,6 @@ class Delivery extends Delivery_parent
         $blForBasket = false;
         $iAllPoints = 1;
 
-        $this->_oPrice = null;
-
         if ($this->getCalculationRule() == self::CALCULATION_RULE_FIT_PER_CART) {
             $blForBasket = true;
             foreach ($oBasket->getContents() as $oContent) {
@@ -71,11 +69,7 @@ class Delivery extends Delivery_parent
         }
 
         $logger = Registry::getLogger();
-        $logger->info("Price " . $this->getDeliveryPrice()->getPrice());
-        $logger->info("Rate " . Registry::getConfig()->getActShopCurrencyObject()->rate);
-        $logger->info("Multi " . $this->_getMultiplier());
-        $logger->info("AddSum " . $this->getAddSum());
-        $logger->info("dPrice " . $this->_oPrice->getPrice());
+        $logger->info($this->_getCostSum());
 
         return $blForBasket;
     }
@@ -113,5 +107,35 @@ class Delivery extends Delivery_parent
     public function getMultiplier()
     {
         return $this->_getMultiplier();
+    }
+
+    public function getDeliveryPrice($dVat = null)
+    {
+        if ($this->_oPrice === null) {
+            // loading oxPrice object for final price calculation
+            $oPrice = oxNew(\OxidEsales\Eshop\Core\Price::class);
+            $oPrice->setNettoMode($this->_blDelVatOnTop);
+            $oPrice->setVat($dVat);
+
+            // if article is free shipping, price for delivery will be not calculated
+            if (!$this->_blFreeShipping) {
+                $oPrice->add($this->_getCostSum());
+            }
+            $this->setDeliveryPrice($oPrice);
+        }
+
+        return $this->_oPrice;
+    }
+
+    protected function _getCostSum() // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+    {
+        if ($this->getAddSumType() == 'abs') {
+            $oCur = \OxidEsales\Eshop\Core\Registry::getConfig()->getActShopCurrencyObject();
+            $dPrice = $this->getAddSum() * $oCur->rate * $this->_getMultiplier();
+        } else {
+            $dPrice = $this->_dPrice / 100 * $this->getAddSum();
+        }
+
+        return $dPrice;
     }
 }
