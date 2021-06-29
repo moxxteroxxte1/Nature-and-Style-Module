@@ -113,33 +113,4 @@ class Delivery extends Delivery_parent
     {
         return $this->_getMultiplier();
     }
-
-    public function getDeliveryPrice($dVat = null)
-    {
-        if (is_null($this->_oPrice)) {
-            // loading oxPrice object for final price calculation
-            $oPrice = oxNew(\OxidEsales\Eshop\Core\Price::class);
-            $oPrice->setNettoMode($this->_blDelVatOnTop);
-            $oPrice->setVat($dVat);
-
-            // if article is free shipping, price for delivery will be not calculated
-            if (!$this->_blFreeShipping) {
-                $oPrice->setPrice($this->_getCostSum());
-            }
-            $this->setDeliveryPrice($oPrice);
-        }
-        return $this->_oPrice;
-    }
-
-    protected function _getCostSum() // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
-    {
-        if ($this->getAddSumType() == 'abs') {
-            $oCur = \OxidEsales\Eshop\Core\Registry::getConfig()->getActShopCurrencyObject();
-            $dPrice = $this->getAddSum() * $oCur->rate * $this->_getMultiplier();
-        } else {
-            $dPrice = $this->_dPrice / 100 * $this->getAddSum();
-        }
-
-        return $dPrice;
-    }
 }
