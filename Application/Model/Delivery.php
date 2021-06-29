@@ -7,6 +7,7 @@ use OxidEsales\Eshop\Core\Registry;
 
 class Delivery extends Delivery_parent
 {
+    protected $_oPrice = null;
     var int $iAmount = 1;
 
     /**
@@ -108,8 +109,8 @@ class Delivery extends Delivery_parent
 
     public function getDeliveryPrice($dVat = null)
     {
-        if ($this->_oPrice === null) {
-            $logger = Registry::getLogger();
+        $logger = Registry::getLogger();
+        if (is_null($this->_oPrice)) {
             $logger->info(1);
             // loading oxPrice object for final price calculation
             $oPrice = oxNew(\OxidEsales\Eshop\Core\Price::class);
