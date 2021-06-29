@@ -75,6 +75,7 @@ class Delivery extends Delivery_parent
         $logger->info("Rate " . Registry::getConfig()->getActShopCurrencyObject()->rate);
         $logger->info("Multi " . $this->_getMultiplier());
         $logger->info("AddSum " . $this->getAddSum());
+        $logger->info("dPrice " . $this->_oPrice->getPrice());
 
         return $blForBasket;
     }
