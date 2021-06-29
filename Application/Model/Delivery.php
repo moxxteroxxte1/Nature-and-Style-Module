@@ -84,7 +84,10 @@ class Delivery extends Delivery_parent
     protected function checkArticleRestriction($oArticle)
     {
         $sMinDel = $oArticle->getMinDelivery();
+        $logger = Registry::getLogger();
+        $logger->info(1);
         if (isset($sMinDel)) {
+            $logger->info(2);
             return ($sMinDel == $this->oxdelivery__oxid->value) || $this->isParent($sMinDel, $this->oxdelivery__oxchildid->value);
         }
         return true;
@@ -108,38 +111,5 @@ class Delivery extends Delivery_parent
     public function getMultiplier()
     {
         return $this->_getMultiplier();
-    }
-
-    protected function isDeliveryRuleFitByArticle($artAmount)
-    {
-        $result = false;
-        if ($this->getCalculationRule() != self::CALCULATION_RULE_ONCE_PER_CART) {
-            if (!$this->_blFreeShipping && $this->_checkDeliveryAmount($artAmount)) {
-                $result = true;
-            }
-        }
-
-        return $result;
-    }
-
-    protected function _checkDeliveryAmount($iAmount) // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
-    {
-        $blResult = false;
-
-        $logger = Registry::getLogger();
-        $logger->info("1 " . $iAmount);
-        $logger->info("2 " . $this->getConditionFrom());
-        $logger->info("3 " . $this->getConditionTo());
-
-        if ($this->getConditionType() == self::CONDITION_TYPE_PRICE) {
-            $oCur = \OxidEsales\Eshop\Core\Registry::getConfig()->getActShopCurrencyObject();
-            $iAmount /= $oCur->rate;
-        }
-
-        if ($iAmount >= $this->getConditionFrom() && $iAmount <= $this->getConditionTo()) {
-            $blResult = true;
-        }
-
-        return $blResult;
     }
 }
