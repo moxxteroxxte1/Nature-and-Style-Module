@@ -110,6 +110,18 @@ class Delivery extends Delivery_parent
         return $this->_getMultiplier();
     }
 
+    protected function isDeliveryRuleFitByArticle($artAmount)
+    {
+        $result = false;
+        if ($this->getCalculationRule() != self::CALCULATION_RULE_ONCE_PER_CART) {
+            if (!$this->_blFreeShipping && $this->_checkDeliveryAmount($artAmount)) {
+                $result = true;
+            }
+        }
+
+        return $result;
+    }
+
     protected function _checkDeliveryAmount($iAmount) // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
     {
         $blResult = false;
