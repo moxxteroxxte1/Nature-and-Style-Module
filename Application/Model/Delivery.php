@@ -121,9 +121,9 @@ class Delivery extends Delivery_parent
                 $oPrice->add($this->_getCostSum());
             }
             $this->setDeliveryPrice($oPrice);
-            $logger->info("1 " . $this->_oPrice);
+            $logger->info("1 " . $this->_oPrice->getPrice());
         }
-        $logger->info("2 " . $logger->info($this->_oPrice));
+        $logger->info("2 " . $logger->info($this->_oPrice->getPrice()));
         return $this->_oPrice;
     }
 
