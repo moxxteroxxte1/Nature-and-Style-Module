@@ -57,15 +57,12 @@ class Delivery extends Delivery_parent
         $iAllPoints = 0;
 
         if ($this->getCalculationRule() == self::CALCULATION_RULE_FIT_PER_CART) {
-            $logger = Registry::getLogger();
+
             $blForBasket = true;
 
             foreach ($oBasket->getContents() as $oContent) {
                 $oArticle = $oContent->getArticle(false);
                 $iDeliveryPoints = $this->getDeliveryAmount($oContent);
-
-                $logger->info("1 " . $this->checkArticleRestriction($oArticle));
-                $logger->info("2 " . $this->getDeliveryAmount($oContent));
 
                 if ($this->checkArticleRestriction($oArticle) && $this->isDeliveryRuleFitByArticle($iDeliveryPoints)) {
 
@@ -111,5 +108,27 @@ class Delivery extends Delivery_parent
     public function getMultiplier()
     {
         return $this->_getMultiplier();
+    }
+
+    protected function _checkDeliveryAmount($iAmount) // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+    {
+        $blResult = false;
+
+        if ($this->getConditionType() == self::CONDITION_TYPE_PRICE) {
+            $oCur = \OxidEsales\Eshop\Core\Registry::getConfig()->getActShopCurrencyObject();
+            $iAmount /= $oCur->rate;
+        }
+
+        $logger = Registry::getLogger();
+        $logger->info("1 " . $iAmount);
+        $logger->info("2 " . $this->getConditionFrom());
+        $logger->info("3 " . $this->getConditionTo());
+
+
+        if ($iAmount >= $this->getConditionFrom() && $iAmount <= $this->getConditionTo()) {
+            $blResult = true;
+        }
+
+        return $blResult;
     }
 }
