@@ -65,15 +65,16 @@ class Delivery extends Delivery_parent
                     return false;
                 }
             }
-
             $this->iAmount = ceil(($iAllPoints / $this->getConditionTo()));
         } else {
             $blForBasket = parent::isForBasket($oBasket);
         }
 
         $logger = Registry::getLogger();
-        $logger->warning($iAllPoints);
-        $logger->warning($this->iAmount);
+        $logger->info("Price " . $this->getDeliveryPrice()->getPrice());
+        $logger->info("Rate " . Registry::getConfig()->getActShopCurrencyObject()->rate);
+        $logger->info("Multi " . $this->_getMultiplier());
+        $logger->info("AddSum " . $this->getAddSum());
 
         return $blForBasket;
     }
