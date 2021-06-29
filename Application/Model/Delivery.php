@@ -111,7 +111,6 @@ class Delivery extends Delivery_parent
     {
         $logger = Registry::getLogger();
         if (is_null($this->_oPrice)) {
-            $logger->info(1);
             // loading oxPrice object for final price calculation
             $oPrice = oxNew(\OxidEsales\Eshop\Core\Price::class);
             $oPrice->setNettoMode($this->_blDelVatOnTop);
@@ -122,8 +121,9 @@ class Delivery extends Delivery_parent
                 $oPrice->add($this->_getCostSum());
             }
             $this->setDeliveryPrice($oPrice);
+            $logger->info("1 " . $this->_oPrice);
         }
-        $logger->info(2);
+        $logger->info("2 " . $logger->info($this->_oPrice));
         return $this->_oPrice;
     }
 
