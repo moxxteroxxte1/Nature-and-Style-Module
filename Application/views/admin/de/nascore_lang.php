@@ -26,4 +26,5 @@ $aLang = array(
     'points'                                        => 'Punkte',
     'DELIVERY_MAIN_CHILD'                           => 'Kind',
     'DELIVERY_MAIN_FIT_BY_CART'                     => 'Mehrfach anwenden',
+    'ARTICLE_STOCK_DELIVERY'                        => 'Mindest Versandart',
 );

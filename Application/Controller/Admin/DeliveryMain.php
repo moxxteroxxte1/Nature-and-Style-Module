@@ -44,8 +44,6 @@ class DeliveryMain extends DeliveryMain_parent
     {
         $data = [];
 
-        $logger = Registry::getLogger();
-
         $oDb = DatabaseProvider::getDb();
         $sQ = "select oxid, oxtitle from oxdelivery where oxid != {$oDb->quote($this->getEditObjectId())}";
 
@@ -62,9 +60,6 @@ class DeliveryMain extends DeliveryMain_parent
                 $resultSet->fetchRow();
             }
         }
-
-        $logger->info(implode(" ", $data[0]));
-
         return $resultSet;
     }
 }

@@ -102,9 +102,10 @@
     </td>
     <td class="edittext">
         <select name="editval[oxdelivery__oxchildid]" class="editinput" [{$readonly}]>
+            <option>----</option>
             [{assign var="aDeliveries" value=$oView->getAllDeliverys()}]
-            [{foreach from=$aDeliveries key=id item=oDelivery}]
-            <option value="[{$id}]" [{if $edit->oxdelivery__oxchildid->value == $id}]SELECTED[{/if}]>[{$oDelivery}]</option>
+            [{foreach from=$aDeliveries item=oDelivery}]
+            <option value="[{$oDelivery[0]}]" [{if $edit->oxdelivery__oxchildid->value == $oDelivery[0]}]SELECTED[{/if}]>[{$oDelivery[1]}]</option>
             [{/foreach}]
         </select>
     </td>

@@ -1,12 +1,15 @@
 [{$smarty.block.parent}]
-[{*
 <tr>
     <td class="edittext">
-        [{oxmultilang ident='NASCORE_ARTICLE_STOCK_SPOT'}]
+        [{oxmultilang ident="ARTICLE_STOCK_DELIVERY"}]
     </td>
     <td class="edittext">
-        <input type="text" class="editinput" size="32" maxlength="[{$edit->oxarticles__oxpackagingpoints->fldmax_length}]" id="oLockTarget" name="editval[oxarticles__oxpackagingpoints]"
-               value="[{$edit->oxarticles__oxpackagingpoints->value}]">
+        <select name="editval[oxdelivery__oxchildid]" class="editinput" [{$readonly}]>
+            <option>----</option>
+            [{assign var="aDeliveries" value=$oView->getAllDeliverys()}]
+            [{foreach from=$aDeliveries item=oDelivery}]
+            <option value="[{$oDelivery[0]}]" [{if $edit->oxdelivery__oxchildid->value == $oDelivery[0]}]SELECTED[{/if}]>[{$oDelivery[1]}]</option>
+            [{/foreach}]
+        </select>
     </td>
 </tr>
-*}]
