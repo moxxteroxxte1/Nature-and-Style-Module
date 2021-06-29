@@ -84,11 +84,16 @@ class Delivery extends Delivery_parent
         $sMinDel = $oArticle->getMinDelivery();
         $blFit = true;
 
+        $logger = Registry::getLogger();
+        $logger->info("1 " . $blFit);
+
         if (isset($sMinDel)) {
             $blFit = (($sMinDel == $this->oxdelivery__oxid->value) || $this->isParent($sMinDel, $this->oxdelivery__oxchildid->value));
+            $logger->info("2 " . $blFit);
         }
 
         $blFit &= parent::isDeliveryRuleFitByArticle($oArticle->oxarticles__oxpackagingpoints->value);
+        $logger->info("3 " . $blFit);
 
         return $blFit;
     }
