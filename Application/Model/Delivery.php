@@ -54,14 +54,16 @@ class Delivery extends Delivery_parent
     {
 
         $blForBasket = false;
-        $iAllPoints = 0;
+        $iAllPoints = 1;
 
         if ($this->getCalculationRule() == self::CALCULATION_RULE_FIT_PER_CART) {
             $blForBasket = true;
             foreach ($oBasket->getContents() as $oContent) {
                 $oArticle = $oContent->getArticle(false);
                 $iDeliveryPoints = $this->getDeliveryAmount($oContent);
-                if ($this->checkArticleRestriction($oArticle) AND $this->isDeliveryRuleFitByArticle($iDeliveryPoints)) {
+
+                if ($this->checkArticleRestriction($oArticle)) {
+
                     $logger = Registry::getLogger();
                     $logger->info(1);
                     $dAmount = $oContent->getAmount();
@@ -82,11 +84,15 @@ class Delivery extends Delivery_parent
     protected function checkArticleRestriction($oArticle)
     {
         $sMinDel = $oArticle->getMinDelivery();
-        $logger = Registry::getLogger();
+        $blFit = true;
+
         if (isset($sMinDel)) {
-            return ($sMinDel == $this->oxdelivery__oxid->value) || $this->isParent($sMinDel, $this->oxdelivery__oxchildid->value);
+            $blFit = (($sMinDel == $this->oxdelivery__oxid->value) || $this->isParent($sMinDel, $this->oxdelivery__oxchildid->value));
         }
-        return true;
+
+        $blFit &= $this->isDeliveryRuleFitByArticle($oArticle->oxarticles__oxpackagingpoints->value);
+
+        return $blFit;
     }
 
     protected function isParent($sID, $sChildId): bool
