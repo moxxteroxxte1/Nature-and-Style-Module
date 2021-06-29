@@ -29,10 +29,17 @@ class Delivery extends Delivery_parent
             $oProduct = $oProduct->getArticle();
         }
 
-        if ($this->getConditionType() == self::CONDITION_TYPE_POINTS) {
-            $dAmount = $oProduct->oxarticles__oxpackagingpoints->value;
+        if ($oProduct->oxarticles__oxfreeshipping->value || ($oProduct->oxarticles__oxnonmaterial->value && $blExclNonMaterial)) {
+            if ($this->_blFreeShipping !== false) {
+                $this->_blFreeShipping = true;
+            }
         } else {
-            $dAmount = parent::getDeliveryAmount($oBasketItem);
+            $this->_blFreeShipping = false;
+            if ($this->getConditionType() == self::CONDITION_TYPE_POINTS) {
+                $dAmount = $oProduct->oxarticles__oxpackagingpoints->value;
+            } else {
+                $dAmount = parent::getDeliveryAmount($oBasketItem);
+            }
         }
 
         return $dAmount;
@@ -109,7 +116,6 @@ class Delivery extends Delivery_parent
 
     public function getDeliveryPrice($dVat = null)
     {
-        $logger = Registry::getLogger();
         if (is_null($this->_oPrice)) {
             // loading oxPrice object for final price calculation
             $oPrice = oxNew(\OxidEsales\Eshop\Core\Price::class);
@@ -117,14 +123,11 @@ class Delivery extends Delivery_parent
             $oPrice->setVat($dVat);
 
             // if article is free shipping, price for delivery will be not calculated
-            $logger->info("0 " . $this->_blFreeShipping);
             if (!$this->_blFreeShipping) {
                 $oPrice->setPrice($this->_getCostSum());
             }
             $this->setDeliveryPrice($oPrice);
-            $logger->info("1 " . $oPrice->getPrice());
         }
-        $logger->info("2 " . $oPrice->getPrice());
         return $this->_oPrice;
     }
 
