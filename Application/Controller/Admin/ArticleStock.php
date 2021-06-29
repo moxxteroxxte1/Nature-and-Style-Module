@@ -3,7 +3,10 @@
 
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
+use OxidEsales\Eshop\Core\DatabaseProvider;
+
 class ArticleStock extends ArticleStock_parent
+
 {
     public function getAllDeliveries()
     {
