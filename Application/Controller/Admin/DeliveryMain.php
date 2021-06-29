@@ -58,12 +58,12 @@ class DeliveryMain extends DeliveryMain_parent
                 $id = (string)$row[0];
                 $title = (string)$row[1];
 
-                $data[$id] = $title;
+                array_push($data, array($id, $title));
                 $resultSet->fetchRow();
             }
         }
 
-        $logger->info(implode($data));
+        $logger->info(implode(" ", $data[0]));
 
         return $resultSet;
     }
