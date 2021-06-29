@@ -138,4 +138,9 @@ class Delivery extends Delivery_parent
 
         return $dPrice;
     }
+
+    public function setDeliveryPrice($oPrice)
+    {
+        $this->_oPrice = $oPrice;
+    }
 }
