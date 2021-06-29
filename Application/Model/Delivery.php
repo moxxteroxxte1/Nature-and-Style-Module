@@ -7,7 +7,6 @@ use OxidEsales\Eshop\Core\Registry;
 
 class Delivery extends Delivery_parent
 {
-
     var int $iAmount = 1;
 
     /**
@@ -50,9 +49,10 @@ class Delivery extends Delivery_parent
 
     public function isForBasket($oBasket)
     {
-
         $blForBasket = false;
         $iAllPoints = 1;
+
+        $this->_oPrice = null;
 
         if ($this->getCalculationRule() == self::CALCULATION_RULE_FIT_PER_CART) {
             $blForBasket = true;
