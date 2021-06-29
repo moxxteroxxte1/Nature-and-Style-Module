@@ -114,16 +114,15 @@ class Delivery extends Delivery_parent
     {
         $blResult = false;
 
-        if ($this->getConditionType() == self::CONDITION_TYPE_PRICE) {
-            $oCur = \OxidEsales\Eshop\Core\Registry::getConfig()->getActShopCurrencyObject();
-            $iAmount /= $oCur->rate;
-        }
-
         $logger = Registry::getLogger();
         $logger->info("1 " . $iAmount);
         $logger->info("2 " . $this->getConditionFrom());
         $logger->info("3 " . $this->getConditionTo());
 
+        if ($this->getConditionType() == self::CONDITION_TYPE_PRICE) {
+            $oCur = \OxidEsales\Eshop\Core\Registry::getConfig()->getActShopCurrencyObject();
+            $iAmount /= $oCur->rate;
+        }
 
         if ($iAmount >= $this->getConditionFrom() && $iAmount <= $this->getConditionTo()) {
             $blResult = true;
