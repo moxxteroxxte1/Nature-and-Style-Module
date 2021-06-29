@@ -68,9 +68,6 @@ class Delivery extends Delivery_parent
             $blForBasket = parent::isForBasket($oBasket);
         }
 
-        $logger = Registry::getLogger();
-        $logger->info($this->_getCostSum());
-
         return $blForBasket;
     }
 
@@ -112,6 +109,8 @@ class Delivery extends Delivery_parent
     public function getDeliveryPrice($dVat = null)
     {
         if ($this->_oPrice === null) {
+            $logger = Registry::getLogger();
+            $logger->info(1);
             // loading oxPrice object for final price calculation
             $oPrice = oxNew(\OxidEsales\Eshop\Core\Price::class);
             $oPrice->setNettoMode($this->_blDelVatOnTop);
@@ -123,7 +122,7 @@ class Delivery extends Delivery_parent
             }
             $this->setDeliveryPrice($oPrice);
         }
-
+        $logger->info(2);
         return $this->_oPrice;
     }
 
