@@ -61,9 +61,7 @@ class Delivery extends Delivery_parent
             foreach ($oBasket->getContents() as $oContent) {
                 $oArticle = $oContent->getArticle(false);
                 $iDeliveryPoints = $this->getDeliveryAmount($oContent);
-
                 if ($this->checkArticleRestriction($oArticle)) {
-
                     $logger = Registry::getLogger();
                     $logger->info(1);
                     $dAmount = $oContent->getAmount();
@@ -90,7 +88,7 @@ class Delivery extends Delivery_parent
             $blFit = (($sMinDel == $this->oxdelivery__oxid->value) || $this->isParent($sMinDel, $this->oxdelivery__oxchildid->value));
         }
 
-        $blFit &= $this->isDeliveryRuleFitByArticle($oArticle->oxarticles__oxpackagingpoints->value);
+        $blFit &= parent::isDeliveryRuleFitByArticle($oArticle->oxarticles__oxpackagingpoints->value);
 
         return $blFit;
     }
