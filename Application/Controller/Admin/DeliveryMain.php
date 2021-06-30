@@ -41,7 +41,7 @@ class DeliveryMain extends DeliveryMain_parent
 
         foreach ($aDelTypes as $aDelType){
             $logger->info(print_r($aDelType));
-            $this->addDeliverype($aDelType[0], $aDelType[1]);
+            $this->addDeliverype($aDelType['id'], $aDelType['name']);
         }
 
         return $aDelTypes;
