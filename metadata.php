@@ -18,7 +18,7 @@ $aModule = array(
     'thumbnail'     => 'out/pictures/logo.png',
     'version'       => '1.0.0',
     'author'        => 'Nature and Style',
-    'url'           => 'http://www.natureandstyle.com/',
+    'url'           => 'https://www.natureandstyle.com/',
     'email'         => 'info@natureandstyle.de',
     'extend'        => array(
         //Core
