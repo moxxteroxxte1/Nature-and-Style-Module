@@ -20,15 +20,14 @@ class BasketItem extends BasketItem_parent
 
     public function setPrice($oPrice)
     {
-        parent::setPrice($oPrice);
-
-        $logger = Registry::getLogger();
-        $logger->info("2 " . $this->getPrice()->getPrice());
-
         foreach ($this->aDiscounts as $discount){
-            $this->getPrice()->setDiscount($discount['value'],$discount['type']);
+            $oPrice->setDiscount($discount['value'],$discount['type']);
         }
-        $this->getPrice()->calculateDiscount();
-        $logger->info("3 " . $this->getPrice()->getPrice());
+        $oPrice->calculateDiscount();
+
+        $this->_oUnitPrice = clone $oPrice;
+
+        $this->_oPrice = clone $oPrice;
+        $this->_oPrice->multiply($this->getAmount());
     }
 }
