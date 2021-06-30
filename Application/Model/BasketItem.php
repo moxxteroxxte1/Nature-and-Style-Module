@@ -15,7 +15,7 @@ class BasketItem extends BasketItem_parent
 
     public function setPrice($oPrice)
     {
-        parent::setPrice();
+        parent::setPrice($oPrice);
 
         foreach ($this->aDiscounts as $discount){
             $this->getPrice()->setDiscount($discount['value'],$discount['type']);
