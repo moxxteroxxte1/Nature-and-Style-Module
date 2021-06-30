@@ -9,9 +9,9 @@ class BasketItem extends BasketItem_parent
 {
     protected array $aDiscounts = [];
 
-    public function addDiscount($dValue, $sType)
+    public function addDiscount($dValue, $sType, $sDiscount)
     {
-        array_push($this->aDiscounts, array('value' => $dValue, 'type' => $sType));
+        $this->aDiscounts[$sDiscount] = array('id' => array('value' => $dValue, 'type' => $sType));
     }
 
     public function setPrice($oPrice)

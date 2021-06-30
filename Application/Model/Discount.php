@@ -21,7 +21,7 @@ class Discount extends Discount_parent
                     $dAmount = $oBasketItem->getAmount();
                     $dPackUnit = $oBasketArticle->getPackagingUnit();
                     if ($dPackUnit > 1 && ($dAmount % $dPackUnit == 0)) {
-                        $oBasketItem->addDiscount($this->getAddSum(), $this->getAddSumType());
+                        $oBasketItem->addDiscount($this->getAddSum(), $this->getAddSumType(), $this->getId());
                     }
                 }
             }
