@@ -37,7 +37,10 @@ class DeliveryMain extends DeliveryMain_parent
             ),
         );
 
+        $logger = Registry::getLogger();
+
         foreach ($aDelTypes as $aDelType){
+            $logger->info(print_r($aDelType));
             $this->addDeliverype($aDelType[0], $aDelType[1]);
         }
 
@@ -48,6 +51,9 @@ class DeliveryMain extends DeliveryMain_parent
     {
         $oLang = Registry::getLang();
         $iLang = $oLang->getTplLanguage();
+
+        $logger = Registry::getLogger();
+        $logger->info($id . " " . $name);
 
         $oType = new stdClass();
         $oType->sType = $id;      // ParcelPoints
