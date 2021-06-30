@@ -41,7 +41,7 @@ class DeliveryMain extends DeliveryMain_parent
             $this->addDeliverype($aDelType['id'], $aDelType['name']);
         }
 
-        return $aDelTypes;
+        return $this->aDelTypes;
     }
 
     protected function addDeliverype($id, $name)
@@ -49,14 +49,10 @@ class DeliveryMain extends DeliveryMain_parent
         $oLang = Registry::getLang();
         $iLang = $oLang->getTplLanguage();
 
-        $logger = Registry::getLogger();
-
         $oType = new stdClass();
         $oType->sType = $id;
         $oType->sDesc = $oLang->translateString($name, $iLang);
-        $logger->info(print_r($oType));
         $this->aDelTypes[$id] = $oType;
-        $logger->info($this->aDelTypes[$id]);
     }
 
     public function getAllDeliverys()
