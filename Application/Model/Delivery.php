@@ -60,7 +60,7 @@ class Delivery extends Delivery_parent
     public function isForBasket($oBasket)
     {
         $blForBasket = false;
-        $iAllPoints = 1;
+        $iAllPoints = 0;
 
         if ($this->getCalculationRule() == self::CALCULATION_RULE_FIT_PER_CART) {
             $blForBasket = true;
