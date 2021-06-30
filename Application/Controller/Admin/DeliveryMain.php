@@ -38,7 +38,7 @@ class DeliveryMain extends DeliveryMain_parent
         );
 
         foreach ($aDelTypes as $aDelType){
-            $this->addDeliverype($aDelType["id"], $aDelType["name"]);
+            $this->addDeliverype($aDelType[0], $aDelType[1]);
         }
 
         return $aDelTypes;
