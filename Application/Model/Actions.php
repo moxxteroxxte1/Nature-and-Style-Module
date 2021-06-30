@@ -4,6 +4,8 @@
 namespace NatureAndStyle\CoreModule\Application\Model;
 
 
+use OxidEsales\Eshop\Core\DatabaseProvider;
+
 class Actions extends Actions_parent
 {
 
@@ -33,31 +35,27 @@ class Actions extends Actions_parent
 
     protected function fetchBannerObjectId()
     {
-        $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
+        $database = DatabaseProvider::getDb();
 
-        $objectid = $database->getOne(
+        return $database->getOne(
             'select oxobjectid from oxobject2action ' .
             'where oxactionid = :oxactionid',
             [
                 ':oxactionid' => $this->getId(),
             ]
         );
-
-        return $objectid;
     }
 
     protected function fetchBannerObjectClass(){
-        $database = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
+        $database = DatabaseProvider::getDb();
 
-        $objectclass = $database->getOne(
+        return $database->getOne(
             'select oxclass from oxobject2action ' .
             'where oxactionid = :oxactionid',
             [
                 ':oxactionid' => $this->getId(),
             ]
         );
-
-        return $objectclass;
     }
 
     public function getBannerObject()

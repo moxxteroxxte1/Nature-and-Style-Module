@@ -14,7 +14,7 @@ class DeliveryMain extends DeliveryMain_parent
 
     public function getDeliveryTypes()
     {
-        $aDelTypes = array(
+        $aDelTypesInfo = array(
             array(
                 "id" => "a",
                 "name" => "amount"
@@ -37,7 +37,7 @@ class DeliveryMain extends DeliveryMain_parent
             ),
         );
 
-        foreach ($aDelTypes as $aDelType){
+        foreach ($aDelTypesInfo as $aDelType){
             $this->addDeliverype($aDelType['id'], $aDelType['name']);
         }
 

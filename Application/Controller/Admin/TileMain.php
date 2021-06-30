@@ -2,6 +2,7 @@
 
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
+use NatureAndStyle\CoreModule\Application\Model\Tile;
 use OxidEsales\Eshop\Application\Controller\Admin\AdminDetailsController;
 use stdClass;
 use OxidEsales\Eshop\Application\Model\Actions;
@@ -18,7 +19,7 @@ class TileMain extends AdminDetailsController
         $soxId = $this->_aViewData["oxid"] = $this->getEditObjectId();
 
         if ($this->isNewEditObject() !== true) {
-            $oTile = oxNew(\NatureAndStyle\CoreModule\Application\Model\Tile::class);
+            $oTile = oxNew(Tile::class);
             $oTile->loadInLang($this->_iEditLang, $soxId);
 
             $oOtherLang = $oTile->getAvailableInLangs();
@@ -42,29 +43,24 @@ class TileMain extends AdminDetailsController
                 $this->_aViewData["otherlang"][$id] = clone $oLang;
             }
         }
-
-        if (($oPromotion = $this->getViewDataElement("edit"))) {
-            if ($oPromotion->oxactions__oxtype->value == 4) {
-                if ($iAoc = Registry::getConfig()->getRequestParameter("oxpromotionaoc")) {
-                    switch ($iAoc) {
-                        case 'category':
-                            {
-                                if ($oCategory = $oTile->getCategory()) {
-                                    $this->_aViewData['actionobject_id'] = $oCategory->oxcategories__oxid->value;
-                                    $this->_aViewData['actionobject_title'] = $oCategory->oxcategories__oxtitle->value;
-                                }
-
-                                $oActionsCategoryAjax = oxNew(ActionsCategoryAjax::class);
-                                $this->_aViewData['oxajax'] = $oActionsCategoryAjax->getColumns();
-
-                                return "actions_category.tpl";
-                            }
-                        case 'rmcolor':
-                            {
-                                $oTile->oxactions__oxcolor = new Field(null);
-                            }
-
+        $oPromotion = $this->getViewDataElement("edit");
+        if ($oPromotion && $oPromotion->oxactions__oxtype->value == 4 && ($iAoc = Registry::getConfig()->getRequestParameter("oxpromotionaoc"))) {
+            switch ($iAoc) {
+                case 'category':
+                {
+                    if ($oCategory = $oTile->getCategory()) {
+                        $this->_aViewData['actionobject_id'] = $oCategory->oxcategories__oxid->value;
+                        $this->_aViewData['actionobject_title'] = $oCategory->oxcategories__oxtitle->value;
                     }
+
+                    $oActionsCategoryAjax = oxNew(ActionsCategoryAjax::class);
+                    $this->_aViewData['oxajax'] = $oActionsCategoryAjax->getColumns();
+
+                    return "actions_category.tpl";
+                }
+                case 'rmcolor':
+                {
+                    $oTile->oxactions__oxcolor = new Field(null);
                 }
             }
         }
@@ -79,7 +75,7 @@ class TileMain extends AdminDetailsController
     {
         parent::save();
 
-        $tile = oxNew(\NatureAndStyle\CoreModule\Application\Model\Tile::class);
+        $tile = oxNew(Tile::class);
 
         if ($this->isNewEditObject() !== true) {
             $tile->load($this->getEditObjectId());

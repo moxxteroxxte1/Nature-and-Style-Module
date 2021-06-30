@@ -52,6 +52,8 @@ class TileList extends AdminListController
                 case 3: // expired
                     $sQ .= " and {$sTable}.oxactiveto < '{$sNow}' and {$sTable}.oxactiveto != '0000-00-00 00:00:00' ";
                     break;
+                default:
+                    break;
             }
         }
         $sQ .= " and {$sTable}.oxtype = 4";
