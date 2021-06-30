@@ -14,7 +14,7 @@
                 [{/strip}]
                 [{assign var="sSep" value=","}]
                 [{/foreach}] ],
-            '[{$oViewConf->getAjaxLink()}]cmpid=container1&container=tile_category&synchoxid=[{$oxid}]',
+            '[{$oViewConf->getAjaxLink()}]cmpid=container1&container=actions_category&synchoxid=[{$oxid}]',
             { selectionMode: "single" }
         );
 
@@ -43,7 +43,7 @@
                 oParam = YAHOO.oxid.container1.getRecord(aSelRows[0]);
                 sRequest = '&oxcategoryid=' + oParam._oData._1;
             }
-            YAHOO.util.Connect.asyncRequest( 'GET', '[{$oViewConf->getAjaxLink()}]&cmpid=container1&container=tile_category&fnc=setactioncategory&oxid=[{$oxid}]'+sRequest, callback );
+            YAHOO.util.Connect.asyncRequest( 'GET', '[{$oViewConf->getAjaxLink()}]&cmpid=container1&container=actions_category&fnc=setactioncategory&oxid=[{$oxid}]'+sRequest, callback );
         }
         YAHOO.oxid.container1.onRemove = function()
         {
@@ -61,7 +61,7 @@
                 failure: YAHOO.oxid.container1.onFailure,
                 scope:   YAHOO.oxid.container1
             };
-            YAHOO.util.Connect.asyncRequest( 'GET', '[{$oViewConf->getAjaxLink()}]&cmpid=container1&container=tile_category&fnc=removeactioncategory&oxid=[{$oxid}]', callback );
+            YAHOO.util.Connect.asyncRequest( 'GET', '[{$oViewConf->getAjaxLink()}]&cmpid=container1&container=actions_category&fnc=removeactioncategory&oxid=[{$oxid}]', callback );
         }
 
         $E.addListener( $('remBtn'), "click", YAHOO.oxid.container1.remArticle, $('remBtn') );

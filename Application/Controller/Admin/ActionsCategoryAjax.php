@@ -54,7 +54,6 @@ class ActionsCategoryAjax extends \OxidEsales\Eshop\Application\Controller\Admin
     public function removeActionCategory()
     {
         $sActionId = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter('oxid');
-        //$sActionId = $this->getConfig()->getConfigParam( 'oxid' );
 
         $oDb = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
 

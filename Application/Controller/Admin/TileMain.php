@@ -50,14 +50,14 @@ class TileMain extends AdminDetailsController
                         case 'category':
                             {
                                 if ($oCategory = $oTile->getCategory()) {
-                                    $this->_aViewData['tilecategory_id'] = $oCategory->oxcategories__oxid->value;
-                                    $this->_aViewData['tilecategory_title'] = $oCategory->oxcategories__oxtitle->value;
+                                    $this->_aViewData['actionobject_id'] = $oCategory->oxcategories__oxid->value;
+                                    $this->_aViewData['actionobject_title'] = $oCategory->oxcategories__oxtitle->value;
                                 }
 
-                                $oTileCategoryAjax = oxNew(TileCategoryAjax::class);
-                                $this->_aViewData['oxajax'] = $oTileCategoryAjax->getColumns();
+                                $oActionsCategoryAjax = oxNew(ActionsCategoryAjax::class);
+                                $this->_aViewData['oxajax'] = $oActionsCategoryAjax->getColumns();
 
-                                return "tile_category.tpl";
+                                return "actions_category.tpl";
                             }
                         case 'rmcolor':
                             {
