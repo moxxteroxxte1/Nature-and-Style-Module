@@ -73,7 +73,11 @@ class Delivery extends Delivery_parent
                     return false;
                 }
             }
+            $logger = Registry::getLogger();
+            $logger->info("Points " . $iAllPoints);
+            $logger->info("ConditionTo " . $this->getConditionTo());
             $this->iAmount = ceil(($iAllPoints / $this->getConditionTo()));
+            $logger->info("Amount " . ceil(($iAllPoints / $this->getConditionTo())));
         } else {
             $blForBasket = parent::isForBasket($oBasket);
         }
