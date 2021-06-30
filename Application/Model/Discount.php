@@ -6,40 +6,32 @@ class Discount extends Discount_parent
 {
     public function isForBasketAmount($oBasket)
     {
-        $dAmount = 0;
-        $aBasketItems = $oBasket->getContents();
-        foreach ($aBasketItems as $oBasketItem) {
-            $oBasketArticle = $oBasketItem->getArticle(false);
+        if ($this->oxdiscount__oxamountpackageunit->value) {
+            $dAmount = 0;
+            foreach ($oBasket->getContents() as $oBasketItem) {
+                $oBasketArticle = $oBasketItem->getArticle(false);
 
-            if ($this->oxdiscount__oxaddsumtype->value != 'itm') {
-                $blForBasketItem = $this->isForBasketItem($oBasketArticle);
-            } else {
-                $blForBasketItem = $this->isForBundleItem($oBasketArticle);
-            }
+                $blForBasketItem = ($this->oxdiscount__oxaddsumtype->value != 'itm' ?
+                    $this->isForBasketItem($oBasketArticle) :
+                    $this->isForBundleItem($oBasketArticle));
 
-            if ($blForBasketItem) {
-                $dRate = $oBasket->getBasketCurrency()->rate;
-                if ($this->oxdiscount__oxprice->value) {
-                    if (($oPrice = $oBasketArticle->getPrice())) {
-                        $dAmount += ($oPrice->getPrice() * $oBasketItem->getAmount()) / $dRate;
-                    }
-                } elseif ($this->oxdiscount__oxamount->value) {
+
+                if ($blForBasketItem) {
                     $dAmount += $oBasketItem->getAmount();
-                    if($this->oxdiscount__oxamountpackageunit->value){
-                        $dPackUnit = $oBasketArticle->getPackagingUnit();
-                        if($dPackUnit > 1 && ($dAmount%$dPackUnit==0)) {
-                            return true;
-                        }
-                        return false;
+                    $dPackUnit = $oBasketArticle->getPackagingUnit();
+                    if ($dPackUnit > 1 && ($dAmount % $dPackUnit == 0)) {
+                        $oBasketItem->getPrice()->setDiscount($this->oxdiscount__oxaddsum->value, $this->oxdiscount__oxaddsumtype->value);
                     }
                 }
             }
+            return false;
         }
-
-        return $this->isForAmount($dAmount) ;
+        return parent::isForBasketAmount($oBasket);
     }
 
-    public function getShortDesc(){
+    public
+    function getShortDesc()
+    {
         return $this->oxdiscount__oxshortdesc->value;
     }
 
