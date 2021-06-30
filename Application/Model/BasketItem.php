@@ -11,7 +11,7 @@ class BasketItem extends BasketItem_parent
 
     public function addDiscount($dValue, $sType, $sDiscount)
     {
-        $this->aDiscounts[$sDiscount] = array('id' => array('value' => $dValue, 'type' => $sType));
+        $this->aDiscounts[$sDiscount] = array('value' => $dValue, 'type' => $sType);
     }
 
     public function setPrice($oPrice)
