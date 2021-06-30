@@ -4,6 +4,7 @@
 namespace NatureAndStyle\CoreModule\Application\Model;
 
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Core\DatabaseProvider;
 
 class Delivery extends Delivery_parent
 {
