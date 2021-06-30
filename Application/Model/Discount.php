@@ -12,7 +12,7 @@ class Discount extends Discount_parent
             $dAmount = 0;
             $aBasketContents = $oBasket->getContents();
             foreach ($aBasketContents as $oBasketItem) {
-                $oBasketArticle = $oBasketItem->getArticle(false);
+                $oBasketArticle = $oBasketItem->getArticle(true);
 
                 $blForBasketItem = ($this->oxdiscount__oxaddsumtype->value != 'itm' ?
                     $this->isForBasketItem($oBasketArticle) :
