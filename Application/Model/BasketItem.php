@@ -8,19 +8,16 @@ use OxidEsales\Eshop\Core\Registry;
 class BasketItem extends BasketItem_parent
 {
     protected array $aDiscounts = [];
-    protected array $aAppliedDiscounts = [];
 
-    public function addDiscount($dValue, $sType, $sDiscount){
-        if(!in_array($sDiscount,$this->aAppliedDiscounts)){
-            array_push($this->aDiscounts, array('value' => $dValue, 'type' => $sType));
-            array_push($this->aAppliedDiscounts, $sDiscount);
-        }
+    public function addDiscount($dValue, $sType)
+    {
+        array_push($this->aDiscounts, array('value' => $dValue, 'type' => $sType));
     }
 
     public function setPrice($oPrice)
     {
-        foreach ($this->aDiscounts as $key => $discount){
-            $oPrice->setDiscount($discount['value'],$discount['type']);
+        foreach ($this->aDiscounts as $key => $discount) {
+            $oPrice->setDiscount($discount['value'], $discount['type']);
             unset($this->aDiscounts[$key]);
         }
         $oPrice->calculateDiscount();
@@ -29,5 +26,10 @@ class BasketItem extends BasketItem_parent
         $this->_oPrice = clone $oPrice;
 
         $this->_oPrice->multiply($this->getAmount());
+    }
+
+    public function getAppliedDiscounts()
+    {
+        return $this->aAppliedDiscounts;
     }
 }
