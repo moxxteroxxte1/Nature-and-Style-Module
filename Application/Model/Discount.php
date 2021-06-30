@@ -11,7 +11,7 @@ class Discount extends Discount_parent
         if ($this->oxdiscount__oxamountpackageunit->value) {
             $dAmount = 0;
             foreach ($oBasket->getContents() as $oBasketItem) {
-                $oBasketArticle = $oBasketItem->getArticle(true);
+                $oBasketArticle = $oBasketItem->getArticle(false);
 
                 $blForBasketItem = ($this->oxdiscount__oxaddsumtype->value != 'itm' ?
                     $this->isForBasketItem($oBasketArticle) :
@@ -21,7 +21,7 @@ class Discount extends Discount_parent
                     $dAmount += $oBasketItem->getAmount();
                     $dPackUnit = $oBasketArticle->getPackagingUnit();
                     if ($dPackUnit > 1 && ($dAmount % $dPackUnit == 0)) {
-                        $oBasketArticle->getPrice()->setDiscount($this->oxdiscount__oxaddsum->value, $this->oxdiscount__oxaddsumtype->value);
+                        $oBasketItem->addDiscount($this->getAddSum(), $this->getAddSumType());
                     }
                 }
             }
