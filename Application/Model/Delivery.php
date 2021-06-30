@@ -66,7 +66,7 @@ class Delivery extends Delivery_parent
                 $oArticle = $oContent->getArticle(false);
                 if ($this->checkArticleRestriction($oArticle)) {
                     $dAmount = $oContent->getAmount();
-                    $iAllPoints += ($dAmount *  $this->getDeliveryAmount($oContent));
+                    $iAllPoints += ($dAmount * $this->getDeliveryAmount($oContent));
                 } else {
                     return false;
                 }
@@ -101,9 +101,21 @@ class Delivery extends Delivery_parent
         }
 
         if (!is_null($sChildId)) {
-            $oDeliveryChild = oxNew(Delivery::class);
-            $oDeliveryChild = $oDeliveryChild->load($sChildId);
-            return $this->isParent($sID, $oDeliveryChild->oxdelivery__oxchildid->value);
+            $oDb = DatabaseProvider::getDb();
+            $sQ = "select oxchildid from oxdelivery where oxid = {$oDb->quote($sChildId)}";
+
+            $resultSet = $oDb->select($sQ);
+
+            if ($resultSet != false && $resultSet->count() > 0) {
+                while (!$resultSet->EOF) {
+                    $row = $resultSet->getFields();
+
+                    $sChildId = $row[0];
+
+                    $resultSet->fetchRow();
+                }
+            }
+            return $this->isParent($sID, $sChildId);
         }
 
         return false;
