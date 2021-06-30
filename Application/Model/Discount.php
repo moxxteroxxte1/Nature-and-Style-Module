@@ -2,6 +2,8 @@
 
 namespace NatureAndStyle\CoreModule\Application\Model;
 
+use OxidEsales\Eshop\Core\Registry;
+
 class Discount extends Discount_parent
 {
     public function isForBasketAmount($oBasket)
@@ -16,11 +18,14 @@ class Discount extends Discount_parent
                     $this->isForBundleItem($oBasketArticle));
 
 
+                $logger = Registry::getLogger();
+                $logger->info($oBasketItem->getPrice()->getPrice());
+
                 if ($blForBasketItem) {
                     $dAmount += $oBasketItem->getAmount();
                     $dPackUnit = $oBasketArticle->getPackagingUnit();
                     if ($dPackUnit > 1 && ($dAmount % $dPackUnit == 0)) {
-                        $oBasketItem->getPrice()->setDiscount($this->oxdiscount__oxaddsum->value, $this->oxdiscount__oxaddsumtype->value);
+                        //$oBasketItem->getPrice()->setDiscount($this->oxdiscount__oxaddsum->value, $this->oxdiscount__oxaddsumtype->value);
                     }
                 }
             }
