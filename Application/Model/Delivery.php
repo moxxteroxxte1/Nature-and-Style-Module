@@ -97,6 +97,8 @@ class Delivery extends Delivery_parent
 
     protected function isParent($sID, $sChildId): bool
     {
+        $logger = Registry::getLogger();
+
         if ($sID == $sChildId) {
             return true;
         }
@@ -104,19 +106,20 @@ class Delivery extends Delivery_parent
         if (!is_null($sChildId)) {
             $oDb = DatabaseProvider::getDb();
             $sQ = "select oxchildid from oxdelivery where oxid = {$oDb->quote($sChildId)}";
-
+            $logger->info($sQ);
             $resultSet = $oDb->select($sQ);
 
             if ($resultSet != false && $resultSet->count() > 0) {
                 while (!$resultSet->EOF) {
                     $row = $resultSet->getFields();
 
-                    $sChildId = $row[0];
+                    $sChildId = (string)$row[0];
+                    $logger->info($sChildId);
 
                     $resultSet->fetchRow();
                 }
+                return $this->isParent($sID, $sChildId);
             }
-            return $this->isParent($sID, $sChildId);
         }
 
         return false;
