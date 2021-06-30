@@ -27,9 +27,4 @@ class BasketItem extends BasketItem_parent
 
         $this->_oPrice->multiply($this->getAmount());
     }
-
-    public function getAppliedDiscounts()
-    {
-        return $this->aAppliedDiscounts;
-    }
 }
