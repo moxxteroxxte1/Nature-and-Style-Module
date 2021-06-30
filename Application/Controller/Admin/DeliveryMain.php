@@ -10,7 +10,7 @@ use stdClass;
 class DeliveryMain extends DeliveryMain_parent
 {
 
-    public $aDelTypes = [];
+    protected $aDelTypes = [];
 
     public function getDeliveryTypes()
     {
@@ -38,7 +38,7 @@ class DeliveryMain extends DeliveryMain_parent
         );
 
         foreach ($aDelTypes as $aDelType){
-            $this->addDeliverype($aDelType["id"], $aDelType["name"]);
+            $this->addDeliverype($aDelType['id'], $aDelType['name']);
         }
 
         return $aDelTypes;
