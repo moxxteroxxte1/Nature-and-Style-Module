@@ -28,6 +28,7 @@ class BasketItem extends BasketItem_parent
         foreach ($this->aDiscounts as $discount){
             $this->getPrice()->setDiscount($discount['value'],$discount['type']);
         }
+        $this->getPrice()->calculateDiscount();
         $logger->info("3 " . $this->getPrice()->getPrice());
     }
 }
