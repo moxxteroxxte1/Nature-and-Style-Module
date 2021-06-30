@@ -7,15 +7,13 @@ use OxidEsales\Eshop\Core\Registry;
 
 class BasketItem extends BasketItem_parent
 {
+    protected array $aDiscounts = [];
+    protected array $aAppliedDiscounts = [];
 
-    protected $dBasePrice = 0;
-    protected $aDiscounts = [];
-
-    public function addDiscount($dValue, $sType){
-        array_push($this->aDiscounts, array('value' => $dValue, 'type' => $sType));
-        $logger = Registry::getLogger();
-        foreach ($this->aDiscounts as $discount){
-            $logger->info(implode(" ", $discount));
+    public function addDiscount($dValue, $sType, $sDiscount){
+        if(!in_array($sDiscount,$this->aAppliedDiscounts)){
+            array_push($this->aDiscounts, array('value' => $dValue, 'type' => $sType));
+            array_push($this->aAppliedDiscounts, $sDiscount);
         }
     }
 
