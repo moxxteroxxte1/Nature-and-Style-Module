@@ -10,7 +10,7 @@ class ActionList extends ActionList_parent
         $oViewName = $oBaseObject->getViewName();
         $sQ = "select * from {$oViewName} where oxtype=4 and " . $oBaseObject->getSqlActiveSnippet()
             . " and oxshopid='" . \OxidEsales\Eshop\Core\Registry::getConfig()->getShopId() . "' " . $this->_getUserGroupFilter()
-            . " order by oxsort";
+            . " order by oxsort limit 4";
 
         $this->clear();
         $oDb = \OxidEsales\Eshop\Core\DatabaseProvider::getDb(\OxidEsales\Eshop\Core\DatabaseProvider::FETCH_MODE_ASSOC);
