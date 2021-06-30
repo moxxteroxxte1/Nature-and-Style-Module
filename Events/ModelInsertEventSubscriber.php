@@ -2,7 +2,9 @@
 
 namespace NatureAndStyle\CoreModule\Events;
 
+use OxidEsales\Eshop\Core\Exeption\DatabaseException;
 use OxidEsales\Eshop\Core\Field;
+use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\EshopCommunity\Internal\Framework\Event\AbstractShopAwareEventSubscriber;
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\AfterModelInsertEvent;
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\AfterModelUpdateEvent;
@@ -21,17 +23,23 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
     {
         $model = $event->getModel();
 
+        $logger = Registry::getLogger();
+        $logger->info($model->oxarticles__oxnew->value != 1);
+        $logger->info($model->oxarticles__oxnew->value !== 1);
+        $logger->info($model->oxarticles__oxnew->value != '1');
+        $logger->info(!$model->oxarticles__oxnew->value);
+
         if (is_a($model, "OxidEsales\Eshop\Application\Model\Article")) {
             $this->articleToCategory($model->oxarticles__oxid->value, $this->category_new);
             if($model->isUnique() && $model->oxarticles__oxstockflag->value != 2){
                 $model->oxarticles__oxstockflag = new Field(2);
                 $model->save();
-            }elseif ($model->oxarticles__oxnew->value !== 1 && $model->inCategory($this->category_new)){
+            }elseif ($model->oxarticles__oxnew->value != 1 && $model->inCategory($this->category_new)){
                 try{
                     $query = "DELETE FROM `oxobject2category` WHERE OXOBJECTID = ? AND OXCATNID = 'new_articles'";
-                    \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->execute($query, [$model->getId()]);
-                }catch (\OxidEsales\Eshop\Core\Exeption\DatabaseException $exception){
-                    \OxidEsales\Eshop\Core\Registry::getUtilsView()->addErrorToDisplay($exception, false, true);
+                    DatabaseProvider::getDb()->execute($query, [$model->getId()]);
+                }catch (DatabaseException $exception){
+                    Registry::getUtilsView()->addErrorToDisplay($exception, false, true);
                 }
             }
         } else if (is_a($model, "OxidEsales\Eshop\Application\Model\Object2Category") && strpos($model->getCategoryId(), $this->category_unique) !== false) {

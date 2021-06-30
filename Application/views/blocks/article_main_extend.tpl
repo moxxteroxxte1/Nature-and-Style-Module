@@ -6,7 +6,8 @@
         <input type="text" class="editinput" size="32" maxlength="[{$edit->oxarticles__oxpackagingunit->fldmax_length}]" id="oLockTarget" name="editval[oxarticles__oxpackagingunit]"
                value="[{$edit->oxarticles__oxpackagingunit->value}]">
     </td>
-
+</tr>
+<tr>
     <td class="edittext" width="120">
         [{oxmultilang ident="NASCORE_ARTICLE_MAIN_AMOUNT_IN_PU"}]
     </td>
