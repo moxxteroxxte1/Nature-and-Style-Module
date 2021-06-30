@@ -10,8 +10,8 @@ class BasketItem extends BasketItem_parent
 
     protected $aDiscounts = [];
 
-    public function addDiscount($dValue, $sType, $sDicountId){
-        array_push($this->aDiscounts, array('value' => $dValue, 'type' => $sType, 'discount' => $sDicountId));
+    public function addDiscount($dValue, $sType){
+        array_push($this->aDiscounts, array('value' => $dValue, 'type' => $sType));
         $logger = Registry::getLogger();
         foreach ($this->aDiscounts as $discount){
             $logger->info(implode(" ", $discount));
