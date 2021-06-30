@@ -217,7 +217,7 @@
                                     </td>
                                     <td class="text" colspan="2">
                                         <b>
-                                        <span id="assignedCategoryTitle">
+                                        <span id="assignedArticleTitle">
                                         [{if $_oCategory}]
                                             [{$_oCategory->oxcategories__oxtitle->value}]
                                         [{else}]

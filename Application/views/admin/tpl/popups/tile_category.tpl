@@ -74,7 +74,7 @@
     {
         try {
             if (window.opener && window.opener.document && window.opener.document.myedit) {
-                window.opener.document.getElementById("assignedCategoryTitle").innerHTML = sCategoryTitle;
+                window.opener.document.getElementById("assignedArticleTitle").innerHTML = sCategoryTitle;
             }
         } catch ( oErr ) {}
     }
