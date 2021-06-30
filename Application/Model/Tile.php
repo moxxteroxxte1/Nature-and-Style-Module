@@ -119,7 +119,7 @@ class Tile extends MultiLanguageModel
     {
         $database = DatabaseProvider::getDb();
 
-        $sCatId = $database->getOne(
+        return $database->getOne(
             'select oxobjectid from oxobject2action ' .
             'where oxactionid = :oxactionid and oxclass = :oxclass',
             [
@@ -127,8 +127,6 @@ class Tile extends MultiLanguageModel
                 ':oxclass' => 'oxcategory'
             ]
         );
-
-        return $sCatId;
     }
 
     public function getPictureUrl()

@@ -45,23 +45,21 @@ class TileMain extends AdminDetailsController
         }
         $oPromotion = $this->getViewDataElement("edit");
         if ($oPromotion && $oPromotion->oxactions__oxtype->value == 4 && ($iAoc = Registry::getConfig()->getRequestParameter("oxpromotionaoc"))) {
-            switch ($iAoc) {
-                case 'category':
-                {
-                    if ($oCategory = $oTile->getCategory()) {
-                        $this->_aViewData['actionobject_id'] = $oCategory->oxcategories__oxid->value;
-                        $this->_aViewData['actionobject_title'] = $oCategory->oxcategories__oxtitle->value;
-                    }
-
-                    $oActionsCategoryAjax = oxNew(ActionsCategoryAjax::class);
-                    $this->_aViewData['oxajax'] = $oActionsCategoryAjax->getColumns();
-
-                    return "actions_category.tpl";
+            if ($iAoc == 'category') {
+                if ($oCategory = $oTile->getCategory()) {
+                    $this->_aViewData['actionobject_id'] = $oCategory->oxcategories__oxid->value;
+                    $this->_aViewData['actionobject_title'] = $oCategory->oxcategories__oxtitle->value;
                 }
-                case 'rmcolor':
-                {
-                    $oTile->oxactions__oxcolor = new Field(null);
-                }
+
+                $oActionsCategoryAjax = oxNew(ActionsCategoryAjax::class);
+                $this->_aViewData['oxajax'] = $oActionsCategoryAjax->getColumns();
+
+                return "actions_category.tpl";
+
+            } elseif ($iAoc == 'rmcolor') {
+
+                $oTile->oxactions__oxcolor = new Field(null);
+
             }
         }
 
