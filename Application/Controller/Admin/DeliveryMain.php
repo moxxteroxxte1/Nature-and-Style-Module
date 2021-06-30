@@ -10,34 +10,49 @@ use stdClass;
 class DeliveryMain extends DeliveryMain_parent
 {
 
+    protected array $aDelTypes = [];
+
     public function getDeliveryTypes()
+    {
+        $aDelTypes = array(
+            array(
+                "id" => "a",
+                "name" => "amount"
+            ),
+            array(
+                "id" => "s",
+                "name" => "size"
+            ),
+            array(
+                "id" => "w",
+                "name" => "weight"
+            ),
+            array(
+                "id" => "p",
+                "name" => "price"
+            ),
+            array(
+                "id" => "pp",
+                "name" => "points"
+            ),
+        );
+
+        foreach ($aDelTypes as $aDelType){
+            $this->addDeliverype($aDelType['id'], $aDelType['name']);
+        }
+
+        return $aDelTypes;
+    }
+
+    protected function addDeliverype($id, $name)
     {
         $oLang = Registry::getLang();
         $iLang = $oLang->getTplLanguage();
 
-        $aDelTypes = [];
         $oType = new stdClass();
-        $oType->sType = "a";      // amount
-        $oType->sDesc = $oLang->translateString("amount", $iLang);
-        $aDelTypes['a'] = $oType;
-        $oType = new stdClass();
-        $oType->sType = "s";      // Size
-        $oType->sDesc = $oLang->translateString("size", $iLang);
-        $aDelTypes['s'] = $oType;
-        $oType = new stdClass();
-        $oType->sType = "w";      // Weight
-        $oType->sDesc = $oLang->translateString("weight", $iLang);
-        $aDelTypes['w'] = $oType;
-        $oType = new stdClass();
-        $oType->sType = "p";      // Price
-        $oType->sDesc = $oLang->translateString("price", $iLang);
-        $aDelTypes['p'] = $oType;
-        $oType = new stdClass();
-        $oType->sType = "pp";      // ParcelPoints
-        $oType->sDesc = $oLang->translateString("points", $iLang);
-        $aDelTypes['pp'] = $oType;
-
-        return $aDelTypes;
+        $oType->sType = $id;      // ParcelPoints
+        $oType->sDesc = $oLang->translateString($name, $iLang);
+        self::$aDelTypes[$id] = $oType;
     }
 
     public function getAllDeliverys()
@@ -47,7 +62,7 @@ class DeliveryMain extends DeliveryMain_parent
         $oDb = DatabaseProvider::getDb();
         $sQ = "select oxid, oxtitle from oxdelivery where oxid != {$oDb->quote($this->getEditObjectId())}";
 
-        $resultSet  = $oDb->select($sQ);
+        $resultSet = $oDb->select($sQ);
 
         if ($resultSet && $resultSet->count() > 0) {
             while (!$resultSet->EOF) {
