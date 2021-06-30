@@ -10,7 +10,7 @@ use stdClass;
 class DeliveryMain extends DeliveryMain_parent
 {
 
-    protected array $aDelTypes = [];
+    protected $aDelTypes = [];
 
     public function getDeliveryTypes()
     {
@@ -52,7 +52,7 @@ class DeliveryMain extends DeliveryMain_parent
         $oType = new stdClass();
         $oType->sType = $id;      // ParcelPoints
         $oType->sDesc = $oLang->translateString($name, $iLang);
-        self::$aDelTypes[$id] = $oType;
+        $this->$aDelTypes[$id] = $oType;
     }
 
     public function getAllDeliverys()
