@@ -47,10 +47,6 @@ class Basket extends Basket_parent
 
             if (count($aDeliveryList) > 0) {
                 foreach ($aDeliveryList as $oDelivery) {
-                    //debug trace
-                    if ($myConfig->getConfigParam('iDebug') == 5) {
-                        echo("DelCost : " . $oDelivery->oxdelivery__oxtitle->value . "<br>");
-                    }
                     $oDeliveryPrice->addPrice($oDelivery->getDeliveryPrice($fDelVATPercent));
                     $this->delMulti += $oDelivery->getMultiplier();
                 }

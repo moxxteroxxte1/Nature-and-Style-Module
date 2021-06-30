@@ -25,6 +25,7 @@ class Delivery extends Delivery_parent
     {
         $dAmount = 0;
         $oProduct = $oBasketItem->getArticle(false);
+        $blExclNonMaterial = Registry::getConfig()->getConfigParam('blExclNonMaterialFromDelivery');
 
         if ($oProduct->isOrderArticle()) {
             $oProduct = $oProduct->getArticle();
@@ -106,7 +107,7 @@ class Delivery extends Delivery_parent
             $sQ = "select oxchildid from oxdelivery where oxid = {$oDb->quote($sChildId)}";
             $resultSet = $oDb->select($sQ);
 
-            if ($resultSet != false && $resultSet->count() > 0) {
+            if ($resultSet && $resultSet->count() > 0) {
                 while (!$resultSet->EOF) {
                     $row = $resultSet->getFields();
 

@@ -17,7 +17,7 @@ class ArticleStock extends ArticleStock_parent
 
         $resultSet = $oDb->select($sQ);
 
-        if ($resultSet != false && $resultSet->count() > 0) {
+        if ($resultSet && $resultSet->count() > 0) {
             while (!$resultSet->EOF) {
                 $row = $resultSet->getFields();
 

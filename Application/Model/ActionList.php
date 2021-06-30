@@ -20,7 +20,7 @@ class ActionList extends ActionList_parent
             $rs = $oDb->select($sQ, []);
         }
 
-        if ($rs != false && $rs->count() > 0) {
+        if ($rs && $rs->count() > 0) {
             $oSaved = clone oxNew(\NatureAndStyle\CoreModule\Application\Model\Tile::class);
 
             while (!$rs->EOF) {

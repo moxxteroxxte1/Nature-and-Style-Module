@@ -46,7 +46,6 @@ class TileMain extends AdminDetailsController
         if (($oPromotion = $this->getViewDataElement("edit"))) {
             if ($oPromotion->oxactions__oxtype->value == 4) {
                 if ($iAoc = Registry::getConfig()->getRequestParameter("oxpromotionaoc")) {
-                    $sPopup = false;
                     switch ($iAoc) {
                         case 'category':
                             {

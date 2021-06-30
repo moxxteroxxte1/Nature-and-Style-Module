@@ -104,7 +104,7 @@ class Article extends Article_parent
         foreach($allResults as $row) {
             $oDiscount = oxNew('oxdiscount');
             $oDiscount->load($row[0]);
-            if($oDiscount->oxdiscount__oxamountpackageunit->value && !($this->oxarticles__oxpackagingunit->value > 1)){
+            if($oDiscount->oxdiscount__oxamountpackageunit->value && $this->oxarticles__oxpackagingunit->value <= 1){
                 continue;
             }
             $aDiscounts[] = $oDiscount;

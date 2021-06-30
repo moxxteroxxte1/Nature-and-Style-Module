@@ -23,12 +23,6 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
     {
         $model = $event->getModel();
 
-        $logger = Registry::getLogger();
-        $logger->info($model->oxarticles__oxnew->value != 1);
-        $logger->info($model->oxarticles__oxnew->value !== 1);
-        $logger->info($model->oxarticles__oxnew->value != '1');
-        $logger->info(!$model->oxarticles__oxnew->value);
-
         if (is_a($model, "OxidEsales\Eshop\Application\Model\Article")) {
             $this->articleToCategory($model->oxarticles__oxid->value, $this->category_new);
             if($model->isUnique() && $model->oxarticles__oxstockflag->value != 2){
