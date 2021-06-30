@@ -11,10 +11,11 @@ class Discount extends Discount_parent
         foreach ($aBasketItems as $oBasketItem) {
             $oBasketArticle = $oBasketItem->getArticle(false);
 
-            $this->oxdiscount__oxaddsumtype->value != 'itm' ?
-                $blForBasketItem = $this->isForBasketItem($oBasketArticle) :
+            if ($this->oxdiscount__oxaddsumtype->value != 'itm') {
+                $blForBasketItem = $this->isForBasketItem($oBasketArticle);
+            } else {
                 $blForBasketItem = $this->isForBundleItem($oBasketArticle);
-
+            }
 
             if ($blForBasketItem) {
                 $dRate = $oBasket->getBasketCurrency()->rate;
@@ -22,19 +23,23 @@ class Discount extends Discount_parent
                     if (($oPrice = $oBasketArticle->getPrice())) {
                         $dAmount += ($oPrice->getPrice() * $oBasketItem->getAmount()) / $dRate;
                     }
-                } elseif ($this->oxdiscount__oxamount->value && $this->oxdiscount__oxamountpackageunit->value) {
+                } elseif ($this->oxdiscount__oxamount->value) {
                     $dAmount += $oBasketItem->getAmount();
-                    $dPackUnit = $oBasketArticle->getPackagingUnit();
-                    return ($dPackUnit > 1 && ($dAmount % $dPackUnit == 0));
+                    if($this->oxdiscount__oxamountpackageunit->value){
+                        $dPackUnit = $oBasketArticle->getPackagingUnit();
+                        if($dPackUnit > 1 && ($dAmount%$dPackUnit==0)) {
+                            return true;
+                        }
+                        return false;
+                    }
                 }
             }
         }
 
-        return $this->isForAmount($dAmount);
+        return $this->isForAmount($dAmount) ;
     }
 
-    public function getShortDesc()
-    {
+    public function getShortDesc(){
         return $this->oxdiscount__oxshortdesc->value;
     }
 
