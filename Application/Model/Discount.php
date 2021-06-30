@@ -19,7 +19,11 @@ class Discount extends Discount_parent
 
 
                 $logger = Registry::getLogger();
-                $logger->info($oBasketItem->getPrice()->getPrice());
+                $oPrice = $oBasketItem->getPrice();
+                if(!is_null($oPrice)){
+                    $logger->info($oPrice->getPrice());
+                }
+
 
                 if ($blForBasketItem) {
                     $dAmount += $oBasketItem->getAmount();
