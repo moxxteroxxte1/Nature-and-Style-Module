@@ -10,7 +10,7 @@ use stdClass;
 class DeliveryMain extends DeliveryMain_parent
 {
 
-    protected $aDelTypes = [];
+    public $aDelTypes = [];
 
     public function getDeliveryTypes()
     {
@@ -38,7 +38,7 @@ class DeliveryMain extends DeliveryMain_parent
         );
 
         foreach ($aDelTypes as $aDelType){
-            $this->addDeliverype($aDelType[0], $aDelType[1]);
+            $this->addDeliverype($aDelType["id"], $aDelType["name"]);
         }
 
         return $aDelTypes;
@@ -52,7 +52,7 @@ class DeliveryMain extends DeliveryMain_parent
         $oType = new stdClass();
         $oType->sType = $id;      // ParcelPoints
         $oType->sDesc = $oLang->translateString($name, $iLang);
-        $this->$aDelTypes[$id] = $oType;
+        $this->aDelTypes[$id] = $oType;
     }
 
     public function getAllDeliverys()
