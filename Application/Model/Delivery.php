@@ -86,7 +86,7 @@ class Delivery extends Delivery_parent
         $sMinDel = $oArticle->getMinDelivery();
         $blFit = true;
 
-        if (isset($sMinDel)) {
+        if (isset($sMinDel) && $sMinDel != '----') {
             $blFit = (($sMinDel == $this->oxdelivery__oxid->value) || $this->isParent($sMinDel, $this->oxdelivery__oxchildid->value));
         }
 
