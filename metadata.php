@@ -21,6 +21,9 @@ $aModule = array(
     'url'           => 'http://www.natureandstyle.com/',
     'email'         => 'info@natureandstyle.de',
     'extend'        => array(
+        //Core
+        \OxidEsales\Eshop\Core\Price::class                                         => \NatureAndStyle\CoreModule\Core\Price::class,
+
         //Admin Controller
         \OxidEsales\Eshop\Application\Controller\Admin\ActionsMain::class           => \NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsMain::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ActionsList::class           => \NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsList::class,
