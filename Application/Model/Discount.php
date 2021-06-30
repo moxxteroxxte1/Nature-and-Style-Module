@@ -17,19 +17,11 @@ class Discount extends Discount_parent
                     $this->isForBasketItem($oBasketArticle) :
                     $this->isForBundleItem($oBasketArticle));
 
-
-                $logger = Registry::getLogger();
-                $oPrice = $oBasketItem->getPrice();
-                if(!is_null($oPrice)){
-                    $logger->info($oPrice->getPrice());
-                }
-
-
                 if ($blForBasketItem) {
                     $dAmount += $oBasketItem->getAmount();
                     $dPackUnit = $oBasketArticle->getPackagingUnit();
-                    if ($dPackUnit > 1 && ($dAmount % $dPackUnit == 0)) {
-                        //$oBasketItem->getPrice()->setDiscount($this->oxdiscount__oxaddsum->value, $this->oxdiscount__oxaddsumtype->value);
+                    if ($dPackUnit > 1 && ($dAmount % $dPackUnit == 0) && !is_null($oBasketItem->getPrice())) {
+                        $oBasketItem->getPrice()->setDiscount($this->oxdiscount__oxaddsum->value, $this->oxdiscount__oxaddsumtype->value);
                     }
                 }
             }
