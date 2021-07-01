@@ -1,51 +1,83 @@
-<script type="text/javascript">
-    var row;
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    function start(){
+<script type="text/javascript">
+
+    var row = null;
+
+    function dragstart() {
         row = event.target;
     }
 
-    function dragover(){
-        var e = event;
-        e.preventDefault();
+    function dragover() {
+        if (row != null) {
+            var e = event;
+            e.preventDefault();
 
-        let children= Array.from(e.target.parentNode.parentNode.children);
+            var target = e.target.parentNode;
+            if ($(target).is("tr")) {
+                insertRow(row);
 
-        if(children.indexOf(e.target.parentNode)>children.indexOf(row)) {
-            e.target.parentNode.after(row);
-            drop();
-        } else {
-            e.target.parentNode.before(row);
-            drop();
+                var tables = document.getElementsByClassName('listTable');
+                var table = tables[0];
+                updateTable(table);
+            }
         }
-
     }
 
-    function drop(){
-        //Getting table with pictures
-        var table = document.getElementsByClassName('listTable');
-        var table = table[0];
+    function insertRow(row) {
+        let children = Array.from(event.target.parentNode.parentNode.children);
 
-        //Getting all rows except first
+        children.indexOf(event.target.parentNode) > children.indexOf(row) ?
+            event.target.parentNode.after(row) :
+            event.target.parentNode.before(row);
+    }
+
+    function updateTable(table) {
         var rows = Array.from(table.rows);
         rows.shift();
 
-        if(rows.includes(event.target)) {
-            //iterate thru rows
-            rows.forEach(row => {
-                var index = (rows.indexOf(row) + 1);
-                row.id = index;
+        rows.forEach(row => {
+            var index = (rows.indexOf(row) + 1);
+            row.id = index;
 
-                var childNodes = row.childNodes;
-                childNodes[1].innerHTML = "#" + index;
-                childNodes[5].childNodes[1].name = "myfile[M1@oxarticles__oxpic" + index + "]";
-                if (childNodes[7].childNodes.length > 3) {
-                    childNodes[7].childNodes[1].href = "javascript:DeletePic('" + index + "');";
-                }
-            })
-        }
-        row = null;
+            var childNodes = row.childNodes;
+            childNodes[1].innerHTML = "#" + index;
+            childNodes[5].childNodes[1].name = "myfile[M1@oxarticles__oxpic" + index + "]";
+            if (childNodes[7].childNodes.length > 3) {
+                childNodes[7].childNodes[1].href = "javascript:DeletePic('" + index + "');";
+            }
+        })
     }
+
+    function drop() {
+        var hasChanged = false;
+        var order = [];
+
+        var tables = document.getElementsByClassName('listTable');
+        var table = tables[0];
+        var rows = Array.from(table.rows);
+
+        rows.shift();
+        rows.forEach(row => {
+            if($(row).find('#hasPic').val()) {
+                var currentId = row.id;
+                var oldId = $(row).find('#old_id').val();
+                order.push([oldId, currentId]);
+                if (currentId != oldId) {
+                    hasChanged = true;
+                }
+            }
+        })
+
+        if(hasChanged){
+            var oForm = document.getElementById("myedit");
+            oForm.fnc.value = 'updatePictureOrder';
+            oForm.pictureOrder.value = newOrder;
+
+            oForm.submit();
+        }
+    }
+
 </script>
 
 <colgroup>
@@ -57,7 +89,8 @@
 </colgroup>
 <tr>
     <th colspan="5" valign="top">
-        [{oxmultilang ident="GENERAL_ARTICLE_PICTURES"}] ([{oxmultilang ident="GENERAL_MAX_FILE_UPLOAD"}] [{$sMaxFormattedFileSize}], [{oxmultilang ident="GENERAL_MAX_PICTURE_DIMENSIONS"}])
+        [{oxmultilang ident="GENERAL_ARTICLE_PICTURES"}] ([{oxmultilang ident="GENERAL_MAX_FILE_UPLOAD"}]
+        [{$sMaxFormattedFileSize}], [{oxmultilang ident="GENERAL_MAX_PICTURE_DIMENSIONS"}])
         [{oxinputhelp ident="HELP_ARTICLE_PICTURES_PIC1"}]
     </th>
 </tr>
@@ -66,7 +99,9 @@
     <tr>
         <td class="index" colspan="5">
             <b>[{oxmultilang ident="GENERAL_VARIANTE"}]</b>
-            <a href="Javascript:editThis('[{$parentarticle->oxarticles__oxid->value}]');" class="edittext"><b>"[{$parentarticle->oxarticles__oxartnum->value}] [{$parentarticle->oxarticles__oxtitle->value}]"</b></a>
+            <a href="Javascript:editThis('[{$parentarticle->oxarticles__oxid->value}]');"
+               class="edittext"><b>"[{$parentarticle->oxarticles__oxartnum->value}]
+                    [{$parentarticle->oxarticles__oxtitle->value}]"</b></a>
         </td>
     </tr>
     [{/if}]
@@ -74,7 +109,7 @@
 [{section name=picRow start=1 loop=$iPicCount+1 step=1}]
     [{assign var="iIndex" value=$smarty.section.picRow.index}]
 
-    <tr id="[{$iIndex}]" draggable="true" ondragstart="start()" ondragover="dragover()" ondrop="drop()">
+    <tr id="[{$iIndex}]" draggable="true" ondragstart="dragstart()" ondragover="dragover()" ondrop="drop()">
         <td class="index">
             #[{$iIndex}]
         </td>
@@ -95,16 +130,20 @@
         </td>
         <td nowrap="nowrap">
             [{if $blPicUplodaded && !$readonly}]
-            <a href="Javascript:DeletePic('[{$iIndex}]');" class="deleteText"><span class="ico"></span><span class="float: left;>">[{oxmultilang ident="GENERAL_DELETE"}]</span></a>
+            <a href="Javascript:DeletePic('[{$iIndex}]');" class="deleteText"><span class="ico"></span><span
+                        class="float: left;>">[{oxmultilang ident="GENERAL_DELETE"}]</span></a>
             [{/if}]
         </td>
         <td>
 
             [{if $blPicUplodaded && !$readonly}]
             [{assign var="sPicUrl" value=$edit->getPictureUrl($iIndex)}]
-            <a href="[{$sPicUrl}]" class="zoomText" target="_blank"><span class="ico"></span><span class="float: left;>">[{oxmultilang ident="ARTICLE_PICTURES_PREVIEW"}]</span></a>
+            <a href="[{$sPicUrl}]" class="zoomText" target="_blank"><span class="ico"></span><span
+                        class="float: left;>">[{oxmultilang ident="ARTICLE_PICTURES_PREVIEW"}]</span></a>
             [{/if}]
         </td>
+        <input id="old_id" type="hidden" value="[{$iIndex}]">
+        <input id="hasPic" type="hidden" value="[{$blPicUplodaded}]">
     </tr>
 
     [{/section}]
