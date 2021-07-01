@@ -7,7 +7,7 @@ use OxidEsales\Eshop\Application\Model\Article;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\Field;
 
-class ArtilcePictures extends ArticlePictures_parent
+class ArticlePictures extends ArticlePictures_parent
 {
 
     public function updatePictureOrder()
