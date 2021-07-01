@@ -15,7 +15,7 @@ class ArticlePictures extends ArticlePictures_parent
         $myConfig = Registry::getConfig();
 
         $sOxId = $this->getEditObjectId();
-        $orders = Registry::getRequest()->getRequestEscapedParameter("pictureOrder");
+        $orders = Registry::getRequest()->getRequestEscapedParameter("masterPicIndex");
 
         $oArticle = oxNew(Article::class);
         $oArticle->load($sOxId);

@@ -70,12 +70,15 @@
         })
 
         if(hasChanged){
-            var oForm = document.getElementById("myedit");
-            oForm.fnc.value = 'updatePictureOrder';
-            oForm.pictureOrder.value = newOrder;
-
-            oForm.submit();
+            updatePicture(order);
         }
+    }
+
+    function updatePicture(order){
+        var oForm = document.getElementById("myedit");
+        oForm.fnc.value = 'updatePictureOrder';
+        oForm.masterPicIndex.value = order;
+        oForm.submit();
     }
 
 </script>
