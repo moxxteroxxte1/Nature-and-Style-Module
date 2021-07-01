@@ -12,15 +12,15 @@ class ArticlePictures extends ArticlePictures_parent
 
     public function updatePictureOrder()
     {
+        $logger = Registry::getLogger();
         $sOxId = $this->getEditObjectId();
         $orders = Registry::getRequest()->getRequestEscapedParameter("masterPicIndex");
+        $logger->info(implode($orders));
 
         $oArticle = oxNew(Article::class);
         $oArticle->load($sOxId);
 
         $pictures = array();
-
-        $logger = Registry::getLogger();
 
         foreach ($orders as $order) {
             $logger->info(implode($order));
