@@ -12,6 +12,7 @@ class ArticlePictures extends ArticlePictures_parent
 
     public function updatePictureOrder()
     {
+        $logger = Registry::getLogger();
         $sOxId = $this->getEditObjectId();
 
         $oArticle = oxNew(Article::class);
@@ -19,14 +20,20 @@ class ArticlePictures extends ArticlePictures_parent
 
         $pictures = array();
         $orders = Registry::getRequest()->getRequestEscapedParameter("masterPicIndex");
+        $logger->info($orders);
         $orders = explode($orders);
+        $logger->info(implode($orders));
         $size = count($orders);
+        $logger->info($size);
+
 
         for ($i = 0; $i < $size; $i += 2){
+            $logger->info($orders[($i+1)] . " " . $orders[$i]);
             array_push($pictures, array('id' => $orders[($i+1)], 'value' => $this->getPicture($oArticle, $orders[$i])));
         }
 
         foreach ($pictures as $picture){
+            $logger->info(implode($picture));
             $this->setPicture($oArticle, $picture['id'], $picture['value']);
         }
 
