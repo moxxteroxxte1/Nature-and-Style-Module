@@ -5,18 +5,26 @@ namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
 
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\EshopCommunity\Application\Model\User;
 
 class UserMain extends UserMain_parent
 {
 
-    public function login(){
+    public function login()
+    {
         $config = Registry::getConfig();
-        $oxid = Registry::getRequest()->getRequestEscapedParameter("oxid");
+        $shopId = $config->getShopId();
 
-        $oUser = oxNew('oxuser');
+        $oxid = Registry::getRequest()->getRequestEscapedParameter("oxid");
+        $oUser = oxNew(User::class);
         $oUser->load($oxid);
-        $oUser->loadAuthenticatedUser($oUser->oxuser__oxusername->value, $config->getShopId());
-        Registry::getSession()->setVariable('usr', $oxid);
+        $this->loadAuthenticatedUser($oUser->oxuser__oxusername->value, $shopId);
+
+        if (!$this->isLoaded()) {
+            throw oxNew(UserException::class, 'ERROR_MESSAGE_USER_NOVALIDLOGIN');
+        }
+
+        Registry::getSession()->setVariable('usr', $oUser->oxuser__oxid->value);
 
         $sUrl = Registry::getConfig()->getShopHomeUrl();
         Registry::getUtils()->redirect($sUrl, true, 302);
