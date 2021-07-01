@@ -20,12 +20,8 @@ class ArticlePictures extends ArticlePictures_parent
 
         $pictures = array();
         $orders = Registry::getRequest()->getRequestEscapedParameter("masterPicIndex");
-        $logger->info($orders);
         $orders = explode(",",$orders);
-        $logger->info(implode($orders));
         $size = count($orders);
-        $logger->info($size);
-
 
         for ($i = 0; $i < $size; $i += 2){
             $logger->info($orders[($i+1)] . " " . $orders[$i]);
@@ -78,28 +74,40 @@ class ArticlePictures extends ArticlePictures_parent
         switch ($id) {
             case 1:
                 $oArticle->oxarticles__oxpic1 = new Field($value);
+                break;
             case 2:
                 $oArticle->oxarticles__oxpic2 = new Field($value);
+                break;
             case 3:
                 $oArticle->oxarticles__oxpic3 = new Field($value);
+                break;
             case 4:
                 $oArticle->oxarticles__oxpic4 = new Field($value);
+                break;
             case 5:
                 $oArticle->oxarticles__oxpic5 = new Field($value);
+                break;
             case 6:
                 $oArticle->oxarticles__oxpic6 = new Field($value);
+                break;
             case 7:
                 $oArticle->oxarticles__oxpic7 = new Field($value);
+                break;
             case 8:
                 $oArticle->oxarticles__oxpic8 = new Field($value);
+                break;
             case 9:
                 $oArticle->oxarticles__oxpic9 = new Field($value);
+                break;
             case 10:
                 $oArticle->oxarticles__oxpic10 = new Field($value);
+                break;
             case 11:
                 $oArticle->oxarticles__oxpic11 = new Field($value);
+                break;
             case 12:
                 $oArticle->oxarticles__oxpic12 = new Field($value);
+                break;
             default:
                 return false;
         }

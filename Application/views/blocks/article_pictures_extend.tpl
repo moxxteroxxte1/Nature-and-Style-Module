@@ -62,8 +62,8 @@
             if($(row).find('#hasPic').val()) {
                 var currentId = row.id;
                 var oldId = $(row).find('#old_id').val();
-                order.push([oldId, currentId]);
                 if (currentId != oldId) {
+                    order.push([oldId, currentId]);
                     hasChanged = true;
                 }
             }
