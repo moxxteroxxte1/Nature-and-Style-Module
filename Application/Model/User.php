@@ -9,4 +9,8 @@ class User extends User_parent{
         return $this->inGroup("oxiddealer") || ((bool) \OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('blShowNetPrice'));
     }
 
+    public function loadUser($userName, $shopId){
+        $this->loadAuthenticatedUser($userName, $shopId);
+    }
+
 }

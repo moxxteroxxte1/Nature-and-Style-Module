@@ -18,7 +18,7 @@ class UserMain extends UserMain_parent
         $oxid = Registry::getRequest()->getRequestEscapedParameter("oxid");
         $oUser = oxNew(User::class);
         $oUser->load($oxid);
-        $this->loadAuthenticatedUser($oUser->oxuser__oxusername->value, $shopId);
+        $this->loadUser($oUser->oxuser__oxusername->value, $shopId);
 
         if (!$this->isLoaded()) {
             throw oxNew(UserException::class, 'ERROR_MESSAGE_USER_NOVALIDLOGIN');
