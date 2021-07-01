@@ -30,7 +30,6 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Controller\Admin\DeliveryMain::class          => \NatureAndStyle\CoreModule\Application\Controller\Admin\DeliveryMain::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ArticleStock::class          => \NatureAndStyle\CoreModule\Application\Controller\Admin\ArticleStock::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ArticlePictures::class       => \NatureAndStyle\CoreModule\Application\Controller\Admin\ArticlePictures::class,
-        \OxidEsales\Eshop\Application\Controller\Admin\UserMain::class              => \NatureAndStyle\CoreModule\Application\Controller\Admin\UserMain::class,
 
         //Controller
         \OxidEsales\Eshop\Application\Controller\StartController::class             => \NatureAndStyle\CoreModule\Application\Controller\StartController::class,
@@ -107,13 +106,6 @@ $aModule = array(
             'template'  => 'discount_main.tpl',
             'block'     => 'admin_discount_main_form',
             'file'      => '/Application/views/blocks/discount_main_extend.tpl',
-        ),
-
-        //User
-        array(
-            'template'  => 'user_main.tpl',
-            'block'     => 'admin_user_main_assign_groups',
-            'file'      => '/Application/views/blocks/user_main_extend.tpl',
         ),
     ),
 );
