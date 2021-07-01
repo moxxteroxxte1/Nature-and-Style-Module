@@ -2,6 +2,8 @@
 
 namespace NatureAndStyle\CoreModule\Application\Component;
 
+use OxidEsales\Eshop\Core\Registry;
+
 class UserComponent extends UserComponent_parent
 {
     public function createUser()
@@ -13,8 +15,8 @@ class UserComponent extends UserComponent_parent
             $oUser->save();
             $oUser->logout();
 
-            $sUrl = \OxidEsales\Eshop\Core\Registry::getConfig()->getShopHomeUrl() . 'cl=content&tpl=user_inactive.tpl';
-            \OxidEsales\Eshop\Core\Registry::getUtils()->redirect($sUrl, true, 302);
+            $sUrl = Registry::getConfig()->getShopHomeUrl() . 'cl=content&tpl=user_inactive.tpl';
+            Registry::getUtils()->redirect($sUrl, true, 302);
         }
     }
 }

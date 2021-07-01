@@ -30,6 +30,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Controller\Admin\DeliveryMain::class          => \NatureAndStyle\CoreModule\Application\Controller\Admin\DeliveryMain::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ArticleStock::class          => \NatureAndStyle\CoreModule\Application\Controller\Admin\ArticleStock::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ArticlePictures::class       => \NatureAndStyle\CoreModule\Application\Controller\Admin\ArticlePictures::class,
+        \OxidEsales\Eshop\Application\Controller\Admin\UserMain::class              => \NatureAndStyle\CoreModule\Application\Controller\Admin\UserMain::class,
 
         //Controller
         \OxidEsales\Eshop\Application\Controller\StartController::class             => \NatureAndStyle\CoreModule\Application\Controller\StartController::class,
@@ -58,7 +59,6 @@ $aModule = array(
     ),
     'controllers'   => array(
         'actions_category_ajax' => \NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsCategoryAjax::class,
-        'tile_category_ajax'    => \NatureAndStyle\CoreModule\Application\Controller\Admin\TileCategoryAjax::class,
         'tile'                  => \NatureAndStyle\CoreModule\Application\Controller\Admin\TileController::class,
         'tile_list'             => \NatureAndStyle\CoreModule\Application\Controller\Admin\TileList::class,
         'tile_main'             => \NatureAndStyle\CoreModule\Application\Controller\Admin\TileMain::class,
