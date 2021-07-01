@@ -12,8 +12,6 @@ class ArticlePictures extends ArticlePictures_parent
 
     public function updatePictureOrder()
     {
-        $myConfig = Registry::getConfig();
-
         $sOxId = $this->getEditObjectId();
         $orders = Registry::getRequest()->getRequestEscapedParameter("masterPicIndex");
 
@@ -22,11 +20,15 @@ class ArticlePictures extends ArticlePictures_parent
 
         $pictures = array();
 
+        $logger = Registry::getLogger();
+
         foreach ($orders as $order) {
+            $logger->info(implode($order));
             array_push($pictures, array('id' => $order[1], 'value' => $this->getPicture($oArticle, $order[0])));
         }
 
         foreach ($pictures as $picture){
+            $logger->info(implode($picture));
             $this->setPicture($oArticle, $picture['id'], $picture['value']);
         }
 
