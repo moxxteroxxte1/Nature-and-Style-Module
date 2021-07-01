@@ -5,7 +5,6 @@ namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
 
 use OxidEsales\Eshop\Core\Registry;
-use OxidEsales\EshopCommunity\Application\Model\User;
 
 class UserMain extends UserMain_parent
 {
@@ -16,7 +15,7 @@ class UserMain extends UserMain_parent
         $shopId = $config->getShopId();
 
         $oxid = Registry::getRequest()->getRequestEscapedParameter("oxid");
-        $oUser = oxNew(User::class);
+        $oUser = oxNew('oxuser');
         $oUser->load($oxid);
         $this->loadUser($oUser->oxuser__oxusername->value, $shopId);
 
