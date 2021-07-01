@@ -21,7 +21,7 @@ class ArticlePictures extends ArticlePictures_parent
         $pictures = array();
         $orders = Registry::getRequest()->getRequestEscapedParameter("masterPicIndex");
         $logger->info($orders);
-        $orders = explode($orders);
+        $orders = explode(",",$orders);
         $logger->info(implode($orders));
         $size = count($orders);
         $logger->info($size);
