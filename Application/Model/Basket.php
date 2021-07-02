@@ -4,6 +4,10 @@
 namespace NatureAndStyle\CoreModule\Application\Model;
 
 
+use OxidEsales\Eshop\Application\Model\DeliveryList;
+use OxidEsales\Eshop\Core\Price;
+use OxidEsales\Eshop\Core\Registry;
+
 class Basket extends Basket_parent
 {
     protected $delMulti = 1;
@@ -17,10 +21,10 @@ class Basket extends Basket_parent
         if ($this->_oDeliveryPrice !== null) {
             return $this->_oDeliveryPrice;
         }
-        $myConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
-        $oDeliveryPrice = oxNew(\OxidEsales\Eshop\Core\Price::class);
+        $myConfig = Registry::getConfig();
+        $oDeliveryPrice = oxNew(Price::class);
 
-        if (\OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('blDeliveryVatOnTop')) {
+        if (Registry::getConfig()->getConfigParam('blDeliveryVatOnTop')) {
             $oDeliveryPrice->setNettoPriceMode();
         } else {
             $oDeliveryPrice->setBruttoPriceMode();
@@ -38,7 +42,7 @@ class Basket extends Basket_parent
 
         // list of active delivery costs
         if ($myConfig->getConfigParam('bl_perfLoadDelivery')) {
-            $aDeliveryList = \OxidEsales\Eshop\Core\Registry::get(\OxidEsales\Eshop\Application\Model\DeliveryList::class)->getDeliveryList(
+            $aDeliveryList = Registry::get(DeliveryList::class)->getDeliveryList(
                 $this,
                 $oUser,
                 $this->_findDelivCountry(),
