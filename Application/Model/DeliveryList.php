@@ -14,8 +14,10 @@ class DeliveryList extends DeliveryList_parent
         // ids of deliveries that does not fit for us to skip double check
         $aSkipDeliveries = [];
         $aFittingDelSets = [];
-        //TODO $aUnsortedDeliveries = [];
         $aDelSetList = Registry::get(\OxidEsales\Eshop\Application\Model\DeliverySetList::class)->getDeliverySetList($oUser, $sDelCountry, $sDelSet);
+
+        $aUnsortedDeliveries = [];
+        $fDelVATPercent = $oBasket->getAdditionalServicesVatPercent();
 
         // must choose right delivery set to use its delivery list
         foreach ($aDelSetList as $sDeliverySetId => $oDeliverySet) {
@@ -30,13 +32,10 @@ class DeliveryList extends DeliveryList_parent
                 }
 
                 $aSkipDeliveries[] = $sDeliveryId;
-                //TODO $fDelVATPercent = $oBasket->getAdditionalServicesVatPercent();
 
                 if ($oDelivery->isForBasket($oBasket)) {
                     // delivery fits conditions
-                    //TODO array_push($aUnsortedDeliveries, array('price' => $oDelivery->getDeliveryPrice($fDelVATPercent)->getPrice(), 'id' => $sDeliveryId));
-                    $logger = Registry::getLogger();
-                    $logger->info($sDeliveryId);
+                    array_push($aUnsortedDeliveries, array('price' => $oDelivery->getDeliveryPrice($fDelVATPercent)->getPrice(), 'delivery' => $oDelivery));
                     $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
                     $blDelFound = true;
 
@@ -59,7 +58,7 @@ class DeliveryList extends DeliveryList_parent
                     // return collected fitting deliveries
                     Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
 
-                    return $this->_aDeliveries;
+                    return array_column(array_sort($aUnsortedDeliveries, 'price', SORT_ASC), 'delivery');
                 }
             }
         }
