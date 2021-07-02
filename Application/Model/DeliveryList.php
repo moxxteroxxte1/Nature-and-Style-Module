@@ -11,15 +11,12 @@ class DeliveryList extends DeliveryList_parent
 
     public function getDeliveryList($oBasket, $oUser = null, $sDelCountry = null, $sDelSet = null)
     {
-        //TODO REMOVE
-        $logger = Registry::getLogger();
-
         // ids of deliveries that does not fit for us to skip double check
         $aSkipDeliveries = [];
         $aFittingDelSets = [];
         $aDelSetList = Registry::get(\OxidEsales\Eshop\Application\Model\DeliverySetList::class)->getDeliverySetList($oUser, $sDelCountry, $sDelSet);
 
-        $aUnsortedDeliveries = [];
+        $aDelSetPriceList = [];
         $fDelVATPercent = $oBasket->getAdditionalServicesVatPercent();
 
         // must choose right delivery set to use its delivery list
@@ -38,7 +35,8 @@ class DeliveryList extends DeliveryList_parent
 
                 if ($oDelivery->isForBasket($oBasket)) {
                     // delivery fits conditions
-                    array_push($aUnsortedDeliveries, array('price' => $oDelivery->getDeliveryPrice($fDelVATPercent)->getPrice(), 'delivery' => $oDelivery));
+                    $aDelSetPriceList[$oDelivery->getDeliveryPrice($fDelVATPercent)] = $sDeliverySetId;
+
                     $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
                     $blDelFound = true;
 
@@ -59,14 +57,9 @@ class DeliveryList extends DeliveryList_parent
                     $aFittingDelSets[$sDeliverySetId] = $oDeliverySet;
                 } else {
                     // return collected fitting deliveries
-                    Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
+                    Registry::getSession()->setVariable('sShipSet', reset($aDelSetPriceList));
 
-                    $results = array_column(array_sort($aUnsortedDeliveries, 'price', SORT_ASC), 'delivery');
-                    foreach ($results as $result){
-                        $logger->info($result->oxdeliver__title->value);
-                    }
-
-                    return ;
+                    return $this->_aDeliveries;
                 }
             }
         }
