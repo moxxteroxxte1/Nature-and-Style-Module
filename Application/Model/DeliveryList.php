@@ -11,6 +11,9 @@ class DeliveryList extends DeliveryList_parent
 
     public function getDeliveryList($oBasket, $oUser = null, $sDelCountry = null, $sDelSet = null)
     {
+        //TODO REMOVE
+        $logger = Registry::getLogger();
+
         // ids of deliveries that does not fit for us to skip double check
         $aSkipDeliveries = [];
         $aFittingDelSets = [];
@@ -58,7 +61,12 @@ class DeliveryList extends DeliveryList_parent
                     // return collected fitting deliveries
                     Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
 
-                    return array_column(array_sort($aUnsortedDeliveries, 'price', SORT_ASC), 'delivery');
+                    $results = array_column(array_sort($aUnsortedDeliveries, 'price', SORT_ASC), 'delivery');
+                    foreach ($results as $result){
+                        $logger->info($result->oxdeliver__title->value);
+                    }
+
+                    return ;
                 }
             }
         }
