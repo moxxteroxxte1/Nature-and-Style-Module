@@ -17,6 +17,7 @@ class DeliveryList extends DeliveryList_parent
         $aDelSetList = Registry::get(\OxidEsales\Eshop\Application\Model\DeliverySetList::class)->getDeliverySetList($oUser, $sDelCountry, $sDelSet);
 
         $aDelSetPriceList = [];
+        $aDelPriceList = [];
         $fDelVATPercent = $oBasket->getAdditionalServicesVatPercent();
 
         // must choose right delivery set to use its delivery list
@@ -35,8 +36,9 @@ class DeliveryList extends DeliveryList_parent
 
                 if ($oDelivery->isForBasket($oBasket)) {
                     // delivery fits conditions
-                    $aDelSetPriceList[$oDelivery->getDeliveryPrice($fDelVATPercent)] = $sDeliverySetId;
 
+                    $aDelSetPriceList[$oDelivery->getDeliveryPrice($fDelVATPercent)] = $sDeliverySetId;
+                    $aDelPriceList[$oDelivery->getDeliveryPrice()] = $oDelivery;
                     $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
                     $blDelFound = true;
 
@@ -59,7 +61,9 @@ class DeliveryList extends DeliveryList_parent
                     // return collected fitting deliveries
                     Registry::getSession()->setVariable('sShipSet', reset($aDelSetPriceList));
 
-                    return $this->_aDeliveries;
+                    sort($aDelPriceList);
+
+                    return $aDelPriceList;
                 }
             }
         }

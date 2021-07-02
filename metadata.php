@@ -30,7 +30,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Controller\Admin\DeliveryMain::class          => \NatureAndStyle\CoreModule\Application\Controller\Admin\DeliveryMain::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ArticleStock::class          => \NatureAndStyle\CoreModule\Application\Controller\Admin\ArticleStock::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ArticlePictures::class       => \NatureAndStyle\CoreModule\Application\Controller\Admin\ArticlePictures::class,
-
+        \OxidEsales\Eshop\Application\Controller\Admin\DeliveryList::class          => \NatureAndStyle\CoreModule\Application\Controller\Admin\DeliveryList::class,
         //Controller
         \OxidEsales\Eshop\Application\Controller\StartController::class             => \NatureAndStyle\CoreModule\Application\Controller\StartController::class,
         \OxidEsales\Eshop\Application\Controller\BasketController::class            => \NatureAndStyle\CoreModule\Application\Controller\BasketController::class,
