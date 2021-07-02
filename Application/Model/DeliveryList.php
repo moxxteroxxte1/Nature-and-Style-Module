@@ -37,8 +37,11 @@ class DeliveryList extends DeliveryList_parent
                 if ($oDelivery->isForBasket($oBasket)) {
                     // delivery fits conditions
 
-                    $aDelSetPriceList[$oDelivery->getDeliveryPrice($fDelVATPercent)] = $sDeliverySetId;
-                    $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
+                    $dDelPrice = $oDelivery->getDeliveryPrice($fDelVATPercent);
+
+                    $aDelSetPriceList[$dDelPrice] = $sDeliverySetId;
+                    $aDelPriceList[$dDelPrice] = $oDelivery;
+
                     $blDelFound = true;
 
                     // removing from unfitting list
@@ -58,9 +61,14 @@ class DeliveryList extends DeliveryList_parent
                     $aFittingDelSets[$sDeliverySetId] = $oDeliverySet;
                 } else {
                     // return collected fitting deliveries
-                    Registry::getSession()->setVariable('sShipSet', reset($aDelSetPriceList));
-
                     sort($aDelPriceList);
+                    sort($aDelSetPriceList);
+
+                    Registry::getSession()->setVariable('sShipSet', array_shift($aDelSetPriceList));
+
+                    foreach ($aDelPriceList as $oDelivery){
+                        $this->_aDeliveries[$oDelivery->getId()] = $aDeliveries[$oDelivery->getId()];
+                    }
 
                     return $this->_aDeliveries;
                 }
