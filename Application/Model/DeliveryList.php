@@ -4,7 +4,7 @@
 namespace NatureAndStyle\CoreModule\Application\Model;
 
 
-class DeliveryList
+class DeliveryList extends DeliveryList_parent
 {
 
     public function getDeliveryList($oBasket, $oUser = null, $sDelCountry = null, $sDelSet = null)
