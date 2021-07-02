@@ -38,7 +38,6 @@ class DeliveryList extends DeliveryList_parent
                     // delivery fits conditions
 
                     $aDelSetPriceList[$oDelivery->getDeliveryPrice($fDelVATPercent)] = $sDeliverySetId;
-                    $aDelPriceList[$oDelivery->getDeliveryPrice()] = $oDelivery;
                     $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
                     $blDelFound = true;
 
@@ -63,7 +62,7 @@ class DeliveryList extends DeliveryList_parent
 
                     sort($aDelPriceList);
 
-                    return $aDelPriceList;
+                    return $this->_aDeliveries;
                 }
             }
         }
