@@ -30,7 +30,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Controller\Admin\DeliveryMain::class          => \NatureAndStyle\CoreModule\Application\Controller\Admin\DeliveryMain::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ArticleStock::class          => \NatureAndStyle\CoreModule\Application\Controller\Admin\ArticleStock::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ArticlePictures::class       => \NatureAndStyle\CoreModule\Application\Controller\Admin\ArticlePictures::class,
-        \OxidEsales\Eshop\Application\Controller\Admin\DeliveryList::class          => \NatureAndStyle\CoreModule\Application\Controller\Admin\DeliveryList::class,
+
         //Controller
         \OxidEsales\Eshop\Application\Controller\StartController::class             => \NatureAndStyle\CoreModule\Application\Controller\StartController::class,
         \OxidEsales\Eshop\Application\Controller\BasketController::class            => \NatureAndStyle\CoreModule\Application\Controller\BasketController::class,
@@ -48,6 +48,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Model\Delivery::class                         => \NatureAndStyle\CoreModule\Application\Model\Delivery::class,
         \OxidEsales\Eshop\Application\Model\Basket::class                           => \NatureAndStyle\CoreModule\Application\Model\Basket::class,
         \OxidEsales\Eshop\Application\Model\BasketItem::class                       => \NatureAndStyle\CoreModule\Application\Model\BasketItem::class,
+        \OxidEsales\Eshop\Application\Model\DeliveryList::class                     => \NatureAndStyle\CoreModule\Application\Model\DeliveryList::class,
     ),
     'templates'     => array(
         'actions_category.tpl'  => 'nature-and-style/core-module/Application/views/admin/tpl/popups/actions_category.tpl',
