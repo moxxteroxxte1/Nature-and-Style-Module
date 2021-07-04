@@ -74,11 +74,13 @@ class DeliveryList extends DeliveryList_parent
         }
 
         if($this->blFindCheapest){
-            ksort($aUnsortedDeliveries);
+            ksort($aUnsortedDeliveries, SORT_NUMERIC);
             $sDeliverySetId = array_shift($aUnsortedDeliveries);
+
             Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
             return $this->_aDeliveries;
         }
+
         //return deliveries sets if found
         if ($this->_blCollectFittingDeliveriesSets && count($aFittingDelSets)) {
             //resetting getting delivery sets list instead of deliveries before return
