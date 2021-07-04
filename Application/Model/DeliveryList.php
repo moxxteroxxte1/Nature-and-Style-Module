@@ -46,7 +46,9 @@ class DeliveryList extends DeliveryList_parent
                     $dDeliveryPrice = $oDelivery->getDeliveryPrice($fDelVATPercent)->getPrice();
                     $aUnsortedDeliveries[$dDeliveryPrice] = $sDeliverySetId;
 
-                    $logger->info(implode(' | ', $aUnsortedDeliveries));
+                    foreach ($aUnsortedDeliveries as $key => $val) {
+                        $logger->info($key . " = " . $val);
+                    }
 
                     $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
                     $blDelFound = true;
@@ -76,7 +78,9 @@ class DeliveryList extends DeliveryList_parent
         if($this->blFindCheapest){
             ksort($aUnsortedDeliveries, SORT_NUMERIC);
 
-            $logger->info(implode(' | ', $aUnsortedDeliveries));
+            foreach ($aUnsortedDeliveries as $key => $val) {
+                $logger->info($key . " = " . $val);
+            }
 
             $sDeliverySetId = array_shift($aUnsortedDeliveries);
 
