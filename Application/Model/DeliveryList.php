@@ -4,6 +4,7 @@
 namespace NatureAndStyle\CoreModule\Application\Model;
 
 
+use MongoDB\BSON\Regex;
 use OxidEsales\Eshop\Application\Model\DeliverySetList;
 use OxidEsales\Eshop\Core\Registry;
 
@@ -52,8 +53,21 @@ class DeliveryList extends DeliveryList_parent
                 }
             }
 
+            //TODO DEBUG
+            $logger = Registry::getLogger();
+            foreach ($aUnsortedDeliveries as $delivery){
+                $logger->info(implode($delivery));
+            }
+            //TODO DEBUG END
+
             $aUnsortedDeliveries = $this->array_sort($aUnsortedDeliveries, 'price', SORT_ASC);
             $sDeliverySetId = array_shift($aUnsortedDeliveries);
+
+            //TODO DEBUG
+            foreach ($aUnsortedDeliveries as $delivery){
+                $logger->info(implode($delivery));
+            }
+            //TODO DEBUG END
 
             // found delivery set and deliveries that fits
             if ($blDelFound) {
