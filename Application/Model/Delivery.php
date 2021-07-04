@@ -10,6 +10,7 @@ class Delivery extends Delivery_parent
 {
     protected $_oPrice = null;
     var int $iAmount = 1;
+    protected $blIncludesSurcharge = false;
 
     /**
      * Calculation rule
@@ -125,5 +126,21 @@ class Delivery extends Delivery_parent
     public function getMultiplier()
     {
         return $this->_getMultiplier();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBlIncludesSurcharge(): bool
+    {
+        return $this->blIncludesSurcharge;
+    }
+
+    /**
+     * @param bool $blIncludesSurcharge
+     */
+    public function setBlIncludesSurcharge(bool $blIncludesSurcharge = true): void
+    {
+        $this->blIncludesSurcharge = $blIncludesSurcharge;
     }
 }

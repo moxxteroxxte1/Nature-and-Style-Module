@@ -28,5 +28,5 @@ $aLang = array(
     'DELIVERY_MAIN_FIT_BY_CART'                     => 'Apply multiple times',
     'ARTICLE_STOCK_DELIVERY'                        => 'minimum shipping method',
     'DELIVERY_MAIN_SURCHARGE'                       => 'Apply island surcharge',
-    'USER_MAIN_SURCHARGE'                           => 'Individual island surcharge',
+
 );
