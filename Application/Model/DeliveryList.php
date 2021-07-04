@@ -87,7 +87,7 @@ class DeliveryList extends DeliveryList_parent
             $logger->info($sDeliverySetId);
 
             Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
-            return $sDeliverySetId;
+            return $this->_aDeliveries;
         }
 
         //return deliveries sets if found
