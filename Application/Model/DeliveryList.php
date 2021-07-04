@@ -82,6 +82,9 @@ class DeliveryList extends DeliveryList_parent
                     // collect only deliveries sets that fits deliveries
                     $aFittingDelSets[$sDeliverySetId] = $oDeliverySet;
                 } else {
+                    //TODO DEBUG
+                    $logger->info("1");
+                    //TODO DEBUG END
                     // return collected fitting deliveries
                     Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
 
