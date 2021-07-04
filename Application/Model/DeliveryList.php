@@ -13,7 +13,7 @@ class DeliveryList extends DeliveryList_parent
     public function hasDeliveries($oBasket, $oUser, $sDelCountry, $sDeliverySetId)
     {
         $blHas = false;
-        $this->getDeliveryList($oBasket, $oUser, $sDelCountry, $sDeliverySetId, false);
+        //$this->getDeliveryList($oBasket, $oUser, $sDelCountry, $sDeliverySetId, false);
 
         // loading delivery list to check if some of them fits
         $this->_getList($oUser, $sDelCountry, $sDeliverySetId);
