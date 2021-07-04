@@ -4,6 +4,7 @@
 namespace NatureAndStyle\CoreModule\Application\Model;
 
 
+use OxidEsales\Eshop\Application\Model\DeliverySetList;
 use OxidEsales\Eshop\Core\Registry;
 
 class DeliveryList extends DeliveryList_parent
@@ -14,10 +15,9 @@ class DeliveryList extends DeliveryList_parent
         // ids of deliveries that does not fit for us to skip double check
         $aSkipDeliveries = [];
         $aFittingDelSets = [];
-        $aDelSetList = Registry::get(\OxidEsales\Eshop\Application\Model\DeliverySetList::class)->getDeliverySetList($oUser, $sDelCountry, $sDelSet);
+        $aDelSetList = Registry::get(DeliverySetList::class)->getDeliverySetList($oUser, $sDelCountry, $sDelSet);
 
-        $aDelSetPriceList = [];
-        $aDelPriceList = [];
+        $aUnsortedDeliveries = [];
         $fDelVATPercent = $oBasket->getAdditionalServicesVatPercent();
 
         // must choose right delivery set to use its delivery list
@@ -37,11 +37,9 @@ class DeliveryList extends DeliveryList_parent
                 if ($oDelivery->isForBasket($oBasket)) {
                     // delivery fits conditions
 
-                    $dDelPrice = $oDelivery->getDeliveryPrice($fDelVATPercent);
+                    $aUnsortedDeliveries[$oDelivery->getDeliveryPrice($fDelVATPercent)->getPrice()] = $sDeliverySetId;
 
-                    $aDelSetPriceList[$dDelPrice] = $sDeliverySetId;
-                    $aDelPriceList[$dDelPrice] = $oDelivery;
-
+                    $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
                     $blDelFound = true;
 
                     // removing from unfitting list
@@ -54,6 +52,9 @@ class DeliveryList extends DeliveryList_parent
                 }
             }
 
+            $aUnsortedDeliveries = $this->array_sort($aUnsortedDeliveries, 'price', SORT_ASC);
+            $sDeliverySetId = array_shift($aUnsortedDeliveries);
+
             // found delivery set and deliveries that fits
             if ($blDelFound) {
                 if ($this->_blCollectFittingDeliveriesSets) {
@@ -61,14 +62,7 @@ class DeliveryList extends DeliveryList_parent
                     $aFittingDelSets[$sDeliverySetId] = $oDeliverySet;
                 } else {
                     // return collected fitting deliveries
-                    sort($aDelPriceList);
-                    sort($aDelSetPriceList);
-
-                    Registry::getSession()->setVariable('sShipSet', array_shift($aDelSetPriceList));
-
-                    foreach ($aDelPriceList as $oDelivery){
-                        $this->_aDeliveries[$oDelivery->getId()] = $aDeliveries[$oDelivery->getId()];
-                    }
+                    Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
 
                     return $this->_aDeliveries;
                 }
@@ -91,5 +85,39 @@ class DeliveryList extends DeliveryList_parent
         return [];
     }
 
+    private function array_sort($array, $on, $order=SORT_ASC)
+    {
+        $new_array = array();
+        $sortable_array = array();
+
+        if (count($array) > 0) {
+            foreach ($array as $k => $v) {
+                if (is_array($v)) {
+                    foreach ($v as $k2 => $v2) {
+                        if ($k2 == $on) {
+                            $sortable_array[$k] = $v2;
+                        }
+                    }
+                } else {
+                    $sortable_array[$k] = $v;
+                }
+            }
+
+            switch ($order) {
+                case SORT_ASC:
+                    asort($sortable_array);
+                    break;
+                case SORT_DESC:
+                    arsort($sortable_array);
+                    break;
+            }
+
+            foreach ($sortable_array as $k => $v) {
+                $new_array[$k] = $array[$k];
+            }
+        }
+
+        return $new_array;
+    }
 
 }
