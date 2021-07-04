@@ -44,14 +44,6 @@
         [{oxinputhelp ident="HELP_DELIVERY_MAIN_CONDITION"}]
     </td>
 </tr>
-<!--tr>
-                <td class="edittext" height="30">
-                [{oxmultilang ident="DELIVERY_MAIN_CONDITION"}]
-                </td>
-                <td class="edittext">
-                [{oxmultilang ident="DELIVERY_MAIN_PARAM"}] > <input type="text" class="editinput" size="15" maxlength="[{$edit->oxdelivery__oxparam->fldmax_length}]" name="editval[oxdelivery__oxparam]" value="[{$edit->oxdelivery__oxparam->value}]" [{$readonly}]>
-                </td>
-            </tr-->
 <tr>
     <td class="edittext" height="30">
         [{oxmultilang ident="DELIVERY_MAIN_PRICE"}] ([{$oActCur->sign}])

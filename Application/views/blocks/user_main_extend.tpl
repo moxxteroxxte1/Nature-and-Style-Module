@@ -3,7 +3,7 @@
         <td></td>
         <td class="errorbox">[{oxmultilang ident=$sSaveError}]</td>
     </tr>
-    [{/if}]
+[{/if}]
 <tr>
     <td class="edittext" width="90">
         [{oxmultilang ident="GENERAL_ACTIVE"}]
@@ -209,12 +209,16 @@
             [{oxmultilang ident="USER_MAIN_HASPASSWORD"}]
         </td>
         <td class="edittext"><br>
-            [{if $edit->oxuser__oxpassword->value}][{oxmultilang ident="GENERAL_YES"}][{else}][{oxmultilang ident="GENERAL_NO"}][{/if}
-            ]
+            [{if $edit->oxuser__oxpassword->value}]
+                [{oxmultilang ident="GENERAL_YES"}]
+            [{else}]
+                [{oxmultilang ident="GENERAL_NO"}]
+            [{/if}]
+
             [{oxinputhelp ident="HELP_USER_MAIN_HASPASSWORD"}]
         </td>
     </tr>
-    [{/if}]
+[{/if}]
 <tr>
     <td class="edittext"><br>
         [{oxmultilang ident="USER_MAIN_NEWPASSWORD"}]
