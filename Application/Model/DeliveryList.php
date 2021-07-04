@@ -48,7 +48,7 @@ class DeliveryList extends DeliveryList_parent
                     $dDeliveryPrice = $oDelivery->getDeliveryPrice($fDelVATPercent)->getPrice();
                     $aUnsortedDeliveries[$dDeliveryPrice] = $sDeliverySetId;
 
-                    $logger->info(implode($aUnsortedDeliveries[$dDeliveryPrice]));
+                    $logger->info($aUnsortedDeliveries[$dDeliveryPrice]);
 
                     $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
                     $blDelFound = true;
