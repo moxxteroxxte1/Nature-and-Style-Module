@@ -67,13 +67,12 @@ class DeliveryList extends DeliveryList_parent
             }
         }
 
-        $aResult = [];
         if ($this->blFindCheapest) {
             ksort($aUnsortedDeliveries, SORT_NUMERIC);
             $aDeliverySet = array_shift($aUnsortedDeliveries);
 
             Registry::getSession()->setVariable('sShipSet', $aDeliverySet['set']);
-            array_push($aResult, $aDeliverySet['delivery']);
+            return $aDeliverySet['delivery'];
         }
 
         if ($this->_blCollectFittingDeliveriesSets && count($aFittingDelSets)) {
@@ -88,7 +87,7 @@ class DeliveryList extends DeliveryList_parent
         }
 
         // nothing what fits was found
-        return $aResult;
+        return [];
     }
 
     private function array_sort($array, $on, $order = SORT_ASC)
