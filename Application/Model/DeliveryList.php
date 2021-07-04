@@ -46,6 +46,7 @@ class DeliveryList extends DeliveryList_parent
                 if ($oDelivery->isForBasket($oBasket)) {
                     // delivery fits conditions
                     $dDeliveryPrice = $oDelivery->getDeliveryPrice($fDelVATPercent)->getPrice();
+                    $logger->info($dDeliveryPrice);
                     $aUnsortedDeliveries[$dDeliveryPrice] = $sDeliverySetId;
 
                     $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
@@ -76,6 +77,10 @@ class DeliveryList extends DeliveryList_parent
         if($this->blFindCheapest){
             ksort($aUnsortedDeliveries, SORT_NUMERIC);
             $sDeliverySetId = array_shift($aUnsortedDeliveries);
+
+            foreach ($aUnsortedDeliveries as $delivery){
+                $logger->info(implode($delivery));
+            }
 
             Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
             return $this->_aDeliveries;
