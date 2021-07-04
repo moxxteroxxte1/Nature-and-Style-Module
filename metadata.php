@@ -140,6 +140,6 @@ $aModule = array(
             'template' => 'user_main.tpl',
             'block' => 'admin_user_main_form',
             'file' => '/Application/views/blocks/user_main_extend.tpl',
-        )
+        ),
     ),
 );
