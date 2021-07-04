@@ -44,7 +44,7 @@ class DeliveryList extends DeliveryList_parent
                 if ($oDelivery->isForBasket($oBasket)) {
                     // delivery fits conditions
                     $dDeliveryPrice = $oDelivery->getDeliveryPrice($fDelVATPercent)->getPrice();
-                    $aUnsortedDeliveries[$dDeliveryPrice] = array('set' => $sDeliverySetId, 'delivery' => $sDeliveryId);
+                    $aUnsortedDeliveries[$dDeliveryPrice] = array('set' => $sDeliverySetId, 'delivery' => $aDeliveries[$sDeliveryId]);
 
                     $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
                     $blDelFound = true;
