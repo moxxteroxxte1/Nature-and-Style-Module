@@ -11,11 +11,15 @@ use OxidEsales\Eshop\Core\Registry;
 class DeliveryList extends DeliveryList_parent
 {
 
+    protected $blFindCheapest = true;
+
     public function getDeliveryList($oBasket, $oUser = null, $sDelCountry = null, $sDelSet = null)
     {
         //TODO DEBUG
         $logger = Registry::getLogger();
         //TODO DEBUG END
+
+        $this->_blCollectFittingDeliveriesSets = true;
 
         // ids of deliveries that does not fit for us to skip double check
         $aSkipDeliveries = [];
@@ -41,11 +45,7 @@ class DeliveryList extends DeliveryList_parent
 
                 if ($oDelivery->isForBasket($oBasket)) {
                     // delivery fits conditions
-
                     $dDeliveryPrice = $oDelivery->getDeliveryPrice($fDelVATPercent)->getPrice();
-                    //TODO DEBUG
-                    $logger->info($dDeliveryPrice);
-                    //TODO DEBUG END
                     $aUnsortedDeliveries[$dDeliveryPrice] = $sDeliverySetId;
 
                     $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
@@ -61,38 +61,24 @@ class DeliveryList extends DeliveryList_parent
                 }
             }
 
-            //TODO DEBUG
-            foreach ($aUnsortedDeliveries as $delivery) {
-                $logger->info(implode($delivery));
-            }
-            //TODO DEBUG END
-
-            $aUnsortedDeliveries = $this->array_sort($aUnsortedDeliveries, 'price', SORT_ASC);
-            $sDeliverySetId = array_shift($aUnsortedDeliveries);
-
-            //TODO DEBUG
-            foreach ($aUnsortedDeliveries as $delivery) {
-                $logger->info(implode($delivery));
-            }
-            //TODO DEBUG END
-
             // found delivery set and deliveries that fits
             if ($blDelFound) {
                 if ($this->_blCollectFittingDeliveriesSets) {
                     // collect only deliveries sets that fits deliveries
                     $aFittingDelSets[$sDeliverySetId] = $oDeliverySet;
-                } else {
-                    //TODO DEBUG
-                    $logger->info("1");
-                    //TODO DEBUG END
-                    // return collected fitting deliveries
+                }elseif(!$this->blFindCheapest){
                     Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
-
                     return $this->_aDeliveries;
                 }
             }
         }
 
+        if($this->blFindCheapest){
+            ksort($aUnsortedDeliveries);
+            $sDeliverySetId = array_shift($aUnsortedDeliveries);
+            Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
+            return $this->_aDeliveries;
+        }
         //return deliveries sets if found
         if ($this->_blCollectFittingDeliveriesSets && count($aFittingDelSets)) {
             //resetting getting delivery sets list instead of deliveries before return
