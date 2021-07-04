@@ -15,10 +15,6 @@ class DeliveryList extends DeliveryList_parent
 
     public function getDeliveryList($oBasket, $oUser = null, $sDelCountry = null, $sDelSet = null)
     {
-        //TODO DEBUG
-        $logger = Registry::getLogger();
-        //TODO DEBUG END
-
         // ids of deliveries that does not fit for us to skip double check
         $aSkipDeliveries = [];
         $aFittingDelSets = [];
@@ -71,13 +67,16 @@ class DeliveryList extends DeliveryList_parent
             }
         }
 
+        $aResult = [];
         if ($this->blFindCheapest) {
             ksort($aUnsortedDeliveries, SORT_NUMERIC);
             $aDeliverySet = array_shift($aUnsortedDeliveries);
 
             Registry::getSession()->setVariable('sShipSet', $aDeliverySet['set']);
-            return [$aDeliverySet['delivery']];
-        } elseif ($this->_blCollectFittingDeliveriesSets && count($aFittingDelSets)) {
+            array_push($aResult, $aDeliverySet['delivery']);
+        }
+
+        if ($this->_blCollectFittingDeliveriesSets && count($aFittingDelSets)) {
             //resetting getting delivery sets list instead of deliveries before return
             $this->_blCollectFittingDeliveriesSets = false;
 
@@ -89,7 +88,7 @@ class DeliveryList extends DeliveryList_parent
         }
 
         // nothing what fits was found
-        return [];
+        return $aResult;
     }
 
     private function array_sort($array, $on, $order = SORT_ASC)
