@@ -72,10 +72,8 @@ class DeliveryList extends DeliveryList_parent
             $aDeliverySet = array_shift($aUnsortedDeliveries);
 
             Registry::getSession()->setVariable('sShipSet', $aDeliverySet['set']);
-            return $aDeliverySet['delivery'];
-        }
-
-        if ($this->_blCollectFittingDeliveriesSets && count($aFittingDelSets)) {
+            return [$aDeliverySet['delivery']];
+        } elseif ($this->_blCollectFittingDeliveriesSets && count($aFittingDelSets)) {
             //resetting getting delivery sets list instead of deliveries before return
             $this->_blCollectFittingDeliveriesSets = false;
 
