@@ -31,7 +31,6 @@ class DeliveryList extends DeliveryList_parent
         // ids of deliveries that does not fit for us to skip double check
         $aSkipDeliveries = [];
         $aFittingDelSets = [];
-        $aResult = [];
         $aDelSetList = Registry::get(DeliverySetList::class)->getDeliverySetList($oUser, $sDelCountry, $sDelSet);
 
         $aUnsortedDeliveries = [];
@@ -84,7 +83,7 @@ class DeliveryList extends DeliveryList_parent
                     $aFittingDelSets[$sDeliverySetId] = $oDeliverySet;
                 } elseif(!$blFindCheapest) {
                     Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
-                    $aResult = $this->_aDeliveries;
+                    return $this->_aDeliveries;
                 }
             }
         }
@@ -97,7 +96,7 @@ class DeliveryList extends DeliveryList_parent
             $this->setUser(null);
             $this->clear();
 
-            $aResult = $aFittingDelSets;
+            return $aFittingDelSets;
         }
 
         if ($blFindCheapest && count($aUnsortedDeliveries)) {
@@ -105,10 +104,10 @@ class DeliveryList extends DeliveryList_parent
             $aDeliverySet = array_shift($aUnsortedDeliveries);
 
             Registry::getSession()->setVariable('sShipSet', $aDeliverySet['set']);
-            $aResult = [$aDeliverySet['delivery']];
+            return [$aDeliverySet['delivery']];
         }
 
         // nothing what fits was found
-        return $aResult;
+        return [];
     }
 }
