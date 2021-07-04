@@ -10,12 +10,13 @@ use OxidEsales\Eshop\Core\Registry;
 class Basket extends Basket_parent
 {
     protected $delMulti = 1;
+    protected $blFindCheapest = true;
 
     public function getDeliveryMultiplier(){
         return $this->delMulti;
     }
 
-    protected function _calcDeliveryCost($blFindCheapest = true)
+    protected function _calcDeliveryCost()
     {
         if ($this->_oDeliveryPrice !== null) {
             return $this->_oDeliveryPrice;
@@ -46,7 +47,7 @@ class Basket extends Basket_parent
                 $oUser,
                 $this->_findDelivCountry(),
                 $this->getShippingId(),
-                $blFindCheapest
+                $this->blFindCheapest
             );
 
             if (count($aDeliveryList) > 0) {
@@ -58,5 +59,9 @@ class Basket extends Basket_parent
         }
 
         return $oDeliveryPrice;
+    }
+
+    public function setFindCheapest($blFindCheapest = true){
+        $this->blFindCheapest = $blFindCheapest;
     }
 }

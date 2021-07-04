@@ -26,7 +26,7 @@ class DeliveryList extends DeliveryList_parent
         return $blHas;
     }
 
-    public function getDeliveryList($oBasket, $oUser = null, $sDelCountry = null, $sDelSet = null, $blFindCheapest = false)
+    public function getDeliveryList($oBasket, $oUser = null, $sDelCountry = null, $sDelSet = null, $blFindCheapest = true)
     {
         // ids of deliveries that does not fit for us to skip double check
         $aSkipDeliveries = [];
@@ -75,6 +75,7 @@ class DeliveryList extends DeliveryList_parent
                     $aFittingDelSets[$sDeliverySetId] = $oDeliverySet;
                 } elseif(!$blFindCheapest) {
                     Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
+                    $oBasket->setFindCheapest();
                     return $this->_aDeliveries;
                 }
             }
@@ -87,6 +88,7 @@ class DeliveryList extends DeliveryList_parent
             //reset cache and list
             $this->setUser(null);
             $this->clear();
+            $oBasket->setFindCheapest();
 
             return $aFittingDelSets;
         }

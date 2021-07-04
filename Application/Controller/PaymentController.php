@@ -13,11 +13,11 @@ class PaymentController extends PaymentController_parent
         $session = \OxidEsales\Eshop\Core\Registry::getSession();
 
         $oBasket = $session->getBasket();
-        $sShipSet = Registry::getRequest()->getRequestEscapedParameter('sShipSet');
+        $oBasket->setShipping(null);
+        $oBasket->setFindCheapest(false);
         $oBasket->onUpdate();
-        $session->setVariable('sShipSet', $sShipSet);
-        $oBasket->setShipping($sShipSet);
-        $oBasket->_calcDeliveryCost(false);
+        $session->setVariable('sShipSet', Registry::getRequest()->getRequestEscapedParameter('sShipSet'));
+
     }
 
 }
