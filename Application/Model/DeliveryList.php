@@ -52,16 +52,16 @@ class DeliveryList extends DeliveryList_parent
 
                 if ($oDelivery->isForBasket($oBasket)) {
                     // delivery fits conditions
-                    $dDeliveryPrice = $oDelivery->getDeliveryPrice($fDelVATPercent)->getPrice();
+                    $dDeliveryPrice = $oDelivery->getDeliveryPrice($fDelVATPercent);
 
                     if($oUser->getIslandSurcharge() > 0 && $oDelivery->oxdelivery__oxhassurcharge->value){
-                        $dDeliveryPrice += $oUser->getIslandSurcharge();
+                        $dDeliveryPrice->add($oUser->getIslandSurcharge());
                         $oDelivery->setBlIncludesSurcharge(true);
                     }else{
                         $oDelivery->setBlIncludesSurcharge(false);
                     }
 
-                    $aUnsortedDeliveries[$dDeliveryPrice] = array('set' => $sDeliverySetId, 'delivery' => $aDeliveries[$sDeliveryId]);
+                    $aUnsortedDeliveries[$dDeliveryPrice->getPrice()] = array('set' => $sDeliverySetId, 'delivery' => $aDeliveries[$sDeliveryId]);
 
                     $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
                     $blDelFound = true;
