@@ -13,6 +13,10 @@ class DeliveryList extends DeliveryList_parent
 
     public function getDeliveryList($oBasket, $oUser = null, $sDelCountry = null, $sDelSet = null)
     {
+        //TODO DEBUG
+        $logger = Registry::getLogger();
+        //TODO DEBUG END
+
         // ids of deliveries that does not fit for us to skip double check
         $aSkipDeliveries = [];
         $aFittingDelSets = [];
@@ -38,7 +42,11 @@ class DeliveryList extends DeliveryList_parent
                 if ($oDelivery->isForBasket($oBasket)) {
                     // delivery fits conditions
 
-                    $aUnsortedDeliveries[$oDelivery->getDeliveryPrice($fDelVATPercent)->getPrice()] = $sDeliverySetId;
+                    $dDeliveryPrice = $oDelivery->getDeliveryPrice($fDelVATPercent)->getPrice();
+                    //TODO DEBUG
+                    $logger->info($dDeliveryPrice);
+                    //TODO DEBUG END
+                    $aUnsortedDeliveries[$dDeliveryPrice] = $sDeliverySetId;
 
                     $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
                     $blDelFound = true;
@@ -54,8 +62,7 @@ class DeliveryList extends DeliveryList_parent
             }
 
             //TODO DEBUG
-            $logger = Registry::getLogger();
-            foreach ($aUnsortedDeliveries as $delivery){
+            foreach ($aUnsortedDeliveries as $delivery) {
                 $logger->info(implode($delivery));
             }
             //TODO DEBUG END
@@ -64,7 +71,7 @@ class DeliveryList extends DeliveryList_parent
             $sDeliverySetId = array_shift($aUnsortedDeliveries);
 
             //TODO DEBUG
-            foreach ($aUnsortedDeliveries as $delivery){
+            foreach ($aUnsortedDeliveries as $delivery) {
                 $logger->info(implode($delivery));
             }
             //TODO DEBUG END
@@ -99,7 +106,7 @@ class DeliveryList extends DeliveryList_parent
         return [];
     }
 
-    private function array_sort($array, $on, $order=SORT_ASC)
+    private function array_sort($array, $on, $order = SORT_ASC)
     {
         $new_array = array();
         $sortable_array = array();
