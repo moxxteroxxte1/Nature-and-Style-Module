@@ -19,8 +19,6 @@ class DeliveryList extends DeliveryList_parent
         $logger = Registry::getLogger();
         //TODO DEBUG END
 
-        $this->_blCollectFittingDeliveriesSets = true;
-
         // ids of deliveries that does not fit for us to skip double check
         $aSkipDeliveries = [];
         $aFittingDelSets = [];
@@ -48,7 +46,7 @@ class DeliveryList extends DeliveryList_parent
                     $dDeliveryPrice = $oDelivery->getDeliveryPrice($fDelVATPercent)->getPrice();
                     $aUnsortedDeliveries[$dDeliveryPrice] = $sDeliverySetId;
 
-                    $logger->info($aUnsortedDeliveries[$dDeliveryPrice]);
+                    $logger->info(implode($aUnsortedDeliveries));
 
                     $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
                     $blDelFound = true;
