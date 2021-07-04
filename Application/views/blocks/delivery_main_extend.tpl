@@ -68,6 +68,14 @@
 </tr>
 <tr>
     <td class="edittext">
+        [{oxmultilang ident="DELIVERY_MAIN_SURCHARGE"}]
+    </td>
+    <td class="edittext">
+        <input class="edittext" type="checkbox" name="editval[oxdelivery__oxhassurcharge]" value='1' [{if $edit->oxdelivery__oxactive->value == 1}]checked[{/if}] [{$readonly}]>
+    </td>
+</tr>
+<tr>
+    <td class="edittext">
         [{oxmultilang ident="DELIVERY_MAIN_COUNTRULES"}]
     </td>
     <td class="edittext">

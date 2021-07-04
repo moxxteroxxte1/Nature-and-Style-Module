@@ -134,5 +134,12 @@ $aModule = array(
             'block' => 'admin_discount_main_form',
             'file' => '/Application/views/blocks/discount_main_extend.tpl',
         ),
+
+        //User
+        array(
+            'template' => 'user_main.tpl',
+            'block' => 'admin_user_main_form',
+            'file' => '/Application/views/blocks/user_main_extend.tpl',
+        )
     ),
 );

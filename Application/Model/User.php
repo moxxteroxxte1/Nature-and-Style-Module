@@ -8,4 +8,8 @@ class User extends User_parent
     {
         return $this->inGroup("oxiddealer") || ((bool)\OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('blShowNetPrice'));
     }
+
+    public function getIslandSurcharge(){
+        return $this->oxuser__oxislandsurcharge->value;
+    }
 }

@@ -27,4 +27,7 @@ $aLang = array(
     'DELIVERY_MAIN_CHILD'                           => 'Kind',
     'DELIVERY_MAIN_FIT_BY_CART'                     => 'Mehrfach anwenden',
     'ARTICLE_STOCK_DELIVERY'                        => 'Mindest Versandart',
+    'DELIVERY_MAIN_SURCHARGE'                       => 'Inselzuschlag berechnen',
+    'USER_MAIN_SURCHARGE'                           => 'Individueller Inselzuschlag',
+
 );

@@ -11,6 +11,7 @@ class Basket extends Basket_parent
 {
     protected $delMulti = 1;
     protected $blFindCheapest = true;
+    protected $blIncludesSurcharge = false;
 
     public function getDeliveryMultiplier(){
         return $this->delMulti;
@@ -53,6 +54,12 @@ class Basket extends Basket_parent
             if (count($aDeliveryList) > 0) {
                 foreach ($aDeliveryList as $oDelivery) {
                     $oDeliveryPrice->addPrice($oDelivery->getDeliveryPrice($fDelVATPercent));
+
+                    if($oUser->getIslandSurcharge() > 0){
+                        $oDeliveryPrice->addPrice($oUser->getIslandSurcharge());
+                        $this->blIncludesSurcharge = true;
+                    }
+
                     $this->delMulti = $oDelivery->getMultiplier();
                 }
             }
@@ -63,5 +70,9 @@ class Basket extends Basket_parent
 
     public function setFindCheapest($blFindCheapest = true){
         $this->blFindCheapest = $blFindCheapest;
+    }
+
+    public function hasSurcharge(){
+        return $this->blIncludesSurcharge;
     }
 }
