@@ -15,7 +15,7 @@ class Basket extends Basket_parent
         return $this->delMulti;
     }
 
-    protected function _calcDeliveryCost()
+    protected function _calcDeliveryCost($blFindCheapest = true)
     {
         if ($this->_oDeliveryPrice !== null) {
             return $this->_oDeliveryPrice;
@@ -45,7 +45,8 @@ class Basket extends Basket_parent
                 $this,
                 $oUser,
                 $this->_findDelivCountry(),
-                $this->getShippingId()
+                $this->getShippingId(),
+                $blFindCheapest
             );
 
             if (count($aDeliveryList) > 0) {

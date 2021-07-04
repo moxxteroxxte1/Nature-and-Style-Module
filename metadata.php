@@ -11,6 +11,7 @@ use NatureAndStyle\CoreModule\Application\Controller\Admin\TileController;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\TileList;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\TileMain;
 use NatureAndStyle\CoreModule\Application\Controller\BasketController;
+use NatureAndStyle\CoreModule\Application\Controller\PaymentController;
 use NatureAndStyle\CoreModule\Application\Controller\StartController;
 use NatureAndStyle\CoreModule\Application\Model\ActionList;
 use NatureAndStyle\CoreModule\Application\Model\Actions;
@@ -58,6 +59,7 @@ $aModule = array(
         //Controller
         \OxidEsales\Eshop\Application\Controller\StartController::class => StartController::class,
         \OxidEsales\Eshop\Application\Controller\BasketController::class => BasketController::class,
+        \OxidEsales\Eshop\Application\Controller\PaymentController::class => PaymentController::class,
 
         //Components
         \OxidEsales\Eshop\Application\Component\UserComponent::class => UserComponent::class,

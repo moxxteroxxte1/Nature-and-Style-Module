@@ -13,7 +13,6 @@ class DeliveryList extends DeliveryList_parent
     public function hasDeliveries($oBasket, $oUser, $sDelCountry, $sDeliverySetId)
     {
         $blHas = false;
-        //$this->getDeliveryList($oBasket, $oUser, $sDelCountry, $sDeliverySetId, false);
 
         // loading delivery list to check if some of them fits
         $this->_getList($oUser, $sDelCountry, $sDeliverySetId);
@@ -27,7 +26,7 @@ class DeliveryList extends DeliveryList_parent
         return $blHas;
     }
 
-    public function getDeliveryList($oBasket, $oUser = null, $sDelCountry = null, $sDelSet = null, $blFindCheapest = true)
+    public function getDeliveryList($oBasket, $oUser = null, $sDelCountry = null, $sDelSet = null, $blFindCheapest = false)
     {
         // ids of deliveries that does not fit for us to skip double check
         $aSkipDeliveries = [];
