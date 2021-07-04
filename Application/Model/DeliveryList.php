@@ -13,7 +13,7 @@ class DeliveryList extends DeliveryList_parent
     public function getDeliveryList($oBasket, $oUser = null, $sDelCountry = null, $sDelSet = null)
     {
         // ids of deliveries that does not fit for us to skip double check
-        $blFindCheapest = $sDelSet != null;
+        $blFindCheapest = $sDelSet == null;
         $aSkipDeliveries = [];
         $aFittingDelSets = [];
         $aDelSetList = Registry::get(DeliverySetList::class)->getDeliverySetList($oUser, $sDelCountry, $sDelSet);
