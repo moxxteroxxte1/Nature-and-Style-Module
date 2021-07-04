@@ -56,7 +56,7 @@ class Basket extends Basket_parent
                     $oDeliveryPrice->addPrice($oDelivery->getDeliveryPrice($fDelVATPercent));
 
                     if($oUser->getIslandSurcharge() > 0){
-                        $oDeliveryPrice->addPrice($oUser->getIslandSurcharge());
+                        $oDeliveryPrice->add($oUser->getIslandSurcharge());
                         $this->blIncludesSurcharge = true;
                     }
 
