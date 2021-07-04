@@ -3,6 +3,7 @@
 
 namespace NatureAndStyle\CoreModule\Application\Controller;
 
+use OxidEsales\Eshop\Core\Registry;
 
 class PaymentController extends PaymentController_parent
 {
