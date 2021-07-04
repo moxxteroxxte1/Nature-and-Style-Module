@@ -54,7 +54,7 @@ class Basket extends Basket_parent
             if (count($aDeliveryList) > 0) {
                 foreach ($aDeliveryList as $oDelivery) {
                     $oDeliveryPrice->addPrice($oDelivery->getDeliveryPrice($fDelVATPercent));
-                    $this->blIncludesSurcharge = $oDelivery->isBlIncludesSurcharge()();
+                    $this->blIncludesSurcharge = $oDelivery->isBlIncludesSurcharge();
                     $this->delMulti = $oDelivery->getMultiplier();
                 }
             }
