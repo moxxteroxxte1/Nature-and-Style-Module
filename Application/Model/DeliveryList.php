@@ -44,11 +44,7 @@ class DeliveryList extends DeliveryList_parent
                 if ($oDelivery->isForBasket($oBasket)) {
                     // delivery fits conditions
                     $dDeliveryPrice = $oDelivery->getDeliveryPrice($fDelVATPercent)->getPrice();
-                    $aUnsortedDeliveries[$dDeliveryPrice] = $sDeliverySetId;
-
-                    foreach ($aUnsortedDeliveries as $key => $val) {
-                        $logger->info($key . " = " . $val);
-                    }
+                    $aUnsortedDeliveries[$dDeliveryPrice] = array('set' => $sDeliverySetId, 'delivery' => $sDeliveryId);
 
                     $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
                     $blDelFound = true;
@@ -77,17 +73,10 @@ class DeliveryList extends DeliveryList_parent
 
         if($this->blFindCheapest){
             ksort($aUnsortedDeliveries, SORT_NUMERIC);
+            $aDeliverySet = array_shift($aUnsortedDeliveries);
 
-            foreach ($aUnsortedDeliveries as $key => $val) {
-                $logger->info($key . " = " . $val);
-            }
-
-            $sDeliverySetId = array_shift($aUnsortedDeliveries);
-
-            $logger->info($sDeliverySetId);
-
-            Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
-            return $this->_aDeliveries;
+            Registry::getSession()->setVariable('sShipSet', $aDeliverySet['set']);
+            return $aDeliverySet['delivery'];
         }
 
         //return deliveries sets if found
