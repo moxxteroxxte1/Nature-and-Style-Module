@@ -100,7 +100,8 @@
                 [{oxmultilang ident="USER_MAIN_SURCHARGE"}]
                 </td>
                 <td class="edittext">
-                    <input type="text" class="editinput" size="30" maxlength="[{$edit->oxuser__oxislandsurcharge->fldmax_length}]" name="editval[oxuser__oxislandsurcharge]" value="[{$edit->oxuser__oxislandsurcharge->value}]" [{$readonly}]>
+                    <input class="edittext" type="hidden" name="editval[oxuser__oxislandsurcharge]" value='0'>
+                    <input class="edittext" type="checkbox" name="editval[oxuser__oxislandsurcharge]" value='1' [{if $edit->oxuser__oxislandsurcharge->value == 1}]checked[{/if}] [{$readonly}]>
                 </td>
             </tr>
             <tr>
