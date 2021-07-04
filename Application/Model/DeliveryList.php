@@ -75,7 +75,6 @@ class DeliveryList extends DeliveryList_parent
                     $aFittingDelSets[$sDeliverySetId] = $oDeliverySet;
                 } elseif(!$blFindCheapest) {
                     Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
-                    $oBasket->setFindCheapest();
                     return $this->_aDeliveries;
                 }
             }
@@ -88,7 +87,6 @@ class DeliveryList extends DeliveryList_parent
             //reset cache and list
             $this->setUser(null);
             $this->clear();
-            $oBasket->setFindCheapest();
 
             return $aFittingDelSets;
         }
