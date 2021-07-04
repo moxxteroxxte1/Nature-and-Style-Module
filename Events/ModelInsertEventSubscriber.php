@@ -11,6 +11,7 @@ use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\AfterModelUpdateEve
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\AfterModelDeleteEvent;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use Symfony\Component\EventDispatcher\Event;
+use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\BasketChangedEvent;
 
 class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
 {

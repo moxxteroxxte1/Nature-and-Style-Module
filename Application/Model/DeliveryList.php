@@ -10,10 +10,26 @@ use OxidEsales\Eshop\Core\Registry;
 
 class DeliveryList extends DeliveryList_parent
 {
-    public function getDeliveryList($oBasket, $oUser = null, $sDelCountry = null, $sDelSet = null)
+    public function hasDeliveries($oBasket, $oUser, $sDelCountry, $sDeliverySetId)
+    {
+        $blHas = false;
+        getDeliveryList($oBasket, $oUser, $sDelCountry, $sDeliverySetId, false);
+
+        // loading delivery list to check if some of them fits
+        $this->_getList($oUser, $sDelCountry, $sDeliverySetId);
+        foreach ($this as $oDelivery) {
+            if ($oDelivery->isForBasket($oBasket)) {
+                $blHas = true;
+                break;
+            }
+        }
+
+        return $blHas;
+    }
+
+    public function getDeliveryList($oBasket, $oUser = null, $sDelCountry = null, $sDelSet = null, $blFindCheapest = true)
     {
         // ids of deliveries that does not fit for us to skip double check
-        $blFindCheapest = $sDelSet == null;
         $aSkipDeliveries = [];
         $aFittingDelSets = [];
         $aDelSetList = Registry::get(DeliverySetList::class)->getDeliverySetList($oUser, $sDelCountry, $sDelSet);
