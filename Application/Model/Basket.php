@@ -4,7 +4,6 @@
 namespace NatureAndStyle\CoreModule\Application\Model;
 
 
-use OxidEsales\Eshop\Application\Model\DeliveryList;
 use OxidEsales\Eshop\Core\Price;
 use OxidEsales\Eshop\Core\Registry;
 
@@ -46,7 +45,8 @@ class Basket extends Basket_parent
                 $this,
                 $oUser,
                 $this->_findDelivCountry(),
-                $this->getShippingId()
+                $this->getShippingId(),
+                true,
             );
 
             if (count($aDeliveryList) > 0) {

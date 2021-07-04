@@ -10,10 +10,7 @@ use OxidEsales\Eshop\Core\Registry;
 
 class DeliveryList extends DeliveryList_parent
 {
-
-    protected $blFindCheapest = true;
-
-    public function getDeliveryList($oBasket, $oUser = null, $sDelCountry = null, $sDelSet = null)
+    public function getDeliveryList($oBasket, $oUser = null, $sDelCountry = null, $sDelSet = null, $blFindCheapest = false)
     {
         // ids of deliveries that does not fit for us to skip double check
         $aSkipDeliveries = [];
@@ -60,7 +57,7 @@ class DeliveryList extends DeliveryList_parent
                 if ($this->_blCollectFittingDeliveriesSets) {
                     // collect only deliveries sets that fits deliveries
                     $aFittingDelSets[$sDeliverySetId] = $oDeliverySet;
-                } else/*if (!$this->blFindCheapest)*/ {
+                } elseif(!$this->blFindCheapest) {
                     Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
                     return $this->_aDeliveries;
                 }
@@ -78,13 +75,13 @@ class DeliveryList extends DeliveryList_parent
             return $aFittingDelSets;
         }
 
-        /*if ($this->blFindCheapest && count($aUnsortedDeliveries)) {
+        if ($this->blFindCheapest && count($aUnsortedDeliveries)) {
             ksort($aUnsortedDeliveries, SORT_NUMERIC);
             $aDeliverySet = array_shift($aUnsortedDeliveries);
 
             Registry::getSession()->setVariable('sShipSet', $aDeliverySet['set']);
             return [$aDeliverySet['delivery']];
-        }*/
+        }
 
         // nothing what fits was found
         return [];
