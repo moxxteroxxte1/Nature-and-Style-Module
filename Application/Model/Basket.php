@@ -45,8 +45,7 @@ class Basket extends Basket_parent
                 $this,
                 $oUser,
                 $this->_findDelivCountry(),
-                $this->getShippingId(),
-                true
+                $this->getShippingId()
             );
 
             if (count($aDeliveryList) > 0) {
