@@ -44,7 +44,7 @@ class DeliveryList extends DeliveryList_parent
                 if ($oDelivery->isForBasket($oBasket)) {
                     // delivery fits conditions
                     $dDeliveryPrice = $oDelivery->getDeliveryPrice($fDelVATPercent)->getPrice();
-                    $aUnsortedDeliveries[$dDeliveryPrice] = array('set' => $sDeliverySetId, 'delivery' => $aDeliveries[$sDeliveryId]);
+                    $aUnsortedDeliveries[$dDeliveryPrice] = $sDeliverySetId;
 
                     $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
                     $blDelFound = true;
@@ -64,23 +64,20 @@ class DeliveryList extends DeliveryList_parent
                 if ($this->_blCollectFittingDeliveriesSets) {
                     // collect only deliveries sets that fits deliveries
                     $aFittingDelSets[$sDeliverySetId] = $oDeliverySet;
-                }elseif(!$this->blFindCheapest){
+                } elseif (!$this->blFindCheapest) {
                     Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
                     return $this->_aDeliveries;
                 }
             }
         }
 
-        if($this->blFindCheapest){
+        if ($this->blFindCheapest) {
             ksort($aUnsortedDeliveries, SORT_NUMERIC);
-            $aDeliverySet = array_shift($aUnsortedDeliveries);
+            $aDeliverySetId = array_shift($aUnsortedDeliveries);
 
-            Registry::getSession()->setVariable('sShipSet', $aDeliverySet['set']);
-            return $aDeliverySet['delivery'];
-        }
-
-        //return deliveries sets if found
-        if ($this->_blCollectFittingDeliveriesSets && count($aFittingDelSets)) {
+            Registry::getSession()->setVariable('sShipSet', $aDeliverySetId);
+            return $this->_aDeliveries;
+        } elseif ($this->_blCollectFittingDeliveriesSets && count($aFittingDelSets)) {
             //resetting getting delivery sets list instead of deliveries before return
             $this->_blCollectFittingDeliveriesSets = false;
 
