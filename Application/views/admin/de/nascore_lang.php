@@ -29,5 +29,10 @@ $aLang = array(
     'ARTICLE_STOCK_DELIVERY'                        => 'Mindest Versandart',
     'DELIVERY_MAIN_SURCHARGE'                       => 'Inselzuschlag berechnen',
     'USER_MAIN_SURCHARGE'                           => 'Individueller Inselzuschlag',
+    'SHOP_OPTIONS_GROUP_SHIPPING'                   => 'Sperrgut',
+    'SHOP_CONFIG_DELIVERY_MAX'                      => 'Preis aufschlagen bis',
+    'SHOP_CONFIG_CARGO_PRICE'                       => 'Preis',
+    'ARTICLE_STOCK_BULKY_GOOD'                      => 'Sperrgut',
+    'ARTICLE_STOCK_BULKY_GOOD_MULTIPLIER'           => 'Anzahl der Sperrgut Pakete',
 
 );

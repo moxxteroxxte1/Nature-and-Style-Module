@@ -28,5 +28,9 @@ $aLang = array(
     'DELIVERY_MAIN_FIT_BY_CART'                     => 'Apply multiple times',
     'ARTICLE_STOCK_DELIVERY'                        => 'minimum shipping method',
     'DELIVERY_MAIN_SURCHARGE'                       => 'Apply island surcharge',
-
+    'SHOP_OPTIONS_GROUP_SHIPPING'                   => 'Bulky goods',
+    'SHOP_CONFIG_DELIVERY_MAX'                      => 'Charge up to',
+    'SHOP_CONFIG_CARGO_PRICE'                       => 'Price',
+    'ARTICLE_STOCK_BULKY_GOOD'                      => 'Bulky good',
+    'ARTICLE_STOCK_BULKY_GOOD_MULTIPLIER'           => 'Number of bulky packages',
 );

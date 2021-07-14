@@ -21,6 +21,8 @@ class Delivery extends Delivery_parent
      * Condition type
      */
     const CONDITION_TYPE_POINTS = 'pp';
+    private $blIncludesCargo = false;
+    private $iCargoMultiplier = 0;
 
     public function getDeliveryAmount($oBasketItem)
     {
@@ -57,6 +59,11 @@ class Delivery extends Delivery_parent
         }
     }
 
+    protected function getCostSum()
+    {
+        return parent::getCostSum() + $this->getCargoPrice();
+    }
+
 
     public function isForBasket($oBasket)
     {
@@ -69,7 +76,12 @@ class Delivery extends Delivery_parent
                 $oArticle = $oContent->getArticle(false);
                 if ($this->checkArticleRestriction($oArticle)) {
                     $dAmount = $oContent->getAmount();
-                    $iAllPoints += ($dAmount * $this->getDeliveryAmount($oContent));
+                    if($oArticle->isBlukyGood() && !$this->isIncludingCargo()){
+                        $this->iCargoMultiplier = $oArticle->getBulkyGoodMultiplier();
+                        $this->blIncludesCargo = true;
+                    }else{
+                        $iAllPoints += ($dAmount * $this->getDeliveryAmount($oContent));
+                    }
                 } else {
                     return false;
                 }
@@ -142,5 +154,20 @@ class Delivery extends Delivery_parent
     public function setBlIncludesSurcharge(bool $blIncludesSurcharge = true): void
     {
         $this->blIncludesSurcharge = $blIncludesSurcharge;
+    }
+
+    protected function isIncludingCargo()
+    {
+        return $this->blIncludesCargo;
+    }
+
+    protected function getCargoPrice()
+    {
+        return (($this->includeCargo() || !$this->blIncludesCargo) ? 0 : doubleval(Registry::getConfig()->getConfigParam('nascargoprice'), 10) * $this->iCargoMultiplier);
+    }
+
+    protected function includeCargo()
+    {
+        return $this->isParent(Registry::getConfig()->getConfigParam('nascargodelivery'));
     }
 }

@@ -45,7 +45,8 @@ class Article extends Article_parent
         return false;
     }
 
-    private function fetchDiscounts(){
+    private function fetchDiscounts()
+    {
         $aDiscountList = new DiscountList();
         $oBaseObject = $aDiscountList->getBaseObject();
 
@@ -101,10 +102,10 @@ class Article extends Article_parent
         $resultSet = $oDb->select($sQ);
         $allResults = $resultSet->fetchAll();
         $aDiscounts = [];
-        foreach($allResults as $row) {
+        foreach ($allResults as $row) {
             $oDiscount = oxNew('oxdiscount');
             $oDiscount->load($row[0]);
-            if($oDiscount->oxdiscount__oxamountpackageunit->value && $this->oxarticles__oxpackagingunit->value <= 1){
+            if ($oDiscount->oxdiscount__oxamountpackageunit->value && $this->oxarticles__oxpackagingunit->value <= 1) {
                 continue;
             }
             $aDiscounts[] = $oDiscount;
@@ -115,5 +116,15 @@ class Article extends Article_parent
     public function getMinDelivery()
     {
         return $this->oxarticles__oxdeliverymin->value;
+    }
+
+    public function isBlukyGood()
+    {
+        $this->oxarticles__oxbulkygood->value;
+    }
+
+    public function getBulkyGoodMultiplier()
+    {
+        $this->oxarticles__oxbulkygoodmultiplier->value;
     }
 }

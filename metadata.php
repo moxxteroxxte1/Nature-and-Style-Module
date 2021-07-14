@@ -7,6 +7,7 @@ use NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsMain;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\ArticlePictures;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\ArticleStock;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\DeliveryMain;
+use NatureAndStyle\CoreModule\Application\Controller\Admin\ShopConfiguration;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\TileController;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\TileList;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\TileMain;
@@ -55,6 +56,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Controller\Admin\DeliveryMain::class => DeliveryMain::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ArticleStock::class => ArticleStock::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ArticlePictures::class => ArticlePictures::class,
+        \OxidEsales\Eshop\Application\Controller\Admin\ShopConfiguration::class => ShopConfiguration::class,
 
         //Controller
         \OxidEsales\Eshop\Application\Controller\StartController::class => StartController::class,
@@ -87,7 +89,7 @@ $aModule = array(
         'actions_category_ajax' => ActionsCategoryAjax::class,
         'tile' => TileController::class,
         'tile_list' => TileList::class,
-        'tile_main' => TileMain::class,
+        'tile_main' => TileMain::class
     ),
     'events' => array(
         'onActivate' => '\NatureAndStyle\CoreModule\Core\Events::onActivate',
@@ -140,6 +142,13 @@ $aModule = array(
             'template' => 'user_main.tpl',
             'block' => 'admin_user_main_form',
             'file' => '/Application/views/blocks/user_main_extend.tpl',
+        ),
+
+        //Shop Config
+        array(
+          'template' => 'shop_config.tpl',
+          'block' => 'admin_shop_config_options',
+          'file' => '/Application/views/blocks/shop_config_extend.tpl',
         ),
     ),
 );

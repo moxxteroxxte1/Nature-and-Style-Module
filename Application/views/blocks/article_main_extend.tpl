@@ -14,7 +14,6 @@
     <td class="edittext">
         <input class="edittext" type="hidden" name="editval[oxarticles__oxamountinpu]" value='0'>
         <input class="edittext" type="checkbox" name="editval[oxarticles__oxamountinpu]" value='1' [{if $edit->oxarticles__oxamountinpu->value == 1}]checked[{/if}] [{$readonly}]>
-        [{oxinputhelp ident="HELP_GENERAL_ACTIVE"}]
     </td>
 </tr>
 <tr>
@@ -24,7 +23,6 @@
     <td class="edittext">
         <input class="edittext" type="hidden" name="editval[oxarticles__oxnew]" value='0'>
         <input class="edittext" type="checkbox" name="editval[oxarticles__oxnew]" value='1' [{if $edit->oxarticles__oxnew->value == 1}]checked[{/if}] [{$readonly}]>
-        [{oxinputhelp ident="HELP_GENERAL_ACTIVE"}]
     </td>
 </tr>
 <tr>
@@ -34,7 +32,6 @@
     <td class="edittext">
         <input class="edittext" type="hidden" name="editval[oxarticles__oxunique]" value='0'>
         <input class="edittext" type="checkbox" name="editval[oxarticles__oxunique]" value='1' [{if $edit->oxarticles__oxunique->value == 1}]checked[{/if}] [{$readonly}]>
-        [{oxinputhelp ident="HELP_GENERAL_ACTIVE"}]
     </td>
 </tr>
 
