@@ -8,10 +8,10 @@ use OxidEsales\Eshop\Core\DatabaseProvider;
 
 class Delivery extends Delivery_parent
 {
-    protected $_oPrice = null;
     var int $iAmount = 0;
-    protected $blIncludesSurcharge = false;
-    protected $blIncludesCargo = false;
+    protected bool $blIncludesSurcharge = false;
+    protected bool $blIncludesCargo = false;
+    protected int $iCargoMultiplier = 0;
 
     /**
      * Calculation rule
@@ -23,7 +23,7 @@ class Delivery extends Delivery_parent
      */
     const CONDITION_TYPE_POINTS = 'pp';
 
-    private $iCargoMultiplier = 0;
+
 
     public function getDeliveryAmount($oBasketItem)
     {
@@ -77,8 +77,10 @@ class Delivery extends Delivery_parent
                 $oArticle = $oContent->getArticle(false);
                 if ($this->checkArticleRestriction($oArticle)) {
                     $dAmount = $oContent->getAmount();
-                    if ($oArticle->isBlukyGood() && !$this->isIncludingCargo()) {
-                        $this->iCargoMultiplier = $oArticle->getBulkyGoodMultiplier();
+                    $logger = Registry::getLogger();
+                    $logger->error($oArticle->isBlukyGood());
+                    if ($oArticle->isBlukyGood()) {
+                        $this->iCargoMultiplier += $oArticle->getBulkyGoodMultiplier();
                         $this->blIncludesCargo = true;
                     } else {
                         $iAllPoints += ($dAmount * $this->getDeliveryAmount($oContent));
