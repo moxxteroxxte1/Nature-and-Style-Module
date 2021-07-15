@@ -60,24 +60,6 @@ class Delivery extends Delivery_parent
         }
     }
 
-    public function getDeliveryPrice($dVat = null)
-    {
-        if ($this->_oPrice === null) {
-            // loading oxPrice object for final price calculation
-            $oPrice = oxNew(\OxidEsales\Eshop\Core\Price::class);
-            $oPrice->setNettoMode($this->_blDelVatOnTop);
-            $oPrice->setVat($dVat);
-
-            // if article is free shipping, price for delivery will be not calculated
-            if (!$this->_blFreeShipping) {
-                $oPrice->add($this->getCostSum());
-            }
-            $this->setDeliveryPrice($oPrice);
-        }
-
-        return $this->_oPrice;
-    }
-
     protected function getCostSum()
     {
         return (parent::getCostSum() + $this->getCargoPrice());
