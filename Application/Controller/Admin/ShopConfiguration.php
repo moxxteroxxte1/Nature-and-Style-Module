@@ -36,7 +36,7 @@ class ShopConfiguration extends ShopConfiguration_parent
 
                 $currentDelivery = array($sId, $sTitle, $blSelected);
                 $logger = Registry::getLogger();
-                $logger->warning($currentDelivery);
+                $logger->warning(implode(" ,", $currentDelivery));
                 array_push($data, $currentDelivery);
 
                 $resultSet->fetchRow();
