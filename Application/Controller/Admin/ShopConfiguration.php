@@ -32,9 +32,13 @@ class ShopConfiguration extends ShopConfiguration_parent
 
                 $sId = (string)$row[0];
                 $sTitle = (string)$row[1];
-                $blSelected = ((strcmp(Registry::getConfig()->getConfigParam('nascargodelivery'), $sId) == 0) ? 'selected' : '');
+                $sSelected = "";
 
-                array_push($data, array('id' => $sId, 'title' => $sTitle, 'selected' => $blSelected));
+                if(Registry::getConfig()->getConfigParam('nascargodelivery') == $sId){
+                    $sSelected = "selected";
+                }
+
+                array_push($data, array($sId, $sSelected, $sTitle));
 
                 $resultSet->fetchRow();
             }
