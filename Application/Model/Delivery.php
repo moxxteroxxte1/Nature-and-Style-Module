@@ -62,6 +62,8 @@ class Delivery extends Delivery_parent
 
     protected function getCostSum()
     {
+        $logger = Registry::getLogger();
+        $logger->info((parent::getCostSum() + $this->getCargoPrice()));
         return (parent::getCostSum() + $this->getCargoPrice());
     }
 
@@ -165,14 +167,9 @@ class Delivery extends Delivery_parent
     protected function getCargoPrice()
     {
         $dCargoPrice = 0;
-        $logger = Registry::getLogger();
-        $logger->info(Registry::getConfig()->getConfigParam('nascargodelivery'));
-        $logger->info(!$this->includeCargo());
-        $logger->info($this->blIncludesCargo);
         if (!$this->includeCargo() && $this->blIncludesCargo) {
             $dCargoPrice = (doubleval(Registry::getConfig()->getConfigParam('nascargoprice'), 10) * $this->iCargoMultiplier);
         }
-        $logger->info($dCargoPrice);
         return $dCargoPrice;
     }
 
