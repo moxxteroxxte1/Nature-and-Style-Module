@@ -11,6 +11,7 @@ class Delivery extends Delivery_parent
     protected $_oPrice = null;
     var int $iAmount = 1;
     protected $blIncludesSurcharge = false;
+    protected $blIncludesCargo = false;
 
     /**
      * Calculation rule
@@ -21,7 +22,7 @@ class Delivery extends Delivery_parent
      * Condition type
      */
     const CONDITION_TYPE_POINTS = 'pp';
-    private $blIncludesCargo = false;
+
     private $iCargoMultiplier = 0;
 
     public function getDeliveryAmount($oBasketItem)
@@ -163,7 +164,11 @@ class Delivery extends Delivery_parent
 
     protected function getCargoPrice()
     {
-        return (($this->includeCargo() || !$this->blIncludesCargo) ? 0 : doubleval(Registry::getConfig()->getConfigParam('nascargoprice'), 10) * $this->iCargoMultiplier);
+        $dCargoPrice = 0;
+        if(!$this->includeCargo() && $this->blIncludesCargo){
+            $dCargoPrice = (doubleval(Registry::getConfig()->getConfigParam('nascargoprice'), 10) * $this->iCargoMultiplier);
+        }
+        return $dCargoPrice;
     }
 
     protected function includeCargo()

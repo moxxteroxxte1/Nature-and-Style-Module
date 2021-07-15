@@ -1,4 +1,5 @@
 [{$smarty.block.parent}]
+<b>TEST</b>
 <div class="groupExp">
     <div>
         <a href="#" onclick="_groupExp(this);return false;" class="rc"><b>[{oxmultilang ident="SHOP_OPTIONS_GROUP_SHIPPING"}]</b></a>
