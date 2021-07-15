@@ -163,7 +163,7 @@ class Delivery extends Delivery_parent
 
     public function getCargoPrice()
     {
-        return !$this->includeCargo() && $this->blIncludesCargo ? doublevalRegistry::getConfig()->getConfigParam('nascargoprice') * $this->iCargoMultiplier : 0;
+        return (!$this->includeCargo() && $this->blIncludesCargo) ? (doubleval(Registry::getConfig()->getConfigParam('nascargoprice')) * $this->iCargoMultiplier) : 0;
     }
 
     public function includeCargo()
