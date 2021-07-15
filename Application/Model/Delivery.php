@@ -62,13 +62,9 @@ class Delivery extends Delivery_parent
 
     protected function getCostSum()
     {
-        if ($this->getAddSumType() == 'abs') {
-            $oCur = \OxidEsales\Eshop\Core\Registry::getConfig()->getActShopCurrencyObject();
-            $dPrice = ($this->getAddSum() * $oCur->rate * $this->getMultiplier()) + $this->getCargoPrice();
-        } else {
-            $dPrice = ($this->_dPrice / 100 * $this->getAddSum()) + $this->getCargoPrice();
-        }
-        return $dPrice;
+        $dCostSum = parent::getCostSum();
+        $dCostSum += $this->getCargoPrice();
+        return $dCostSum;
     }
 
 
