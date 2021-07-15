@@ -3,6 +3,7 @@
 
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
+use OxidEsales\Eshop\Core\DatabaseProvider;
 
 class ShopConfiguration extends ShopConfiguration_parent
 {
