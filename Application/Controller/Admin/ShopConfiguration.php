@@ -4,6 +4,7 @@
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
 use OxidEsales\Eshop\Core\DatabaseProvider;
+use OxidEsales\Eshop\Core\Registry;
 
 class ShopConfiguration extends ShopConfiguration_parent
 {
@@ -29,10 +30,11 @@ class ShopConfiguration extends ShopConfiguration_parent
             while (!$resultSet->EOF) {
                 $row = $resultSet->getFields();
 
-                $id = (string)$row[0];
-                $title = (string)$row[1];
+                $sId = (string)$row[0];
+                $sTitle = (string)$row[1];
+                $blSelected = Registry::getConfig()->getConfigParam('nascargodelivery');
 
-                array_push($data, array($id, $title));
+                array_push($data, array($sId, $sTitle, $blSelected));
                 $resultSet->fetchRow();
             }
         }

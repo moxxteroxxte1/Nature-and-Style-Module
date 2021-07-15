@@ -1,5 +1,4 @@
 [{$smarty.block.parent}]
-<b>TEST</b>
 <div class="groupExp">
     <div>
         <a href="#" onclick="_groupExp(this);return false;" class="rc"><b>[{oxmultilang ident="SHOP_OPTIONS_GROUP_SHIPPING"}]</b></a>
@@ -18,7 +17,7 @@
             <dt>
                 <select class="select" multiple size="4" name=confstrs[nascargodelivery] [{$readonly}]>
                     [{foreach from=$deliverys item=oDelivery}]
-                    <option value="[{$oDelivery[0]}]"[{if $oDelivery->selected}] selected[{/if}]>[{$oDelivery[1]}]</option>
+                    <option value="[{$oDelivery[0]}]"[{if $oDelivery[2]}] selected[{/if}]>[{$oDelivery[1]}]</option>
                     [{/foreach}]
                 </select>
             </dt>
