@@ -157,12 +157,12 @@ class Delivery extends Delivery_parent
         $this->blIncludesSurcharge = $blIncludesSurcharge;
     }
 
-    protected function isIncludingCargo()
+    public function isIncludingCargo()
     {
         return $this->blIncludesCargo;
     }
 
-    protected function getCargoPrice()
+    public function getCargoPrice()
     {
         $dCargoPrice = 0;
         $logger = Registry::getLogger();
@@ -174,7 +174,7 @@ class Delivery extends Delivery_parent
         return $dCargoPrice;
     }
 
-    protected function includeCargo()
+    public function includeCargo()
     {
         return $this->isParent(Registry::getConfig()->getConfigParam('nascargodelivery'), $this->getId());
     }
