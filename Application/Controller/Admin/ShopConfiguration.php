@@ -34,7 +34,11 @@ class ShopConfiguration extends ShopConfiguration_parent
                 $sTitle = (string)$row[1];
                 $blSelected = strcmp(Registry::getConfig()->getConfigParam('nascargodelivery'), $sId) == 0;
 
-                array_push($data, array($sId, $sTitle, $blSelected));
+                $currentDelivery = array($sId, $sTitle, $blSelected);
+                $logger = Registry::getLogger();
+                $logger->warning($currentDelivery);
+                array_push($data, $currentDelivery);
+
                 $resultSet->fetchRow();
             }
         }
