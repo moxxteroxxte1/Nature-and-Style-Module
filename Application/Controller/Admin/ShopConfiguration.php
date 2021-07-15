@@ -38,7 +38,11 @@ class ShopConfiguration extends ShopConfiguration_parent
                     $sSelected = "selected";
                 }
 
-                array_push($data, array($sId, $sSelected, $sTitle));
+                $delivery = array($sId, $sSelected, $sTitle);
+                $logger = Registry::getLogger();
+                $logger->error(implode(", ", $delivery));
+
+                array_push($data, $delivery);
 
                 $resultSet->fetchRow();
             }
