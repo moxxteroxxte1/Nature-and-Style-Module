@@ -8,7 +8,7 @@ use OxidEsales\Eshop\Core\DatabaseProvider;
 
 class Delivery extends Delivery_parent
 {
-    var int $iAmount = 0;
+    var int $iAmount = 1;
     protected bool $blIncludesSurcharge = false;
     protected bool $blIncludesCargo = false;
     protected int $iCargoMultiplier = 0;
@@ -78,8 +78,7 @@ class Delivery extends Delivery_parent
                 if ($this->checkArticleRestriction($oArticle)) {
                     $dAmount = $oContent->getAmount();
                     $logger = Registry::getLogger();
-                    $logger->error($oArticle->oxarticles__oxbulkygood->value);
-                    if ($oArticle->oxarticles__oxbulkygood->value) {
+                    if ($oArticle->oxarticles__oxbulkygood->value && !$this->includeCargo()) {
                         $this->iCargoMultiplier += $oArticle->oxarticles__oxbulkygoodmultiplier->value;
                         $this->blIncludesCargo = true;
                     } else {
@@ -89,7 +88,7 @@ class Delivery extends Delivery_parent
                     return false;
                 }
             }
-            $this->iAmount = ceil(($iAllPoints / $this->getConditionTo()));
+            $this->iAmount = $iAllPoints > 0 ? ceil(($iAllPoints / $this->getConditionTo())) : 0;
         } else {
             $blForBasket = parent::isForBasket($oBasket);
         }
@@ -168,7 +167,7 @@ class Delivery extends Delivery_parent
     {
         $dCargoPrice = 0;
         if (!$this->includeCargo() && $this->blIncludesCargo) {
-            $dCargoPrice = (doubleval(Registry::getConfig()->getConfigParam('nascargoprice'), 10) * $this->iCargoMultiplier);
+            $dCargoPrice = (doubleval(Registry::getConfig()->getConfigParam('nascargoprice')) * $this->iCargoMultiplier);
         }
         return $dCargoPrice;
     }
