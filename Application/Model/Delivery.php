@@ -61,7 +61,9 @@ class Delivery extends Delivery_parent
 
     protected function _getCostSum()
     {
-        return ($this->getCargoPrice() + parent::_getCostSum());
+        $dCargoPrice = parent::_getCostSum();
+        $dCargoPrice += $this->getCargoPrice();
+        return $dCargoPrice;
     }
 
 
@@ -80,7 +82,6 @@ class Delivery extends Delivery_parent
                     if ($oArticle->oxarticles__oxbulkygood->value && !$this->includeCargo()) {
                         $this->iCargoMultiplier += ($oArticle->oxarticles__oxbulkygoodmultiplier->value * $dAmount);
                         $this->blIncludesCargo = true;
-                        $logger->error($this->iCargoMultiplier);
                     } else {
                         $iAllPoints += ($dAmount * $this->getDeliveryAmount($oContent));
                     }
@@ -166,8 +167,6 @@ class Delivery extends Delivery_parent
     public function getCargoPrice()
     {
         $dCargoPrice = 0;
-        $logger = Registry::getLogger();
-        $logger->error((!$this->includeCargo() && $this->blIncludesCargo) . " " . $this->oxdelivery__oxtitle->value);
         if (!$this->includeCargo() && $this->blIncludesCargo) {
             $dCargoPrice = doubleval(Registry::getConfig()->getConfigParam('nascargoprice')) * $this->iCargoMultiplier;
         }
