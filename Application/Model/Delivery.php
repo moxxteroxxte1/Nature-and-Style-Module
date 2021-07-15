@@ -61,7 +61,9 @@ class Delivery extends Delivery_parent
 
     protected function _getCostSum()
     {
-        return ($this->getCargoPrice() + parent::_getCostSum());
+        $dCostSum = parent::_getCostSum();
+        $dCostSum += $this->getCargoPrice();
+        return $dCostSum;
     }
 
 
