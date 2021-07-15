@@ -62,6 +62,9 @@ class Delivery extends Delivery_parent
 
     public function getDeliveryPrice($dVat = null)
     {
+        $logger = Registry::getLogger();
+        $logger->error("CALLED");
+
         if ($this->_oPrice === null) {
             // loading oxPrice object for final price calculation
             $oPrice = oxNew(\OxidEsales\Eshop\Core\Price::class);
