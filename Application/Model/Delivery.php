@@ -60,10 +60,8 @@ class Delivery extends Delivery_parent
         }
     }
 
-    protected function getCostSum()
+    public function getCostSum()
     {
-        $logger = Registry::getLogger();
-        $logger->error('getCostSum()');
         return ($this->getCargoPrice() + parent::getCostSum());
     }
 
