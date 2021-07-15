@@ -174,6 +174,6 @@ class Delivery extends Delivery_parent
 
     protected function includeCargo()
     {
-        return $this->isParent(Registry::getConfig()->getConfigParam('nascargodelivery'));
+        return $this->isParent(Registry::getConfig()->getConfigParam('nascargodelivery'), $this->getId());
     }
 }
