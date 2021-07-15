@@ -118,7 +118,7 @@ class Article extends Article_parent
         return $this->oxarticles__oxdeliverymin->value;
     }
 
-    public function isBlukyGood()
+    public function isBulkyGood()
     {
         $this->oxarticles__oxbulkygood->value;
     }
