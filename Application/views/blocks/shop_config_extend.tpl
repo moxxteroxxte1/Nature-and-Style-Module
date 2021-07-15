@@ -17,7 +17,7 @@
             <dt>
                 <select class="select" multiple size="4" name=confstrs[nascargodelivery] [{$readonly}]>
                     [{foreach from=$deliverys item=oDelivery}]
-                    <option value="[{$oDelivery[0]}]"[{if $oDelivery[2]}] selected[{/if}]>[{$oDelivery[1]}]</option>
+                    <option value="[{$oDelivery['id']}]" [{$oDelivery['selected']}]>[{$oDelivery['title']}]</option>
                     [{/foreach}]
                 </select>
             </dt>
