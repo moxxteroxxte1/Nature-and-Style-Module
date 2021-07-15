@@ -61,8 +61,11 @@ class Delivery extends Delivery_parent
 
     protected function _getCostSum()
     {
+        $logger = Registry::getLogger();
         $dCargoPrice = parent::_getCostSum();
+        $logger->error($dCargoPrice . " " . $this->oxdelivery__oxtitle->value);
         $dCargoPrice += $this->getCargoPrice();
+        $logger->error($dCargoPrice . " " . $this->oxdelivery__oxtitle->value);
         return $dCargoPrice;
     }
 
@@ -78,7 +81,6 @@ class Delivery extends Delivery_parent
                 $oArticle = $oContent->getArticle(false);
                 if ($this->checkArticleRestriction($oArticle)) {
                     $dAmount = $oContent->getAmount();
-                    $logger = Registry::getLogger();
                     if ($oArticle->oxarticles__oxbulkygood->value && !$this->includeCargo()) {
                         $this->iCargoMultiplier += ($oArticle->oxarticles__oxbulkygoodmultiplier->value * $dAmount);
                         $this->blIncludesCargo = true;
