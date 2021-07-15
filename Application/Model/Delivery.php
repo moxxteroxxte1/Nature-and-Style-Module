@@ -9,7 +9,7 @@ use OxidEsales\Eshop\Core\DatabaseProvider;
 class Delivery extends Delivery_parent
 {
     protected $_oPrice = null;
-    var int $iAmount = 1;
+    var int $iAmount = 0;
     protected $blIncludesSurcharge = false;
     protected $blIncludesCargo = false;
 
