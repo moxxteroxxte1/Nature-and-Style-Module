@@ -60,7 +60,7 @@ class Delivery extends Delivery_parent
         }
     }
 
-    public function getCostSum()
+    protected function getCostSum()
     {
         if ($this->getAddSumType() == 'abs') {
             $oCur = \OxidEsales\Eshop\Core\Registry::getConfig()->getActShopCurrencyObject();
