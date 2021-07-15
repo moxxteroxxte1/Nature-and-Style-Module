@@ -77,15 +77,13 @@ class Delivery extends Delivery_parent
                 if ($this->checkArticleRestriction($oArticle)) {
                     $dAmount = $oContent->getAmount();
                     $logger = Registry::getLogger();
-                    $logger->error("1 " . ($oArticle->oxarticles__oxbulkygood->value && !$this->includeCargo()) . " " . $this->oxdelivery__oxtitle->value);
                     if ($oArticle->oxarticles__oxbulkygood->value && !$this->includeCargo()) {
                         $this->iCargoMultiplier += ($oArticle->oxarticles__oxbulkygoodmultiplier->value * $dAmount);
                         $this->blIncludesCargo = true;
-                        $logger->error("2 " . $this->blIncludesCargo);
+                        $logger->error($this->iCargoMultiplier);
                     } else {
                         $iAllPoints += ($dAmount * $this->getDeliveryAmount($oContent));
                     }
-                    $logger->error("3 " . $iAllPoints);
                 } else {
                     return false;
                 }
