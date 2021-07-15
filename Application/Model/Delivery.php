@@ -77,7 +77,6 @@ class Delivery extends Delivery_parent
                 $oArticle = $oContent->getArticle(false);
                 if ($this->checkArticleRestriction($oArticle)) {
                     $dAmount = $oContent->getAmount();
-                    $logger = Registry::getLogger();
                     if ($oArticle->oxarticles__oxbulkygood->value && !$this->includeCargo()) {
                         $this->iCargoMultiplier += $oArticle->oxarticles__oxbulkygoodmultiplier->value;
                         $this->blIncludesCargo = true;
@@ -166,10 +165,11 @@ class Delivery extends Delivery_parent
     protected function getCargoPrice()
     {
         $dCargoPrice = 0;
+        $logger = Registry::getLogger();
+        $logger->error($this->includeCargo());
+        $logger->error($this->blIncludesCargo);
         if (!$this->includeCargo() && $this->blIncludesCargo) {
-            $logger = Registry::getLogger();
-            $dCargoPrice = (doubleval(Registry::getConfig()->getConfigParam('nascargoprice')) * $this->iCargoMultiplier);
-            $logger->error($dCargoPrice);
+            $dCargoPrice = doublevalRegistry::getConfig()->getConfigParam('nascargoprice') * $this->iCargoMultiplier;
         }
         return $dCargoPrice;
     }
