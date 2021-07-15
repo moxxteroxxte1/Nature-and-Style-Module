@@ -11,13 +11,13 @@ class ShopConfiguration extends ShopConfiguration_parent
 
     public function render()
     {
-        $deliverys = $this->getAllDeliverys();
-        $this->_aViewData["deliverys"] = $deliverys;
+        $deliveries = $this->getAllDeliveries();
+        $this->_aViewData["deliveries"] = $deliveries;
 
         return parent::render();
     }
 
-    public function getAllDeliverys()
+    public function getAllDeliveries()
     {
         $data = [];
 
@@ -48,6 +48,6 @@ class ShopConfiguration extends ShopConfiguration_parent
                 $resultSet->fetchRow();
             }
         }
-        return $resultSet;
+        return $data;
     }
 }
