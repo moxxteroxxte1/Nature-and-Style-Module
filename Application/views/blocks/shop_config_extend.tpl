@@ -15,8 +15,8 @@
 
         <dl>
             <dt>
-                <select class="select" multiple size="4" name=confstrs[nascargodelivery] [{$readonly}]>
-                    [{foreach from=$deliverys item=oDelivery}]
+                <select class="select" size="4" name=confstrs[nascargodelivery] [{$readonly}]>
+                    [{foreach from=$deliveries item=oDelivery}]
                     <option value="[{$oDelivery[0]}]" [{$oDelivery[1]}]>[{$oDelivery[2]}]</option>
                     [{/foreach}]
                 </select>

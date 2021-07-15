@@ -1,6 +1,5 @@
 <?php
 
-
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
 use OxidEsales\Eshop\Core\DatabaseProvider;
@@ -32,19 +31,9 @@ class ShopConfiguration extends ShopConfiguration_parent
 
                 $sId = (string)$row[0];
                 $sTitle = (string)$row[1];
-                $sSelected = "";
+                $sSelected = Registry::getConfig()->getConfigParam('nascargodelivery') == $sId ? "selected" : "";
 
-                if(Registry::getConfig()->getConfigParam('nascargodelivery') == $sId){
-                    $sSelected = "selected";
-                }
-
-                $delivery = array($sId, $sSelected, $sTitle);
-                $logger = Registry::getLogger();
-                $logger->error(implode(", ", $delivery));
-                $logger->error(implode(", ", array_keys($delivery)));
-
-                array_push($data, $delivery);
-
+                array_push($data, array($sId, $sSelected, $sTitle));
                 $resultSet->fetchRow();
             }
         }
