@@ -68,6 +68,7 @@ class Delivery extends Delivery_parent
         } else {
             $dPrice = ($this->_dPrice / 100 * $this->getAddSum()) + $this->getCargoPrice();
         }
+        Registry::getLogger()->error($dPrice);
         return $dPrice;
     }
 
