@@ -41,6 +41,7 @@ class ShopConfiguration extends ShopConfiguration_parent
                 $delivery = array($sId, $sSelected, $sTitle);
                 $logger = Registry::getLogger();
                 $logger->error(implode(", ", $delivery));
+                $logger->error(array_keys($delivery));
 
                 array_push($data, $delivery);
 
