@@ -77,7 +77,7 @@ class Delivery extends Delivery_parent
             foreach ($oBasket->getContents() as $oContent) {
                 $oArticle = $oContent->getArticle(false);
                 $logger = Registry::getLogger();
-                $logger->error($this->oxdeliverys__oxtitle->value . ", " . $oArticle->getTitle() . " | " . $this->checkArticleRestriction($oArticle));
+                $logger->error($this->oxdeliveries__oxtitle->value . ", " . $oArticle->getTitle() . " | " . $this->checkArticleRestriction($oArticle));
                 if ($this->checkArticleRestriction($oArticle)) {
                     $dAmount = $oContent->getAmount();
                     if ($oArticle->oxarticles__oxbulkygood->value && !$this->includeCargo()) {
@@ -109,9 +109,6 @@ class Delivery extends Delivery_parent
 
         $iDeliveryAmount = $oArticle->oxarticles__oxpackagingpoints->value;
         $blFit &= (($iDeliveryAmount >= $this->getConditionFrom() && $iDeliveryAmount <= $this->getConditionTo()) || (!$this->includeCargo() && $this->blIncludesCargo));
-
-        $logger = Registry::getLogger();
-        $logger->error(strval($blFit));
 
         return $blFit;
     }
