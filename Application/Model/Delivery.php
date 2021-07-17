@@ -66,8 +66,6 @@ class Delivery extends Delivery_parent
         $cargoPrice = $this->getCargoPrice();
         $dCargoPrice = parent::_getCostSum() + $this->getCargoPrice();
 
-        $logger = Registry::getLogger();
-        $logger->error("{$this->oxdelivery__oxtitle->value} | {$parentCostSum} + {$cargoPrice} = {$dCargoPrice}");
         return $dCargoPrice;
     }
 
@@ -76,8 +74,6 @@ class Delivery extends Delivery_parent
     {
         $blForBasket = false;
         $iAllPoints = 0;
-
-        $logger = Registry::getLogger();
 
         if ($this->getCalculationRule() == self::CALCULATION_RULE_FIT_PER_CART) {
             $blForBasket = true;
@@ -89,22 +85,17 @@ class Delivery extends Delivery_parent
                     if ($oArticle->oxarticles__oxbulkygood->value && !$this->includeCargo()) {
                         $this->iCargoMultiplier += ($oArticle->oxarticles__oxbulkygoodmultiplier->value * $dAmount);
                         $this->blIncludesCargo = true;
-                        $logger->error($this->oxdelivery__oxtitle->value . ", " . $oArticle->getTitle() . " | " . "isBulkyGood and !includeCargo");
                     } else {
-                        $logger->error($this->oxdelivery__oxtitle->value . ", " . $oArticle->getTitle() . " | " . "!isBulkyGood or includeCargo");
                         $iAllPoints += ($dAmount * $this->getDeliveryAmount($oContent));
                     }
                 } else {
-                    $logger->error($this->oxdelivery__oxtitle->value . ", " . $oArticle->getTitle() . " | " . "!checkArticleRestriction");
                     return false;
                 }
             }
             $this->iAmount = $iAllPoints > 0 ? ceil(($iAllPoints / $this->getConditionTo())) : 0;
         } else {
-            $logger->error($this->oxdelivery__oxtitle->value . " | " . "!calculationRule != CALCULATION_RULE_FIT_PER_CART");
             $blForBasket = parent::isForBasket($oBasket);
         }
-        $logger->error($this->oxdelivery__oxtitle->value . " blForBasket | " . $blForBasket);
         return $blForBasket;
     }
 
