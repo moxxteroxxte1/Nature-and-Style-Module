@@ -109,7 +109,7 @@ class Delivery extends Delivery_parent
         }
 
         $iDeliveryAmount = $oArticle->oxarticles__oxpackagingpoints->value;
-        $blFit &= (($iDeliveryAmount >= $this->getConditionFrom() && $iDeliveryAmount <= $this->getConditionTo()) || (!$this->includeCargo() && $this->blIncludesCargo));
+        $blFit &= (($iDeliveryAmount >= $this->getConditionFrom() && $iDeliveryAmount <= $this->getConditionTo()) || (!$this->includeCargo() && $oArticle->oxarticles__oxbulkygood->value));
 
         return $blFit;
     }
