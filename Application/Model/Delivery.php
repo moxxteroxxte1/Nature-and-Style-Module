@@ -37,7 +37,7 @@ class Delivery extends Delivery_parent
             // if article is free shipping, price for delivery will be not calculated
             if (!$this->_blFreeShipping) {
                 $logger->error("{$this->oxdelivery__oxtitle->value} | !_blFreeShipping");
-                $oPrice->add($this->getCostSum());
+                $oPrice->add($this->_getCostSum());
             }
             $this->setDeliveryPrice($oPrice);
         }
