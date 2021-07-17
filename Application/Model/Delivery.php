@@ -26,7 +26,6 @@ class Delivery extends Delivery_parent
 
     public function getDeliveryAmount($oBasketItem)
     {
-        $logger = Registry::getLogger();
         $dAmount = 0;
         $oProduct = $oBasketItem->getArticle(false);
         $blExclNonMaterial = Registry::getConfig()->getConfigParam('blExclNonMaterialFromDelivery');
@@ -36,24 +35,17 @@ class Delivery extends Delivery_parent
         }
 
         if ($oProduct->oxarticles__oxfreeshipping->value || ($oProduct->oxarticles__oxnonmaterial->value && $blExclNonMaterial)) {
-            $logger->error("{$this->oxdelivery__oxtitle->value}, {$oProduct->getTitle()}: oProduct->oxarticles__oxfreeshipping->value = {$oProduct->oxarticles__oxfreeshipping->value}");
-            $logger->error("{$this->oxdelivery__oxtitle->value}, {$oProduct->getTitle()}: oProduct->oxarticles__oxnonmaterial->value = {$oProduct->oxarticles__oxnonmaterial->value}");
-            $logger->error("{$this->oxdelivery__oxtitle->value}, {$oProduct->getTitle()}: blExclNonMaterial = {$blExclNonMaterial}");
             if ($this->_blFreeShipping !== false) {
                 $this->_blFreeShipping = true;
             }
         } else {
-            $logger->error("{$this->oxdelivery__oxtitle->value}, {$oProduct->getTitle()}: !_blFreeShipping");
             $this->_blFreeShipping = false;
             if ($this->getConditionType() == self::CONDITION_TYPE_POINTS) {
-                $logger->error("{$this->oxdelivery__oxtitle->value}, {$oProduct->getTitle()}: conditionType = CONDITION_TYPE_POINTS");
                 $dAmount = $oProduct->oxarticles__oxpackagingpoints->value;
             } else {
-                $logger->error("{$this->oxdelivery__oxtitle->value}, {$oProduct->getTitle()}: parent::getDeliveryAmount(oBasketItem)");
                 $dAmount = parent::getDeliveryAmount($oBasketItem);
             }
         }
-        $logger->error("{$this->oxdelivery__oxtitle->value}, {$oProduct->getTitle()}: amount = {$dAmount}");
         return $dAmount;
     }
 
@@ -90,6 +82,7 @@ class Delivery extends Delivery_parent
                 if ($this->checkArticleRestriction($oArticle)) {
                     $dAmount = $oContent->getAmount();
                     if ($oArticle->oxarticles__oxbulkygood->value && !$this->includeCargo()) {
+                        $this->_blFreeShipping = false;
                         $this->iCargoMultiplier += ($oArticle->oxarticles__oxbulkygoodmultiplier->value * $dAmount);
                         $this->blIncludesCargo = true;
                     } else {
