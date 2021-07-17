@@ -61,8 +61,13 @@ class Delivery extends Delivery_parent
 
     protected function _getCostSum()
     {
-        $dCargoPrice = parent::_getCostSum();
-        $dCargoPrice += $this->getCargoPrice();
+
+        $parentCostSum = parent::_getCostSum();
+        $cargoPrice = $this->getCargoPrice();
+        $dCargoPrice = parent::_getCostSum() + $this->getCargoPrice();
+
+        $logger = Registry::getLogger();
+        $logger->error("{$this->oxdelivery__oxtitle->value} | {$parentCostSum} + {$cargoPrice} = {$dCargoPrice}");
         return $dCargoPrice;
     }
 
