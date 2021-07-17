@@ -54,7 +54,7 @@ class DeliveryList extends DeliveryList_parent
                     // delivery fits conditions
                     $logger = Registry::getLogger();
                     $dDeliveryPrice = $oDelivery->getDeliveryPrice($fDelVATPercent);
-                    $logger->error("{$oDelivery->getTitle()} | {$dDeliveryPrice}");
+                    $logger->error("{$oDelivery->oxdelivery__oxtitle->value} | {$dDeliveryPrice}");
 
                     if($oUser->getIslandSurcharge() > 0 && $oDelivery->oxdelivery__oxhassurcharge->value){
                         $dDeliveryPrice->add($oUser->getIslandSurcharge());
