@@ -52,9 +52,7 @@ class DeliveryList extends DeliveryList_parent
 
                 if ($oDelivery->isForBasket($oBasket)) {
                     // delivery fits conditions
-                    $logger = Registry::getLogger();
                     $dDeliveryPrice = $oDelivery->getDeliveryPrice($fDelVATPercent);
-                    $logger->error("{$oDelivery->oxdelivery__oxtitle->value} | {$dDeliveryPrice->getPrice()}");
 
                     if($oUser->getIslandSurcharge() > 0 && $oDelivery->oxdelivery__oxhassurcharge->value){
                         $dDeliveryPrice->add($oUser->getIslandSurcharge());

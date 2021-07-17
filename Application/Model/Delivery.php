@@ -24,6 +24,27 @@ class Delivery extends Delivery_parent
     const CONDITION_TYPE_POINTS = 'pp';
 
 
+    public function getDeliveryPrice($dVat = null)
+    {
+        $logger = Registry::getLogger();
+        if ($this->_oPrice === null) {
+            $logger->error("{$this->oxdelivery__oxtitle->value} | _oPrice === null");
+            // loading oxPrice object for final price calculation
+            $oPrice = oxNew(\OxidEsales\Eshop\Core\Price::class);
+            $oPrice->setNettoMode($this->_blDelVatOnTop);
+            $oPrice->setVat($dVat);
+
+            // if article is free shipping, price for delivery will be not calculated
+            if (!$this->_blFreeShipping) {
+                $logger->error("{$this->oxdelivery__oxtitle->value} | !_blFreeShipping");
+                $oPrice->add($this->getCostSum());
+            }
+            $this->setDeliveryPrice($oPrice);
+        }
+        $logger->error("{$this->oxdelivery__oxtitle->value} | {$this->_oPrice->getPrice()}");
+        return $this->_oPrice;
+    }
+
     public function getDeliveryAmount($oBasketItem)
     {
         $dAmount = 0;
