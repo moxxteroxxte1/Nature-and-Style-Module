@@ -3,6 +3,7 @@
 
 namespace NatureAndStyle\CoreModule\Application\Controller;
 
+use OxidEsales\Eshop\Application\Model\DeliverSetList;
 use OxidEsales\Eshop\Core\Registry;
 
 class PaymentController extends PaymentController_parent
@@ -44,7 +45,7 @@ class PaymentController extends PaymentController_parent
             $this->_oPaymentList = $aPaymentList;
 
             $user = $this->getUser();
-            $oxDeliverySetList = oxNew('oxdeliverysetlist');
+            $oxDeliverySetList = oxNew(DeliverSetList::class);
             $aActiveSets = $oxDeliverySetList->getActiveDeliverySetList($user, $user->getUserCountry());#
 
             $this->_aAllSets = $aActiveSets;
