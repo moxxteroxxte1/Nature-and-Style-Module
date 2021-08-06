@@ -42,7 +42,12 @@ class PaymentController extends PaymentController_parent
             // calculating payment expences for preview for each payment
             $this->setValues($aPaymentList, $oBasket);
             $this->_oPaymentList = $aPaymentList;
-            $this->_aAllSets = array($sActShipSet);
+
+            $user = $this->getUser();
+            $oxDeliverySetList = oxNew('oxdeliverysetlist');
+            $aActiveSets = $oxDeliverySetList->getActiveDeliverySetList($user, $user->getUserCountry());#
+
+            $this->_aAllSets = $aActiveSets;
         }
 
         return $this->_oPaymentList;
