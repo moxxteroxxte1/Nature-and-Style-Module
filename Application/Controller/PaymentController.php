@@ -20,4 +20,33 @@ class PaymentController extends PaymentController_parent
 
     }
 
+    public function getPaymentList()
+    {
+        if ($this->_oPaymentList === null) {
+            $this->_oPaymentList = false;
+
+            $sActShipSet = Registry::getRequest()->getRequestEscapedParameter('sShipSet');
+            if (!$sActShipSet) {
+                $sActShipSet = Registry::getSession()->getVariable('sShipSet');
+            }
+
+            $session = \OxidEsales\Eshop\Core\Registry::getSession();
+            $oBasket = $session->getBasket();
+
+            // load sets, active set, and active set payment list
+            list($aAllSets, $sActShipSet, $aPaymentList) =
+               Registry::get(DeliverySetList::class)->getDeliverySetData($sActShipSet, $this->getUser(), $oBasket);
+
+
+            $oBasket->setShipping($sActShipSet);
+
+            // calculating payment expences for preview for each payment
+            $this->setValues($aPaymentList, $oBasket);
+            $this->_oPaymentList = $aPaymentList;
+            $this->_aAllSets = [$sActShipSet];
+        }
+
+        return $this->_oPaymentList;
+    }
+
 }

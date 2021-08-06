@@ -83,7 +83,7 @@ class DeliveryList extends DeliveryList_parent
                     $aFittingDelSets[$sDeliverySetId] = $oDeliverySet;
                 } elseif(!$blFindCheapest) {
                     Registry::getSession()->setVariable('sShipSet', $sDeliverySetId);
-                    return [array_shift($this->_aDeliveries)];
+                    return $this->_aDeliveries;
                 }
             }
         }
