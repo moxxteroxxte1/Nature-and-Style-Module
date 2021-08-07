@@ -27,7 +27,7 @@ class PaymentController extends PaymentController_parent
         $sActShip = Registry::getSession()->getBasket()->getShippingId();
         $logger->info($sActShip);
         if($sActShip){
-            return $sActShip;
+            return [$sActShip];
         }
         $this->getPaymentList();
         return $this->_aAllSets;
