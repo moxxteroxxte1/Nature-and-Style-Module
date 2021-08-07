@@ -17,7 +17,7 @@ class PaymentController extends PaymentController_parent
         $oBasket->setShipping(null);
         $oBasket->setFindCheapest(false);
         $oBasket->onUpdate();
-        $session->setVariable('sShipSet', Registry::getRequest()->getRequestEscapedParameter('sShipSet'));
+        $oBasket->setShipping('sShipSet', Registry::getRequest()->getRequestEscapedParameter('sShipSet'));
 
     }
 
