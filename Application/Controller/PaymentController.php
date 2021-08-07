@@ -11,7 +11,7 @@ class PaymentController extends PaymentController_parent
 
     public function changeshipping()
     {
-        $session = \OxidEsales\Eshop\Core\Registry::getSession();
+        $session = Registry::getSession();
 
         $oBasket = $session->getBasket();
         $oBasket->setShipping(null);
@@ -19,6 +19,13 @@ class PaymentController extends PaymentController_parent
         $oBasket->onUpdate();
         $session->setVariable('sShipSet', Registry::getRequest()->getRequestEscapedParameter('sShipSet'));
 
+    }
+
+    public function getAllSets()
+    {
+        $session = Registry::getSession();
+        $sShipSet = $session->getBasket()->getShippingId();
+        return [$sShipSet];
     }
 
 }
