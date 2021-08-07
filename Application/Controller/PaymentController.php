@@ -23,9 +23,12 @@ class PaymentController extends PaymentController_parent
 
     public function getAllSets()
     {
-        $session = Registry::getSession();
-        $sShipSet = $session->getBasket()->getShippingId();
-        return [$sShipSet];
+        $sActShip = Registry::getSession()->getBasket()->getShippingId();
+        if($sActShip){
+            return $sActShip;
+        }
+        $this->getPaymentList();
+        return $this->_aAllSets;
     }
 
 }
