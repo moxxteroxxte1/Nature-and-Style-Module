@@ -4,6 +4,7 @@
 namespace NatureAndStyle\CoreModule\Application\Controller;
 
 use OxidEsales\Eshop\Application\Model\DeliverSetList;
+use OxidEsales\Eshop\Application\Model\DeliverySet;
 use OxidEsales\Eshop\Core\Registry;
 
 class PaymentController extends PaymentController_parent
@@ -24,10 +25,10 @@ class PaymentController extends PaymentController_parent
     public function getAllSets()
     {
         $logger = Registry::getLogger();
-        $sActShip = Registry::getSession()->getBasket()->getShippingId();
-        $logger->info($sActShip);
-        if($sActShip){
-            return [$sActShip];
+        $sActShipId = Registry::getSession()->getBasket()->getShippingId();
+        $oActShip = oxNew(DeliverySet::class);
+        if($oActShip->load($sActShipId)){
+            return [$oActShip];
         }
         $this->getPaymentList();
         return $this->_aAllSets;
