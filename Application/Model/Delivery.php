@@ -182,6 +182,6 @@ class Delivery extends Delivery_parent
 
     public function isMarkedShipping()
     {
-        return $this->oxdeliver__oxmarkshipping->value;
+        return $this->oxdelivery__oxmarkshipping->value;
     }
 }
