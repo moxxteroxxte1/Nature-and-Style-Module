@@ -121,7 +121,7 @@ class Article extends Article_parent
     public function hasMinDelivery()
     {
         $sMinDel = $this->getMinDelivery();
-        return $sMinDel && $sMinDel != '----';
+        return $sMinDel != null && $sMinDel != '----';
     }
 
     public function isCarrierShipping()
