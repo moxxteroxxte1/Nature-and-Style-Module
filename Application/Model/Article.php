@@ -118,6 +118,21 @@ class Article extends Article_parent
         return $this->oxarticles__oxdeliverymin->value;
     }
 
+    public function hasMinDelivery()
+    {
+        $sMinDel = $this->getMinDelivery();
+        return $sMinDel && $sMinDel != '----';
+    }
+
+    public function isCarrierShipping()
+    {
+        if($this->hasMinDelivery()){
+            $oDeliver = oxNew(Delivery::class);
+            $oDeliver->load($this->getMinDelivery());
+            return $oDeliver->isMarkedShipping();
+        }
+    }
+
     public function isBulkyGood()
     {
         $this->oxarticles__oxbulkygood->value;

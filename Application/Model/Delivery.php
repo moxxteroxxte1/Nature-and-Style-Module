@@ -179,4 +179,9 @@ class Delivery extends Delivery_parent
     {
         return $this->isParent(Registry::getConfig()->getConfigParam('nascargodelivery'), $this->getId());
     }
+
+    public function isMarkedShipping()
+    {
+        return $this->oxdeliver__oxmarkshipping->value;
+    }
 }
