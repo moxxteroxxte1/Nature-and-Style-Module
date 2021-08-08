@@ -69,6 +69,15 @@
 </tr>
 <tr>
     <td class="edittext">
+        [{oxmultilang ident="DELIVERY_MAIN_MARK_SHIPPING"}]
+    </td>
+    <td class="edittext">
+        <input class="edittext" type="hidden" name="editval[oxdelivery__oxmarkshipping]" value='0'>
+        <input class="edittext" type="checkbox" name="editval[oxdelivery__oxmarkshipping]" value='1' [{if $edit->oxdelivery__oxmarkshipping->value == 1}]checked[{/if}] [{$readonly}]>
+    </td>
+</tr>
+<tr>
+    <td class="edittext">
         [{oxmultilang ident="DELIVERY_MAIN_COUNTRULES"}]
     </td>
     <td class="edittext">
