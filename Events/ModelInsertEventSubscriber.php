@@ -67,8 +67,11 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
 
     public function onFinalizedActivation(Event $event)
     {
+        $logger = Registry::getLogger();
+        $logger->info('1');
         $oCategory = oxNew('oxcategory');
         if (!$oCategory->load('new_articles')) {
+            $logger->info('2');
             $oCategory->assign(array(
                 "oxid" => 'new_articles',
                 'oxtitle' => 'Unsere Neuheiten',
@@ -76,7 +79,9 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
                 "oxparentid" => "oxrootid",
                 'oxsort' => 0
             ));
+            $logger->info('3');
             $oCategory->save();
+            $logger->info('4');
         }
     }
 
