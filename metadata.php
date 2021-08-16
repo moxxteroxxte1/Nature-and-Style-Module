@@ -91,9 +91,6 @@ $aModule = array(
         'tile_list' => TileList::class,
         'tile_main' => TileMain::class
     ),
-    'events' => array(
-        'onActivate' => '\NatureAndStyle\CoreModule\Core\Events::onActivate',
-    ),
     'blocks' => array(
         //Actions
         array(
