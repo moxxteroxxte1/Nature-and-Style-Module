@@ -133,6 +133,10 @@ class Article extends Article_parent
         }
     }
 
+    public function getDynImageDir(){
+        return $this->getId();
+    }
+
     public function isBulkyGood()
     {
         $this->oxarticles__oxbulkygood->value;

@@ -6,7 +6,6 @@ use OxidEsales\Eshop\Core\Exeption\DatabaseException;
 use OxidEsales\Eshop\Core\Field;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\EshopCommunity\Internal\Framework\Event\AbstractShopAwareEventSubscriber;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Setup\Event\FinalizingModuleActivationEvent;
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\AfterModelInsertEvent;
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\AfterModelUpdateEvent;
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\AfterModelDeleteEvent;
@@ -65,26 +64,6 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
         }
     }
 
-    public function onFinalizedActivation(Event $event)
-    {
-        $logger = Registry::getLogger();
-        $logger->info('1');
-        $oCategory = oxNew('oxcategory');
-        if (!$oCategory->load('new_articles')) {
-            $logger->info('2');
-            $oCategory->assign(array(
-                "oxid" => 'new_articles',
-                'oxtitle' => 'Unsere Neuheiten',
-                'oxactive' => 1,
-                "oxparentid" => "oxrootid",
-                'oxsort' => 0
-            ));
-            $logger->info('3');
-            $oCategory->save();
-            $logger->info('4');
-        }
-    }
-
     private function articleToCategory($sAId, $sCid)
     {
         $oArticle = oxNew('oxarticle');
@@ -113,7 +92,6 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
     public static function getSubscribedEvents()
     {
         return [AfterModelUpdateEvent::NAME => 'onUpdate',
-            AfterModelInsertEvent::NAME => 'onInsert',
-            FinalizingModuleActivationEvent::NAME => 'onFinalizedActivation'];
+            AfterModelInsertEvent::NAME => 'onInsert'];
     }
 }
