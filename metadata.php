@@ -24,7 +24,6 @@ use NatureAndStyle\CoreModule\Application\Model\DeliveryList;
 use NatureAndStyle\CoreModule\Application\Model\Discount;
 use NatureAndStyle\CoreModule\Application\Model\OrderArticle;
 use NatureAndStyle\CoreModule\Application\Model\User;
-use NatureAndStyle\CoreModule\Core\Events;
 use NatureAndStyle\CoreModule\Core\Price;
 
 $sMetadataVersion = '2.0';
@@ -93,7 +92,7 @@ $aModule = array(
         'tile_main' => TileMain::class
     ),
     'events' => array(
-        'onActivate' => Events::onActivate()
+        'onActivate' => '\NatureAndStyle\CoreModule\Core\Events::onActivate()',
     ),
     'blocks' => array(
         //Actions
