@@ -46,7 +46,7 @@ class ActionsCategoryAjax extends \OxidEsales\Eshop\Application\Controller\Admin
         $sQ = parent::_addFilter($sQ);
 
         // display variants or not ?
-        $sQ .= \OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('blVariantsSelection') ? ' group by ' . $sArtTable . '.oxid ' : '';
+        //$sQ .= \OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('blVariantsSelection') ? ' group by ' . $sArtTable . '.oxid ' : '';
 
         return $sQ;
     }
