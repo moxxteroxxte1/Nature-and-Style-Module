@@ -22,4 +22,8 @@ class StartController extends StartController_parent
         return $oTilesList;
     }
 
+    public function getShopUrl(){
+        return Registry::getConfig()->getShopUrl();
+    }
+
 }
