@@ -42,10 +42,11 @@ class ActionsCategoryAjax extends \OxidEsales\Eshop\Application\Controller\Admin
 
     protected function _addFilter($sQ) // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
     {
-        //$sQ = parent::_addFilter($sQ);
+        $sArtTable = $this->_getViewName('oxcategories');
+        $sQ = parent::_addFilter($sQ);
 
         // display variants or not ?
-        //$sQ .= \OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('blVariantsSelection') ? ' group by ' . $sArtTable . '.oxid ' : '';
+        $sQ .= \OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('blVariantsSelection') ? ' group by ' . $sArtTable . '.oxid ' : '';
 
         return $sQ;
     }

@@ -7,6 +7,7 @@ use NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsMain;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\ArticlePictures;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\ArticleStock;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\DeliveryMain;
+use NatureAndStyle\CoreModule\Application\Controller\Admin\DynamicExportBaseController;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\ShopConfiguration;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\TileController;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\TileList;
@@ -57,6 +58,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Controller\Admin\ArticleStock::class => ArticleStock::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ArticlePictures::class => ArticlePictures::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ShopConfiguration::class => ShopConfiguration::class,
+        \OxidEsales\Eshop\Application\Controller\Admin\DynamicExportBaseController::class => DynamicExportBaseController::class,
 
         //Controller
         \OxidEsales\Eshop\Application\Controller\StartController::class => StartController::class,
@@ -146,9 +148,9 @@ $aModule = array(
 
         //Shop Config
         array(
-          'template' => 'shop_config.tpl',
-          'block' => 'admin_shop_config_options',
-          'file' => '/Application/views/blocks/shop_config_extend.tpl',
+            'template' => 'shop_config.tpl',
+            'block' => 'admin_shop_config_options',
+            'file' => '/Application/views/blocks/shop_config_extend.tpl',
         ),
     ),
 );
