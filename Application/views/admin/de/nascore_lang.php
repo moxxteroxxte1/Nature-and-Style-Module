@@ -21,6 +21,7 @@ $aLang = array(
     'PROMOTIONS_TILE_PICTUREANDLINK'                => 'Kachel-Einstellungen',
     'TOOLTIPS_NEWTILE'                              => 'Neue Kachel',
     'PROMOTIONS_TILE_COLOR'                         => 'Farbe auswählen',
+    'PROMOTIONS_TILE_COLOR'                         => 'Textfarbe auswählen',
     'NASCORE_ARTICLE_STOCK_PACKAGINGPOINTS'         => 'Versandpunkte',
     'NASCORE_ARTICLE_STOCK_SPOT'                    => 'Lagerplatz',
     'points'                                        => 'Punkte',

@@ -1,3 +1,33 @@
+<script type="text/javascript">
+    function colorUpdated(e){
+        document.getElementById("oxcolor").value = e.target.value;
+    }
+
+    function DeletePic(sField)
+    {
+        var oForm = document.getElementById("myedit");
+        document.getElementById(sField).value="";
+        oForm.fnc.value='save';
+        oForm.submit();
+    }
+
+    function DeleteColor(sField)
+    {
+        var oForm = document.getElementById("myedit");
+        var element = document.getElementById(sField);
+        var input = document.createElement("input")
+        input.name = element.name;
+        input.value = null;
+        input.hidden = true;
+        element.name = "";
+
+        element.before(input);
+
+        oForm.fnc.value='save';
+        oForm.submit();
+    }
+</script>
+
 <colgroup>
     <col width="1%" nowrap>
     <col width="1%" nowrap>
@@ -66,6 +96,23 @@
                 [{/if}]
             </span>
         </b>
+    </td>
+</tr>
+
+<tr>
+    <td class="text">
+        <b>[{oxmultilang ident="PROMOTIONS_SLIDER_COLOR"}]</b>
+    </td>
+    <td class="edittext">
+        <input type="hidden" id="oxcolor" name=editval[oxactions__oxcolor]" value="">
+        <input type="color" id="oxcolorinput" class="editinput" [{if $edit->oxactions__oxcolor->value != ""}] value="[{$edit->oxactions__oxcolor->value}]" [{/if}] onchange="colorUpdated(event)">
+    </td>
+    <td nowrap="nowrap">
+        [{if !$edit->oxactions__oxcolor->value=="" && !$readonly}]
+        <div style="display: inline-block;">
+            <a href="Javascript:DeleteColor('oxcolor');" class="deleteText"><span class="ico"></span><span style="float: left;>">[{oxmultilang ident="GENERAL_DELETE"}]</span></a>
+        </div>
+        [{/if}]
     </td>
 </tr>
 

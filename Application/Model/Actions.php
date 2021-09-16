@@ -5,6 +5,8 @@ namespace NatureAndStyle\CoreModule\Application\Model;
 
 
 use OxidEsales\Eshop\Core\DatabaseProvider;
+use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Core\UtilsUrl;
 
 class Actions extends Actions_parent
 {
@@ -12,21 +14,26 @@ class Actions extends Actions_parent
     public function getBannerTitle()
     {
         $oBannerObject = $this->getBannerObject();
-        if($oBannerObject){
+        if ($oBannerObject) {
             return $this->getBannerObject()->getTitle();
-        }elseif(isset($this->oxactions__oxtitle)){
+        } elseif (isset($this->oxactions__oxtitle)) {
             return $this->oxactions__oxtitle->value;
         }
 
         return null;
     }
 
+    public function getBannerTextColor()
+    {
+        return is_null($this->oxactions__oxcolor) ? null : $this->oxactions__oxcolor->value;
+    }
+
     public function getLongDesc()
     {
         $oBannerObject = $this->getBannerObject();
-        if(isset($this->oxactions__oxlongdesc)){
+        if (isset($this->oxactions__oxlongdesc)) {
             return $this->oxactions__oxlongdesc->value;
-        }elseif($oBannerObject){
+        } elseif ($oBannerObject) {
             return $this->getBannerObject()->getLongDesc();
         }
 
@@ -46,7 +53,8 @@ class Actions extends Actions_parent
         );
     }
 
-    protected function fetchBannerObjectClass(){
+    protected function fetchBannerObjectClass()
+    {
         $database = DatabaseProvider::getDb();
 
         return $database->getOne(
@@ -67,7 +75,7 @@ class Actions extends Actions_parent
             $object = oxNew($sObjClass);
 
             if ($this->isAdmin() && is_a($object, '"OxidEsales\Eshop\Application\Model\Article')) {
-                $object->setLanguage(\OxidEsales\Eshop\Core\Registry::getLang()->getEditLanguage());
+                $object->setLanguage(Registry::getLang()->getEditLanguage());
             }
 
             if ($object->load($sObjId)) {
@@ -83,11 +91,11 @@ class Actions extends Actions_parent
         $sUrl = null;
 
         $object = $this->getBannerObject();
-        if($object){
+        if ($object) {
             $sUrl = $object->getLink();
-        }else if (isset($this->oxactions__oxlink) && $this->oxactions__oxlink->value) {
-            /** @var \OxidEsales\Eshop\Core\UtilsUrl $oUtilsUlr */
-            $oUtilsUlr = \OxidEsales\Eshop\Core\Registry::getUtilsUrl();
+        } else if (isset($this->oxactions__oxlink) && $this->oxactions__oxlink->value) {
+            /** @var UtilsUrl $oUtilsUlr */
+            $oUtilsUlr = Registry::getUtilsUrl();
             $sUrl = $oUtilsUlr->addShopHost($this->oxactions__oxlink->value);
             $sUrl = $oUtilsUlr->processUrl($sUrl);
         }
