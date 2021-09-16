@@ -7,7 +7,7 @@ use NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsMain;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\ArticlePictures;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\ArticleStock;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\DeliveryMain;
-use NatureAndStyle\CoreModule\Application\Controller\Admin\DynamicExportBaseController;
+use NatureAndStyle\CoreModule\Application\Controller\Admin\GenericExportDo;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\ShopConfiguration;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\TileController;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\TileList;
