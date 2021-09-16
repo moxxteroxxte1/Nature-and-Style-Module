@@ -7,14 +7,21 @@ namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 class DynamicExportBaseController extends DynamicExportBaseController_parent
 {
 
-    public string $sExportFileType  = "csv";
+    public string $sExportFileType = "csv";
     public $_sFilePath = "";
 
     public function __construct()
     {
-        parent::__construct();
+        $myConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
+        $myConfig->setConfigParam('blAdmin', true);
+        $this->setAdminMode(true);
 
-        parent::$_sFilePath = \OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('sShopDir') . "/" . $this->sExportPath . $this->sExportFileName . "." . $this->sExportFileType;
+        if ($oShop = $this->getEditShop($myConfig->getShopId())) {
+            // passing shop info
+            $this->_sShopTitle = $oShop->oxshops__oxname->getRawValue();
+        }
+
+        $this->_sFilePath = \OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('sShopDir') . "/" . $this->sExportPath . $this->sExportFileName . "." . $this->sExportFileType;
     }
 
     protected function insertArticles($sHeapTable, $sCatAdd)
