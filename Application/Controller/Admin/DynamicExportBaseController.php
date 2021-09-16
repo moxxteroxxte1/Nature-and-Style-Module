@@ -4,10 +4,11 @@
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
 
-class DynamicExportBaseController extends DynamicExportBaseControlelr_parent
+class DynamicExportBaseController extends DynamicExportBaseController_parent
 {
 
-    public $sExportFileType  = "csv";
+    public string $sExportFileType  = "csv";
+    public $_sFilePath = "";
 
     public function __construct()
     {
