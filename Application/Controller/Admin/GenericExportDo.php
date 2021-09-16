@@ -4,7 +4,7 @@
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
 
-class DynamicExportBaseController extends GenericExportDo_parent
+class GenericExportDo extends GenericExportDo_parent
 {
 
     public $sExportFileType = "csv";
