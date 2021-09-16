@@ -12,6 +12,7 @@ use NatureAndStyle\CoreModule\Application\Controller\Admin\ShopConfiguration;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\TileController;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\TileList;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\TileMain;
+use NatureAndStyle\CoreModule\Application\Controller\ArticleListController;
 use NatureAndStyle\CoreModule\Application\Controller\BasketController;
 use NatureAndStyle\CoreModule\Application\Controller\PaymentController;
 use NatureAndStyle\CoreModule\Application\Controller\StartController;
@@ -64,6 +65,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Controller\StartController::class => StartController::class,
         \OxidEsales\Eshop\Application\Controller\BasketController::class => BasketController::class,
         \OxidEsales\Eshop\Application\Controller\PaymentController::class => PaymentController::class,
+        \OxidEsales\Eshop\Application\Controller\ArticleListController::class => ArticleListController::class,
 
         //Components
         \OxidEsales\Eshop\Application\Component\UserComponent::class => UserComponent::class,
@@ -102,6 +104,11 @@ $aModule = array(
             'template' => 'actions_main.tpl',
             'block' => 'admin_actions_main_product',
             'file' => '/Application/views/blocks/actions_main_extend.tpl'
+        ),
+        array(
+          'template' => 'actions_main.tpl',
+          'block'   => 'admin_actions_main_form',
+          'file'    => '/Application/views/blocks/actions_main_extended_extend.tpl'
         ),
 
         //Article
