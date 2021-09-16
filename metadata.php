@@ -58,7 +58,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Controller\Admin\ArticleStock::class => ArticleStock::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ArticlePictures::class => ArticlePictures::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ShopConfiguration::class => ShopConfiguration::class,
-        \OxidEsales\Eshop\Application\Controller\Admin\DynamicExportBaseController::class => DynamicExportBaseController::class,
+        \OxidEsales\Eshop\Application\Controller\Admin\GenericExportDo::class => DynamicExportBaseController::class,
 
         //Controller
         \OxidEsales\Eshop\Application\Controller\StartController::class => StartController::class,
