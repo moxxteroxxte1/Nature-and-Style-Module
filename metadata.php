@@ -65,7 +65,6 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Controller\StartController::class => StartController::class,
         \OxidEsales\Eshop\Application\Controller\BasketController::class => BasketController::class,
         \OxidEsales\Eshop\Application\Controller\PaymentController::class => PaymentController::class,
-        \OxidEsales\Eshop\Application\Controller\ArticleListController::class => ArticleListController::class,
 
         //Components
         \OxidEsales\Eshop\Application\Component\UserComponent::class => UserComponent::class,

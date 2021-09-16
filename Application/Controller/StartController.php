@@ -26,4 +26,11 @@ class StartController extends StartController_parent
         return Registry::getConfig()->getShopUrl();
     }
 
+    public function getBargainShortDescription()
+    {
+        $oAction = oxNew(Action::class);
+        $oAction->load('oxbargain');
+        return $oAction->oxactions__oxlongdesc->value;
+    }
+
 }
