@@ -14,8 +14,7 @@ class DynamicExportBaseController extends DynamicExportBaseController_parent
     {
         parent::__construct();
 
-        // set generic frame template
-        $this->_sFilePath = \OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('sShopDir') . "/" . $this->sExportPath . $this->sExportFileName . "." . $this->sExportFileType;
+        parent::$_sFilePath = \OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('sShopDir') . "/" . $this->sExportPath . $this->sExportFileName . "." . $this->sExportFileType;
     }
 
     protected function insertArticles($sHeapTable, $sCatAdd)
