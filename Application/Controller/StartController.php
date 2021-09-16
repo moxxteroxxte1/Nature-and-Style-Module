@@ -4,6 +4,7 @@
 namespace NatureAndStyle\CoreModule\Application\Controller;
 
 
+use OxidEsales\Eshop\Application\Model\Action;
 use OxidEsales\Eshop\Application\Model\ActionList;
 use OxidEsales\Eshop\Core\Registry;
 
