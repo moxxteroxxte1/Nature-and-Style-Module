@@ -1,6 +1,7 @@
 <?php
 
 use NatureAndStyle\CoreModule\Application\Component\UserComponent;
+use NatureAndStyle\CoreModule\Application\Component\Widget\ArticleDetails;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsCategoryAjax;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsList;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsMain;
@@ -68,6 +69,7 @@ $aModule = array(
 
         //Components
         \OxidEsales\Eshop\Application\Component\UserComponent::class => UserComponent::class,
+        \OxidEsales\Eshop\Application\Component\Widget\ArticleDetails::class => ArticleDetails::class,
 
         //Models
         \OxidEsales\Eshop\Application\Model\User::class => User::class,
@@ -105,9 +107,9 @@ $aModule = array(
             'file' => '/Application/views/blocks/actions_main_extend.tpl'
         ),
         array(
-          'template' => 'actions_main.tpl',
-          'block'   => 'admin_actions_main_form',
-          'file'    => '/Application/views/blocks/actions_main_extended_extend.tpl'
+            'template' => 'actions_main.tpl',
+            'block' => 'admin_actions_main_form',
+            'file' => '/Application/views/blocks/actions_main_extended_extend.tpl'
         ),
 
         //Article
