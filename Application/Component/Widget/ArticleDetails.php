@@ -7,7 +7,7 @@ namespace NatureAndStyle\CoreModule\Application\Component\Widget;
 class ArticleDetails extends ArticleDetails_parent
 {
 
-    public function getBargainShortDescription()
+  /*  public function getBargainShortDescription()
     {
         $oDb = DatabaseProvider::getDb();
         $sQ = "SELECT oxlongdesc FROM oxactions WHERE oxid = 'oxbargain'";
@@ -21,6 +21,6 @@ class ArticleDetails extends ArticleDetails_parent
             }
         }
         return null;
-    }
+    }*/
 
 }

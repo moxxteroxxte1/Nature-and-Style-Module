@@ -7,7 +7,7 @@ namespace NatureAndStyle\CoreModule\Core;
 class Price extends Price_parent
 {
 
-    public function getPrice()
+  /*  public function getPrice()
     {
         if($this->isNettoMode()){
             return $this->getNettoPrice();
@@ -16,11 +16,7 @@ class Price extends Price_parent
         }
     }
 
-    /**
-     * Returns brutto price
-     *
-     * @return double
-     */
+
     public function getBruttoPrice()
     {
         if ($this->isNettoMode()) {
@@ -30,11 +26,7 @@ class Price extends Price_parent
         }
     }
 
-    /**
-     * Returns netto price
-     *
-     * @return double
-     */
+
     public function getNettoPrice()
     {
         if ($this->isNettoMode()) {
@@ -42,6 +34,6 @@ class Price extends Price_parent
         } else {
             return $this->getBruttoPrice() - $this->getVatValue();
         }
-    }
+    }*/
 
 }
