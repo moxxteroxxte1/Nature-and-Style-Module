@@ -57,6 +57,8 @@ class Price extends Price_parent
 
     public function getVatValue()
     {
+        $logger = Registry::getLogger();
+        $logger->info(egistry::getUtils()->fRound($this->_dNetto));
         $dVatValue = Registry::getUtils()->fRound($this->_dNetto)* $this->getVat() / 100;
         $dBruttoPrice = round($this->getNettoPrice() + $dVatValue,1,PHP_ROUND_HALF_UP);
         $dVatValue = $dBruttoPrice-$this->getNettoPrice();
