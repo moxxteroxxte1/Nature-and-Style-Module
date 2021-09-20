@@ -4,32 +4,25 @@
 namespace NatureAndStyle\CoreModule\Core;
 
 
+use OxidEsales\Eshop\Core\Registry;
+
 class Price extends Price_parent
 {
 
-    public function getPrice()
-    {
-        return 1;
-    }
-
-
-    /* public function getBruttoPrice()
+    public function getVatValue()
     {
         if ($this->isNettoMode()) {
-            return \OxidEsales\Eshop\Core\Registry::getUtils()->fRound($this->getNettoPrice() + $this->getVatValue());
+            $logger = Registry::getLogger();
+            $dVatValue = $this->getNettoPrice() * $this->getVat() / 100;
+            $dBruttoPrice = round($this->getNettoPrice() + $dVatValue, 1, PHP_ROUND_HALF_UP);
+            $dVatValue = $dBruttoPrice - $this->getNettoPrice();
+
+            $logger->info($this->getNettoPrice() . " | " . $dVatValue . " | " . $dBruttoPrice);
         } else {
-            return \OxidEsales\Eshop\Core\Registry::getUtils()->fRound($this->_dBrutto);
+            $dVatValue = $this->getBruttoPrice() * $this->getVat() / (100 + $this->getVat());
         }
+
+        return Registry::getUtils()->fRound($dVatValue);
     }
-
-
-    public function getNettoPrice()
-    {
-        if ($this->isNettoMode()) {
-            return \OxidEsales\Eshop\Core\Registry::getUtils()->fRound($this->_dNetto);
-        } else {
-            return $this->getBruttoPrice() - $this->getVatValue();
-        }
-    }*/
 
 }
