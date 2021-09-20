@@ -44,10 +44,10 @@ class Price extends Price_parent
             $dVatValue = $this->getBruttoPrice() * $this->getVat() / (100 + $this->getVat());
         }
 
-        $logger = Registry::getLogger();
+        /*$logger = Registry::getLogger();
         $dBruttoPrice = round($this->getNettoPrice() + $dVatValue, 1, PHP_ROUND_HALF_UP);
         $dVatValue = $dBruttoPrice - $this->getNettoPrice();
-        $logger->info($this->getNettoPrice() . " | " . $dVatValue . " | " . $dBruttoPrice);
+        $logger->info($this->getNettoPrice() . " | " . $dVatValue . " | " . $dBruttoPrice);*/
 
         return \OxidEsales\Eshop\Core\Registry::getUtils()->fRound($dVatValue);
     }
