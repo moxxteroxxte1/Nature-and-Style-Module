@@ -9,20 +9,47 @@ use OxidEsales\Eshop\Core\Registry;
 class Price extends Price_parent
 {
 
+    public function getPrice()
+    {
+        if ($this->isNettoMode()) {
+            return $this->getNettoPrice();
+        } else {
+            return $this->getBruttoPrice();
+        }
+    }
+
+    public function getBruttoPrice()
+    {
+        if ($this->isNettoMode()) {
+            return $this->getNettoPrice() + $this->getVatValue();
+        } else {
+            return \OxidEsales\Eshop\Core\Registry::getUtils()->fRound($this->_dBrutto);
+        }
+    }
+
+    public function getNettoPrice()
+    {
+        if ($this->isNettoMode()) {
+            return \OxidEsales\Eshop\Core\Registry::getUtils()->fRound($this->_dNetto);
+        } else {
+            return $this->getBruttoPrice() - $this->getVatValue();
+        }
+    }
+
     public function getVatValue()
     {
         if ($this->isNettoMode()) {
-            $logger = Registry::getLogger();
             $dVatValue = $this->getNettoPrice() * $this->getVat() / 100;
-            $dBruttoPrice = round($this->getNettoPrice() + $dVatValue, 1, PHP_ROUND_HALF_UP);
-            $dVatValue = $dBruttoPrice - $this->getNettoPrice();
-
-            $logger->info($this->getNettoPrice() . " | " . $dVatValue . " | " . $dBruttoPrice);
         } else {
             $dVatValue = $this->getBruttoPrice() * $this->getVat() / (100 + $this->getVat());
         }
 
-        return Registry::getUtils()->fRound($dVatValue);
+        $logger = Registry::getLogger();
+        $dBruttoPrice = round($this->getNettoPrice() + $dVatValue, 1, PHP_ROUND_HALF_UP);
+        $dVatValue = $dBruttoPrice - $this->getNettoPrice();
+        $logger->info($this->getNettoPrice() . " | " . $dVatValue . " | " . $dBruttoPrice);
+
+        return $dVatValue;
     }
 
 }
