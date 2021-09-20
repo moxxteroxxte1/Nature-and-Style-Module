@@ -26,6 +26,7 @@ use NatureAndStyle\CoreModule\Application\Model\Delivery;
 use NatureAndStyle\CoreModule\Application\Model\DeliveryList;
 use NatureAndStyle\CoreModule\Application\Model\Discount;
 use NatureAndStyle\CoreModule\Application\Model\OrderArticle;
+use NatureAndStyle\CoreModule\Application\Model\PriceList;
 use NatureAndStyle\CoreModule\Application\Model\User;
 use NatureAndStyle\CoreModule\Core\Price;
 
@@ -82,6 +83,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Model\DeliveryList::class => DeliveryList::class,
         \OxidEsales\Eshop\Application\Model\Basket::class => Basket::class,
         \OxidEsales\Eshop\Application\Model\BasketItem::class => BasketItem::class,
+        \OxidESales\Eshop\Application\Model\PriceList::class => PriceList::class,
     ),
     'templates' => array(
         'actions_category.tpl' => 'nature-and-style/core-module/Application/views/admin/tpl/popups/actions_category.tpl',
