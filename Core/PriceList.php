@@ -29,9 +29,11 @@ class PriceList extends PriceList_parent
                 $dPrice = $dBruttoPrice-$aPrice['sum'];
                 $logger->info($dPrice . " | " . $dBruttoPrice . " | " . $aPrice['sum']);
             } else {
+                $logger = Registry::getLogger();
                 $dPrice = $aPrice['sum'] * $aPrice['vat'] / (100 + $aPrice['vat']);
                 $dNettoPrice = $aPrice['sum']-$dPrice;
                 $dPrice = round($aPrice['sum'], 1 , PHP_ROUND_HALF_UP) - $dNettoPrice;
+                $logger->info($dPrice . " | " . $dBruttoPrice . " | " . $aPrice['sum']);
             }
             $aVatValues[$sKey] = $dPrice;
         }
