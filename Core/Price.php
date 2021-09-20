@@ -13,6 +13,7 @@ class Price extends Price_parent
      * @var float|int
      */
     protected $_dBrutto;
+    protected $_dNetto;
 
     public function getPrice()
     {
@@ -35,7 +36,9 @@ class Price extends Price_parent
     public function getNettoPrice()
     {
         if ($this->isNettoMode()) {
-            return \OxidEsales\Eshop\Core\Registry::getUtils()->fRound($this->_dNetto);
+            $dVatValue = $this->getVatValue();
+            return $this->_dBrutto-$dVatValue;
+            //return \OxidEsales\Eshop\Core\Registry::getUtils()->fRound($this->_dNetto);
         } else {
             return $this->getBruttoPrice() - $this->getVatValue();
         }
@@ -44,14 +47,18 @@ class Price extends Price_parent
     public function getVatValue()
     {
         if ($this->isNettoMode()) {
-            $dVatValue = $this->getNettoPrice() * $this->getVat() / 100;
-            $dBruttoPrice = round($this->getNettoPrice() + $dVatValue,1,PHP_ROUND_HALF_UP);
-            $dVatValue = $dBruttoPrice-$this->getNettoPrice();
+            $dNettoPrice = Registry::getUtils()->fRound($this->_dNetto);
+            $dVatValue = $dNettoPrice * $this->getVat() / 100;
+            $dBruttoPrice = round($dNettoPrice + $dVatValue,1,PHP_ROUND_HALF_UP);
+            $dVatValue = $dBruttoPrice-$dNettoPrice;
+            $this->_dBrutto = $dBruttoPrice;
         } else {
-            $dVatValue = $this->getBruttoPrice() * $this->getVat() / (100 + $this->getVat());
-            $dNettoPrice = $this->getBruttoPrice()-$dVatValue;
-            $dVatValue = round($this->getBruttoPrice(), 1 , PHP_ROUND_HALF_UP) - $dNettoPrice;
+            $dBruttoPrice = Registry::getUtils()->fRound($this->_dBrutto);
+            $dVatValue = $dBruttoPrice * $this->getVat() / (100 + $this->getVat());
+            $dNettoPrice = $dBruttoPrice-$dVatValue;
+            $dVatValue = round($dBruttoPrice, 1 , PHP_ROUND_HALF_UP) - $dNettoPrice;
             $this->_dBrutto = $dNettoPrice+$dVatValue;
+            $this->_dNetto = $dNettoPrice;
         }
 
         return Registry::getUtils()->fRound($dVatValue);
