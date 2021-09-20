@@ -9,6 +9,11 @@ use OxidEsales\Eshop\Core\Registry;
 class Price extends Price_parent
 {
 
+    /**
+     * @var float|int
+     */
+    protected $_dBrutto;
+
     public function getPrice()
     {
         if ($this->isNettoMode()) {
@@ -47,7 +52,7 @@ class Price extends Price_parent
             $dVatValue = $this->getBruttoPrice() * $this->getVat() / (100 + $this->getVat());
             $dNettoPrice = $this->getBruttoPrice()-$dVatValue;
             $dVatValue = round($this->getBruttoPrice(), 1 , PHP_ROUND_HALF_UP) - $dNettoPrice;
-            $this->_dBrutto = Registry::getUtils()->fRound($dNettoPrice+$dVatValue);
+            $this->_dBrutto = $dNettoPrice+$dVatValue;
         }
 
         return Registry::getUtils()->fRound($dVatValue);
