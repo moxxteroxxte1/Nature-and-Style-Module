@@ -36,34 +36,26 @@ class Price extends Price_parent
         }
     }
 
-    /*public function getVatValue()
+    public function getVatValue()
     {
         $logger = Registry::getLogger();
         if ($this->isNettoMode()) {
+            $logger->info($this->_dBrutto);
+            $logger->info($this->_dNetto);
             $dVatValue = Registry::getUtils()->fRound($this->_dNetto)* $this->getVat() / 100;
             $dBruttoPrice = round($this->getNettoPrice() + $dVatValue,1,PHP_ROUND_HALF_UP);
             $dVatValue = $dBruttoPrice-$this->getNettoPrice();
             $logger->info("N " . $dVatValue);
             $logger->info("N " . Registry::getUtils()->fRound($dVatValue));
         } else {
+            $logger->info($this->_dBrutto);
+            $logger->info($this->_dNetto);
             $dVatValue = round($this->getBruttoPrice(),1,PHP_ROUND_HALF_UP) * $this->getVat() / (100 + $this->getVat());
             $dVatValue =
             $logger->info("B " . $dVatValue);
-            $logger->info("B " . );
+            $logger->info("B " . Registry::getUtils()->fRound($dVatValue));
         }
 
         return Registry::getUtils()->fRound($dVatValue);
-    }*/
-
-    public function getVatValue()
-    {
-        $logger = Registry::getLogger();
-        $logger->info(Registry::getUtils()->fRound($this->_dNetto));
-        $dVatValue = Registry::getUtils()->fRound($this->_dNetto)* $this->getVat() / 100;
-        $dBruttoPrice = round($this->getNettoPrice() + $dVatValue,1,PHP_ROUND_HALF_UP);
-        $dVatValue = $dBruttoPrice-$this->getNettoPrice();
-
-        return Registry::getUtils()->fRound($dVatValue);
     }
-
 }
