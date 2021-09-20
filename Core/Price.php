@@ -7,17 +7,13 @@ namespace NatureAndStyle\CoreModule\Core;
 class Price extends Price_parent
 {
 
-  /*  public function getPrice()
+    public function getPrice()
     {
-        if($this->isNettoMode()){
-            return $this->getNettoPrice();
-        }else{
-            return $this->getBruttoPrice();
-        }
+        return 1;
     }
 
 
-    public function getBruttoPrice()
+    /* public function getBruttoPrice()
     {
         if ($this->isNettoMode()) {
             return \OxidEsales\Eshop\Core\Registry::getUtils()->fRound($this->getNettoPrice() + $this->getVatValue());
