@@ -26,7 +26,7 @@ class Price extends Price_parent
     public function getBruttoPrice()
     {
         if ($this->isNettoMode()) {
-            return $this->getNettoPrice() + $this->getVatValue();
+            return round($this->getNettoPrice() + $this->getVatValue(),1,PHP_ROUND_HALF_UP);
         } else {
             return round(Registry::getUtils()->fRound($this->_dBrutto), 1 , PHP_ROUND_HALF_UP);
         }
@@ -43,7 +43,6 @@ class Price extends Price_parent
 
     public function getVatValue()
     {
-        $logger = Registry::getLogger();
         if ($this->isNettoMode()) {
             $dVatValue = $this->getNettoPrice() * $this->getVat() / 100;
             $dBruttoPrice = round($this->getNettoPrice() + $dVatValue,1,PHP_ROUND_HALF_UP);
