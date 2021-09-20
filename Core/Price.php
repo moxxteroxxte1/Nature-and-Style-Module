@@ -45,7 +45,7 @@ class Price extends Price_parent
     {
         $logger = Registry::getLogger();
         if ($this->isNettoMode()) {
-            $dNettoPrice =$this->getNettoPrice();
+            $dNettoPrice = Registry::getUtils()->fRound($this->_dNetto);
             $dVatValue = $dNettoPrice * $this->getVat() / 100;
 
             $dBruttoPrice = round($dNettoPrice + $dVatValue, 1, PHP_ROUND_HALF_UP);
