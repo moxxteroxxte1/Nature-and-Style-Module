@@ -44,9 +44,10 @@ class Price extends Price_parent
             $dBruttoPrice = round($this->getNettoPrice() + $dVatValue,1,PHP_ROUND_HALF_UP);
             $dVatValue = $dBruttoPrice-$this->getNettoPrice();
         } else {
-            $dVatValue =$this->getBruttoPrice() * $this->getVat() / (100 + $this->getVat());
+            $dVatValue = $this->getBruttoPrice() * $this->getVat() / (100 + $this->getVat());
             $dNettoPrice = $this->getBruttoPrice()-$dVatValue;
             $dVatValue = round($this->getBruttoPrice(), 1 , PHP_ROUND_HALF_UP) - $dNettoPrice;
+            $this->_dBrutto = $dNettoPrice+$dVatValue;
         }
 
         return Registry::getUtils()->fRound($dVatValue);
