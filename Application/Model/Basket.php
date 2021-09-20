@@ -4,6 +4,7 @@
 namespace NatureAndStyle\CoreModule\Application\Model;
 
 
+use NatureAndStyle\CoreModule\Core\PriceList;
 use OxidEsales\Eshop\Core\Price;
 use OxidEsales\Eshop\Core\Registry;
 
@@ -70,4 +71,5 @@ class Basket extends Basket_parent
     public function hasSurcharge(){
         return $this->blIncludesSurcharge;
     }
+
 }
