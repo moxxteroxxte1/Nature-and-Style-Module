@@ -35,11 +35,8 @@ class Price extends Price_parent
 
     public function getNettoPrice()
     {
-        if ($this->isNettoMode()) {
-            return Registry::getUtils()->fRound($this->_dNetto);
-        } else {
-            return $this->getBruttoPrice() - $this->getVatValue();
-        }
+        $dVatValue = $this->getVatValue();
+        return (round(Registry::getUtils()->fRound($this->_dBrutto), 1 , PHP_ROUND_HALF_UP) - $dVatValue);
     }
 
     public function getVatValue()
