@@ -1,7 +1,7 @@
 <?php
 
 
-namespace NatureAndStyle\CoreModule\Application\Model;
+namespace NatureAndStyle\CoreModule\Core;
 
 
 class PriceList extends PriceList_parent
@@ -35,4 +35,5 @@ class PriceList extends PriceList_parent
 
         return $aVatValues;
     }
+
 }
