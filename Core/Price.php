@@ -49,7 +49,7 @@ class Price extends Price_parent
         $dVatValue = $dBruttoPrice - $this->getNettoPrice();
         $logger->info($this->getNettoPrice() . " | " . $dVatValue . " | " . $dBruttoPrice);
 
-        return $dVatValue;
+        return \OxidEsales\Eshop\Core\Registry::getUtils()->fRound($dVatValue);
     }
 
 }
