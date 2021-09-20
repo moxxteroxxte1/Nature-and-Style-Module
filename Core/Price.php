@@ -57,4 +57,10 @@ class Price extends Price_parent
 
         return Registry::getUtils()->fRound($dVatValue);
     }
+
+    public static function netto2Brutto($dNetto, $dVat)
+    {
+        $dVatValue = $dNetto * $dVat / 100;
+        return round($dNetto + $dVatValue,1,PHP_ROUND_HALF_UP);;
+    }
 }
