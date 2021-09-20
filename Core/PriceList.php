@@ -8,6 +8,37 @@ use OxidEsales\Eshop\Core\Registry;
 class PriceList extends PriceList_parent
 {
 
+    public function getSum($isNettoMode = true)
+    {
+        if ($isNettoMode) {
+            return $this->getNettoSum();
+        } else {
+            return $this->getBruttoSum();
+        }
+    }
+
+    public function getNettoSum()
+    {
+        $dSum = 0;
+        foreach ($this->_aList as $oPrice) {
+            $dSum += $oPrice->getNettoPrice();
+        }
+
+        return $dSum;
+    }
+
+    public function getBruttoSum()
+    {
+        $dSum = 0;
+        $logger = Registry::getLogger();
+        foreach ($this->_aList as $oPrice) {
+            $logger->info($oPrice->getPrice() . " | " . $oPrice->getVatValue());
+            $dSum += $oPrice->getBruttoPrice();
+        }
+
+        return $dSum;
+    }
+
     public function getVatInfo($isNettoMode = true)
     {
         $aVatValues = [];
