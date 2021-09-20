@@ -30,7 +30,7 @@ class PriceList extends PriceList_parent
                 $dNettoPrice = $aPrice['sum']-$dPrice;
                 $dPrice = round($aPrice['sum'], 1 , PHP_ROUND_HALF_UP) - $dNettoPrice;
             }
-            $aVatValues[$sKey] = Registry::getUtils()->fRound($dPrice);
+            $aVatValues[$sKey] = round($dPrice,1,PHP_ROUND_HALF_UP);
         }
 
         return $aVatValues;
