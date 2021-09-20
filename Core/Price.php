@@ -28,7 +28,7 @@ class Price extends Price_parent
         if ($this->isNettoMode()) {
             return $this->getNettoPrice() + $this->getVatValue();
         } else {
-            return \OxidEsales\Eshop\Core\Registry::getUtils()->fRound($this->_dBrutto);
+            return round(Registry::getUtils()->fRound($this->_dBrutto), 1 , PHP_ROUND_HALF_UP);
         }
     }
 
