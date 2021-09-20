@@ -46,9 +46,13 @@ class Price extends Price_parent
         if ($this->isNettoMode()) {
             $dNettoPrice =$this->getNettoPrice();
             $dVatValue = $dNettoPrice * $this->getVat() / 100;
+
             $dBruttoPrice = round($dNettoPrice + $dVatValue, 1, PHP_ROUND_HALF_UP);
-            $dVatValue = $dBruttoPrice - $dNettoPrice;
-            $this->_dBrutto = $dBruttoPrice;
+            $dVatValue = $dBruttoPrice * $this->getVat() / (100 + $this->getVat());
+            $dNettoPrice = $dBruttoPrice - $dVatValue;
+            $dVatValue = round($dBruttoPrice, 1, PHP_ROUND_HALF_UP) - $dNettoPrice;
+            $this->_dNetto = $dNettoPrice;
+
         } else {
             $dBruttoPrice = $this->getBruttoPrice();
             $dVatValue = $dBruttoPrice * $this->getVat() / (100 + $this->getVat());
