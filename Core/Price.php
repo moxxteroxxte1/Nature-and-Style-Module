@@ -51,7 +51,7 @@ class Price extends Price_parent
             $logger->info("B " . Registry::getUtils()->fRound($dVatValue));
         }
 
-        return \Registry::getUtils()->fRound($dVatValue);
+        return Registry::getUtils()->fRound($dVatValue);
     }
 
 }
