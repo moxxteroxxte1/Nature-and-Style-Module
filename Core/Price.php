@@ -41,13 +41,17 @@ class Price extends Price_parent
         $logger = Registry::getLogger();
         if ($this->isNettoMode()) {
             $dVatValue = $this->getNettoPrice() * $this->getVat() / 100;
-            $logger->info("N");
+            $dBruttoPrice = round($this->getNettoPrice() + $dVatValue,1,PHP_ROUND_HALF_UP);
+            $dVatValue = $dBruttoPrice-$this->getNettoPrice();
+            $logger->info("N " . $dVatValue);
+            $logger->info("N " . Registry::getUtils()->fRound($dVatValue));
         } else {
-            $dVatValue = $this->getBruttoPrice() * $this->getVat() / (100 + $this->getVat());
-            $logger->info("B");
+            $dVatValue = round($this->getBruttoPrice(),1,PHP_ROUND_HALF_UP) * $this->getVat() / (100 + $this->getVat());
+            $logger->info("B " . $dVatValue);
+            $logger->info("B " . Registry::getUtils()->fRound($dVatValue));
         }
 
-        return \OxidEsales\Eshop\Core\Registry::getUtils()->fRound($dVatValue);
+        return \Registry::getUtils()->fRound($dVatValue);
     }
 
 }
