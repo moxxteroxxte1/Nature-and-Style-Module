@@ -55,7 +55,7 @@ class PriceList extends PriceList_parent
             $dVatTotal += $oPrice->getVatValue();
         }
 
-        $oPrice = oxNew(\OxidEsales\Eshop\Core\Price::class);
+        $oPrice = oxNew(Price::class);
 
         if ($dNetoTotal) {
             $dVat = $dVatTotal * 100 / $dNetoTotal;
