@@ -52,7 +52,6 @@ $aModule = array(
     'extend' => array(
         //Core
         \OxidEsales\Eshop\Core\Price::class => Price::class,
-        \OxidEslaes\Eshop\Core\PriceList::class => PriceList::class,
 
         //Admin Controller
         \OxidEsales\Eshop\Application\Controller\Admin\ActionsMain::class => ActionsMain::class,
