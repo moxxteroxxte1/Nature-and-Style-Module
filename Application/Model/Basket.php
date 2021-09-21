@@ -120,7 +120,8 @@ class Basket extends Basket_parent
         if (isset($this->_aCosts['oxpayment'])) {
             $oTotalPrice->add($this->_aCosts['oxpayment']->getBruttoPrice());
         }
-
+        $oTotalPrice->setRound(!($oTotalPrice->isNettoMode()));
+        $oTotalPrice->setBruttoPriceMode();
         $this->setPrice($oTotalPrice);
     }
 
