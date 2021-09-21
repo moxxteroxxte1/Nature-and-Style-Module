@@ -12,6 +12,17 @@ class Price extends Price_parent
     /**
      * @var float|int
      */
+    private $round = true;
+
+    public function setRound($round = true)
+    {
+        $this->round = $round;
+    }
+
+    public function getRount()
+    {
+        return $this->round;
+    }
 
     public function getPrice()
     {
@@ -46,11 +57,15 @@ class Price extends Price_parent
         if ($this->isNettoMode()) {
             $dVatValue = Registry::getUtils()->fRound($this->_dNetto) * $this->getVat() / 100;
         } else {
-            $dBruttoPrice = $this->getBruttoPrice();
-            $dVatValue = $dBruttoPrice * $this->getVat() / (100 + $this->getVat());
-            $dNettoPrice = $dBruttoPrice - $dVatValue;
-            $dVatValue = round($dBruttoPrice, 1, PHP_ROUND_HALF_UP) - $dNettoPrice;
-            $this->_dBrutto = $dNettoPrice + $dVatValue;
+            if($this->round){
+                $dBruttoPrice = $this->getBruttoPrice();
+                $dVatValue = $dBruttoPrice * $this->getVat() / (100 + $this->getVat());
+                $dNettoPrice = $dBruttoPrice - $dVatValue;
+                $dVatValue = round($dBruttoPrice, 1, PHP_ROUND_HALF_UP) - $dNettoPrice;
+                $this->_dBrutto = $dNettoPrice + $dVatValue;
+            }else{
+                $dVatValue = $this->getBruttoPrice() * $this->getVat() / (100 + $this->getVat());
+            }
         }
 
         return Registry::getUtils()->fRound($dVatValue);
