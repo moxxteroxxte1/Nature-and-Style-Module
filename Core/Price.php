@@ -12,21 +12,9 @@ class Price extends Price_parent
     /**
      * @var float|int
      */
-    private $round = true;
-
-    public function setRound($round = true)
-    {
-        $this->round = $round;
-    }
-
-    public function getRount()
-    {
-        return $this->round;
-    }
 
     public function getPrice()
     {
-        $logger = Registry::getLogger();
         if ($this->isNettoMode()) {
             return $this->getNettoPrice();
         } else {
@@ -36,19 +24,15 @@ class Price extends Price_parent
 
     public function getBruttoPrice()
     {
-        $logger = Registry::getLogger();
         if ($this->isNettoMode()) {
             return $this->getNettoPrice() + $this->getVatValue();
-        } elseif ($this->round){
+        } else {
             return round(Registry::getUtils()->fRound($this->_dBrutto), 1, PHP_ROUND_HALF_UP);
-        }else{
-            Registry::getUtils()->fRound($this->_dBrutto);
         }
     }
 
     public function getNettoPrice()
     {
-        $logger = Registry::getLogger();
         if ($this->isNettoMode()) {
             return Registry::getUtils()->fRound($this->_dNetto);
         } else {
@@ -58,19 +42,15 @@ class Price extends Price_parent
 
     public function getVatValue()
     {
-        $logger = Registry::getLogger();
         if ($this->isNettoMode()) {
             $dVatValue = Registry::getUtils()->fRound($this->_dNetto) * $this->getVat() / 100;
         } else {
-            if($this->round){
-                $dBruttoPrice = $this->getBruttoPrice();
-                $dVatValue = $dBruttoPrice * $this->getVat() / (100 + $this->getVat());
-                $dNettoPrice = $dBruttoPrice - $dVatValue;
-                $dVatValue = round($dBruttoPrice, 1, PHP_ROUND_HALF_UP) - $dNettoPrice;
-                $this->_dBrutto = $dNettoPrice + $dVatValue;
-            }else{
-                $dVatValue = $this->getBruttoPrice() * $this->getVat() / (100 + $this->getVat());
-            }
+            $dBruttoPrice = $this->getBruttoPrice();
+            $dVatValue = $dBruttoPrice * $this->getVat() / (100 + $this->getVat());
+            $dNettoPrice = $dBruttoPrice - $dVatValue;
+            $dVatValue = round($dBruttoPrice, 1, PHP_ROUND_HALF_UP) - $dNettoPrice;
+            $this->_dBrutto = $dNettoPrice + $dVatValue;
+            $dVatValue = $this->getBruttoPrice() * $this->getVat() / (100 + $this->getVat());
         }
 
         return Registry::getUtils()->fRound($dVatValue);
