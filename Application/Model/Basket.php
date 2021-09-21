@@ -87,6 +87,7 @@ class Basket extends Basket_parent
         $dPrice = $this->_dBruttoSum;
 
         $oTotalPrice = oxNew(Price::class);
+        $oTotalPrice->setNettoMode($this->isCalculationModeNetto());
         $oTotalPrice->setPrice($dPrice);
 
 
