@@ -83,12 +83,15 @@ class Basket extends Basket_parent
 
     protected function calcTotalPrice()
     {
+        $logger = Registry::getLogger();
         // 1. add products price
         $dPrice = $this->_dBruttoSum;
+        $logger->info("1 " . $dPrice);
 
         $oTotalPrice = oxNew(Price::class);
         $oTotalPrice->setNettoMode($this->isCalculationModeNetto());
         $oTotalPrice->setPrice($dPrice);
+        $logger->info("1 " . $oTotalPrice->getPrice());
 
 
         // 2. subtract discounts
