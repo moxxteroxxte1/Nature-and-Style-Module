@@ -13,6 +13,7 @@ class Price extends Price_parent
      * @var float|int
      */
     private $round = true;
+    private $dBruttoOld;
 
     public function setRound($round = true)
     {
@@ -66,8 +67,12 @@ class Price extends Price_parent
                 $dVatValue = $dBruttoPrice * $this->getVat() / (100 + $this->getVat());
                 $dNettoPrice = $dBruttoPrice - $dVatValue;
                 $dVatValue = round($dBruttoPrice, 1, PHP_ROUND_HALF_UP) - $dNettoPrice;
+                $this->dBruttoOld = $this->_dBrutto;
                 $this->_dBrutto = $dNettoPrice + $dVatValue;
             }else{
+                if($this->dBruttoOld){
+                    $this->_dBrutto = $this->dBruttoOld;
+                }
                 $dVatValue = $this->getBruttoPrice() * $this->getVat() / (100 + $this->getVat());
             }
         }
