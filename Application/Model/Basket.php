@@ -77,7 +77,7 @@ class Basket extends Basket_parent
         if (is_null($this->_oPrice)) {
             /** @var \OxidEsales\Eshop\Core\Price $price */
             $price = oxNew(\OxidEsales\Eshop\Core\Price::class);
-            $price->setNettoMode($this->isCalculationModeNetto());
+            $price->setNettoMode($this->isPriceViewModeNetto());
             $this->setPrice($price);
         }
 
