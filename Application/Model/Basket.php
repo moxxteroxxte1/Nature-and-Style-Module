@@ -80,7 +80,6 @@ class Basket extends Basket_parent
             $this->setPrice($price);
         }
 
-        $this->_oPrice->setNettoMode($this->isPriceViewModeNetto());
         return $this->_oPrice;
     }
 
@@ -92,8 +91,15 @@ class Basket extends Basket_parent
 
         /** @var \OxidEsales\Eshop\Core\Price $oTotalPrice */
         $oTotalPrice = oxNew(Price::class);
-        $oTotalPrice->setNettoMode($this->isCalculationModeNetto());
+        if($this->isCalculationModeNetto()) {
+            $oTotalNettoPrice = oxNew(Price::class);
+            $oTotalNettoPrice->setNettoMode();
+            $oTotalNettoPrice->setPrice($this->getNettoSum());
+            $dPrice = $oTotalNettoPrice->getBruttoPrice();
+        }
+        $oTotalPrice->setBruttoMode();
         $oTotalPrice->setPrice($dPrice);
+
 
         // 2. subtract discounts
         if ($dPrice && !$this->isCalculationModeNetto()) {
