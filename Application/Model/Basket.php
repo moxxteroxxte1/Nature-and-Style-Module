@@ -78,7 +78,7 @@ class Basket extends Basket_parent
             $price = oxNew(Price::class);
             $this->setPrice($price);
         }
-        $this->calcTotalPrice();
+        $this->_calcTotalPrice();
         return $this->_oPrice;
     }
 
