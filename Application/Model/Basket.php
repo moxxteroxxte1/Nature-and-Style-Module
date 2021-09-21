@@ -78,8 +78,50 @@ class Basket extends Basket_parent
             $price = oxNew(Price::class);
             $this->setPrice($price);
         }
-        $this->_calcTotalPrice();
         return $this->_oPrice;
+    }
+
+    protected function _calcTotalPrice()
+    {
+        // 1. add products price
+        $dPrice = $this->_dBruttoSum;
+
+
+        /** @var \OxidEsales\Eshop\Core\Price $oTotalPrice */
+        $oTotalPrice = oxNew(\OxidEsales\Eshop\Core\Price::class);
+        $oTotalPrice->setNettoMode($this->isCalculationModeNetto());
+        $oTotalPrice->setPrice($dPrice);
+
+        // 2. subtract discounts
+        if ($dPrice && !$this->isCalculationModeNetto()) {
+            // 2.2 applying basket discounts
+            $oTotalPrice->subtract($this->_oTotalDiscount->getBruttoPrice());
+
+            // 2.3 applying voucher discounts
+            if ($oVoucherDisc = $this->getVoucherDiscount()) {
+                $oTotalPrice->subtract($oVoucherDisc->getBruttoPrice());
+            }
+        }
+
+        // 2.3 add delivery cost
+        if (isset($this->_aCosts['oxdelivery'])) {
+            $oTotalPrice->add($this->_aCosts['oxdelivery']->getBruttoPrice());
+        }
+
+        // 2.4 add wrapping price
+        if (isset($this->_aCosts['oxwrapping'])) {
+            $oTotalPrice->add($this->_aCosts['oxwrapping']->getBruttoPrice());
+        }
+        if (isset($this->_aCosts['oxgiftcard'])) {
+            $oTotalPrice->add($this->_aCosts['oxgiftcard']->getBruttoPrice());
+        }
+
+        // 2.5 add payment price
+        if (isset($this->_aCosts['oxpayment'])) {
+            $oTotalPrice->add($this->_aCosts['oxpayment']->getBruttoPrice());
+        }
+
+        $this->setPrice($oTotalPrice);
     }
 
 }
