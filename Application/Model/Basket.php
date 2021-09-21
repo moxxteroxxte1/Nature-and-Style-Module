@@ -72,4 +72,16 @@ class Basket extends Basket_parent
         return $this->blIncludesSurcharge;
     }
 
+    public function getPrice()
+    {
+        if (is_null($this->_oPrice)) {
+            /** @var \OxidEsales\Eshop\Core\Price $price */
+            $price = oxNew(\OxidEsales\Eshop\Core\Price::class);
+            $price->setNettoMode($this->isCalculationModeNetto());
+            $this->setPrice($price);
+        }
+
+        return $this->_oPrice;
+    }
+
 }
