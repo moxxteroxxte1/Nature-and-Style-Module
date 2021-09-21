@@ -75,13 +75,11 @@ class Basket extends Basket_parent
     public function getPrice()
     {
         if (is_null($this->_oPrice)) {
-            /** @var \OxidEsales\Eshop\Core\Price $price */
             $price = oxNew(Price::class);
             $price->setRound(!$this->isCalculationModeNetto());
+            $this->_oPrice->getVatValue();
             $this->setPrice($price);
         }
-        $this->_oPrice->setRound(!$this->isCalculationModeNetto());
-        $this->_oPrice->getVatValue();
         return $this->_oPrice;
     }
 
