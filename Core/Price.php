@@ -34,7 +34,6 @@ class Price extends Price_parent
     public function getNettoPrice()
     {
         if ($this->isNettoMode()) {
-            $this->getVatValue();
             return Registry::getUtils()->fRound($this->_dNetto);
         } else {
             return $this->getBruttoPrice() - $this->getVatValue();
@@ -45,15 +44,7 @@ class Price extends Price_parent
     {
         $logger = Registry::getLogger();
         if ($this->isNettoMode()) {
-            $dNettoPrice = Registry::getUtils()->fRound($this->_dNetto);
-            $dVatValue = $dNettoPrice * $this->getVat() / 100;
-
-            $dBruttoPrice = round($dNettoPrice + $dVatValue, 1, PHP_ROUND_HALF_UP);
-            $dVatValue = $dBruttoPrice * $this->getVat() / (100 + $this->getVat());
-            $dNettoPrice = $dBruttoPrice - $dVatValue;
-            $dVatValue = round($dBruttoPrice, 1, PHP_ROUND_HALF_UP) - $dNettoPrice;
-            $this->_dNetto = $dNettoPrice;
-
+            $dVatValue = Registry::getUtils()->fRound($this->_dNetto) * $this->getVat() / 100;
         } else {
             $dBruttoPrice = $this->getBruttoPrice();
             $dVatValue = $dBruttoPrice * $this->getVat() / (100 + $this->getVat());

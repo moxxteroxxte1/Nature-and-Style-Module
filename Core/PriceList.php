@@ -8,7 +8,7 @@ use OxidEsales\Eshop\Core\Registry;
 class PriceList extends PriceList_parent
 {
 
-    public function getSum($isNettoMode = true)
+  /*  public function getSum($isNettoMode = true)
     {
         if ($isNettoMode) {
             return $this->getNettoSum();
@@ -97,6 +97,6 @@ class PriceList extends PriceList_parent
         }
 
         return $oPrice;
-    }
+    }*/
 
 }
