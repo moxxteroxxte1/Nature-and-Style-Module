@@ -80,7 +80,8 @@ class Basket extends Basket_parent
             $price->setRound(!$this->isCalculationModeNetto());
             $this->setPrice($price);
         }
-
+        $this->_oPrice->setRound(!$this->isCalculationModeNetto());
+        $this->_oPrice->getVatValue();
         return $this->_oPrice;
     }
 

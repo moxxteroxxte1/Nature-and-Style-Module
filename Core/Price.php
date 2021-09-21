@@ -38,12 +38,10 @@ class Price extends Price_parent
     {
         if ($this->isNettoMode()) {
             return $this->getNettoPrice() + $this->getVatValue();
-        } else {
-            if($this->round){
-                return round(Registry::getUtils()->fRound($this->_dBrutto), 1, PHP_ROUND_HALF_UP);
-            }else{
-                Registry::getUtils()->fRound($this->_dBrutto);
-            }
+        } elseif ($this->round){
+            return round(Registry::getUtils()->fRound($this->_dBrutto), 1, PHP_ROUND_HALF_UP);
+        }else{
+            Registry::getUtils()->fRound($this->_dBrutto);
         }
     }
 
