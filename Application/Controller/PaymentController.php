@@ -27,7 +27,7 @@ class PaymentController extends PaymentController_parent
         $sActShipId = Registry::getSession()->getBasket()->getShippingId();
         $oActShip = oxNew(DeliverySet::class);
         if ($oActShip->load($sActShipId)) {
-            $this->_aAllSets = [$oActShip];
+            return [$oActShip];
         }
 
         if ($this->_aAllSets === null) {
