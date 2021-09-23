@@ -61,7 +61,7 @@ class DeliveryList extends DeliveryList_parent
                         $oDelivery->setBlIncludesSurcharge(false);
                     }
 
-                    $aUnsortedDeliveries[$dDeliveryPrice->getPrice()] = array('set' => $sDeliverySetId, 'delivery' => $aDeliveries[$sDeliveryId]);
+                    $aUnsortedDeliveries[$dDeliveryPrice->getPrice()] = array('set' => $sDeliverySetId, 'delivery' => $aDeliveries[$sDeliveryId], 'surcharge' => $oDelivery->isBlIncludesSurcharge());
 
                     $this->_aDeliveries[$sDeliveryId] = $aDeliveries[$sDeliveryId];
                     $blDelFound = true;
@@ -93,6 +93,7 @@ class DeliveryList extends DeliveryList_parent
             $aDeliverySet = array_shift($aUnsortedDeliveries);
 
             $oBasket->setShipping($aDeliverySet['set']);
+            $oBasket->setSurcharge($aDeliverySet['surcharge']);
             return [$aDeliverySet['delivery']];
         }
 

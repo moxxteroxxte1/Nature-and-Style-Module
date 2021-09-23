@@ -72,6 +72,10 @@ class Basket extends Basket_parent
         return $this->blIncludesSurcharge;
     }
 
+    public function setSurcharge($hasSurcharge){
+        $this->blIncludesSurcharge = $hasSurcharge;
+    }
+
     public function getPrice()
     {
         if (is_null($this->_oPrice)) {
