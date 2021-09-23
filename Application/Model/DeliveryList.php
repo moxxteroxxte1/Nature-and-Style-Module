@@ -88,6 +88,14 @@ class DeliveryList extends DeliveryList_parent
             }
         }
 
+        if ($blFindCheapest && count($aUnsortedDeliveries)) {
+            ksort($aUnsortedDeliveries, SORT_NUMERIC);
+            $aDeliverySet = array_shift($aUnsortedDeliveries);
+
+            $oBasket->setShipping($aDeliverySet['set']);
+            return [$aDeliverySet['delivery']];
+        }
+
         if ($this->_blCollectFittingDeliveriesSets && count($aFittingDelSets)) {
             //resetting getting delivery sets list instead of deliveries before return
             $this->_blCollectFittingDeliveriesSets = false;
@@ -97,14 +105,6 @@ class DeliveryList extends DeliveryList_parent
             $this->clear();
 
             return $aFittingDelSets;
-        }
-
-        if ($blFindCheapest && count($aUnsortedDeliveries)) {
-            ksort($aUnsortedDeliveries, SORT_NUMERIC);
-            $aDeliverySet = array_shift($aUnsortedDeliveries);
-
-            $oBasket->setShipping($aDeliverySet['set']);
-            return [$aDeliverySet['delivery']];
         }
 
         // nothing what fits was found
