@@ -39,7 +39,7 @@ class DeliveryList extends DeliveryList_parent
         // must choose right delivery set to use its delivery list
         foreach ($aDelSetList as $sDeliverySetId => $oDeliverySet) {
             // loading delivery list to check if some of them fits
-            $aDeliveries = $this->getActiveDeliveryList($oUser, $sDelCountry, $sDeliverySetId);
+            $aDeliveries = $this->_getList($oUser, $sDelCountry, $sDeliverySetId);
             $blDelFound = false;
 
             foreach ($aDeliveries as $sDeliveryId => $oDelivery) {
