@@ -24,15 +24,14 @@ class PaymentController extends PaymentController_parent
 
     public function getAllSets()
     {
+        $sActShipId = Registry::getSession()->getBasket()->getShippingId();
+        $oActShip = oxNew(DeliverySet::class);
+        if ($oActShip->load($sActShipId)) {
+            $this->_aAllSets = [$oActShip];
+        }
+
         if ($this->_aAllSets === null) {
             $this->_aAllSets = false;
-
-            $sActShipId = Registry::getSession()->getBasket()->getShippingId();
-            $oActShip = oxNew(DeliverySet::class);
-            if ($oActShip->load($sActShipId)) {
-                $this->_aAllSets = [$oActShip];
-                return $this->_aAllSets;
-            }
 
             if ($this->getPaymentList()) {
                 return $this->_aAllSets;
