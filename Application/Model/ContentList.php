@@ -28,7 +28,7 @@ class ContentList extends ContentList_parent
                 $aSubCats = $this->loadSubCats($oContent->oxcontents__oxid->value);
                 if(count($aSubCats) > 0){
                     $logger = Registry::getLogger();
-                    $logger->info(explode(", ", explode(", ", $aArray)));
+                    $logger->info(explode(", ", $aArray));
                     //$aArray[$oContent->oxcontents__oxcatid->value] = array_merge($aArray[$oContent->oxcontents__oxcatid->value],$aSubCats);
                 }
             }
