@@ -132,7 +132,7 @@
         <td class="edittext">
             [{oxmultilang ident="CONTENT_MAIN_SELECT_CATEGORY"}]
         </td>
-        <td><p>[{count($contcats)}]</p></td>
+
         <td class="edittext">
             <select name="editval[oxcontents__oxcatid]" class="editinput" [{$readonly}]
 
