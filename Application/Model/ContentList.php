@@ -21,11 +21,10 @@ class ContentList extends ContentList_parent
             foreach ($this as $oContent) {
                 // add into category tree
                 if (!isset($aArray[$oContent->getCategoryId()])) {
-                    $aArray[$oContent->getCategoryId()] = [];
+                    $aArray[$oContent->getCategoryId()] = $aSubCats = $this->loadSubCats($oContent->oxcontents__oxid->value);
                 }
-                $aSubCats = $this->loadSubCats($oContent->oxcontents__oxid->value);
-                $aArray[$oContent->oxcontents__oxcatid->value][] = (count($aSubCats) > 0 ? array_merge([$oContent], $aSubCats) : $oContent);
-
+                ;
+                $aArray[$oContent->oxcontents__oxcatid->value][] = $oContent;
             }
         }
 
