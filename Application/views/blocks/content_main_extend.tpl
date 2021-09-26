@@ -135,8 +135,9 @@
 
         <td class="edittext">
             <select name="editval[oxcontents__oxcatid]" class="editinput" [{$readonly}]
-                [{foreach from=$contcats item=ocont}]
-                <option value="[{$ocont['id']}]" [{if $edit->oxcontents__oxcatid->value == $ocont['id']}]selected[{/if}]>[{$ocont['title']|oxtruncate:33:"..":true}]</option>
+                [{foreach from=$contcats item=cont}]
+                    <p>[{explode($cont)}]</p>
+                <option value="[{$cont['id']}]" [{if $edit->oxcontents__oxcatid->value == $cont['id']}]selected[{/if}]>[{$cont['title']|oxtruncate:33:"..":true}]</option>
                 [{/foreach}]
             </select>
             [{oxinputhelp ident="HELP_CONTENT_MAIN_INSERTBEFORE"}]
