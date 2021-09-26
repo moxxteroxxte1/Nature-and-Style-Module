@@ -12,24 +12,6 @@ class ContentList extends ContentList_parent
 
     const TYPE_SUB_CATEGORY = 4;
 
-    public function loadCatMenues()
-    {
-        $this->load(self::TYPE_CATEGORY_MENU);
-        $aArray = [];
-
-        if ($this->count()) {
-            foreach ($this as $oContent) {
-                // add into category tree
-                if (!isset($aArray[$oContent->getCategoryId()])) {
-                    $aArray[$oContent->getCategoryId()] = [];
-                }
-                $aArray[$oContent->oxcontents__oxcatid->value][] = $oContent;
-            }
-        }
-
-        $this->_aArray = $aArray;
-    }
-
     public function loadSubCats($CatId = null)
     {
         $this->load(self::TYPE_SUB_CATEGORY, $CatId);
@@ -60,7 +42,6 @@ class ContentList extends ContentList_parent
 
         return $aData;
     }
-
 
     protected function getSQLByType($iType, $CatId = null)
     {

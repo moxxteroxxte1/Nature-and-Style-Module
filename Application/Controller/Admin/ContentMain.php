@@ -14,7 +14,7 @@ class ContentMain extends ContentMain_parent
         $oContentList = oxNew(ContentList::class);
         $oContentList->loadCatMenues();
 
-        $this->_aViewData['contcats'] = $oContentList->getAsArray();
+        $this->_aViewData['contcats'] = $oContentList;
         $logger = Registry::getLogger();
         $logger->info(explode(" ,", $this->_aViewData['contcats']));
         return parent::render();
