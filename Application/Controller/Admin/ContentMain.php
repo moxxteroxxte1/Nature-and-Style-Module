@@ -10,6 +10,8 @@ use OxidEsales\Eshop\Core\Registry;
 class ContentMain extends ContentMain_parent
 {
 
+    protected $_aViewData = [];
+
     public function render()
     {
         parent::render();
@@ -19,7 +21,7 @@ class ContentMain extends ContentMain_parent
         $aArray = [];
         $oDb = DatabaseProvider::getDb();
 
-        $sSQL = "SELECT oxloadid FROM oxcontents WHERE  `oxactive` = '1' AND oxtype = 2 AND `oxcatid` IS NOT NULL AND `oxsnippet` = '0' ORDER BY `oxloadid`";
+        $sSQL = "SELECT oxloadid FROM oxcontents WHERE  `oxactive` = '1' AND oxtype = '2' AND `oxcatid` IS NOT NULL AND `oxsnippet` = '0' ORDER BY `oxloadid`";
         $rs = $oDb->select($sSQL);
         $rs = $rs->fetchAll();
 
