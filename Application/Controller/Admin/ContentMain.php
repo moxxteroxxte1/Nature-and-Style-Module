@@ -13,6 +13,8 @@ class ContentMain extends ContentMain_parent
         parent::render();
         $oContentList = oxNew(ContentList::class);
         $oContentList->loadCatMenues();
+        $logger = Registry::getLogger();
+        $logger->info(count($oContentList));
         $this->_aViewData['contcats'] = $oContentList;
         return "content_main.tpl";
 
