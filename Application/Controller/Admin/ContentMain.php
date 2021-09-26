@@ -29,7 +29,7 @@ class ContentMain extends ContentMain_parent
             $logger->info($result[0]);
             $oContent = oxnew(Content::class);
             $oContent->loadByIdent($result[0], true);
-
+            $logger->info($oContent->getTitle());
             $aArray[$result[0]] = $oContent;
         }
 
