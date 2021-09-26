@@ -21,6 +21,7 @@ class ContentMain extends ContentMain_parent
             }
         }
         $this->_aViewData['contcats'] = $aArray;
+
         return "content_main.tpl";
 
     }
