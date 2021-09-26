@@ -21,7 +21,8 @@ class ContentMain extends ContentMain_parent
             }
         }
         $this->_aViewData['contcats'] = $aArray;
-
+        $logger = Registry::getLogger();
+        $logger->info($this->_aViewData['contcats']);
         return "content_main.tpl";
 
     }
