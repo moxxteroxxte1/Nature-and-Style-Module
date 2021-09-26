@@ -11,7 +11,7 @@ class Content extends Content_parent
     {
         $oContentList = oxNew(ContentList::class);
         $oContentList->loadSubCats($this->getId());
-        return $oContentList->getAsArray();
+        return $oContentList;
     }
 
 }
