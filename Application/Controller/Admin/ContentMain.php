@@ -23,7 +23,7 @@ class ContentMain extends ContentMain_parent
         foreach ($rs as $row) {
             $oContent = oxnew(Content::class);
             $oContent->loadByIdent($row[0], true);
-            array_push($aArray, $oContent);
+            $aArray[$oContent->oxcontents__oxid->value] = $oContent;
         }
 
         $this->_aViewData['contcats'] = $aArray;
