@@ -10,8 +10,6 @@ use OxidEsales\Eshop\Core\Registry;
 class ContentMain extends ContentMain_parent
 {
 
-    protected $_aViewData = [];
-
     public function render()
     {
         parent::render();
@@ -33,6 +31,23 @@ class ContentMain extends ContentMain_parent
 
         return "content_main.tpl";
 
+    }
+
+    public function getSubCats()
+    {
+        $logger = Registry::getLogger();
+        $aArray = [];
+        $oDb = DatabaseProvider::getDb();
+
+        $sSQL = "SELECT oxid, oxtitle FROM oxcontents WHERE  `oxactive` = '1' AND oxtype = '2' AND `oxcatid` IS NOT NULL AND `oxsnippet` = '0' ORDER BY `oxloadid`";
+        $rs = $oDb->select($sSQL);
+        $rs = $rs->fetchAll();
+
+        foreach ($rs as $result) {
+            array_push($aArray,['id' => $result[0], 'title' => $result[1]]);
+            $logger->info(explode(" ", explode(", ",$aArray)));
+        }
+        return $aArray;
     }
 
 
