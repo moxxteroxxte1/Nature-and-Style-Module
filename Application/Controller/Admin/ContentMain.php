@@ -27,11 +27,9 @@ class ContentMain extends ContentMain_parent
 
         foreach ($rs as $result) {
             $logger->info($result[0] . " " . $result[1]);
-            array_push($aArray, ['id' => $result[0], 'title' => $result[1]]);
+            array_push($this->_aViewData['contcats'], ['id' => $result[0], 'title' => $result[1]]);
         }
 
-        $this->_aViewData['contcats'] = $aArray;
-        $logger->info(explode($this->_aViewData['contcats']));
         return "content_main.tpl";
 
     }
