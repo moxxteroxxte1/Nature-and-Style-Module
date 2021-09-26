@@ -7,6 +7,7 @@ use NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsList;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\ActionsMain;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\ArticlePictures;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\ArticleStock;
+use NatureAndStyle\CoreModule\Application\Controller\Admin\ContentMain;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\DeliveryMain;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\GenericExportDo;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\ShopConfiguration;
@@ -63,6 +64,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Controller\Admin\ArticlePictures::class => ArticlePictures::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ShopConfiguration::class => ShopConfiguration::class,
         \OxidEsales\Eshop\Application\Controller\Admin\GenericExportDo::class => GenericExportDo::class,
+        \OxidEsales\Eshop\Application\Controller\Admin\ContentMain::class => ContentMain::class,
 
         //Controller
         \OxidEsales\Eshop\Application\Controller\StartController::class => StartController::class,
@@ -137,6 +139,12 @@ $aModule = array(
             'template' => 'article_pictures.tpl',
             'block' => 'admin_article_pictures_main',
             'file' => '/Application/views/blocks/article_pictures_extend.tpl',
+        ),
+        //CONTENT
+        array(
+            'template' => 'content_main.tpl',
+            'block' => 'admin_content_main_form',
+            'file' => '/Application/views/blocks/content_main_extend.tpl',
         ),
         //Delivery
         array(
