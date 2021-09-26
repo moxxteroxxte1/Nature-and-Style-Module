@@ -5,6 +5,7 @@ namespace NatureAndStyle\CoreModule\Application\Model;
 
 
 use OxidEsales\Eshop\Core\DatabaseProvider;
+use OxidEsales\Eshop\Core\Registry;
 
 class ContentList extends ContentList_parent
 {
@@ -26,7 +27,9 @@ class ContentList extends ContentList_parent
                 $aArray[$oContent->oxcontents__oxcatid->value][] = $oContent;
                 $aSubCats = $this->loadSubCats($oContent->oxcontents__oxid->value);
                 if(count($aSubCats) > 0){
-                    $aArray[$oContent->oxcontents__oxcatid->value][] = array_merge($aArray[$oContent->oxcontents__oxcatid->value],$aSubCats);
+                    $logger = Registry::getLogger();
+                    $logger->info(explode(", ", explode(", ", $aArray)));
+                    //$aArray[$oContent->oxcontents__oxcatid->value] = array_merge($aArray[$oContent->oxcontents__oxcatid->value],$aSubCats);
                 }
             }
         }
