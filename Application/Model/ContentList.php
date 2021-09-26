@@ -55,7 +55,7 @@ class ContentList extends ContentList_parent
         }
 
         if ($iType == self::TYPE_CATEGORY_MENU) {
-            $sSQLAdd = " ";
+            $sSQLAdd = " AND `oxcatid` IS NOT NULL AND `oxsnippet` = '0'";
         }
 
         if ($iType == self::TYPE_SERVICE_LIST) {

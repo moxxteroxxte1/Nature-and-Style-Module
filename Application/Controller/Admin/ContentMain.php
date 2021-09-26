@@ -3,25 +3,29 @@
 
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
-use NatureAndStyle\CoreModule\Application\Model\ContentList;
-use OxidEsales\Eshop\Core\Registry;
+use NatureAndStyle\CoreModule\Application\Model\Content;
+use OxidEsales\Eshop\Core\DatabaseProvider;
 
 class ContentMain extends ContentMain_parent
 {
 
-    public function render(){
+    public function render()
+    {
         parent::render();
-        $oContentList = oxNew(ContentList::class);
-        $oContentList->loadCatMenues();
 
-        $logger = Registry::getLogger();
         $aArray = [];
-        if(count($oContentList) > 0){
-            foreach ($oContentList as $oContent){
-                $logger = Registry::getLogger($oContent);
-                //$aArray = $oContent;
-            }
+        $oDb = DatabaseProvider::getDb();
+
+        $sSQL = "SELECT oxloadid FROM oxcontents WHERE  `oxactive` = '1' AND oxtype = 2 AND `oxcatid` IS NOT NULL AND `oxsnippet` = '0' AND `oxshopid` = " . $oDb->quote($this->_sShopID) . " ORDER BY `oxloadid`";
+        $rs = $oDb->select($sSQL);
+        $rs = $rs->fetchAll();
+
+        foreach ($rs as $row) {
+            $oContent = oxnew(Content::class);
+            $oContent->loadByIdent($row[0], true);
+            array_push($aArray, $oContent);
         }
+
         $this->_aViewData['contcats'] = $aArray;
         return "content_main.tpl";
 
