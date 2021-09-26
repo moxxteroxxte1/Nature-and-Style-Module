@@ -18,8 +18,8 @@ class ContentMain extends ContentMain_parent
         $aArray = [];
         if(count($oContentList) > 0){
             foreach ($oContentList as $oContent){
-                $aArray[$oContent->getCategoryId()] = $oContent[0][0];
                 $logger = Registry::getLogger($oContent);
+                //$aArray = $oContent;
             }
         }
         $this->_aViewData['contcats'] = $aArray;
