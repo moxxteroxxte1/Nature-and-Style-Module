@@ -39,14 +39,14 @@ class ContentMain extends ContentMain_parent
         $aArray = [];
         $oDb = DatabaseProvider::getDb();
 
-        $sSQL = "SELECT oxid, oxtitle FROM oxcontents WHERE  `oxactive` = '1' AND oxtype = '2' AND `oxcatid` IS NOT NULL AND `oxsnippet` = '0' ORDER BY `oxloadid`";
+        $sSQL = "SELECT oxid, oxtitle FROM oxcontents WHERE `oxactive` = '1' AND oxtype = '2' AND `oxcatid` IS NOT NULL AND `oxsnippet` = '0' ORDER BY `oxloadid`";
         $rs = $oDb->select($sSQL);
         $rs = $rs->fetchAll();
 
         foreach ($rs as $result) {
             $aArray[$result[0]] = $result[1];
-            $logger->info(explode(" ", $aArray));
         }
+        $logger->info(explode(" ", $aArray));
         return $aArray;
     }
 
