@@ -21,9 +21,8 @@ class ContentList extends ContentList_parent
             foreach ($this as $oContent) {
                 // add into category tree
                 if (!isset($aArray[$oContent->getCategoryId()])) {
-                    $aArray[$oContent->getCategoryId()] = $aSubCats = $this->loadSubCats($oContent->oxcontents__oxid->value);
+                    $aArray[$oContent->getCategoryId()] = [];
                 }
-                ;
                 $aArray[$oContent->oxcontents__oxcatid->value][] = $oContent;
             }
         }
@@ -33,12 +32,11 @@ class ContentList extends ContentList_parent
 
     public function loadSubCats($CatId = null)
     {
-        $oContentList = oxNew(ContentList::class);
-        $oContentList->load(self::TYPE_SUB_CATEGORY, $CatId);
+        $this->load(self::TYPE_SUB_CATEGORY, $CatId);
         $aArray = [];
 
-        if ($oContentList->count()) {
-            foreach ($oContentList as $oContent) {
+        if ($this->count()) {
+            foreach ($this as $oContent) {
                 if (!isset($aArray[$oContent->getCategoryId()])) {
                     $aArray[$oContent->getCategoryId()] = [];
                 }
@@ -46,7 +44,7 @@ class ContentList extends ContentList_parent
                 $aArray[$oContent->oxcontents__oxcatid->value] = $oContent;
             }
         }
-        return $aArray;
+        $this->_aArray = $aArray;
     }
 
     protected function load($type, $CatId = null)
@@ -88,6 +86,11 @@ class ContentList extends ContentList_parent
         $sSql = "SELECT * FROM {$sViewName} WHERE `oxactive` = '1' $sSQLType AND `oxshopid` = " . $oDb->quote($this->_sShopID) . " $sSQLAdd ORDER BY `oxloadid`";
 
         return $sSql;
+    }
+
+    public function getAsArray()
+    {
+        return $this->_aArray;
     }
 
 }
