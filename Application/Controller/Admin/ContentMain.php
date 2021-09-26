@@ -26,7 +26,7 @@ class ContentMain extends ContentMain_parent
             array_push($aArray, $oContent);
         }
 
-        $this->_aViewData['contcats'] = $aArray;
+        parent::_aViewData['contcats'] = $aArray;
         return "content_main.tpl";
 
     }
