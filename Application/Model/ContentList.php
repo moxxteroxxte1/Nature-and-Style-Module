@@ -6,7 +6,7 @@ namespace NatureAndStyle\CoreModule\Application\Model;
 
 use OxidEsales\Eshop\Core\DatabaseProvider;
 
-class ContentList
+class ContentList extends ContentList_parent
 {
 
     const TYPE_SUB_CATEGORY = 4;

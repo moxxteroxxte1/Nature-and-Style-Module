@@ -4,7 +4,7 @@
 namespace NatureAndStyle\CoreModule\Application\Model;
 
 
-class Content
+class Content extends Content_parent
 {
 
 
