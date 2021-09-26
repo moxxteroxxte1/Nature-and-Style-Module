@@ -5,6 +5,7 @@ namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
 use NatureAndStyle\CoreModule\Application\Model\Content;
 use OxidEsales\Eshop\Core\DatabaseProvider;
+use OxidEsales\Eshop\Core\Registry;
 
 class ContentMain extends ContentMain_parent
 {
@@ -13,6 +14,8 @@ class ContentMain extends ContentMain_parent
     {
         parent::render();
 
+        $logger = Registry::getLogger();
+
         $aArray = [];
         $oDb = DatabaseProvider::getDb();
 
@@ -20,9 +23,11 @@ class ContentMain extends ContentMain_parent
         $rs = $oDb->select($sSQL);
         $rs = $rs->fetchAll();
 
-        foreach ($rs as $row) {
+        foreach ($rs as $result) {
+            $logger->info($result[0]);
             $oContent = oxnew(Content::class);
-            $oContent->loadByIdent($row[0], true);
+            $oContent->loadByIdent($result[0], true);
+
             $aArray[$oContent->oxcontents__oxid->value] = $oContent;
         }
 
