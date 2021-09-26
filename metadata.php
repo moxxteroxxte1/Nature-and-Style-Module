@@ -28,6 +28,8 @@ use NatureAndStyle\CoreModule\Application\Model\OrderArticle;
 use NatureAndStyle\CoreModule\Application\Model\User;
 use NatureAndStyle\CoreModule\Core\Price;
 use NatureAndStyle\CoreModule\Core\PriceList;
+use OxidEsales\Eshop\Application\Model\Content;
+use OxidEsales\Eshop\Application\Model\ContentList;
 
 $sMetadataVersion = '2.0';
 
@@ -82,6 +84,9 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Model\DeliveryList::class => DeliveryList::class,
         \OxidEsales\Eshop\Application\Model\Basket::class => Basket::class,
         \OxidEsales\Eshop\Application\Model\BasketItem::class => BasketItem::class,
+        Content::class => Content::class,
+        ContentList::class => ContentList::class,
+
     ),
     'templates' => array(
         'actions_category.tpl' => 'nature-and-style/core-module/Application/views/admin/tpl/popups/actions_category.tpl',
