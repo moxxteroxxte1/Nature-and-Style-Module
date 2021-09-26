@@ -44,8 +44,8 @@ class ContentMain extends ContentMain_parent
         $rs = $rs->fetchAll();
 
         foreach ($rs as $result) {
-            array_push($aArray,['id' => $result[0], 'title' => $result[1]]);
-            $logger->info(explode(" ", explode(", ",$aArray)));
+            $aArray[$result[0]] = $result[1];
+            $logger->info(explode(" ", $aArray));
         }
         return $aArray;
     }
