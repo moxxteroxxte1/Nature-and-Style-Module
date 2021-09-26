@@ -13,9 +13,14 @@ class ContentMain extends ContentMain_parent
         parent::render();
         $oContentList = oxNew(ContentList::class);
         $oContentList->loadCatMenues();
-        $logger = Registry::getLogger();
-        $logger->info(count($oContentList));
-        $this->_aViewData['contcats'] = $oContentList;
+
+        $aArray = [];
+        if(count($oContentList) > 0){
+            foreach ($oContentList as $oContent){
+                array_push($aArray, $oContent);
+            }
+        }
+        $this->_aViewData['contcats'] = $aArray;
         return "content_main.tpl";
 
     }

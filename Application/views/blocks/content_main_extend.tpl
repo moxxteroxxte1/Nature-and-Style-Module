@@ -111,32 +111,37 @@
         <hr>
     </td>
 </tr>
-<tr id="cattree" [{if $edit->oxcontents__oxtype->value != 2}]style="display:none;"[{/if}]>
-    <td class="edittext">
-        [{oxmultilang ident="CONTENT_MAIN_INSERTBEFORE"}]
-    </td>
-    <td class="edittext">
-        <select name="editval[oxcontents__oxcatid]" class="editinput" [{$readonly}]>
-            [{foreach from=$cattree item=pcat}]
-            <option value="[{$pcat->oxcategories__oxid->value}]" [{if $pcat->selected}]SELECTED[{/if}]>[{$pcat->oxcategories__oxtitle->value|oxtruncate:33:"..":true}]</option>
-            [{/foreach}]
-        </select>
-        [{oxinputhelp ident="HELP_CONTENT_MAIN_INSERTBEFORE"}]
-    </td>
-</tr>
-<tr id="cattree" [{if $edit->oxcontents__oxtype->value != 4}]style="display:none;"[{/if}]>
-    <td class="edittext">
-        [{oxmultilang ident="CONTENT_MAIN_SELECT_CATEGORY"}]
-    </td>
-    <td class="edittext">
-        <select name="editval[oxcontents__oxcatid]" class="editinput" [{$readonly}]>
-            [{foreach from=$contcats item='ocont'}]
-            <option value="[{$ocont->oxcontents__oxid->value}]" [{if $edit->oxcontents__oxcatid->value == $ocont->oxcontents_oxid->value}]selected[{/if}]>[{$ocont->oxcontents__oxtitle->value|oxtruncate:33:"..":true}]</option>
-            [{/foreach}]
-        </select>
-        [{oxinputhelp ident="HELP_CONTENT_MAIN_INSERTBEFORE"}]
-    </td>
-</tr>
+[{if $edit->oxcontents__oxtype->value == 2}]
+    <tr id="cattree">
+        <td class="edittext">
+            [{oxmultilang ident="CONTENT_MAIN_INSERTBEFORE"}]
+        </td>
+        <td class="edittext">
+            <select name="editval[oxcontents__oxcatid]" class="editinput" [{$readonly}]>
+                [{foreach from=$cattree item=pcat}]
+                <option value="[{$pcat->oxcategories__oxid->value}]" [{if $pcat->selected}]SELECTED[{/if}]>[{$pcat->oxcategories__oxtitle->value|oxtruncate:33:"..":true}]</option>
+                [{/foreach}]
+            </select>
+            [{oxinputhelp ident="HELP_CONTENT_MAIN_INSERTBEFORE"}]
+        </td>
+    </tr>
+    [{/if}]
+
+[{if $edit->oxcontents__oxtype->value == 4}]
+    <tr id="cattree">
+        <td class="edittext">
+            [{oxmultilang ident="CONTENT_MAIN_SELECT_CATEGORY"}]
+        </td>
+        <td class="edittext">
+            <select name="editval[oxcontents__oxcatid]" class="editinput" [{$readonly}]>
+                [{foreach from=$contcats item='ocont'}]
+                <option value="[{$ocont->oxcontents__oxid->value}]" [{if $edit->oxcontents__oxcatid->value == $ocont->oxcontents__oxcatid->value}]selected[{/if}]>[{$ocont->oxcontents__oxtitle->value|oxtruncate:33:"..":true}]</option>
+                [{/foreach}]
+            </select>
+            [{oxinputhelp ident="HELP_CONTENT_MAIN_INSERTBEFORE"}]
+        </td>
+    </tr>
+    [{/if}]
 <tr id="manuell" [{if $edit->oxcontents__oxtype->value != 3}]style="display:none;"[{/if}]>
     <td class="edittext">
         [{oxmultilang ident="GENERAL_LINK"}]
