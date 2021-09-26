@@ -23,14 +23,9 @@ class ContentList extends ContentList_parent
                 if (!isset($aArray[$oContent->getCategoryId()])) {
                     $aArray[$oContent->getCategoryId()] = [];
                 }
-
-                $aArray[$oContent->oxcontents__oxcatid->value][] = $oContent;
                 $aSubCats = $this->loadSubCats($oContent->oxcontents__oxid->value);
-                if(count($aSubCats) > 0){
-                    $logger = Registry::getLogger();
-                    $logger->info(explode(", ",  $aArray[$oContent->oxcontents__oxcatid->value]));
-                    //$aArray[$oContent->oxcontents__oxcatid->value] = array_merge($aArray[$oContent->oxcontents__oxcatid->value],$aSubCats);
-                }
+                $aArray[$oContent->oxcontents__oxcatid->value][] = (count($aSubCats) > 0 ? array_merge([$oContent], $aSubCats) : $oContent);
+
             }
         }
 
