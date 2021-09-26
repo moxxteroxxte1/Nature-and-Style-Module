@@ -30,7 +30,7 @@ class ContentMain extends ContentMain_parent
             $oContent = oxnew(Content::class);
             $oContent->loadByIdent($result[0], true);
 
-            $aArray[$oContent->oxcontents__oxid->value] = $oContent;
+            $aArray[$result[0]] = $oContent;
         }
 
         $this->_aViewData['contcats'] = $aArray;
