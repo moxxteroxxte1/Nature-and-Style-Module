@@ -35,5 +35,5 @@ $aLang = array(
     'ARTICLE_STOCK_BULKY_GOOD'                      => 'Bulky good',
     'ARTICLE_STOCK_BULKY_GOOD_MULTIPLIER'           => 'Number of bulky packages',
     'CONTENT_MAIN_SUB_CATEGORY'                     => 'subcategory',
-    'CONTENT_MAIN_SELECT_CATEGORY'                  => 'select upper categegory',
+    'CONTENT_MAIN_SELECT_CATEGORY'                  => 'inserted under:',
 );
