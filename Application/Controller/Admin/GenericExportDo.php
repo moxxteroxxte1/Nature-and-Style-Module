@@ -69,7 +69,7 @@ class GenericExportDo extends DynamicExportBaseController
             );
 
             $logger = Registry::getLogger();
-            $logger->info($context);
+            $logger->info(print_r($context));
 
             return ++$iExportedItems;
         }
