@@ -5,7 +5,7 @@ namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererInterface;
-
+use OxidEsales\Eshop\Core\Registry;
 /**
  * General export class.
  */
@@ -67,6 +67,9 @@ class GenericExportDo extends DynamicExportBaseController
                     $context
                 )
             );
+
+            $logger = Registry::getLogger();
+            $logger->info($context);
 
             return ++$iExportedItems;
         }
