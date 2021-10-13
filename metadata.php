@@ -98,6 +98,7 @@ $aModule = array(
         'tile.tpl' => 'nature-and-style/core-module/Application/views/admin/tpl/tile.tpl',
         'tile_list.tpl' => 'nature-and-style/core-module/Application/views/admin/tpl/tile_list.tpl',
         'tile_main.tpl' => 'nature-and-style/core-module/Application/views/admin/tpl/tile_main.tpl',
+        'genexport.tpl' => 'nature-and-style/core-module/Application/views/admin/tpl/genexport.tpl',
     ),
     'controllers' => array(
         'actions_category_ajax' => ActionsCategoryAjax::class,
