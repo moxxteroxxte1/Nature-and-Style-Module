@@ -3,9 +3,11 @@
 
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
+use OxidEsales\Eshop\Application\Controller\Admin\AdminController;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererInterface;
 use OxidEsales\Eshop\Core\Registry;
+
 /**
  * General export class.
  */
@@ -51,13 +53,13 @@ class GenericExportDo extends DynamicExportBaseController
         $iExportedItems = $iCnt;
         $blContinue = false;
         if ($oArticle = $this->getOneArticle($iCnt, $blContinue)) {
-            $myConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
+            $myConfig = Registry::getConfig();
             $context = [
-                "sCustomHeader" => \OxidEsales\Eshop\Core\Registry::getSession()->getVariable("sExportCustomHeader"),
-                "linenr"        => $iCnt,
-                "article"       => $oArticle,
-                "spr"           => $myConfig->getConfigParam('sCSVSign'),
-                "encl"          => $myConfig->getConfigParam('sGiCsvFieldEncloser')
+                "sCustomHeader" => Registry::getSession()->getVariable("sExportCustomHeader"),
+                "linenr" => $iCnt,
+                "article" => $oArticle,
+                "spr" => $myConfig->getConfigParam('sCSVSign'),
+                "encl" => $myConfig->getConfigParam('sGiCsvFieldEncloser')
             ];
             $context['oxEngineTemplateId'] = $this->getViewId();
 
@@ -68,9 +70,6 @@ class GenericExportDo extends DynamicExportBaseController
                 )
             );
 
-            $logger = Registry::getLogger();
-            $logger->info(print_r($context));
-
             return ++$iExportedItems;
         }
 
@@ -78,9 +77,9 @@ class GenericExportDo extends DynamicExportBaseController
     }
 
     /**
+     * @return TemplateRendererInterface
      * @internal
      *
-     * @return TemplateRendererInterface
      */
     private function getRenderer()
     {
@@ -112,6 +111,6 @@ class GenericExportDo extends DynamicExportBaseController
      */
     public function getViewId()
     {
-        return \OxidEsales\Eshop\Application\Controller\Admin\AdminController::getViewId();
+        return AdminController::getViewId();
     }
 }
