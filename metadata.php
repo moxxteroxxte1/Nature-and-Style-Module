@@ -169,6 +169,11 @@ $aModule = array(
             'block' => 'admin_user_main_form',
             'file' => '/Application/views/blocks/user_main_extend.tpl',
         ),
+        array(
+            'template' => 'user_address.tpl',
+            'block' => 'admin_user_address_form',
+            'file' => '/Application/views/blocks/user_address_extend.tpl',
+        ),
 
         //Shop Config
         array(

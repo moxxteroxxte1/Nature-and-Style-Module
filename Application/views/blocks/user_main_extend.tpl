@@ -60,6 +60,9 @@
             <option value="MRS" [{if $edit->oxuser__oxsal->value|lower  == "mrs"}]SELECTED[{/if}]>
                 [{oxmultilang ident="MRS"}]
             </option>
+            <option value="MX" [{if $edit->oxuser__oxsal->value|lower  == "mx"}]SELECTED[{/if}]>
+                [{oxmultilang ident="MX"}]
+            </option>
         </select>
         [{oxinputhelp ident="HELP_GENERAL_BILLSAL"}]
     </td>

@@ -38,4 +38,5 @@ $aLang = array(
     'ARTICLE_STOCK_BULKY_GOOD'                      => 'Sperrgut',
     'ARTICLE_STOCK_BULKY_GOOD_MULTIPLIER'           => 'Anzahl der Sperrgut Pakete',
     'DELIVERY_MAIN_MARK_SHIPPING'                   => 'Speditionsversand',
+    'MX'                                            => 'Divers',
 );
