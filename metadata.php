@@ -30,6 +30,7 @@ use NatureAndStyle\CoreModule\Application\Model\DeliveryList;
 use NatureAndStyle\CoreModule\Application\Model\Discount;
 use NatureAndStyle\CoreModule\Application\Model\OrderArticle;
 use NatureAndStyle\CoreModule\Application\Model\User;
+use NatureAndStyle\CoreModule\Core\Base;
 use NatureAndStyle\CoreModule\Core\Price;
 use NatureAndStyle\CoreModule\Core\PriceList;
 
@@ -56,6 +57,7 @@ $aModule = array(
     'extend' => array(
         //Core
         \OxidEsales\Eshop\Core\Price::class => Price::class,
+        \OxidEsales\Eshop\Core\Base::class  => Base::class,
 
         //Admin Controller
         \OxidEsales\Eshop\Application\Controller\Admin\ActionsMain::class => ActionsMain::class,
