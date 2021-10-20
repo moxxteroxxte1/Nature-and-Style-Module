@@ -5,6 +5,9 @@ namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 use OxidEsales\Eshop\Application\Model\Article;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Core\TableViewNameGenerator;
+use stdClass;
+use OxidEsales\Eshop\Core\Str;
 
 class DynamicExportBaseController extends DynamicExportBaseController_parent
 {
