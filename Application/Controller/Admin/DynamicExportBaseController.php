@@ -190,12 +190,6 @@ class DynamicExportBaseController extends DynamicExportBaseController_parent
 
         $insertQuery = "insert into {$sHeapTable} select {$sArticleTable}.oxid from {$sArticleTable} where 1";
 
-        if (!Registry::getRequest()->getRequestEscapedParameter("blExportVars")) {
-            $insertQuery .= " and {$sArticleTable}.oxid = oxobject2category.oxobjectid and {$sArticleTable}.oxparentid = '' ";
-        } else {
-            $insertQuery .= " and ( {$sArticleTable}.oxid = oxobject2category.oxobjectid or {$sArticleTable}.oxparentid = oxobject2category.oxobjectid ) ";
-        }
-
         $sSearchString = Registry::getRequest()->getRequestEscapedParameter("search");
         if (isset($sSearchString)) {
             $insertQuery .= "and ( {$sArticleTable}.OXTITLE like " . $oDB->quote("%{$sSearchString}%");
