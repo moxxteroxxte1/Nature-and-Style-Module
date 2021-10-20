@@ -3,7 +3,7 @@
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
 use OxidEsales\Eshop\Application\Model\Article;
-use \OxidEsales\Eshop\Core\DatabaseProvider;
+use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Registry;
 
 class DynamicExportBaseController extends DynamicExportBaseController_parent
@@ -11,16 +11,44 @@ class DynamicExportBaseController extends DynamicExportBaseController_parent
 
     public $sExportFileType = "csv";
 
+    public function prepareExport()
+    {
+        $oDB = DatabaseProvider::getDb();
+        $sHeapTable = $this->getHeapTableName();
+
+        // #1070 Saulius 2005.11.28
+        // check mySQL version
+        $oRs = $oDB->select("SHOW VARIABLES LIKE 'version'");
+        $sTableCharset = $this->generateTableCharSet($oRs->fields[1]);
+
+        // create heap table
+        if (!($this->createHeapTable($sHeapTable, $sTableCharset))) {
+            // error
+            Registry::getUtils()->showMessageAndExit("Could not create HEAP Table {$sHeapTable}\n<br>");
+        }
+
+        $sCatAdd = $this->getCatAdd(Registry::getRequest()->getRequestEscapedParameter("acat"));
+        if (!$this->insertArticles($sHeapTable, $sCatAdd)) {
+            Registry::getUtils()->showMessageAndExit("Could not insert Articles in Table {$sHeapTable}\n<br>");
+        }
+
+        $this->removeParentArticles($sHeapTable);
+        $this->setSessionParams();
+
+        // get total cnt
+        return $oDB->getOne("select count(*) from {$sHeapTable}");
+    }
+
     protected function insertArticles($sHeapTable, $sCatAdd)
     {
-        $oDB = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
+        $oDB = DatabaseProvider::getDb();
 
         $iExpLang = Registry::getRequest()->getRequestEscapedParameter("iExportLanguage");
         if (!isset($iExpLang)) {
-            $iExpLang = \OxidEsales\Eshop\Core\Registry::getSession()->getVariable("iExportLanguage");
+            $iExpLang = Registry::getSession()->getVariable("iExportLanguage");
         }
 
-        $oArticle = oxNew(\OxidEsales\Eshop\Application\Model\Article::class);
+        $oArticle = oxNew(Article::class);
         $oArticle->setLanguage($iExpLang);
 
         $tableViewNameGenerator = oxNew(TableViewNameGenerator::class);
