@@ -188,7 +188,7 @@ class DynamicExportBaseController extends DynamicExportBaseController_parent
         $tableViewNameGenerator = oxNew(TableViewNameGenerator::class);
         $sArticleTable = $tableViewNameGenerator->getViewName("oxarticles", $iExpLang);
 
-        $insertQuery = "insert into {$sHeapTable} select {$sArticleTable}.oxid from {$sArticleTable} where 1";
+        $insertQuery = "insert into {$sHeapTable} select {$sArticleTable}.oxid from {$sArticleTable} where 1 ";
 
         $sSearchString = Registry::getRequest()->getRequestEscapedParameter("search");
         if (isset($sSearchString)) {
