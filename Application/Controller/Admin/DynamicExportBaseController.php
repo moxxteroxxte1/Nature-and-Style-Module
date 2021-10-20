@@ -39,6 +39,13 @@ class DynamicExportBaseController extends DynamicExportBaseController_parent
         return $oDB->getOne("select count(*) from {$sHeapTable}");
     }
 
+    protected function getHeapTableName()
+    {
+        // table name must not start with any digit
+        $session = \OxidEsales\Eshop\Core\Registry::getSession();
+        return "tmp_" . str_replace("0", "", md5($session->getId()));
+    }
+
     protected function insertArticles($sHeapTable, $sCatAdd)
     {
         $oDB = DatabaseProvider::getDb();
