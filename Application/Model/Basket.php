@@ -58,6 +58,8 @@ class Basket extends Basket_parent
                     $this->blIncludesSurcharge = $oDelivery->isBlIncludesSurcharge();
                     $this->delMulti = $oDelivery->getMultiplier();
                 }
+            }else{
+                return null;
             }
         }
 
