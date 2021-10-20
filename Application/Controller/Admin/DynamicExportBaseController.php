@@ -39,6 +39,25 @@ class DynamicExportBaseController extends DynamicExportBaseController_parent
         return $oDB->getOne("select count(*) from {$sHeapTable}");
     }
 
+    protected function generateTableCharSet($sMysqlVersion)
+    {
+        $sTableCharset = "";
+
+        //if MySQL >= 4.1.0 set charsets and collations
+        if (version_compare($sMysqlVersion, '4.1.0', '>=') > 0) {
+            $oDB = \OxidEsales\Eshop\Core\DatabaseProvider::getDb(\OxidEsales\Eshop\Core\DatabaseProvider::FETCH_MODE_ASSOC);
+            $oRs = $oDB->select("SHOW FULL COLUMNS FROM `oxarticles` WHERE field like 'OXID'");
+            if (isset($oRs->fields['Collation']) && ($sMysqlCollation = $oRs->fields['Collation'])) {
+                $oRs = $oDB->select("SHOW COLLATION LIKE '{$sMysqlCollation}'");
+                if (isset($oRs->fields['Charset']) && ($sMysqlCharacterSet = $oRs->fields['Charset'])) {
+                    $sTableCharset = "DEFAULT CHARACTER SET {$sMysqlCharacterSet} COLLATE {$sMysqlCollation}";
+                }
+            }
+        }
+
+        return $sTableCharset;
+    }
+
     protected function getHeapTableName()
     {
         // table name must not start with any digit
