@@ -26,7 +26,7 @@ class DynamicExportBaseController extends DynamicExportBaseController_parent
         $tableViewNameGenerator = oxNew(TableViewNameGenerator::class);
         $sArticleTable = $tableViewNameGenerator->getViewName("oxarticles", $iExpLang);
 
-        $insertQuery = "insert into {$sHeapTable} select {$sArticleTable}.oxid from {$sArticleTable} where ";
+        $insertQuery = "insert into {$sHeapTable} select {$sArticleTable}.oxid from {$sArticleTable} where 1";
 
         if (!Registry::getRequest()->getRequestEscapedParameter("blExportVars")) {
             $insertQuery .= " and {$sArticleTable}.oxid = oxobject2category.oxobjectid and {$sArticleTable}.oxparentid = '' ";
@@ -45,34 +45,12 @@ class DynamicExportBaseController extends DynamicExportBaseController_parent
             $insertQuery .= $sCatAdd;
         }
 
+        $insertQuery .= " group by {$sArticleTable}.oxid";
+
+        $logger = Registry::getLogger();
+        $logger->info($insertQuery);
+
         return $oDB->execute($insertQuery) ? true : false;
-    }
-
-    protected function initArticle($sHeapTable, $iCnt, &$blContinue)
-    {
-        $oRs = $this->getDb()->selectLimit("select oxid from $sHeapTable", 1, $iCnt);
-        if ($oRs != false && $oRs->count() > 0) {
-            $oArticle = oxNew(\OxidEsales\Eshop\Application\Model\Article::class);
-            $oArticle->setLoadParentData(true);
-
-            $oArticle->setLanguage(\OxidEsales\Eshop\Core\Registry::getSession()->getVariable("iExportLanguage"));
-
-            if ($oArticle->load($oRs->fields[0])) {
-                // if article exists, do not stop export
-                $blContinue = true;
-                // check price
-                $dMinPrice = Registry::getRequest()->getRequestEscapedParameter("sExportMinPrice");
-                if (!isset($dMinPrice) || (isset($dMinPrice) && ($oArticle->getPrice()->getBruttoPrice() >= $dMinPrice))) {
-                    //Saulius: variant title added
-                    $sTitle = $oArticle->oxarticles__oxvarselect->value ? " " . $oArticle->oxarticles__oxvarselect->value : "";
-                    $oArticle->oxarticles__oxtitle->setValue($oArticle->oxarticles__oxtitle->value . $sTitle);
-
-                    $oArticle = $this->updateArticle($oArticle);
-
-                    return $oArticle;
-                }
-            }
-        }
     }
 
 }
