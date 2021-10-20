@@ -39,6 +39,111 @@ class DynamicExportBaseController extends DynamicExportBaseController_parent
         return $oDB->getOne("select count(*) from {$sHeapTable}");
     }
 
+    protected function setSessionParams()
+    {
+        // reset it from session
+        \OxidEsales\Eshop\Core\Registry::getSession()->deleteVariable("sExportDelCost");
+        $dDelCost = Registry::getRequest()->getRequestEscapedParameter("sExportDelCost");
+        if (isset($dDelCost)) {
+            $dDelCost = str_replace([";", " ", "/", "'"], "", $dDelCost);
+            $dDelCost = str_replace(",", ".", $dDelCost);
+            \OxidEsales\Eshop\Core\Registry::getSession()->setVariable("sExportDelCost", $dDelCost);
+        }
+
+        \OxidEsales\Eshop\Core\Registry::getSession()->deleteVariable("sExportMinPrice");
+        $dMinPrice = Registry::getRequest()->getRequestEscapedParameter("sExportMinPrice");
+        if (isset($dMinPrice)) {
+            $dMinPrice = str_replace([";", " ", "/", "'"], "", $dMinPrice);
+            $dMinPrice = str_replace(",", ".", $dMinPrice);
+            \OxidEsales\Eshop\Core\Registry::getSession()->setVariable("sExportMinPrice", $dMinPrice);
+        }
+
+        // #827
+        \OxidEsales\Eshop\Core\Registry::getSession()->deleteVariable("sExportCampaign");
+        $sCampaign = Registry::getRequest()->getRequestEscapedParameter("sExportCampaign");
+        if (isset($sCampaign)) {
+            $sCampaign = str_replace([";", " ", "/", "'"], "", $sCampaign);
+            \OxidEsales\Eshop\Core\Registry::getSession()->setVariable("sExportCampaign", $sCampaign);
+        }
+
+        // reset it from session
+        \OxidEsales\Eshop\Core\Registry::getSession()->deleteVariable("blAppendCatToCampaign");
+        // now retrieve it from get or post.
+        $blAppendCatToCampaign = Registry::getRequest()->getRequestEscapedParameter("blAppendCatToCampaign");
+        if ($blAppendCatToCampaign) {
+            \OxidEsales\Eshop\Core\Registry::getSession()->setVariable("blAppendCatToCampaign", $blAppendCatToCampaign);
+        }
+
+        // reset it from session
+        \OxidEsales\Eshop\Core\Registry::getSession()->deleteVariable("iExportLanguage");
+        \OxidEsales\Eshop\Core\Registry::getSession()->setVariable("iExportLanguage", Registry::getRequest()->getRequestEscapedParameter("iExportLanguage"));
+
+        //setting the custom header
+        \OxidEsales\Eshop\Core\Registry::getSession()->setVariable("sExportCustomHeader", Registry::getRequest()->getRequestEscapedParameter("sExportCustomHeader"));
+    }
+
+    protected function removeParentArticles($sHeapTable)
+    {
+        if (!(Registry::getRequest()->getRequestEscapedParameter("blExportMainVars"))) {
+            $oDB = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
+            $tableViewNameGenerator = oxNew(TableViewNameGenerator::class);
+            $sArticleTable = $tableViewNameGenerator->getViewName('oxarticles');
+
+            // we need to remove again parent articles so that we only have the variants itself
+            $sQ = "select $sHeapTable.oxid from $sHeapTable, $sArticleTable where
+                          $sHeapTable.oxid = $sArticleTable.oxparentid group by $sHeapTable.oxid";
+
+            $oRs = $oDB->select($sQ);
+            $sDel = "delete from $sHeapTable where oxid in ( ";
+            $blSep = false;
+            if ($oRs != false && $oRs->count() > 0) {
+                while (!$oRs->EOF) {
+                    if ($blSep) {
+                        $sDel .= ",";
+                    }
+                    $sDel .= $oDB->quote($oRs->fields[0]);
+                    $blSep = true;
+                    $oRs->fetchRow();
+                }
+            }
+            $sDel .= " )";
+            $oDB->execute($sDel);
+        }
+    }
+
+    protected function getCatAdd($aChosenCat)
+    {
+        $sCatAdd = null;
+        if (is_array($aChosenCat) && count($aChosenCat)) {
+            $oDB = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
+            $sCatAdd = " and ( ";
+            $blSep = false;
+            foreach ($aChosenCat as $sCat) {
+                if ($blSep) {
+                    $sCatAdd .= " or ";
+                }
+                $sCatAdd .= "oxobject2category.oxcatnid = " . $oDB->quote($sCat);
+                $blSep = true;
+            }
+            $sCatAdd .= ")";
+        }
+
+        return $sCatAdd;
+    }
+
+    protected function createHeapTable($sHeapTable, $sTableCharset)
+    {
+        $blDone = false;
+        $oDB = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
+        $sQ = "CREATE TABLE IF NOT EXISTS {$sHeapTable} ( `oxid` CHAR(32) NOT NULL default '' ) ENGINE=InnoDB {$sTableCharset}";
+        if (($oDB->execute($sQ)) !== false) {
+            $blDone = true;
+            $oDB->execute("TRUNCATE TABLE {$sHeapTable}");
+        }
+
+        return $blDone;
+    }
+
     protected function generateTableCharSet($sMysqlVersion)
     {
         $sTableCharset = "";
