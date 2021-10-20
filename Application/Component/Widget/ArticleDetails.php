@@ -3,6 +3,7 @@
 
 namespace NatureAndStyle\CoreModule\Application\Component\Widget;
 
+use OxidEsales\Eshop\Core\DatabaseProvider;
 
 class ArticleDetails extends ArticleDetails_parent
 {
