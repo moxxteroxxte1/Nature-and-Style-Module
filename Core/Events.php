@@ -25,15 +25,15 @@ class Events
             $oCategory->save();
         }
         $oArticle = oxNew(Article::class);
-        $logger = Registry::getLogger();
-        $logger->info("Test");
         if(!$oArticle->load('test123')){
-            $logger->info($oArticle->assign(array(
+            $oArticle->assign(array(
                 'oxid' => 'test123',
                 'oxtitle' => 'TEST',
                 'oxartnum' => 'test123',
                 'oxactive' => 1,
-            )));
+                'oxlongdesc' => 'TEST TEST TEST'
+            ));
+            $oArticle->save();
         }
     }
 }
