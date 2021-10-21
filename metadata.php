@@ -59,7 +59,7 @@ $aModule = array(
         //Core
         \OxidEsales\Eshop\Core\Price::class => Price::class,
         \OxidEsales\Eshop\Core\Base::class => Base::class,
-        ImportObject\Article::class => NatureAndStyle\CoreModule\Core\GenericImport\ImportObject\Article::class,
+        \OxidEsales\Eshop\Core\GenericImport\ImportObject\Article::class => \ImportObject\Article::class,
         \OxidEsales\Eshop\Core\GenericImport\GenericImport::class => GenericImport::class,
 
         //Admin Controller
