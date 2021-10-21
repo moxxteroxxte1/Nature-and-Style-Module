@@ -10,18 +10,6 @@ use OxidEsales\Eshop\Core\Registry;
 class PaymentController extends PaymentController_parent
 {
 
-    public function render()
-    {
-        parent::render();
-
-        if (!$this->getAllSetsCnt()) {
-            unset($this->_oEmptyPayment);
-            Registry::getSession()->setVariable('sShipSet', null);
-        }
-
-        return $this->_sThisTemplate;
-    }
-
     public function changeshipping()
     {
         $session = Registry::getSession();
