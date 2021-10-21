@@ -150,15 +150,12 @@ class Article extends Article_parent
         }
 
         foreach ($dbRecord as $name => $value) {
-            $this->setFieldData($name, $value);
             if($name=='oxlongdesc'){
                 parent::setArticleLongDesc($value);
+                unset($dbRecord[$name]);
             }
         }
 
-        $oxidField = $this->getFieldLongName('oxid');
-        if ($this->$oxidField instanceof Field) {
-            $this->_sOXID = $this->$oxidField->value;
-        }
+        parent::assign($dbRecord);
     }
 }
