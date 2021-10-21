@@ -24,16 +24,5 @@ class Events
             ));
             $oCategory->save();
         }
-        $oArticle = oxNew(Article::class);
-        if(!$oArticle->load('test123')){
-            $oArticle->assign(array(
-                'oxid' => 'test123',
-                'oxtitle' => 'TEST',
-                'oxartnum' => 'test123',
-                'oxactive' => 1,
-                'oxlongdesc' => 'TEST TEST TEST'
-            ));
-            $oArticle->save();
-        }
     }
 }

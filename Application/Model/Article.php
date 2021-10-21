@@ -150,7 +150,7 @@ class Article extends Article_parent
         }
 
         foreach ($dbRecord as $name => $value) {
-            if($name=='oxlongdesc'){
+            if(strtolower($name)=='oxlongdesc'){
                 parent::setArticleLongDesc($value);
                 unset($dbRecord[$name]);
             }
