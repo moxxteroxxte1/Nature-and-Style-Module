@@ -142,4 +142,23 @@ class Article extends Article_parent
     {
         $this->oxarticles__oxbulkygoodmultiplier->value;
     }
+
+    public function assign($dbRecord)
+    {
+        if (!is_array($dbRecord)) {
+            return;
+        }
+
+        foreach ($dbRecord as $name => $value) {
+            $this->setFieldData($name, $value);
+            if($name=='oxlongdesc'){
+                $this->setArticleLongDesc($value);
+            }
+        }
+
+        $oxidField = $this->getFieldLongName('oxid');
+        if ($this->$oxidField instanceof Field) {
+            $this->_sOXID = $this->$oxidField->value;
+        }
+    }
 }
