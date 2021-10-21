@@ -27,11 +27,11 @@ class GenericImportMain extends GenericImportMain_parent
             $navigationStep++;
         }
 
-        $navigationStep = parent::checkErrors($navigationStep);
+        $navigationStep = $this->checkErrors($navigationStep);
 
         if ($navigationStep == 1) {
-            $this->_aViewData['sGiCsvFieldTerminator'] = Str::getStr()->htmlentities(parent::getCsvFieldsTerminator());
-            $this->_aViewData['sGiCsvFieldEncloser'] = Str::getStr()->htmlentities(parent::getCsvFieldsEncolser());
+            $this->_aViewData['sGiCsvFieldTerminator'] = Str::getStr()->htmlentities($this->getCsvFieldsTerminator());
+            $this->_aViewData['sGiCsvFieldEncloser'] = Str::getStr()->htmlentities($this->getCsvFieldsEncolser());
         }
 
         if ($navigationStep == 2) {
@@ -39,7 +39,7 @@ class GenericImportMain extends GenericImportMain_parent
             //saving csv field terminator and encloser to config
             $terminator = Registry::getRequest()->getRequestEscapedParameter('sGiCsvFieldTerminator');
             if ($terminator && !$noJsValidator->isValid($terminator)) {
-                parent::setErrorToView($terminator);
+                $this->setErrorToView($terminator);
             } else {
                 $this->_sStringTerminator = $terminator;
                 $config->saveShopConfVar('str', 'sGiCsvFieldTerminator', $terminator);
@@ -47,17 +47,17 @@ class GenericImportMain extends GenericImportMain_parent
 
             $encloser = Registry::getRequest()->getRequestEscapedParameter('sGiCsvFieldEncloser');
             if ($encloser && !$noJsValidator->isValid($encloser)) {
-                parent::setErrorToView($encloser);
+                $this->setErrorToView($encloser);
             } else {
                 $this->_sStringEncloser = $encloser;
-                parent::saveShopConfVar('str', 'sGiCsvFieldEncloser', $encloser);
+                $config->saveShopConfVar('str', 'sGiCsvFieldEncloser', $encloser);
             }
 
             $type = Registry::getRequest()->getRequestEscapedParameter('sType');
             $importObject = $genericImport->getImportObject($type);
             $this->_aViewData['sType'] = $type;
             $this->_aViewData['sImportTable'] = $importObject->getBaseTableName();
-            $this->_aViewData['aCsvFieldsList'] = parent::getCsvFieldsNames();
+            $this->_aViewData['aCsvFieldsList'] = $this->getCsvFieldsNames();
             $this->_aViewData['aDbFieldsList'] = $importObject->getFieldList();
         }
 
@@ -74,10 +74,10 @@ class GenericImportMain extends GenericImportMain_parent
             $this->_aViewData['iTotalRows'] = $genericImport->getImportedRowCount();
 
             //checking if errors occured during import
-            parent::checkImportErrors($genericImport);
+            $this->checkImportErrors($genericImport);
 
             //deleting uploaded csv file from temp dir
-            parent::deleteCsvFile();
+            $this->deleteCsvFile();
 
             //check if repeating import - then forsing first step
             if (Registry::getRequest()->getRequestEscapedParameter('iRepeatImport')) {
@@ -89,7 +89,7 @@ class GenericImportMain extends GenericImportMain_parent
         if ($navigationStep == 1) {
             $this->_aViewData['aImportTables'] = $genericImport->getImportObjectsList();
             asort($this->_aViewData['aImportTables']);
-            parent::resetUploadedCsvData();
+            $this->resetUploadedCsvData();
         }
 
         $this->_aViewData['sNavStep'] = $navigationStep;
@@ -97,4 +97,119 @@ class GenericImportMain extends GenericImportMain_parent
         return parent::render();
     }
 
+    protected function checkErrors($iNavStep)
+    {
+        if ($iNavStep == 2) {
+            if (!$this->getUploadedCsvFilePath()) {
+                $oEx = oxNew(\OxidEsales\Eshop\Core\Exception\ExceptionToDisplay::class);
+                $oEx->setMessage('GENIMPORT_ERRORUPLOADINGFILE');
+                \OxidEsales\Eshop\Core\Registry::getUtilsView()->addErrorToDisplay($oEx, false, true, 'genimport');
+
+                return 1;
+            }
+        }
+
+        if ($iNavStep == 3) {
+            $blIsEmpty = true;
+            $aCsvFields = Registry::getRequest()->getRequestEscapedParameter('aCsvFields');
+            foreach ($aCsvFields as $sValue) {
+                if ($sValue) {
+                    $blIsEmpty = false;
+                    break;
+                }
+            }
+
+            if ($blIsEmpty) {
+                $oEx = oxNew(\OxidEsales\Eshop\Core\Exception\ExceptionToDisplay::class);
+                $oEx->setMessage('GENIMPORT_ERRORASSIGNINGFIELDS');
+                \OxidEsales\Eshop\Core\Registry::getUtilsView()->addErrorToDisplay($oEx, false, true, 'genimport');
+
+                return 2;
+            }
+        }
+
+        return $iNavStep;
+    }
+
+    protected function getCsvFieldsTerminator()
+    {
+        if ($this->_sStringTerminator === null) {
+            $this->_sStringTerminator = $this->_sDefaultStringTerminator;
+            if ($char = \OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('sGiCsvFieldTerminator')) {
+                $this->_sStringTerminator = $char;
+            }
+        }
+
+        return $this->_sStringTerminator;
+    }
+
+    protected function getCsvFieldsEncolser()
+    {
+        if ($this->_sStringEncloser === null) {
+            $this->_sStringEncloser = $this->_sDefaultStringEncloser;
+            if ($char = \OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('sGiCsvFieldEncloser')) {
+                $this->_sStringEncloser = $char;
+            }
+        }
+
+        return $this->_sStringEncloser;
+    }
+
+    private function setErrorToView($invalidData)
+    {
+        $error = oxNew(\OxidEsales\Eshop\Core\DisplayError::class);
+        $error->setFormatParameters(htmlspecialchars($invalidData));
+        $error->setMessage("SHOP_CONFIG_ERROR_INVALID_VALUE");
+        \OxidEsales\Eshop\Core\Registry::getUtilsView()->addErrorToDisplay($error);
+    }
+
+    protected function getCsvFieldsNames()
+    {
+        $blCsvContainsHeader = Registry::getRequest()->getRequestEscapedParameter('blContainsHeader');
+        \OxidEsales\Eshop\Core\Registry::getSession()->setVariable('blCsvContainsHeader', $blCsvContainsHeader);
+        $this->getUploadedCsvFilePath();
+
+        $aFirstRow = $this->getCsvFirstRow();
+
+        if (!$blCsvContainsHeader) {
+            $iIndex = 1;
+            foreach ($aFirstRow as $sValue) {
+                $aCsvFields[$iIndex] = 'Column ' . $iIndex++;
+            }
+        } else {
+            foreach ($aFirstRow as $sKey => $sValue) {
+                $aFirstRow[$sKey] = \OxidEsales\Eshop\Core\Str::getStr()->htmlentities($sValue);
+            }
+
+            $aCsvFields = $aFirstRow;
+        }
+
+        return $aCsvFields;
+    }
+
+    protected function checkImportErrors($oErpImport)
+    {
+        foreach ($oErpImport->getStatistics() as $aValue) {
+            if (!$aValue ['r']) {
+                $oEx = oxNew(\OxidEsales\Eshop\Core\Exception\ExceptionToDisplay::class);
+                $oEx->setMessage($aValue ['m']);
+                \OxidEsales\Eshop\Core\Registry::getUtilsView()->addErrorToDisplay($oEx, false, true, 'genimport');
+            }
+        }
+    }
+
+    protected function deleteCsvFile()
+    {
+        $sPath = $this->getUploadedCsvFilePath();
+        if (is_file($sPath)) {
+            @unlink($sPath);
+        }
+    }
+
+    protected function resetUploadedCsvData()
+    {
+        $this->_sCsvFilePath = null;
+        \OxidEsales\Eshop\Core\Registry::getSession()->setVariable('sCsvFilePath', null);
+        \OxidEsales\Eshop\Core\Registry::getSession()->setVariable('blCsvContainsHeader', null);
+    }
 }
