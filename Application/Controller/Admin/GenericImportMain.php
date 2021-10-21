@@ -10,17 +10,9 @@ class GenericImportMain extends GenericImportMain_parent
 
     public function render()
     {
-        $navigationStep = Registry::getRequest()->getRequestEscapedParameter('sNavStep');
-        if (!$navigationStep) {
-            $navigationStep = 1;
-        } else {
-            $navigationStep++;
-        }
-
-        if ($navigationStep == 2) {
+        if (Registry::getRequest()->getRequestEscapedParameter('sNavStep') == 2) {
             $blAutoFillCSV =  Registry::getRequest()->getRequestEscapedParameter('blAutoFillCSV');
             $this->_aViewData['blAutoFillCSV'] = $blAutoFillCSV;
-            Registry::getLogger()->error($blAutoFillCSV);
         }
         return parent::render();
     }
