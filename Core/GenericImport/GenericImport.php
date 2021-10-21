@@ -11,11 +11,9 @@ class GenericImport extends GenericImport_parent
     protected function createImportObject($type)
     {
         if($type=='A'){
-            $className = get_class(Article::class);
+            return oxNew(Article::class);
         }else{
-            $className = parent::createImportObject($type);
+            return parent::createImportObject($type);
         }
-
-        return oxNew($className);
     }
 }
