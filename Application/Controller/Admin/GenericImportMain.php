@@ -3,6 +3,7 @@
 
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
+use OxidEsales\Eshop\Core\Registry;
 
 class GenericImportMain extends GenericImportMain_parent
 {
