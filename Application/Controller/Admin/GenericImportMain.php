@@ -232,4 +232,18 @@ class GenericImportMain extends GenericImportMain_parent
             return $this->_sCsvFilePath;
         }
     }
+
+    protected function getCsvFirstRow()
+    {
+        $sPath = $this->getUploadedCsvFilePath();
+        $iMaxLineLength = 8192;
+
+        //getting first row
+        if (($rFile = @fopen($sPath, "r")) !== false) {
+            $aRow = fgetcsv($rFile, $iMaxLineLength, $this->getCsvFieldsTerminator(), $this->getCsvFieldsEncolser());
+            fclose($rFile);
+        }
+
+        return $aRow;
+    }
 }
