@@ -10,9 +10,9 @@ class GenericImport extends GenericImport_parent
 {
     protected function createImportObject($type)
     {
-        if($type==='A'){
-            $logger = Registry::getLogger();
-            $logger->warning('IMPORT ARTICLE');
+        $logger = Registry::getLogger();
+        $logger->warning($type);
+        if($type=='A'){
             return oxNew(Article::class);
         }else{
             return parent::createImportObject($type);
