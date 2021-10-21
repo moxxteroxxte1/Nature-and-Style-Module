@@ -11,7 +11,6 @@ use NatureAndStyle\CoreModule\Application\Controller\Admin\ContentMain;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\DeliveryMain;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\GenericExportDo;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\DynamicExportBaseController;
-use NatureAndStyle\CoreModule\Application\Controller\Admin\GenericImportMain;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\ShopConfiguration;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\TileController;
 use NatureAndStyle\CoreModule\Application\Controller\Admin\TileList;
@@ -61,7 +60,6 @@ $aModule = array(
         \OxidEsales\Eshop\Core\Price::class => Price::class,
         \OxidEsales\Eshop\Core\Base::class => Base::class,
         \OxidEsales\Eshop\Core\GenericImport\ImportObject\Article::class => \NatureAndStyle\CoreModule\Core\GenericImport\ImportObject\Article::class,
-        \OxidEsales\Eshop\Core\GenericImport\GenericImport::class => GenericImport::class,
 
         //Admin Controller
         \OxidEsales\Eshop\Application\Controller\Admin\ActionsMain::class => ActionsMain::class,
@@ -73,7 +71,6 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Controller\Admin\DynamicExportBaseController::class => DynamicExportBaseController::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ContentMain::class => ContentMain::class,
         \OxidEsales\Eshop\Application\Controller\Admin\GenericExportDo::class => GenericExportDo::class,
-
 
         //Controller
         \OxidEsales\Eshop\Application\Controller\StartController::class => StartController::class,
