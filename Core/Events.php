@@ -33,7 +33,6 @@ class Events
                 'oxtitle' => 'TEST',
                 'oxartnum' => 'test123',
                 'oxactive' => 1,
-                'oxlongdesc' => 'TEST TEST TEST'
             )));
         }
     }
