@@ -152,7 +152,7 @@ class Article extends Article_parent
         foreach ($dbRecord as $name => $value) {
             $this->setFieldData($name, $value);
             if($name=='oxlongdesc'){
-                $this->setArticleLongDesc($value);
+                parent::setArticleLongDesc($value);
             }
         }
 
