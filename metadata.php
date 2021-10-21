@@ -31,6 +31,7 @@ use NatureAndStyle\CoreModule\Application\Model\Discount;
 use NatureAndStyle\CoreModule\Application\Model\OrderArticle;
 use NatureAndStyle\CoreModule\Application\Model\User;
 use NatureAndStyle\CoreModule\Core\Base;
+use NatureAndStyle\CoreModule\Core\GenericImport\GenericImport;
 use NatureAndStyle\CoreModule\Core\Price;
 use NatureAndStyle\CoreModule\Core\PriceList;
 
@@ -58,7 +59,8 @@ $aModule = array(
         //Core
         \OxidEsales\Eshop\Core\Price::class => Price::class,
         \OxidEsales\Eshop\Core\Base::class => Base::class,
-        \OxidEsales\Eshop\Core\GenericImport\ImportObject\Article::class => NatureAndStyle\CoreModule\Core\GenericImport\ImportObject\Article::class,
+        ImportObject\Article::class => NatureAndStyle\CoreModule\Core\GenericImport\ImportObject\Article::class,
+        \OxidEsales\Eshop\Core\GenericImport\GenericImport::class => GenericImport::class,
 
         //Admin Controller
         \OxidEsales\Eshop\Application\Controller\Admin\ActionsMain::class => ActionsMain::class,
