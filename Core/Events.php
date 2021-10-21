@@ -3,6 +3,7 @@
 namespace NatureAndStyle\CoreModule\Core;
 
 use NatureAndStyle\CoreModule\Application\Model\Article;
+use OxidEsales\Eshop\Core\Registry;
 
 /**
  * Class defines what module does on Shop events.
@@ -24,6 +25,9 @@ class Events
             $oCategory->save();
         }
         $oArticle = oxNew(Article::class);
+        $logger = Registry::getLogger();
+        $logger->info("Test");
+        $logger->info($oArticle->load('test123'));
         if(!$oArticle->load('test123')){
             $oArticle->assign(array(
                 'oxid' => 'test123',
