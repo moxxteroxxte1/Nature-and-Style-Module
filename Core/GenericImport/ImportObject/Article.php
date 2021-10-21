@@ -3,6 +3,7 @@
 
 namespace NatureAndStyle\CoreModule\Core\GenericImport\ImportObject;
 
+use mysql_xdevapi\Warning;
 use OxidEsales\Eshop\Core\Registry;
 
 class Article extends Article_parent
@@ -12,7 +13,9 @@ class Article extends Article_parent
     {
         parent::getFieldList();
         $logger = Registry::getLogger();
-        $logger->info(each($this->fieldList));
+        foreach($this->fieldList as $key => $value) {
+            $logger->warning("$key is at $value");
+        }
         array_push($this->fieldList , "OXLONGDESC");
         return $this->fieldList;
     }
