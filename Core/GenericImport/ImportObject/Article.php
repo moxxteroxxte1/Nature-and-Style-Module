@@ -3,7 +3,6 @@
 
 namespace NatureAndStyle\CoreModule\Core\GenericImport\ImportObject;
 
-use mysql_xdevapi\Warning;
 use OxidEsales\Eshop\Core\Registry;
 
 class Article extends Article_parent
