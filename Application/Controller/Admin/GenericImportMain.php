@@ -212,4 +212,24 @@ class GenericImportMain extends GenericImportMain_parent
         \OxidEsales\Eshop\Core\Registry::getSession()->setVariable('sCsvFilePath', null);
         \OxidEsales\Eshop\Core\Registry::getSession()->setVariable('blCsvContainsHeader', null);
     }
+
+    protected function getUploadedCsvFilePath()
+    {
+        //try to get uploaded csv file path
+        if ($this->_sCsvFilePath !== null) {
+            return $this->_sCsvFilePath;
+        } elseif ($this->_sCsvFilePath = \OxidEsales\Eshop\Core\Registry::getSession()->getVariable('sCsvFilePath')) {
+            return $this->_sCsvFilePath;
+        }
+
+        $oConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
+        $aFile = $oConfig->getUploadedFile('csvfile');
+        if (isset($aFile['name']) && $aFile['name']) {
+            $this->_sCsvFilePath = $oConfig->getConfigParam('sCompileDir') . basename($aFile['tmp_name']);
+            move_uploaded_file($aFile['tmp_name'], $this->_sCsvFilePath);
+            \OxidEsales\Eshop\Core\Registry::getSession()->setVariable('sCsvFilePath', $this->_sCsvFilePath);
+
+            return $this->_sCsvFilePath;
+        }
+    }
 }
