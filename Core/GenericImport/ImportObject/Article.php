@@ -11,13 +11,13 @@ class Article extends Article_parent
 
     public function getFieldList()
     {
-        parent::getFieldList();
+        $fieldList = parent::getFieldList();
         $logger = Registry::getLogger();
-        foreach($this->fieldList as $key => $value) {
+        foreach($fieldList as $key => $value) {
             $logger->warning("$key is at $value");
         }
-        array_push($this->fieldList , "OXLONGDESC");
-        return $this->fieldList;
+        array_push($fieldList , "OXLONGDESC");
+        return $fieldList;
     }
 
 }
