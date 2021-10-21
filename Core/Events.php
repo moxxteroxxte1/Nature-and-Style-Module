@@ -27,7 +27,7 @@ class Events
         $oArticle = oxNew(Article::class);
         $logger = Registry::getLogger();
         $logger->info("Test");
-        $logger->info($oArticle->load('test123'));
+        $logger->info(!$oArticle->load('test123'));
         if(!$oArticle->load('test123')){
             $oArticle->assign(array(
                 'oxid' => 'test123',
