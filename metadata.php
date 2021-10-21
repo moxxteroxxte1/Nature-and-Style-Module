@@ -73,7 +73,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Controller\Admin\DynamicExportBaseController::class => DynamicExportBaseController::class,
         \OxidEsales\Eshop\Application\Controller\Admin\ContentMain::class => ContentMain::class,
         \OxidEsales\Eshop\Application\Controller\Admin\GenericExportDo::class => GenericExportDo::class,
-        \OxidEsales\Eshop\Application\Controller\Admin\GenericImportMain::class => GenericImportMain::class,
+
 
         //Controller
         \OxidEsales\Eshop\Application\Controller\StartController::class => StartController::class,
