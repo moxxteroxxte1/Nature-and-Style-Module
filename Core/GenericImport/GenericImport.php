@@ -12,7 +12,7 @@ class GenericImport extends GenericImport_parent
     {
         $logger = Registry::getLogger();
         $logger->warning($type);
-        if($type=='A'){
+        if($type=='Article'){
             return oxNew(Article::class);
         }else{
             return parent::createImportObject($type);
