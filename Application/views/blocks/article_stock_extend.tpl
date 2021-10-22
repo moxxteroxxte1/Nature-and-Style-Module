@@ -1,7 +1,7 @@
 [{$smarty.block.parent}]
 <tr>
     <td class="edittext">
-        [{oxmultilang ident="ARTICLE_STOCK_DELIVERY"}]
+        [{oxmultilang ident="ARTICLE_MIN_DELIVERY"}]
     </td>
     <td class="edittext">
         <select name="editval[oxarticles__oxdeliverymin]" class="editinput" [{$readonly}]>
