@@ -39,5 +39,6 @@ $aLang = array(
     'ARTICLE_STOCK_BULKY_GOOD_MULTIPLIER'           => 'Anzahl der Sperrgut Pakete',
     'DELIVERY_MAIN_MARK_SHIPPING'                   => 'Speditionsversand',
     'MX'                                            => 'Divers',
+    'COMP'                                          => 'Firma',
     'GENIMPORT_AUTOFILL'                            => ' CSV Felder automatisch zuordnen',
 );

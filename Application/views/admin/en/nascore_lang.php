@@ -37,6 +37,7 @@ $aLang = array(
     'CONTENT_MAIN_SUB_CATEGORY'                     => 'subcategory',
     'CONTENT_MAIN_SELECT_CATEGORY'                  => 'inserted under:',
     'MX'                                            => 'Mx',
+    'COMP'                                          => 'Company',
     'GENIMPORT_AUTOFILL'                            => ' Automatically map CSV fields',
 
 );

@@ -8,6 +8,7 @@
             <option value="MR"  [{if $edit->oxaddress__oxsal->value|lower  == "mr"}]SELECTED[{/if}]>[{oxmultilang ident="MR"}]</option>
             <option value="MRS" [{if $edit->oxaddress__oxsal->value|lower  == "mrs"}]SELECTED[{/if}]>[{oxmultilang ident="MRS"}]</option>
             <option value="MX" [{if $edit->oxaddress__oxsal->value|lower  == "mx"}]SELECTED[{/if}]>[{oxmultilang ident="MX"}]</option>
+            <option value="COMP" [{if $edit->oxaddress__oxsal->value|lower  == "comp"}]SELECTED[{/if}]>[{oxmultilang ident="COMP"}]</option>
         </select>
         [{oxinputhelp ident="HELP_GENERAL_BILLSAL"}]
     </td>
