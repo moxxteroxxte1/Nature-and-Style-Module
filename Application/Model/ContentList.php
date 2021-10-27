@@ -23,7 +23,7 @@ class ContentList extends ContentList_parent
                     $aArray[$oContent->getCategoryId()] = [];
                 }
 
-                $aArray[$oContent->oxcontents__oxcatid->value] = $oContent;
+                array_push($aArray[$oContent->oxcontents__oxcatid->value], $oContent);
             }
         }
         $this->_aArray = $aArray;
