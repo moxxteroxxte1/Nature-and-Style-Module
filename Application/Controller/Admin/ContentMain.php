@@ -43,11 +43,12 @@ class ContentMain extends ContentMain_parent
         $rs = $oDb->select($sSQL);
         $rs = $rs->fetchAll();
 
+        $aSubCats = array();
+
         foreach ($rs as $result) {
-            $aArray[$result[0]] = $result[1];
+            $aSubCats[$result[0]] = $result[1];
         }
-        $logger->info(explode(" ", $aArray));
-        return $aArray;
+        return $aSubCats;
     }
 
 
