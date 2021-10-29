@@ -5,6 +5,7 @@ namespace NatureAndStyle\CoreModule\Application\Controller;
 
 use NatureAndStyle\CoreModule\Application\Model\DeliverySetList;
 use OxidEsales\Eshop\Application\Model\DeliverySet;
+use OxidEsales\Eshop\Application\Model\PaymentList;
 use OxidEsales\Eshop\Core\Registry;
 
 class PaymentController extends PaymentController_parent
@@ -59,14 +60,14 @@ class PaymentController extends PaymentController_parent
                     $oBasket = $session->getBasket();
                     $dPrice = $oBasket->getPrice()->getPrice();
 
-                    $aPaymentList = oxNew(\OxidEsales\EShop\Application\Model\PaymentList::class)->getPaymentList($sActShipSet,$dPrice);
+                    $aPaymentList = oxNew(PaymentList::class)->getPaymentList($sActShipSet,$dPrice);
                     $this->setValues($aPaymentList, $oBasket);
                     $this->_oPaymentList = $aPaymentList;
                     return;
                 }
             }
 
-            $session = \OxidEsales\Eshop\Core\Registry::getSession();
+            $session = Registry::getSession();
             $oBasket = $session->getBasket();
 
             // load sets, active set, and active set payment list
