@@ -63,10 +63,6 @@ class PaymentController extends PaymentController_parent
             list($aAllSets, $sActShipSet, $aPaymentList) =
                 Registry::get(DeliverySetList::class)->getDeliverySetData($sActShipSet, $this->getUser(), $oBasket);
 
-
-            if($blShippingNull){
-                $sActShipSet = null;
-            }
             $oBasket->setShipping($sActShipSet);
 
             // calculating payment expences for preview for each payment
