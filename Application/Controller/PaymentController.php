@@ -60,7 +60,7 @@ class PaymentController extends PaymentController_parent
                     $oBasket = $session->getBasket();
                     $dPrice = $oBasket->getPrice()->getPrice();
 
-                    $aPaymentList = oxNew(PaymentList::class)->getPaymentList($sActShipSet,$dPrice);
+                    $aPaymentList = oxNew(PaymentList::class)->getPaymentList($sActShipSet,$dPrice,$this->getUser());
                     $this->setValues($aPaymentList, $oBasket);
                     $this->_oPaymentList = $aPaymentList;
                     return;
