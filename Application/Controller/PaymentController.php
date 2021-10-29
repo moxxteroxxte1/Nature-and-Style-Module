@@ -66,7 +66,9 @@ class PaymentController extends PaymentController_parent
             if(empty($aPaymentList)){
                 $sActShipSet1 = "74dbcdc315fde44ef79ca43038fe803f";
                 $dPrice = $oBasket->getPrice()->getPrice();
-                return oxNew(PaymentList::class)->getPaymentList($sActShipSet1,$dPrice,$this->getUser());
+                $aPaymentList= oxNew(PaymentList::class)->getPaymentList($sActShipSet1,$dPrice,$this->getUser());
+                $this->_oPaymentList = $aPaymentList;
+                return $this->_oPaymentList;
             }
 
             $oBasket->setShipping($sActShipSet);
