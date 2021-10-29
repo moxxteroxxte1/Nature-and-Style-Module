@@ -65,42 +65,22 @@ class PaymentController extends PaymentController_parent
 
             $oBasket->setShipping($sActShipSet);
 
-            if(empty($aPaymentList)){
-                $sActShipSet1 = "74dbcdc315fde44ef79ca43038fe803f";
-                $session = \OxidEsales\Eshop\Core\Registry::getSession();
-                $oBasket = $session->getBasket();
-                $dPrice = $oBasket->getPrice()->getPrice();
-                $aPaymentList = oxNew(PaymentList::class)->getPaymentList($sActShipSet1,$dPrice,$this->getUser());
-                $this->unsetPaymentErrors();
-            }
-
             // calculating payment expences for preview for each payment
             $this->setValues($aPaymentList, $oBasket);
             $this->_oPaymentList = $aPaymentList;
             $this->_aAllSets = $aAllSets;
+
+            if(empty($aPaymentList)){
+                $sActShipSet1 = "74dbcdc315fde44ef79ca43038fe803f";
+                $dPrice = $oBasket->getPrice()->getPrice();
+                $aPaymentList = oxNew(PaymentList::class)->getPaymentList($sActShipSet1,$dPrice,$this->getUser());
+                $this->setValues($aPaymentList, $oBasket);
+                $this->_oPaymentList = $aPaymentList;
+                $this->_aAllSets = [];
+            }
         }
 
         return $this->_oPaymentList;
-    }
-
-    protected function unsetPaymentErrors()
-    {
-        $iPayError = Registry::getRequest()->getRequestEscapedParameter('payerror');
-        $sPayErrorText = Registry::getRequest()->getRequestEscapedParameter('payerrortext');
-
-        if (!($iPayError || $sPayErrorText)) {
-            $iPayError = Registry::getSession()->getVariable('payerror');
-            $sPayErrorText = Registry::getSession()->getVariable('payerrortext');
-        }
-
-        if ($iPayError) {
-            Registry::getSession()->deleteVariable('payerror');
-            $this->_sPaymentError = $iPayError;
-        }
-        if ($sPayErrorText) {
-            Registry::getSession()->deleteVariable('payerrortext');
-            $this->_sPaymentErrorText = $sPayErrorText;
-        }
     }
 
     protected function setValues(&$aPaymentList, $oBasket = null)
