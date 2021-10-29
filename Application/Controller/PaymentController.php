@@ -63,21 +63,18 @@ class PaymentController extends PaymentController_parent
             list($aAllSets, $sActShipSet, $aPaymentList) =
                 Registry::get(DeliverySetList::class)->getDeliverySetData($sActShipSet, $this->getUser(), $oBasket);
 
+            if(empty($aPaymentList)){
+                $sActShipSet1 = "74dbcdc315fde44ef79ca43038fe803f";
+                $dPrice = $oBasket->getPrice()->getPrice();
+                return oxNew(PaymentList::class)->getPaymentList($sActShipSet1,$dPrice,$this->getUser());
+            }
+
             $oBasket->setShipping($sActShipSet);
 
             // calculating payment expences for preview for each payment
             $this->setValues($aPaymentList, $oBasket);
             $this->_oPaymentList = $aPaymentList;
             $this->_aAllSets = $aAllSets;
-
-            if(empty($aPaymentList)){
-                $sActShipSet1 = "74dbcdc315fde44ef79ca43038fe803f";
-                $dPrice = $oBasket->getPrice()->getPrice();
-                $aPaymentList = oxNew(PaymentList::class)->getPaymentList($sActShipSet1,$dPrice,$this->getUser());
-                $this->setValues($aPaymentList, $oBasket);
-                $this->_oPaymentList = $aPaymentList;
-                $this->_aAllSets = null;
-            }
         }
 
         return $this->_oPaymentList;
