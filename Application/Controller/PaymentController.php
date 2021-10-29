@@ -76,7 +76,7 @@ class PaymentController extends PaymentController_parent
                 $aPaymentList = oxNew(PaymentList::class)->getPaymentList($sActShipSet1,$dPrice,$this->getUser());
                 $this->setValues($aPaymentList, $oBasket);
                 $this->_oPaymentList = $aPaymentList;
-                $this->_aAllSets = [];
+                $this->_aAllSets = null;
             }
         }
 
