@@ -51,13 +51,10 @@ class PaymentController extends PaymentController_parent
             $this->_oPaymentList = false;
 
             $sActShipSet = Registry::getRequest()->getRequestEscapedParameter('sShipSet');
-            $logger->error("1 " . $sActShipSet);
             if (!$sActShipSet) {
                 $sActShipSet = Registry::getSession()->getVariable('sShipSet');
-                $logger->error("2 " . $sActShipSet);
                 if(is_null($sActShipSet)){
                     $sActShipSet = "74dbcdc315fde44ef79ca43038fe803f";
-                    $logger->error("3 " . $sActShipSet);
                     $blShippingNull = true;
                 }
             }
@@ -69,6 +66,8 @@ class PaymentController extends PaymentController_parent
             list($aAllSets, $sActShipSet, $aPaymentList) =
                 Registry::get(DeliverySetList::class)->getDeliverySetData($sActShipSet, $this->getUser(), $oBasket);
 
+
+            $logger->error("1 " . implode(", ",$aPaymentList));
 
             if($blShippingNull){
                 $sActShipSet = null;
