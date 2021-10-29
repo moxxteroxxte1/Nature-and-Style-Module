@@ -42,15 +42,42 @@ class PaymentController extends PaymentController_parent
         return $this->_aAllSets;
     }
 
-    public function render()
+    public function getPaymentList()
     {
-        parent::render();
+        $blShippingNull = false;
 
-        if (!$this->getAllSetsCnt()) {
-            Registry::getSession()->setVariable('sShipSet', '74dbcdc315fde44ef79ca43038fe803f');
+        if ($this->_oPaymentList === null) {
+            $this->_oPaymentList = false;
+
+            $sActShipSet = Registry::getRequest()->getRequestEscapedParameter('sShipSet');
+            if (!$sActShipSet) {
+                $sActShipSet = Registry::getSession()->getVariable('sShipSet');
+                if(is_null($sActShipSet)){
+                    $sActShipSet = "74dbcdc315fde44ef79ca43038fe803f";
+                    $blShippingNull = true;
+                }
+            }
+
+            $session = \OxidEsales\Eshop\Core\Registry::getSession();
+            $oBasket = $session->getBasket();
+
+            // load sets, active set, and active set payment list
+            list($aAllSets, $sActShipSet, $aPaymentList) =
+                Registry::get(DeliverySetList::class)->getDeliverySetData($sActShipSet, $this->getUser(), $oBasket);
+
+
+            if($blShippingNull){
+                $sActShipSet = null;
+            }
+            $oBasket->setShipping($sActShipSet);
+
+            // calculating payment expences for preview for each payment
+            $this->setValues($aPaymentList, $oBasket);
+            $this->_oPaymentList = $aPaymentList;
+            $this->_aAllSets = $aAllSets;
         }
 
-        return $this->_sThisTemplate;
+        return $this->_oPaymentList;
     }
 
 }
