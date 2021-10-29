@@ -55,7 +55,14 @@ class PaymentController extends PaymentController_parent
                 $sActShipSet = Registry::getSession()->getVariable('sShipSet');
                 if(is_null($sActShipSet)){
                     $sActShipSet = "74dbcdc315fde44ef79ca43038fe803f";
-                    $blShippingNull = true;
+                    $session = \OxidEsales\Eshop\Core\Registry::getSession();
+                    $oBasket = $session->getBasket();
+                    $dPrice = $oBasket->getPrice()->getPrice();
+
+                    $aPaymentList = oxNew(\OxidEsales\EShop\Application\Model\PaymentList::class)->getPaymentList($sActShipSet,$dPrice)
+                    $this->setValues($aPaymentList, $oBasket);
+                    $this->_oPaymentList = $aPaymentList;
+                    return;
                 }
             }
 
@@ -66,8 +73,6 @@ class PaymentController extends PaymentController_parent
             list($aAllSets, $sActShipSet, $aPaymentList) =
                 Registry::get(DeliverySetList::class)->getDeliverySetData($sActShipSet, $this->getUser(), $oBasket);
 
-
-            $logger->error("1 " . implode(", ",$aPaymentList));
 
             if($blShippingNull){
                 $sActShipSet = null;
