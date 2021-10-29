@@ -29,6 +29,7 @@ use NatureAndStyle\CoreModule\Application\Model\Content;
 use NatureAndStyle\CoreModule\Application\Model\ContentList;
 use NatureAndStyle\CoreModule\Application\Model\Delivery;
 use NatureAndStyle\CoreModule\Application\Model\DeliveryList;
+use NatureAndStyle\CoreModule\Application\Model\DeliverySetList;
 use NatureAndStyle\CoreModule\Application\Model\Discount;
 use NatureAndStyle\CoreModule\Application\Model\OrderArticle;
 use NatureAndStyle\CoreModule\Application\Model\User;
@@ -98,6 +99,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Model\BasketItem::class => BasketItem::class,
         \OxidEsales\Eshop\Application\Model\Content::class => Content::class,
         \OxidEsales\Eshop\Application\Model\ContentList::class => ContentList::class,
+        \OxidEsales\Eshop\Application\Model\DeliverySetList::class => DeliverySetList::class,
 
     ),
     'templates' => array(
