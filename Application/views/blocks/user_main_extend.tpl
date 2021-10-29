@@ -63,9 +63,6 @@
             <option value="MX" [{if $edit->oxuser__oxsal->value|lower  == "mx"}]SELECTED[{/if}]>
                 [{oxmultilang ident="MX"}]
             </option>
-            <option value="MX" [{if $edit->oxuser__oxsal->value|lower  == "comp"}]SELECTED[{/if}]>
-                [{oxmultilang ident="COMP"}]
-            </option>
         </select>
         [{oxinputhelp ident="HELP_GENERAL_BILLSAL"}]
     </td>
