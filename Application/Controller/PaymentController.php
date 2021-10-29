@@ -89,6 +89,8 @@ class PaymentController extends PaymentController_parent
         $myConfig = Registry::getConfig();
         $session = Registry::getSession();
 
+        $logger = Registry::getLogger();
+
         //#1308C - check user. Function is executed before render(), and oUser is not set!
         // Set it manually for use in methods getPaymentList(), getShippingSetList()...
         $oUser = $this->getUser();
@@ -101,8 +103,10 @@ class PaymentController extends PaymentController_parent
         if (!($sShipSetId = Registry::getRequest()->getRequestEscapedParameter('sShipSet'))) {
             if(!$this->hasNoShipSet){
                 $sShipSetId = $session->getVariable('sShipSet');
+                $logger->error("1  $sShipSetId: " . $sShipSetId);
             }else{
                 $sShipSetId = $this->sShipSet;
+                $logger->error("2  $sShipSetId: " . $sShipSetId);
             }
         }
         if (!($sPaymentId = Registry::getRequest()->getRequestEscapedParameter('paymentid'))) {
@@ -134,8 +138,8 @@ class PaymentController extends PaymentController_parent
 
         $blOK = $oPayment->isValidPayment($aDynvalue, $myConfig->getShopId(), $oUser, $dBasketPrice, $sShipSetId);
 
-        $logger = Registry::getLogger();
-        $logger->error($blOK);
+        $logger->error(" " . $blOK);
+
         if ($this->hasNoShipSet){
             $sShipSetId = null;
         }
@@ -148,6 +152,7 @@ class PaymentController extends PaymentController_parent
 
             return 'order';
         } else {
+            $logger->error("getPaymentErrorNumber: " . $oPayment->getPaymentErrorNumber());
             $session->setVariable('payerror', $oPayment->getPaymentErrorNumber());
 
             //#1308C - delete paymentid from session, and save selected it just for view
