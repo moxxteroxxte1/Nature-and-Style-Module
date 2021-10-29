@@ -54,17 +54,6 @@ class PaymentController extends PaymentController_parent
             $sActShipSet = Registry::getRequest()->getRequestEscapedParameter('sShipSet');
             if (!$sActShipSet) {
                 $sActShipSet = Registry::getSession()->getVariable('sShipSet');
-                if(is_null($sActShipSet)){
-                    $sActShipSet = "74dbcdc315fde44ef79ca43038fe803f";
-                    $session = \OxidEsales\Eshop\Core\Registry::getSession();
-                    $oBasket = $session->getBasket();
-                    $dPrice = $oBasket->getPrice()->getPrice();
-
-                    $aPaymentList = oxNew(PaymentList::class)->getPaymentList($sActShipSet,$dPrice,$this->getUser());
-                    $this->setValues($aPaymentList, $oBasket);
-                    $this->_oPaymentList = $aPaymentList;
-                    return;
-                }
             }
 
             $session = Registry::getSession();
@@ -83,6 +72,18 @@ class PaymentController extends PaymentController_parent
             // calculating payment expences for preview for each payment
             $this->setValues($aPaymentList, $oBasket);
             $this->_oPaymentList = $aPaymentList;
+
+            if(is_null($sActShipSet)){
+                $sActShipSet = "74dbcdc315fde44ef79ca43038fe803f";
+                $session = \OxidEsales\Eshop\Core\Registry::getSession();
+                $oBasket = $session->getBasket();
+                $dPrice = $oBasket->getPrice()->getPrice();
+
+                $aPaymentList = oxNew(PaymentList::class)->getPaymentList($sActShipSet,$dPrice,$this->getUser());
+                $this->setValues($aPaymentList, $oBasket);
+                $this->_oPaymentList = $aPaymentList;
+            }
+
             $this->_aAllSets = $aAllSets;
         }
 
