@@ -42,4 +42,17 @@ class PaymentController extends PaymentController_parent
         return $this->_aAllSets;
     }
 
+    public function render()
+    {
+        parent::render();
+
+        if (!$this->getAllSetsCnt()) {
+            Registry::getSession()->setVariable('sShipSet', '74dbcdc315fde44ef79ca43038fe803f');
+        }
+
+        $this->unsetPaymentErrors();
+
+        return $this->_sThisTemplate;
+    }
+
 }
