@@ -3,7 +3,7 @@
 
 namespace NatureAndStyle\CoreModule\Application\Controller;
 
-use OxidEsales\Eshop\Application\Model\DeliverSetList;
+use OxdEisales\Eshop\Application\Model\DeliverSetList;
 use OxidEsales\Eshop\Application\Model\DeliverySet;
 use OxidEsales\Eshop\Core\Registry;
 
@@ -63,7 +63,7 @@ class PaymentController extends PaymentController_parent
 
             // load sets, active set, and active set payment list
             list($aAllSets, $sActShipSet, $aPaymentList) =
-                Registry::get(DeliverySetList::class)->getDeliverySetData($sActShipSet, $this->getUser(), $oBasket);
+                Registry::get(OxdEisales\Eshop\Application\Model\DeliverySetList::class)->getDeliverySetData($sActShipSet, $this->getUser(), $oBasket);
 
 
             if($blShippingNull){
