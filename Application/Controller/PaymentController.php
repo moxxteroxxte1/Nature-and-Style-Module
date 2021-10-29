@@ -65,21 +65,17 @@ class PaymentController extends PaymentController_parent
 
             $oBasket->setShipping($sActShipSet);
 
-            // calculating payment expences for preview for each payment
-            $this->setValues($aPaymentList, $oBasket);
-            $this->_oPaymentList = $aPaymentList;
-
-            if(is_null($sActShipSet)){
-                $sActShipSet = "74dbcdc315fde44ef79ca43038fe803f";
+            if(empty($aPaymentList)){
+                $sActShipSet1 = "74dbcdc315fde44ef79ca43038fe803f";
                 $session = \OxidEsales\Eshop\Core\Registry::getSession();
                 $oBasket = $session->getBasket();
                 $dPrice = $oBasket->getPrice()->getPrice();
-
-                $aPaymentList = oxNew(PaymentList::class)->getPaymentList($sActShipSet,$dPrice,$this->getUser());
-                $this->setValues($aPaymentList, $oBasket);
-                $this->_oPaymentList = $aPaymentList;
+                $aPaymentList = oxNew(PaymentList::class)->getPaymentList($sActShipSet1,$dPrice,$this->getUser());
             }
 
+            // calculating payment expences for preview for each payment
+            $this->setValues($aPaymentList, $oBasket);
+            $this->_oPaymentList = $aPaymentList;
             $this->_aAllSets = $aAllSets;
         }
 
