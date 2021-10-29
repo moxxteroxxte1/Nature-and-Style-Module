@@ -11,8 +11,6 @@ use OxidEsales\Eshop\Core\Registry;
 
 class PaymentController extends PaymentController_parent
 {
-
-    var $hasNoShipSet = false;
     var $sShipSet = "74dbcdc315fde44ef79ca43038fe803f";
 
     public function changeshipping()
@@ -61,6 +59,7 @@ class PaymentController extends PaymentController_parent
             }
 
             $session = Registry::getSession();
+            $session->setVariable("hasNoShipSet", false);
             $oBasket = $session->getBasket();
 
             // load sets, active set, and active set payment list
@@ -70,8 +69,7 @@ class PaymentController extends PaymentController_parent
             if (empty($aPaymentList) || !$aPaymentList) {
                 $dPrice = $oBasket->getPrice()->getPrice();
                 $aPaymentList = oxNew(PaymentList::class)->getPaymentList($this->sShipSet, $dPrice, $this->getUser());
-                $this->hasNoShipSet = true;
-                $logger->error("TRUE");
+                $session->setVariable("hasNoShipSet", true);
             }
 
             $oBasket->setShipping($sActShipSet);
@@ -102,7 +100,7 @@ class PaymentController extends PaymentController_parent
         }
 
         if (!($sShipSetId = Registry::getRequest()->getRequestEscapedParameter('sShipSet'))) {
-            if(!$this->hasNoShipSet){
+            if(!$session->getVariable('hasNoShipSet')){
                 $sShipSetId = $session->getVariable('sShipSet');
                 $logger->error("1  $sShipSetId: " . $sShipSetId);
             }else{
