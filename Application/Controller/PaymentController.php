@@ -67,10 +67,11 @@ class PaymentController extends PaymentController_parent
             list($aAllSets, $sActShipSet, $aPaymentList) =
                 Registry::get(DeliverySetList::class)->getDeliverySetData($sActShipSet, $this->getUser(), $oBasket);
 
-            if (empty($aPaymentList)) {
+            if (empty($aPaymentList) || !$aPaymentList) {
                 $dPrice = $oBasket->getPrice()->getPrice();
                 $aPaymentList = oxNew(PaymentList::class)->getPaymentList($this->sShipSet, $dPrice, $this->getUser());
                 $this->hasNoShipSet = true;
+                $logger->error("TRUE");
             }
 
             $oBasket->setShipping($sActShipSet);
