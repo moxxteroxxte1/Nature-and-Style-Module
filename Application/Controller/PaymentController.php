@@ -44,16 +44,20 @@ class PaymentController extends PaymentController_parent
 
     public function getPaymentList()
     {
+        $logger = Registry::getLogger();
         $blShippingNull = false;
 
         if ($this->_oPaymentList === null) {
             $this->_oPaymentList = false;
 
             $sActShipSet = Registry::getRequest()->getRequestEscapedParameter('sShipSet');
+            $logger->error("1 " . $sActShipSet);
             if (!$sActShipSet) {
                 $sActShipSet = Registry::getSession()->getVariable('sShipSet');
+                $logger->error("2 " . $sActShipSet);
                 if(is_null($sActShipSet)){
                     $sActShipSet = "74dbcdc315fde44ef79ca43038fe803f";
+                    $logger->error("3 " . $sActShipSet);
                     $blShippingNull = true;
                 }
             }
