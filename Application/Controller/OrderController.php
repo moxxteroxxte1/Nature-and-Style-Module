@@ -9,8 +9,6 @@ class OrderController extends OrderController_parent
 
     public function getDeliveryPrice()
     {
-        $oBasket = $this->getBasket();
-        $oDeliveryPrice = $oBasket->calcDeliveryCost();
-        return $oDeliveryPrice;
+        return $this->getBasket()->getDeliveryCost();
     }
 }
