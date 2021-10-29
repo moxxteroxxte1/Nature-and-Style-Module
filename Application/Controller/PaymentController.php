@@ -71,6 +71,7 @@ class PaymentController extends PaymentController_parent
                 $oBasket = $session->getBasket();
                 $dPrice = $oBasket->getPrice()->getPrice();
                 $aPaymentList = oxNew(PaymentList::class)->getPaymentList($sActShipSet1,$dPrice,$this->getUser());
+                $this->unsetPaymentErrors();
             }
 
             // calculating payment expences for preview for each payment
@@ -80,6 +81,26 @@ class PaymentController extends PaymentController_parent
         }
 
         return $this->_oPaymentList;
+    }
+
+    protected function unsetPaymentErrors()
+    {
+        $iPayError = Registry::getRequest()->getRequestEscapedParameter('payerror');
+        $sPayErrorText = Registry::getRequest()->getRequestEscapedParameter('payerrortext');
+
+        if (!($iPayError || $sPayErrorText)) {
+            $iPayError = Registry::getSession()->getVariable('payerror');
+            $sPayErrorText = Registry::getSession()->getVariable('payerrortext');
+        }
+
+        if ($iPayError) {
+            Registry::getSession()->deleteVariable('payerror');
+            $this->_sPaymentError = $iPayError;
+        }
+        if ($sPayErrorText) {
+            Registry::getSession()->deleteVariable('payerrortext');
+            $this->_sPaymentErrorText = $sPayErrorText;
+        }
     }
 
     protected function setValues(&$aPaymentList, $oBasket = null)
