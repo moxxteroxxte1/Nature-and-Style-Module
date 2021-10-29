@@ -5,11 +5,15 @@ namespace NatureAndStyle\CoreModule\Application\Controller;
 
 use NatureAndStyle\CoreModule\Application\Model\DeliverySetList;
 use OxidEsales\Eshop\Application\Model\DeliverySet;
+use OxidEsales\Eshop\Application\Model\Payment;
 use OxidEsales\Eshop\Application\Model\PaymentList;
 use OxidEsales\Eshop\Core\Registry;
 
 class PaymentController extends PaymentController_parent
 {
+
+    var $hasNoShipSet = false;
+    var $sShipSet = "74dbcdc315fde44ef79ca43038fe803f";
 
     public function changeshipping()
     {
@@ -63,12 +67,10 @@ class PaymentController extends PaymentController_parent
             list($aAllSets, $sActShipSet, $aPaymentList) =
                 Registry::get(DeliverySetList::class)->getDeliverySetData($sActShipSet, $this->getUser(), $oBasket);
 
-            if(empty($aPaymentList)){
-                $sActShipSet1 = "74dbcdc315fde44ef79ca43038fe803f";
+            if (empty($aPaymentList)) {
                 $dPrice = $oBasket->getPrice()->getPrice();
-                $aPaymentList= oxNew(PaymentList::class)->getPaymentList($sActShipSet1,$dPrice,$this->getUser());
-                $this->_oPaymentList = $aPaymentList;
-                return $this->_oPaymentList;
+                $aPaymentList = oxNew(PaymentList::class)->getPaymentList($this->sShipSet, $dPrice, $this->getUser());
+                $this->hasNoShipSet = true;
             }
 
             $oBasket->setShipping($sActShipSet);
@@ -80,6 +82,74 @@ class PaymentController extends PaymentController_parent
         }
 
         return $this->_oPaymentList;
+    }
+
+    public function validatePayment()
+    {
+        $myConfig = Registry::getConfig();
+        $session = Registry::getSession();
+
+        //#1308C - check user. Function is executed before render(), and oUser is not set!
+        // Set it manually for use in methods getPaymentList(), getShippingSetList()...
+        $oUser = $this->getUser();
+        if (!$oUser) {
+            $session->setVariable('payerror', 2);
+
+            return;
+        }
+
+        if (!($sShipSetId = Registry::getRequest()->getRequestEscapedParameter('sShipSet'))) {
+            if(!$this->hasNoShipSet){
+                $sShipSetId = $session->getVariable('sShipSet');
+            }else{
+                $sShipSetId = $this->sShipSet;
+            }
+        }
+        if (!($sPaymentId = Registry::getRequest()->getRequestEscapedParameter('paymentid'))) {
+            $sPaymentId = $session->getVariable('paymentid');
+        }
+        if (!($aDynvalue = Registry::getRequest()->getRequestEscapedParameter('dynvalue'))) {
+            $aDynvalue = $session->getVariable('dynvalue');
+        }
+
+        // A. additional protection
+        if (!$myConfig->getConfigParam('blOtherCountryOrder') && $sPaymentId == 'oxempty') {
+            $sPaymentId = '';
+        }
+
+        //#1308C - check if we have paymentID, and it really exists
+        if (!$sPaymentId) {
+            $session->setVariable('payerror', 1);
+
+            return;
+        }
+
+        $oBasket = $session->getBasket();
+        $oBasket->setPayment(null);
+        $oPayment = oxNew(Payment::class);
+        $oPayment->load($sPaymentId);
+
+        // getting basket price for payment calculation
+        $dBasketPrice = $oBasket->getPriceForPayment();
+
+        $blOK = $oPayment->isValidPayment($aDynvalue, $myConfig->getShopId(), $oUser, $dBasketPrice, $sShipSetId);
+
+        if ($blOK) {
+            $session->setVariable('paymentid', $sPaymentId);
+            $session->setVariable('dynvalue', $aDynvalue);
+            $oBasket->setShipping($sShipSetId);
+            $session->deleteVariable('_selected_paymentid');
+
+            return 'order';
+        } else {
+            $session->setVariable('payerror', $oPayment->getPaymentErrorNumber());
+
+            //#1308C - delete paymentid from session, and save selected it just for view
+            $session->deleteVariable('paymentid');
+            $session->setVariable('_selected_paymentid', $sPaymentId);
+
+            return;
+        }
     }
 
     protected function setValues(&$aPaymentList, $oBasket = null)
