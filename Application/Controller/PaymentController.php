@@ -80,4 +80,17 @@ class PaymentController extends PaymentController_parent
         return $this->_oPaymentList;
     }
 
+    protected function setValues(&$aPaymentList, $oBasket = null)
+    {
+        if (is_array($aPaymentList)) {
+            foreach ($aPaymentList as $oPayment) {
+                $oPayment->calculate($oBasket);
+                $oPayment->aDynValues = $oPayment->getDynValues();
+                if ($oPayment->oxpayments__oxchecked->value) {
+                    $this->_sCheckedId = $oPayment->getId();
+                }
+            }
+        }
+    }
+
 }
