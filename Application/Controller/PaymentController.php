@@ -50,8 +50,6 @@ class PaymentController extends PaymentController_parent
             Registry::getSession()->setVariable('sShipSet', '74dbcdc315fde44ef79ca43038fe803f');
         }
 
-        $this->unsetPaymentErrors();
-
         return $this->_sThisTemplate;
     }
 
