@@ -134,6 +134,8 @@ class PaymentController extends PaymentController_parent
 
         $blOK = $oPayment->isValidPayment($aDynvalue, $myConfig->getShopId(), $oUser, $dBasketPrice, $sShipSetId);
 
+        $logger = Registry::getLogger();
+        $logger->error($blOK);
         if ($this->hasNoShipSet){
             $sShipSetId = null;
         }
