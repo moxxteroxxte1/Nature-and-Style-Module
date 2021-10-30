@@ -127,8 +127,6 @@ class PaymentController extends PaymentController_parent
 
         $blOK = $oPayment->isValidPayment($aDynvalue, $myConfig->getShopId(), $oUser, $dBasketPrice, $sShipSetId);
 
-        $sShipSetId = ($session->getVariable('hasNoShipSet') ? NULL : $sShipSetId);
-
         if ($blOK) {
             $session->setVariable('paymentid', $sPaymentId);
             $session->setVariable('dynvalue', $aDynvalue);
