@@ -135,7 +135,7 @@ class PaymentController extends PaymentController_parent
         if ($blOK) {
             $session->setVariable('paymentid', $sPaymentId);
             $session->setVariable('dynvalue', $aDynvalue);
-            $oBasket->setShipping(($session->getValue('hasNoShipSet') ? null : $sShipSetId));
+            $oBasket->setShipping(($session->getVariable('hasNoShipSet') ? null : $sShipSetId));
             $session->deleteVariable('_selected_paymentid');
 
             return 'order';
