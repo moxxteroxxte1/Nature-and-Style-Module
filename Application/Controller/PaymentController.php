@@ -92,16 +92,11 @@ class PaymentController extends PaymentController_parent
         $oUser = $this->getUser();
         if (!$oUser) {
             $session->setVariable('payerror', 2);
-
             return;
         }
 
         if (!($sShipSetId = Registry::getRequest()->getRequestEscapedParameter('sShipSet'))) {
-            if(!$session->getVariable('hasNoShipSet')){
-                $sShipSetId = $session->getVariable('sShipSet');
-            }else{
-                $sShipSetId = $this->sShipSet;
-            }
+            $sShipSetId = ($session->getVariable('hasNoShipSet') ? $this->sShipSet : $session->getVariable('sShipSet'));
         }
         if (!($sPaymentId = Registry::getRequest()->getRequestEscapedParameter('paymentid'))) {
             $sPaymentId = $session->getVariable('paymentid');
@@ -132,10 +127,12 @@ class PaymentController extends PaymentController_parent
 
         $blOK = $oPayment->isValidPayment($aDynvalue, $myConfig->getShopId(), $oUser, $dBasketPrice, $sShipSetId);
 
+        $sShipSetId = ($session->getVariable('hasNoShipSet') ? NULL : $sShipSetId);
+
         if ($blOK) {
             $session->setVariable('paymentid', $sPaymentId);
             $session->setVariable('dynvalue', $aDynvalue);
-            $oBasket->setShipping(($session->getVariable('hasNoShipSet') ? null : $sShipSetId));
+            $oBasket->setShipping($sShipSetId);
             $session->deleteVariable('_selected_paymentid');
 
             return 'order';
