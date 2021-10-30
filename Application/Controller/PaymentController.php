@@ -131,7 +131,9 @@ class PaymentController extends PaymentController_parent
         if ($blOK) {
             $session->setVariable('paymentid', $sPaymentId);
             $session->setVariable('dynvalue', $aDynvalue);
-            $oBasket->setShipping(($session->getVariable('hasNoShipSet') ? $session->getVariable('sActShipSet') : $sShipSetId));
+            $logger = Registry::getLogger();
+            $logger->error(($session->getVariable('hasNoShipSet') ? $session->getVariable('sActShipSet') : $sShipSetId));
+            $oBasket->setShipping($sShipSetId);
             $session->deleteVariable('_selected_paymentid');
 
             return 'order';
@@ -146,7 +148,7 @@ class PaymentController extends PaymentController_parent
         }
     }
 
-    protected function setValues(&$aPaymentList, $oBasket = null)
+    protected function setValues($aPaymentList, $oBasket = null)
     {
         if (is_array($aPaymentList)) {
             foreach ($aPaymentList as $oPayment) {
