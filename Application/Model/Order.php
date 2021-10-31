@@ -9,7 +9,7 @@ class Order extends Order_parent
     public function validateDelivery($oBasket)
     {
         if(Registry::getSession()->getVariable('hasNoShipSet')){
-            return true;
+            return;
         }
         return parent::validateDelivery;
     }
@@ -45,5 +45,61 @@ class Order extends Order_parent
         }
 
         return $iValidState;
+    }
+
+    private function isValidPayment($basket, $oUser = null)
+    {
+        $paymentId = $basket->getPaymentId();
+        $paymentModel = oxNew(EshopPayment::class);
+        $paymentModel->load($paymentId);
+
+        $dynamicValues = $this->getDynamicValues();
+        $shopId = \OxidEsales\Eshop\Core\Registry::getConfig()->getShopId();
+
+        if (!$oUser) {
+            $oUser = $this->getUser();
+        }
+
+        $session = Registry::getSession();
+
+        return $paymentModel->isValidPayment(
+            $dynamicValues,
+            $shopId,
+            $oUser,
+            $basket->getPriceForPayment(),
+            ($session->getVariable('hasNoShipSet') ? $this->sShipSet : $session->getVariable('sShipSet'))
+        );
+    }
+
+    public function validatePayment($oBasket, $oUser = null)
+    {
+        $paymentId = $oBasket->getPaymentId();
+
+        if (!$this->isValidPaymentId($paymentId) || !$this->isValidPayment($oBasket, $oUser)) {
+            return self::ORDER_STATE_INVALIDPAYMENT;
+        }
+    }
+
+    private function isValidPaymentId($paymentId)
+    {
+        // We force reading from master to prevent issues with slow replications or open transactions (see ESDEV-3804).
+        $masterDb = DatabaseProvider::getMaster();
+
+        $paymentModel = oxNew(EshopPayment::class);
+        $tableName = $paymentModel->getViewName();
+
+        $sql = "
+            select
+                1 
+            from 
+                {$tableName}
+            where 
+                {$tableName}.oxid = :oxid
+                and {$paymentModel->getSqlActiveSnippet()}
+        ";
+
+        return (bool) $masterDb->getOne($sql, [
+            ':oxid' => $paymentId
+        ]);
     }
 }
