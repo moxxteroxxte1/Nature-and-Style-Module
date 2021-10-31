@@ -8,6 +8,8 @@ use OxidEsales\Eshop\Core\DatabaseProvider;
 
 class Order extends Order_parent
 {
+    var $sShipSet = "74dbcdc315fde44ef79ca43038fe803f";
+
     public function validateDelivery($oBasket)
     {
         if (Registry::getSession()->getVariable('hasNoShipSet')) {
@@ -103,5 +105,35 @@ class Order extends Order_parent
         return (bool)$masterDb->getOne($sql, [
             ':oxid' => $paymentId
         ]);
+    }
+
+    private function getDynamicValues()
+    {
+        $session = \OxidEsales\Eshop\Core\Registry::getSession();
+        $dynamicValues = $session->getVariable('dynvalue');
+
+        if (!$dynamicValues) {
+            $dynamicValues = Registry::getRequest()->getRequestParameter('dynvalue');
+        }
+
+        if (!$dynamicValues && $this->getPaymentType()) {
+            $dynamicValues = $this->getDynamicValuesFromPaymentType();
+        }
+
+        return $dynamicValues;
+    }
+
+    private function getDynamicValuesFromPaymentType()
+    {
+        $dynamicValues = null;
+        $dynamicValuesList = $this->getPaymentType()->getDynValues();
+
+        if (is_array($dynamicValuesList)) {
+            foreach ($dynamicValuesList as $value) {
+                $dynamicValues[$value->name] = $value->value;
+            }
+        }
+
+        return $dynamicValues;
     }
 }
