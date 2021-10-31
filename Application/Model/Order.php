@@ -15,7 +15,7 @@ class Order extends Order_parent
         if (Registry::getSession()->getVariable('hasNoShipSet')) {
             return;
         }
-        return parent::validateDelivery;
+        return parent::validateDelivery($oBasket);
     }
 
     public function validateOrder($oBasket, $oUser)
