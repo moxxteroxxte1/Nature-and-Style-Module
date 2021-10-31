@@ -3,8 +3,6 @@
 
 namespace NatureAndStyle\CoreModule\Application\Model;
 
-
-use MongoDB\BSON\Regex;
 use OxidEsales\Eshop\Application\Model\DeliverySetList;
 use OxidEsales\Eshop\Core\Registry;
 

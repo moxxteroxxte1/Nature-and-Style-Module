@@ -3,12 +3,14 @@
 namespace NatureAndStyle\CoreModule\Application\Model;
 
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Application\Model\Payment as EshopPayment;
+use OxidEsales\Eshop\Core\DatabaseProvider;
 
 class Order extends Order_parent
 {
     public function validateDelivery($oBasket)
     {
-        if(Registry::getSession()->getVariable('hasNoShipSet')){
+        if (Registry::getSession()->getVariable('hasNoShipSet')) {
             return;
         }
         return parent::validateDelivery;
@@ -54,7 +56,7 @@ class Order extends Order_parent
         $paymentModel->load($paymentId);
 
         $dynamicValues = $this->getDynamicValues();
-        $shopId = \OxidEsales\Eshop\Core\Registry::getConfig()->getShopId();
+        $shopId = Registry::getConfig()->getShopId();
 
         if (!$oUser) {
             $oUser = $this->getUser();
@@ -98,7 +100,7 @@ class Order extends Order_parent
                 and {$paymentModel->getSqlActiveSnippet()}
         ";
 
-        return (bool) $masterDb->getOne($sql, [
+        return (bool)$masterDb->getOne($sql, [
             ':oxid' => $paymentId
         ]);
     }
