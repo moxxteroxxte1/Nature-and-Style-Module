@@ -67,9 +67,8 @@ class PaymentController extends PaymentController_parent
 
             if (empty($aPaymentList) || !$aPaymentList) {
                 $dPrice = $oBasket->getPrice()->getPrice();
-                $aPaymentList = oxNew(PaymentList::class)->getPaymentList($this->sShipSet, $dPrice, $this->getUser());
                 $session->setVariable("hasNoShipSet", true);
-                $session->setVariable('sActShipSet', $sActShipSet);
+                $aPaymentList = oxNew(PaymentList::class)->getPaymentList($this->sShipSet, $dPrice, $this->getUser());
             }
 
             $oBasket->setShipping($sActShipSet);
@@ -131,10 +130,11 @@ class PaymentController extends PaymentController_parent
         if ($blOK) {
             $session->setVariable('paymentid', $sPaymentId);
             $session->setVariable('dynvalue', $aDynvalue);
-            $logger = Registry::getLogger();
-            $logger->error(($session->getVariable('hasNoShipSet') ? $session->getVariable('sActShipSet') : $sShipSetId));
+            $sShipSetId = ($session->getVariable('hasNoShipSet') ? $session->getVariable('sActShipSet') : $sShipSetId);
             $oBasket->setShipping($sShipSetId);
             $session->deleteVariable('_selected_paymentid');
+            $session->deleteVariable('sActShipSet');
+            $session->deleteVariable('hasNoShipSet');
 
             return 'order';
         } else {
