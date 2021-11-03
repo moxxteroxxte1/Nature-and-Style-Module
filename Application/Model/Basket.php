@@ -130,4 +130,8 @@ class Basket extends Basket_parent
         $this->setPrice($oTotalPrice);
     }
 
+    public function getGrandTotalNetto()
+    {
+        return $this->getPrice()->getNettoPrice();
+    }
 }
