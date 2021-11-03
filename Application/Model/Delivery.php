@@ -3,6 +3,7 @@
 
 namespace NatureAndStyle\CoreModule\Application\Model;
 
+use OxidEsales\Eshop\Core\Price;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 
@@ -183,5 +184,26 @@ class Delivery extends Delivery_parent
     public function isMarkedShipping()
     {
         return $this->oxdelivery__oxmarkshipping->value;
+    }
+
+    public function getDeliveryPrice($dVat = null)
+    {
+        if ($this->_oPrice === null) {
+
+            $session = Registry::getSession();
+            $oUser = $session->getBasket()->getBasketUser();
+
+            $oPrice = oxNew(Price::class);
+            $oPrice->setNettoMode((Registry::getConfig()->getConfigParam('blDeliveryVatOnTop') || $oUser->inGroup('oxiddealer')));
+            $oPrice->setVat($dVat);
+
+            // if article is free shipping, price for delivery will be not calculated
+            if (!$this->_blFreeShipping) {
+                $oPrice->add($this->_getCostSum());
+            }
+            $this->setDeliveryPrice($oPrice);
+        }
+
+        return $this->_oPrice;
     }
 }
