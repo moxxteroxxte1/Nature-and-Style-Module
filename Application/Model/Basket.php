@@ -14,7 +14,8 @@ class Basket extends Basket_parent
     protected $blFindCheapest = true;
     protected $blIncludesSurcharge = false;
 
-    public function getDeliveryMultiplier(){
+    public function getDeliveryMultiplier()
+    {
         return $this->delMulti;
     }
 
@@ -57,7 +58,7 @@ class Basket extends Basket_parent
                     $this->blIncludesSurcharge = $oDelivery->isBlIncludesSurcharge();
                     $this->delMulti = $oDelivery->getMultiplier();
                 }
-            }else{
+            } else {
                 return null;
             }
         }
@@ -67,15 +68,18 @@ class Basket extends Basket_parent
         return $oDeliveryPrice;
     }
 
-    public function setFindCheapest($blFindCheapest = true){
+    public function setFindCheapest($blFindCheapest = true)
+    {
         $this->blFindCheapest = $blFindCheapest;
     }
 
-    public function hasSurcharge(){
+    public function hasSurcharge()
+    {
         return $this->blIncludesSurcharge;
     }
 
-    public function setSurcharge($hasSurcharge){
+    public function setSurcharge($hasSurcharge)
+    {
         $this->blIncludesSurcharge = $hasSurcharge;
     }
 
