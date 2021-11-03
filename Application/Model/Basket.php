@@ -26,14 +26,13 @@ class Basket extends Basket_parent
         $myConfig = Registry::getConfig();
         $oDeliveryPrice = oxNew(Price::class);
 
-        if (Registry::getConfig()->getConfigParam('blDeliveryVatOnTop') || $this->getUser()->inGroup('oxiddealer')) {
+        $oUser = $this->getBasketUser();
+
+        if (Registry::getConfig()->getConfigParam('blDeliveryVatOnTop') || $oUser->inGroup('oxiddealer')) {
             $oDeliveryPrice->setNettoPriceMode();
         } else {
             $oDeliveryPrice->setBruttoPriceMode();
         }
-
-        // don't calculate if not logged in
-        $oUser = $this->getBasketUser();
 
         if (!$oUser && !$myConfig->getConfigParam('blCalculateDelCostIfNotLoggedIn')) {
             return $oDeliveryPrice;
