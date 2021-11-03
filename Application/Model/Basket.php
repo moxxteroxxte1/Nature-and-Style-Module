@@ -29,7 +29,7 @@ class Basket extends Basket_parent
 
         $oUser = $this->getBasketUser();
 
-        if (Registry::getConfig()->getConfigParam('blDeliveryVatOnTop') || $oUser->inGroup('oxiddealer')) {
+        if (Registry::getConfig()->getConfigParam('blDeliveryVatOnTop') || ($oUser && $oUser->inGroup('oxiddealer'))) {
             $oDeliveryPrice->setNettoPriceMode();
         } else {
             $oDeliveryPrice->setBruttoPriceMode();
