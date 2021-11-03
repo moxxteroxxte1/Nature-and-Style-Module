@@ -134,8 +134,8 @@ class Basket extends Basket_parent
     {
         $oPrice = oxNew(Price::class);
         $oPrice->setNettoPriceMode();
-        $oPrice->add($this->getPrice()->getPrice());
-        $oPrice->add($this->getDeliveryCost()->getPrice());
+        $oPrice->add($this->getPrice()->getNettoPrice());
+        $oPrice->add($this->getDeliveryCost()->getNettoPrice());
         return $oPrice;
     }
 }
