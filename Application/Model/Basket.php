@@ -26,7 +26,7 @@ class Basket extends Basket_parent
         $myConfig = Registry::getConfig();
         $oDeliveryPrice = oxNew(Price::class);
 
-        if (Registry::getConfig()->getConfigParam('blDeliveryVatOnTop')) {
+        if (Registry::getConfig()->getConfigParam('blDeliveryVatOnTop') || $this->getUser()->inGroup('oxiddealer')) {
             $oDeliveryPrice->setNettoPriceMode();
         } else {
             $oDeliveryPrice->setBruttoPriceMode();
