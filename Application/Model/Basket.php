@@ -133,8 +133,9 @@ class Basket extends Basket_parent
     public function getGrandTotalNetto()
     {
         $oPrice = oxNew(Price::class);
-        $oPrice->setPrice($this->getPrice());
-        $oPrice->setNettoMode();
-        return $oPrice->getPrice();
+        $oPrice->setNettoPriceMode();
+        $oPrice->add($this->getPrice()->getPrice());
+        $oPrice->add($this->getDeliveryCost()->getPrice());
+        return $oPrice;
     }
 }
