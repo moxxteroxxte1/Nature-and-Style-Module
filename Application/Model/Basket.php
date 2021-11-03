@@ -62,6 +62,8 @@ class Basket extends Basket_parent
             }
         }
 
+        $this->_oNotDiscountedProductsPriceList->addToPriceList($oDeliveryPrice->getPrice());
+
         return $oDeliveryPrice;
     }
 
