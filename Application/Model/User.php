@@ -6,6 +6,7 @@ use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Database\Adapter\DatabaseInterface;
 use OxidEsales\Eshop\Core\Exception\CookieException;
+use OxidEsales\Eshop\Core\Exception\UserException;
 use OxidEsales\EshopCommunity\Internal\Domain\Authentication\Bridge\PasswordServiceBridgeInterface;
 
 class User extends User_parent
@@ -70,7 +71,7 @@ class User extends User_parent
             throw oxNew(UserException::class, 'ERROR_MESSAGE_USER_NOVALIDLOGIN');
         }
 
-        if(!$this->oxuser__oxactive->value){
+        if (!$this->oxuser__oxactive->value) {
             throw oxNew(UserException::class, 'ERROR_MESSAGE_USER_NOACTIVE');
         }
 
