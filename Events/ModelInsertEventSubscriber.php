@@ -51,7 +51,7 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
     {
         $model = $event->getModel();
 
-        if (is_a($model, "OxidEsales\Eshop\Application\Model\Article") && isset($model->oxarticles__oxartnum)) {
+        if (is_a($model, "OxidEsales\Eshop\Application\Model\Article") && isset($model->oxarticles__oxartnum) && $model->oxarticles__oxartnum->value != "") {
 
             $model->setId($model->oxarticles__oxartnum->value);
             $model->save();
