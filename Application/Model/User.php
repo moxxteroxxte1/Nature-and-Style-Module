@@ -147,4 +147,20 @@ class User extends User_parent
 
         return $passwordServiceBridge->hash($password);
     }
+
+    private function getAuthenticatedUserId(string $userName, int $shopId, bool $isLoginToAdminBackend)
+    {
+        $database = DatabaseProvider::getDb();
+        $userNameCondition = $this->formQueryPartForUserName($userName, $database);
+        $shopOrRightsCondition = $this->formQueryPartForAdminView($shopId, $isLoginToAdminBackend);
+
+        $query = "SELECT `OXID`
+                    FROM oxuser
+                    WHERE 1
+                    AND $userNameCondition
+                    $shopOrRightsCondition
+                    ";
+
+        return $database->getOne($query);
+    }
 }
