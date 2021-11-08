@@ -72,7 +72,7 @@ class User extends User_parent
         }
 
         if (!$this->oxuser__oxactive->value) {
-            throw oxNew(UserException::class, 'ERROR_MESSAGE_USER_NOACTIVE');
+            throw oxNew(UserException::class, '[{oxcontent ident="ueber_un"}]');
         }
 
         //resetting active user
