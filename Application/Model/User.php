@@ -43,4 +43,23 @@ class User extends User_parent
 
         return $database->getOne($query);
     }
+
+    private function formQueryPartForUserName($user, DatabaseInterface $database): string
+    {
+        $condition = 'oxuser.oxusername = ' . $database->quote($user);
+
+        return $condition;
+    }
+
+    protected function formQueryPartForAdminView($sShopID, $blAdmin)
+    {
+        $sShopSelect = '';
+
+        // Admin view: can only login with higher than 'user' rights
+        if ($blAdmin) {
+            $sShopSelect = " and ( oxrights != 'user' ) ";
+        }
+
+        return $sShopSelect;
+    }
 }
