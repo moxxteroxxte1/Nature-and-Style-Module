@@ -4,6 +4,7 @@ namespace NatureAndStyle\CoreModule\Application\Model;
 
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\DatabaseProvider;
+use OxidEsales\Eshop\Core\Database\Adapter\DatabaseInterface;
 
 class User extends User_parent
 {
