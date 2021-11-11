@@ -24,6 +24,7 @@ class PaymentController extends PaymentController_parent
         $oBasket->onUpdate();
         $oBasket->setShipping('sShipSet', Registry::getRequest()->getRequestEscapedParameter('sShipSet'));*/
         $oBasket->handleTelAvis(boolval(Registry::getRequest()->getRequestEscapedParameter('blTelAvis')));
+        $this->render();
     }
 
     public function getAllSets()
