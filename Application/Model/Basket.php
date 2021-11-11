@@ -144,4 +144,51 @@ class Basket extends Basket_parent
         $oPrice->add($this->getDeliveryCost()->getNettoPrice());
         return $oPrice;
     }
+
+    public function hasTelAvis()
+    {
+        $oDeliverySet = oxNew(DeliverySet::class);
+        $oDeliverySet->load($this->getShippingId());
+
+        if ($oDeliverySet) {
+            return ($this->getBasketUser()->inGroup('oxiddealer') && $oDeliverySet->hasTelAvis());
+        }
+
+        return false;
+    }
+
+    public function getTelAvisPrice(){
+        $oDeliverySet = oxNew(DeliverySet::class);
+        $oDeliverySet->load($this->getShippingId());
+
+        if ($oDeliverySet) {
+            return ($oDeliverySet->oxdeliveryset__oxtelavisprice->value);
+        }
+
+        return false;
+    }
+
+    public function addTelAvis()
+    {
+        if ($this->_oDeliveryPrice == null) {
+            $this->_calcDeliveryCost();
+        }
+
+        $oDeliverySet = oxNew(DeliverySet::class);
+        $oDeliverySet->load($this->getShippingId());
+
+        $this->_oDeliveryPrice->add($oDeliverySet->oxdeliveryset__oxtelavisprice->value);
+    }
+
+    public function removeTelAvis()
+    {
+        if ($this->_oDeliveryPrice == null) {
+            $this->_calcDeliveryCost();
+        }
+
+        $oDeliverySet = oxNew(DeliverySet::class);
+        $oDeliverySet->load($this->getShippingId());
+
+        $this->_oDeliveryPrice->subtract($oDeliverySet->oxdeliveryset__oxtelavisprice->value);
+    }
 }

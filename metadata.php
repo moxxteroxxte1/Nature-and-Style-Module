@@ -29,6 +29,7 @@ use NatureAndStyle\CoreModule\Application\Model\Content;
 use NatureAndStyle\CoreModule\Application\Model\ContentList;
 use NatureAndStyle\CoreModule\Application\Model\Delivery;
 use NatureAndStyle\CoreModule\Application\Model\DeliveryList;
+use NatureAndStyle\CoreModule\Application\Model\DeliverySet;
 use NatureAndStyle\CoreModule\Application\Model\DeliverySetList;
 use NatureAndStyle\CoreModule\Application\Model\Discount;
 use NatureAndStyle\CoreModule\Application\Model\Order;
@@ -96,6 +97,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Model\ActionList::class => ActionList::class,
         \OxidEsales\Eshop\Application\Model\Delivery::class => Delivery::class,
         \OxidEsales\Eshop\Application\Model\DeliveryList::class => DeliveryList::class,
+        \OxidEsales\Eshop\Application\Model\DeliverySet::class => DeliverySet::class,
         \OxidEsales\Eshop\Application\Model\Basket::class => Basket::class,
         \OxidEsales\Eshop\Application\Model\BasketItem::class => BasketItem::class,
         \OxidEsales\Eshop\Application\Model\Content::class => Content::class,
@@ -166,6 +168,13 @@ $aModule = array(
             'template' => 'delivery_main.tpl',
             'block' => 'admin_delivery_main_form',
             'file' => '/Application/views/blocks/delivery_main_extend.tpl',
+        ),
+
+        //DELIVERY SET
+        array(
+            'template' => 'deliveryset_main.tpl',
+            'block' => 'admin_deliveryset_main_form',
+            'file' => '/Application/views/blocks/deliveryset_main_extend.tpl',
         ),
 
         //Discount
