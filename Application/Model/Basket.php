@@ -186,6 +186,7 @@ class Basket extends Basket_parent
         }
         $this->setCost('oxdelivery', $oDeliveryCost);
 
+        $this->_calcTotalPrice();
         $this->blIncludesTelAvis = $blTelAvis;
     }
 
