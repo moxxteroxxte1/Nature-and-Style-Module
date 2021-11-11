@@ -180,7 +180,7 @@ class Basket extends Basket_parent
     public function handleTelAvis($blTelAvis = false)
     {
         $this->blIncludesTelAvis = $blTelAvis;
-        $this->_calcDeliveryCost();
+        $this->setCost('oxdelivery',$this->_calcDeliveryCost());
     }
 
     public function isIncludingTelAvis()
