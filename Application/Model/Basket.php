@@ -180,22 +180,8 @@ class Basket extends Basket_parent
 
     public function handleTelAvis($blTelAvis = false)
     {
-        $oDeliveryCost = $this->getDeliveryCost();
-
-        $dPrice = $this->getTelAvisPrice();
-
-        Registry::getLogger()->info($dPrice);
-        if ($blTelAvis) {
-            if(!$this->blIncludesTelAvis){
-                $oDeliveryCost->add($dPrice);
-            }
-        } else {
-            $oDeliveryCost->subtract($dPrice);
-        }
-        $this->setCost('oxdelivery', $oDeliveryCost);
-
-        $this->_calcTotalPrice();
         $this->blIncludesTelAvis = $blTelAvis;
+        $this->_calcDeliveryCost();
     }
 
     public function isIncludingTelAvis()
