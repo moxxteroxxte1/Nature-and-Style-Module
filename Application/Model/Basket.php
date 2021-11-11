@@ -60,6 +60,9 @@ class Basket extends Basket_parent
 
                 foreach ($aDeliveryList as $oDelivery) {
                     $dDelPrice = $oDelivery->getDeliveryPrice($fDelVATPercent);
+                    if($this->blIncludesTelAvis){
+                        $dDelPrice->add($dPrice);
+                    }
                     $dDelPrice->add($dPrice);
                     $oDeliveryPrice->addPrice($dDelPrice);
                     $this->blIncludesSurcharge = $oDelivery->isBlIncludesSurcharge();
