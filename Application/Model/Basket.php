@@ -174,29 +174,22 @@ class Basket extends Basket_parent
     {
         $oDeliverySet = oxNew(DeliverySet::class);
         $oDeliverySet->load($this->getShippingId());
-        $logger = Registry::getLogger();
-        if ($oDeliverySet) {
-            $dPrice = ($oDeliverySet->oxdeliveryset__oxtelavisprice->value);
-        }else{
+        $oDeliveryCost = $this->getDeliveryCost();
+
+        if (!$oDeliverySet) {
             return;
         }
-        $logger->warning('$dPrice: ' . $dPrice);
-        $oDeliveryCost = $this->getDeliveryCost();
-        $logger->warning('$oDeliveryCost: ' . $oDeliveryCost->getPrice());
-        $logger->warning('$blTelAvis: ' . $blTelAvis);
-        $logger->warning('blIncludesTelAvis: ' . $this->blIncludesTelAvis);
+
         if ($blTelAvis) {
             if(!$this->blIncludesTelAvis){
-                $oDeliveryCost->add($dPrice);
+                $oDeliveryCost->add($oDeliverySet->oxdeliveryset__oxtelavisprice->value);
             }
         } else {
-            $oDeliveryCost->subtract($dPrice);
+            $oDeliveryCost->subtract($oDeliverySet->oxdeliveryset__oxtelavisprice->value);
         }
-        $logger->warning('$oDeliveryCost: ' . $oDeliveryCost->getPrice());
         $this->setCost('oxdelivery', $oDeliveryCost->getPrice());
 
         $this->blIncludesTelAvis = $blTelAvis;
-        $logger->warning('blIncludesTelAvis: ' . $this->blIncludesTelAvis);
     }
 
     public function isIncludingTelAvis()
