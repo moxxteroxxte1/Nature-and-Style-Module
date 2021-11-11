@@ -172,8 +172,14 @@ class Basket extends Basket_parent
 
     public function handleTelAvis($blTelAvis = false)
     {
+        $oDeliverySet = oxNew(DeliverySet::class);
+        $oDeliverySet->load($this->getShippingId());
         $logger = Registry::getLogger();
-        $dPrice = $this->getTelAvisPrice();
+        if ($oDeliverySet) {
+            $dPrice = ($oDeliverySet->oxdeliveryset__oxtelavisprice->value);
+        }else{
+            return;
+        }
         $logger->warning('$dPrice: ' . $dPrice);
         $oDeliveryCost = $this->getDeliveryCost();
         $logger->warning('$oDeliveryCost: ' . $oDeliveryCost->getPrice());
