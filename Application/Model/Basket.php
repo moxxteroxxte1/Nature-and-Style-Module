@@ -4,6 +4,7 @@
 namespace NatureAndStyle\CoreModule\Application\Model;
 
 
+use mysql_xdevapi\Warning;
 use NatureAndStyle\CoreModule\Core\Price;
 use NatureAndStyle\CoreModule\Core\PriceList;
 use OxidEsales\Eshop\Core\Registry;
@@ -171,9 +172,13 @@ class Basket extends Basket_parent
 
     public function handleTelAvis($blTelAvis = false)
     {
+        $logger = Registry::getLogger();
         $dPrice = $this->getTelAvisPrice();
+        $logger->warning('$dPrice: ' . $dPrice);
         $oDeliveryCost = $this->getDeliveryCost();
-
+        $logger->warning('$oDeliveryCost: ' . $oDeliveryCost);
+        $logger->warning('$blTelAvis: ' . $blTelAvis);
+        $logger->warning('blIncludesTelAvis: ' . blIncludesTelAvis);
         if ($blTelAvis) {
             if(!$this->blIncludesTelAvis){
                 $oDeliveryCost->add($dPrice);
@@ -181,9 +186,11 @@ class Basket extends Basket_parent
         } else {
             $oDeliveryCost->subtract($dPrice);
         }
+        $logger->warning('$oDeliveryCost: ' . $oDeliveryCost);
         $this->setCost('oxdelivery', $oDeliveryCost);
 
         $this->blIncludesTelAvis = $blTelAvis;
+        $logger->warning('blIncludesTelAvis: ' . blIncludesTelAvis);
     }
 
     public function isIncludingTelAvis()
