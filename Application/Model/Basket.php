@@ -170,25 +170,27 @@ class Basket extends Basket_parent
 
     public function addTelAvis()
     {
-        if ($this->_oDeliveryPrice == null) {
-            $this->_calcDeliveryCost();
+        $oDeliveryCost = $this->_aCosts['oxdelivery'];
+        if ($oDeliveryCost == null) {
+            $oDeliveryCost = $this->_aCosts['oxdelivery'] = oxNew(Price::class);
         }
 
         $oDeliverySet = oxNew(DeliverySet::class);
         $oDeliverySet->load($this->getShippingId());
 
-        $this->_oDeliveryPrice->add($oDeliverySet->oxdeliveryset__oxtelavisprice->value);
+        $oDeliveryCost->add($oDeliverySet->oxdeliveryset__oxtelavisprice->value);
     }
 
     public function removeTelAvis()
     {
-        if ($this->_oDeliveryPrice == null) {
-            $this->_calcDeliveryCost();
+        $oDeliveryCost = $this->_aCosts['oxdelivery'];
+        if ($oDeliveryCost == null) {
+            $oDeliveryCost = $this->_aCosts['oxdelivery'] = oxNew(Price::class);
         }
 
         $oDeliverySet = oxNew(DeliverySet::class);
         $oDeliverySet->load($this->getShippingId());
 
-        $this->_oDeliveryPrice->subtract($oDeliverySet->oxdeliveryset__oxtelavisprice->value);
+        $oDeliveryCost->subtract($oDeliverySet->oxdeliveryset__oxtelavisprice->value);
     }
 }
