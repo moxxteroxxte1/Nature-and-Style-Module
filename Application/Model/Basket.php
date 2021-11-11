@@ -183,7 +183,7 @@ class Basket extends Basket_parent
         }else{
             $oDeliveryCost->subtract($dPrice);
         }
-        $this->blIncludesTelAvis = !$blTelAvis;
+        $this->blIncludesTelAvis = $blTelAvis;
     }
 
     public function isIncludingTelAvis()
