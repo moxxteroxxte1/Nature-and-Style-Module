@@ -23,6 +23,7 @@ class PaymentController extends PaymentController_parent
         $oBasket->setFindCheapest(false);
         $oBasket->onUpdate();
         $oBasket->setShipping('sShipSet', Registry::getRequest()->getRequestEscapedParameter('sShipSet'));
+        Registry::getLogger()->warning('changeshipping: ' . boolval(Registry::getRequest()->getRequestEscapedParameter('blTelAvis')));
         $oBasket->handleTelAvis(boolval(Registry::getRequest()->getRequestEscapedParameter('blTelAvis')));
     }
 
