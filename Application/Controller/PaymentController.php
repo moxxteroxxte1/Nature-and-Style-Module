@@ -18,11 +18,11 @@ class PaymentController extends PaymentController_parent
         $session = Registry::getSession();
 
         $oBasket = $session->getBasket();
-        $oBasket->setShipping(null);
+        /*$oBasket->setShipping(null);
         $oBasket->setSurcharge(false);
         $oBasket->setFindCheapest(false);
         $oBasket->onUpdate();
-        $oBasket->setShipping('sShipSet', Registry::getRequest()->getRequestEscapedParameter('sShipSet'));
+        $oBasket->setShipping('sShipSet', Registry::getRequest()->getRequestEscapedParameter('sShipSet'));*/
         $oBasket->handleTelAvis(boolval(Registry::getRequest()->getRequestEscapedParameter('blTelAvis')));
     }
 

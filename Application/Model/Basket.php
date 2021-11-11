@@ -167,7 +167,7 @@ class Basket extends Basket_parent
             return ($oDeliverySet->oxdeliveryset__oxtelavisprice->value);
         }
 
-        return false;
+        return 0;
     }
 
     public function handleTelAvis($blTelAvis = false)
