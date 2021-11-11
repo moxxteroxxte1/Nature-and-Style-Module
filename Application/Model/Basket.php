@@ -13,6 +13,7 @@ class Basket extends Basket_parent
     protected $delMulti = 1;
     protected $blFindCheapest = true;
     protected $blIncludesSurcharge = false;
+    protected $blIncludesTelAvis = false;
 
     public function getDeliveryMultiplier()
     {
@@ -168,29 +169,25 @@ class Basket extends Basket_parent
         return false;
     }
 
-    public function addTelAvis()
+    public function handleTelAvis()
     {
         $oDeliveryCost = $this->_aCosts['oxdelivery'];
         if ($oDeliveryCost == null) {
             $oDeliveryCost = $this->_aCosts['oxdelivery'] = oxNew(Price::class);
         }
 
-        $oDeliverySet = oxNew(DeliverySet::class);
-        $oDeliverySet->load($this->getShippingId());
+        $dPrice = $this->getTelAvisPrice();
 
-        $oDeliveryCost->add($oDeliverySet->oxdeliveryset__oxtelavisprice->value);
+        if($this->blIncludesTelAvis){
+            $oDeliveryCost->add($dPrice);
+        }else{
+            $oDeliveryCost->subtract($dPrice);
+        }
+        $this->blIncludesTelAvis = !$this->blIncludesTelAvis;
     }
 
-    public function removeTelAvis()
+    public function includesTelAvis()
     {
-        $oDeliveryCost = $this->_aCosts['oxdelivery'];
-        if ($oDeliveryCost == null) {
-            $oDeliveryCost = $this->_aCosts['oxdelivery'] = oxNew(Price::class);
-        }
-
-        $oDeliverySet = oxNew(DeliverySet::class);
-        $oDeliverySet->load($this->getShippingId());
-
-        $oDeliveryCost->subtract($oDeliverySet->oxdeliveryset__oxtelavisprice->value);
+        return $this->includesTelAvis();
     }
 }
