@@ -171,16 +171,16 @@ class Basket extends Basket_parent
 
     public function handleTelAvis($blTelAvis = false)
     {
-        if ($this->_aCosts['oxdelivery'] == null) {
-            $this->_aCosts['oxdelivery'] = oxNew(Price::class);
-        }
-
         $dPrice = $this->getTelAvisPrice();
+        $oDeliveryCost = $this->getDeliveryCosts();
 
-        if($blTelAvis && !$this->blIncludesTelAvis){
-            $this->_aCosts['oxdelivery']->add($dPrice);
-        }else{
-            $this->_aCosts['oxdelivery']->subtract($dPrice);
+        if ($oDeliveryCost){
+            if ($blTelAvis && !$this->blIncludesTelAvis) {
+                $oDeliveryCost->add($dPrice);
+            } else {
+                $oDeliveryCost->subtract($dPrice);
+            }
+            $this->setCost('oxdelivery', $oDeliveryCost);
         }
 
         $this->blIncludesTelAvis = $blTelAvis;
