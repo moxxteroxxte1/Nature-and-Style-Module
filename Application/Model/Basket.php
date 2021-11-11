@@ -178,7 +178,7 @@ class Basket extends Basket_parent
         $oDeliveryCost = $this->getDeliveryCost();
         $logger->warning('$oDeliveryCost: ' . $oDeliveryCost->getPrice());
         $logger->warning('$blTelAvis: ' . $blTelAvis);
-        $logger->warning('blIncludesTelAvis: ' . blIncludesTelAvis);
+        $logger->warning('blIncludesTelAvis: ' . $this->blIncludesTelAvis);
         if ($blTelAvis) {
             if(!$this->blIncludesTelAvis){
                 $oDeliveryCost->add($dPrice);
@@ -190,7 +190,7 @@ class Basket extends Basket_parent
         $this->setCost('oxdelivery', $oDeliveryCost->getPrice());
 
         $this->blIncludesTelAvis = $blTelAvis;
-        $logger->warning('blIncludesTelAvis: ' . blIncludesTelAvis);
+        $logger->warning('blIncludesTelAvis: ' . $this->blIncludesTelAvis);
     }
 
     public function isIncludingTelAvis()
