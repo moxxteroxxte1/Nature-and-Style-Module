@@ -55,8 +55,13 @@ class Basket extends Basket_parent
             );
 
             if (count($aDeliveryList) > 0) {
+                $oDeliverySet = oxNew(DeliverySet::class);
+                $dPrice =  $oDeliverySet->load($this->getShippingId()) ? $this->getTelAvisPrice() : 0;
+
                 foreach ($aDeliveryList as $oDelivery) {
-                    $oDeliveryPrice->addPrice($oDelivery->getDeliveryPrice($fDelVATPercent));
+                    $dDelPrice = $oDelivery->getDeliveryPrice($fDelVATPercent);
+                    $dDelPrice->add($dPrice);
+                    $oDeliveryPrice->addPrice($dDelPrice);
                     $this->blIncludesSurcharge = $oDelivery->isBlIncludesSurcharge();
                     $this->delMulti = $oDelivery->getMultiplier();
                 }
