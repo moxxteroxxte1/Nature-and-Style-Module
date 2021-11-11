@@ -184,7 +184,7 @@ class Basket extends Basket_parent
         } else {
             $oDeliveryCost->subtract($dPrice);
         }
-        $this->setCost('oxdelivery', $oDeliveryCost->getPrice());
+        $this->setCost('oxdelivery', $oDeliveryCost);
 
         $this->blIncludesTelAvis = $blTelAvis;
     }
