@@ -188,6 +188,6 @@ class Basket extends Basket_parent
 
     public function isIncludingTelAvis()
     {
-        return $this->includesTelAvis();
+        return $this->blIncludesTelAvis;
     }
 }
