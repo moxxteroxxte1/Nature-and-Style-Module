@@ -169,7 +169,7 @@ class Basket extends Basket_parent
         return false;
     }
 
-    public function handleTelAvis()
+    public function handleTelAvis($blTelAvis = false)
     {
         $oDeliveryCost = $this->_aCosts['oxdelivery'];
         if ($oDeliveryCost == null) {
@@ -178,12 +178,12 @@ class Basket extends Basket_parent
 
         $dPrice = $this->getTelAvisPrice();
 
-        if($this->blIncludesTelAvis){
-            $oDeliveryCost->subtract($dPrice);
-        }else{
+        if($blTelAvis && !$this->blIncludesTelAvis){
             $oDeliveryCost->add($dPrice);
+        }else{
+            $oDeliveryCost->subtract($dPrice);
         }
-        $this->blIncludesTelAvis = !$this->blIncludesTelAvis;
+        $this->blIncludesTelAvis = !$blTelAvis;
     }
 
     public function isIncludingTelAvis()
