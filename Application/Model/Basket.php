@@ -63,7 +63,6 @@ class Basket extends Basket_parent
                     if($this->blIncludesTelAvis){
                         $dDelPrice->add($dPrice);
                     }
-                    $dDelPrice->add($dPrice);
                     $oDeliveryPrice->addPrice($dDelPrice);
                     $this->blIncludesSurcharge = $oDelivery->isBlIncludesSurcharge();
                     $this->delMulti = $oDelivery->getMultiplier();
@@ -182,6 +181,7 @@ class Basket extends Basket_parent
     {
         $this->blIncludesTelAvis = $blTelAvis;
         $this->_calcDeliveryCost();
+
     }
 
     public function isIncludingTelAvis()
