@@ -7,9 +7,6 @@ class Email extends Email_parent
 
     public function sendRegisterEmailToOwner($user, $subject = null)
     {
-        // add user defined stuff if there is any
-        $user = $this->addUserRegisterEmail($user);
-
         // shop info
         $shop = $this->getShop();
 
@@ -36,5 +33,34 @@ class Email extends Email_parent
         return $this->send();
     }
 
+    protected function setMailParams($shop = null)
+    {
+        $this->clearMailer();
+
+        if (!$shop) {
+            $shop = $this->getShop();
+        }
+
+        $this->setFrom($shop->oxshops__oxorderemail->value, $shop->oxshops__oxname->getRawValue());
+        $this->setSmtp($shop);
+    }
+
+    protected function processViewArray()
+    {
+        $outputProcessor = oxNew(\OxidEsales\Eshop\Core\Output::class);
+
+        // processing assigned smarty variables
+        $newArray = $outputProcessor->processViewArray($this->_aViewData, "oxemail");
+
+        $this->_aViewData = array_merge($this->_aViewData, $newArray);
+    }
+
+    private function getRenderer()
+    {
+        $bridge = $this->getContainer()->get(TemplateRendererBridgeInterface::class);
+        $bridge->setEngine($this->_getSmarty());
+
+        return $bridge->getTemplateRenderer();
+    }
 
 }
