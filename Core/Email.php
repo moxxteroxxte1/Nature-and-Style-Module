@@ -2,6 +2,8 @@
 
 namespace NatureAndStyle\CoreModule\Core;
 
+use OxidEsales\Eshop\Core\Output;
+
 class Email extends Email_parent
 {
 
@@ -47,7 +49,7 @@ class Email extends Email_parent
 
     protected function processViewArray()
     {
-        $outputProcessor = oxNew(\OxidEsales\Eshop\Core\Output::class);
+        $outputProcessor = oxNew(Output::class);
 
         // processing assigned smarty variables
         $newArray = $outputProcessor->processViewArray($this->_aViewData, "oxemail");
@@ -61,6 +63,15 @@ class Email extends Email_parent
         $bridge->setEngine($this->_getSmarty());
 
         return $bridge->getTemplateRenderer();
+    }
+
+    protected function clearMailer()
+    {
+        $this->clearAllRecipients();
+        $this->clearReplyTos();
+        $this->clearAttachments();
+
+        $this->ErrorInfo = '';
     }
 
 }
