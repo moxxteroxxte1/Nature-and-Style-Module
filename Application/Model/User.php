@@ -13,7 +13,7 @@ class User extends User_parent
 {
     protected function setAutoGroups($sCountryId)
     {
-
+        return;
     }
 
     public function isPriceViewModeNetto()
