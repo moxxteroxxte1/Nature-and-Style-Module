@@ -2,6 +2,7 @@
 
 namespace NatureAndStyle\CoreModule\Application\Component;
 
+use NatureAndStyle\CoreModule\Core\Email;
 use OxidEsales\Eshop\Core\Registry;
 
 class UserComponent extends UserComponent_parent
@@ -17,6 +18,9 @@ class UserComponent extends UserComponent_parent
 
             $sUrl = Registry::getConfig()->getShopHomeUrl() . 'cl=content&tpl=user_inactive.tpl';
             Registry::getUtils()->redirect($sUrl, true, 302);
+
+            $oxEMail = oxNew(Email::class);
+            $oxEMail->sendRegisterEmailToOwner($oUser);
         }
     }
 }
