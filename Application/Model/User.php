@@ -11,6 +11,11 @@ use OxidEsales\EshopCommunity\Internal\Domain\Authentication\Bridge\PasswordServ
 
 class User extends User_parent
 {
+    protected function setAutoGroups($sCountryId)
+    {
+
+    }
+
     public function isPriceViewModeNetto()
     {
         return $this->inGroup("oxiddealer") || (Registry::getConfig()->getConfigParam('blShowNetPrice'));
