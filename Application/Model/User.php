@@ -11,10 +11,53 @@ use OxidEsales\EshopCommunity\Internal\Domain\Authentication\Bridge\PasswordServ
 
 class User extends User_parent
 {
-    protected function setAutoGroups($sCountryId)
+
+    public function changeUserData($sUser, $sPassword, $sPassword2, $aInvAddress, $aDelAddress)
     {
-        return;
+        // validating values before saving. If validation fails - exception is thrown
+        $this->checkValues($sUser, $sPassword, $sPassword2, $aInvAddress, $aDelAddress);
+        // input data is fine - lets save updated user info
+
+        $this->assign($aInvAddress);
+
+        $this->onChangeUserData($aInvAddress);
+
+        // update old or add new delivery address
+        $this->assignAddress($aDelAddress);
+
+        // saving new values
+        $this->save();
     }
+
+    protected function onChangeUserData($aInvAddress)
+    {
+    }
+
+    protected function assignAddress($aDelAddress)
+    {
+        if (is_array($aDelAddress) && count($aDelAddress)) {
+            $sAddressId = Registry::getRequest()->getRequestEscapedParameter('oxaddressid');
+            $sAddressId = ($sAddressId === null || $sAddressId == -1 || $sAddressId == -2) ? null : $sAddressId;
+
+            $oAddress = oxNew(\OxidEsales\Eshop\Application\Model\Address::class);
+            $oAddress->setId($sAddressId);
+            $oAddress->load($sAddressId);
+            $oAddress->assign($aDelAddress);
+            $oAddress->oxaddress__oxuserid = new \OxidEsales\Eshop\Core\Field($this->getId(), \OxidEsales\Eshop\Core\Field::T_RAW);
+            $oAddress->oxaddress__oxcountry = $this->getUserCountry($oAddress->oxaddress__oxcountryid->value);
+            $oAddress->save();
+
+            // resetting addresses
+            $this->_aAddresses = null;
+
+            // saving delivery Address for later use
+            Registry::getSession()->setVariable('deladrid', $oAddress->getId());
+        } else {
+            // resetting
+            Registry::getSession()->setVariable('deladrid', null);
+        }
+    }
+
 
     public function isPriceViewModeNetto()
     {
