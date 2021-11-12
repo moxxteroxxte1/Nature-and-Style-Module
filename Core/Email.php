@@ -3,6 +3,7 @@
 namespace NatureAndStyle\CoreModule\Core;
 
 use OxidEsales\Eshop\Core\Output;
+use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
 
 class Email extends Email_parent
 {
