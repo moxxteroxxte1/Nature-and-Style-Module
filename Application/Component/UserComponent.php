@@ -10,9 +10,10 @@ class UserComponent extends UserComponent_parent
 {
     public function createUser()
     {
-        parent::createUser();
-        if($oUser = $this->getUser())
+        if(parent::createUser())
         {
+            $oUser = $this->getUser();
+
             $oxEMail = oxNew(Email::class);
             $oxEMail->sendRegisterEmailToOwner($oUser);
 
@@ -23,5 +24,6 @@ class UserComponent extends UserComponent_parent
             $sUrl = Registry::getConfig()->getShopHomeUrl() . 'cl=content&tpl=user_inactive.tpl';
             Registry::getUtils()->redirect($sUrl, true, 302);
         }
+        return false;
     }
 }
