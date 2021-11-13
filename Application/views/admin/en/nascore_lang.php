@@ -41,4 +41,5 @@ $aLang = array(
     'GENIMPORT_AUTOFILL'                            => ' Automatically map CSV fields',
     'DELIVERYSET_TELVAIS_ACTIVE'                    => 'Telephone notification',
     'DELIVERYSET_TELVAIS_PRICE'                     => 'Costs for telephone notification',
+    'OEGDPROPTIN_CONFIRM_USER_REGISTRATION_OPTIN' => 'Please agree to your data being stored!',
 );

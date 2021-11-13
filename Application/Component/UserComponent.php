@@ -10,20 +10,29 @@ class UserComponent extends UserComponent_parent
 {
     public function createUser()
     {
-        if(parent::createUser())
-        {
-            $oUser = $this->getUser();
+        if (false == $this->validateRegistrationOptin()) {
+            //show error message on submit but not on page reload.
+            if ($this->getRequestParameter('stoken')) {
+                \OxidEsales\Eshop\Core\Registry::get(\OxidEsales\Eshop\Core\UtilsView::class)->addErrorToDisplay('OEGDPROPTIN_CONFIRM_USER_REGISTRATION_OPTIN', false, true);
+                \OxidEsales\Eshop\Core\Registry::get(\OxidEsales\Eshop\Core\UtilsView::class)->addErrorToDisplay('OEGDPROPTIN_CONFIRM_USER_REGISTRATION_OPTIN', false, true, 'oegdproptin_userregistration');
+            }
+        } else {
+            if (parent::createUser()) {
+                $oUser = $this->getUser();
 
-            $oxEMail = oxNew(Email::class);
-            $oxEMail->sendRegisterEmailToOwner($oUser);
+                $oxEMail = oxNew(Email::class);
+                $oxEMail->sendRegisterEmailToOwner($oUser);
 
-            $oUser->oxuser__oxactive = new Field(0);
-            $oUser->save();
-            $oUser->logout();
+                $oUser->oxuser__oxactive = new Field(0);
+                $oUser->save();
+                $oUser->logout();
 
-            $sUrl = Registry::getConfig()->getShopHomeUrl() . 'cl=content&tpl=user_inactive.tpl';
-            Registry::getUtils()->redirect($sUrl, true, 302);
+                $sUrl = Registry::getConfig()->getShopHomeUrl() . 'cl=content&tpl=user_inactive.tpl';
+                Registry::getUtils()->redirect($sUrl, true, 302);
+            }
         }
         return false;
     }
+
+
 }
