@@ -10,7 +10,8 @@ class UserComponent extends UserComponent_parent
 {
     public function createUser()
     {
-        if (parent::createUser() !== false) {
+        parent::createUser();
+        if ($this->_blIsNewUser) {
             $oUser = $this->getUser();
 
             $oxEMail = oxNew(Email::class);
