@@ -43,7 +43,4 @@ $aLang = array(
     'GENIMPORT_AUTOFILL'                            => ' CSV Felder automatisch zuordnen',
     'DELIVERYSET_TELVAIS_ACTIVE'                    => 'Telefonische Avisierung',
     'DELIVERYSET_TELVAIS_PRICE'                     => 'Kosten für telefonische Avisierung',
-    'OEGDPROPTIN_CONFIRM_USER_REGISTRATION_OPTIN' => 'Bitte stimmen Sie dem Speichern der Daten zu!',
-
-
 );
