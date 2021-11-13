@@ -87,7 +87,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Controller\OrderController::class => OrderController::class,
 
         //Components
-        \OxidEsales\GdprOptinModule\Component\UserComponent::class => UserComponent::class,
+        \OxidEsales\Eshop\Application\Component\UserComponent::class => UserComponent::class,
         \OxidEsales\Eshop\Application\Component\Widget\ArticleDetails::class => ArticleDetails::class,
 
         //Models
