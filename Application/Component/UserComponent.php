@@ -10,7 +10,7 @@ class UserComponent extends UserComponent_parent
 {
     public function createUser()
     {
-        if(parent::createUser() !== false)
+        if(parent::createUser())
         {
             $oUser = $this->getUser();
 
