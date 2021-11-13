@@ -41,4 +41,7 @@ $aLang = array(
     'MX'                                            => 'Divers',
     'COMP'                                          => 'Firma',
     'GENIMPORT_AUTOFILL'                            => ' CSV Felder automatisch zuordnen',
+    'DELIVERYSET_TELVAIS_ACTIVE'                    => 'Telefonische Avisierung',
+    'DELIVERYSET_TELVAIS_PRICE'                     => 'Kosten für telefonische Avisierung',
+
 );

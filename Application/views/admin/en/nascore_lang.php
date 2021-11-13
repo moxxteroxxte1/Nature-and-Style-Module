@@ -39,5 +39,6 @@ $aLang = array(
     'MX'                                            => 'Mx',
     'COMP'                                          => 'Company',
     'GENIMPORT_AUTOFILL'                            => ' Automatically map CSV fields',
-
+    'DELIVERYSET_TELVAIS_ACTIVE'                    => 'Telephone notification',
+    'DELIVERYSET_TELVAIS_PRICE'                     => 'Costs for telephone notification',
 );
