@@ -2,6 +2,8 @@
 
 namespace NatureAndStyle\CoreModule\Application\Model;
 
+use OxidEsales\Eshop\Application\Model\Address;
+use OxidEsales\Eshop\Core\Field;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Database\Adapter\DatabaseInterface;
@@ -39,11 +41,11 @@ class User extends User_parent
             $sAddressId = Registry::getRequest()->getRequestEscapedParameter('oxaddressid');
             $sAddressId = ($sAddressId === null || $sAddressId == -1 || $sAddressId == -2) ? null : $sAddressId;
 
-            $oAddress = oxNew(\OxidEsales\Eshop\Application\Model\Address::class);
+            $oAddress = oxNew(Address::class);
             $oAddress->setId($sAddressId);
             $oAddress->load($sAddressId);
             $oAddress->assign($aDelAddress);
-            $oAddress->oxaddress__oxuserid = new \OxidEsales\Eshop\Core\Field($this->getId(), \OxidEsales\Eshop\Core\Field::T_RAW);
+            $oAddress->oxaddress__oxuserid = new Field($this->getId(), Field::T_RAW);
             $oAddress->oxaddress__oxcountry = $this->getUserCountry($oAddress->oxaddress__oxcountryid->value);
             $oAddress->save();
 

@@ -4,6 +4,7 @@
     <configs>
       <sshConfig authType="PASSWORD" host="access867949694.webspace-data.io" id="52f7a9ba-3081-4af4-af62-cb5f5be518b0" port="22" nameFormat="DESCRIPTIVE" username="u104447192" />
       <sshConfig authType="PASSWORD" host="shop" id="1176a724-b5e3-4ba0-93da-1f94489fa6e3" port="22" nameFormat="DESCRIPTIVE" username="shopadmin" />
+      <sshConfig authType="PASSWORD" host="home206106098.1and1-data.host" id="da23e20a-69b8-4a06-bc1f-ad5978bb3792" port="22" nameFormat="DESCRIPTIVE" username="u45322713" />
     </configs>
   </component>
 </project>
