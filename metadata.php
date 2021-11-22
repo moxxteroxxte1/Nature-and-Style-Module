@@ -186,6 +186,33 @@ $aModule = array(
             'file' => '/Application/views/blocks/discount_main_extend.tpl',
         ),
 
+        //ORDER
+        array(
+            'template' => 'order_list.tpl',
+            'block' => 'admin_order_list_item',
+            'file'  => '/Application/views/blocks/order_list_extend.tpl'
+        ),
+
+        array(
+            'template' => 'order_list.tpl',
+            'block' => 'admin_order_list_filter',
+            'file'  => '/Application/views/blocks/order_list_filter_extend.tpl'
+        ),
+
+        array(
+            'template' => 'order_list.tpl',
+            'block' => 'admin_order_list_colgroup',
+            'file'  => '/Application/views/blocks/order_list_colgroup_extend.tpl'
+        ),
+
+        array(
+            'template' => 'order_list.tpl',
+            'block' => 'admin_order_list_sorting',
+            'file'  => '/Application/views/blocks/order_list_sorting.tpl'
+        ),
+
+
+
         //User
         array(
             'template' => 'user_main.tpl',
