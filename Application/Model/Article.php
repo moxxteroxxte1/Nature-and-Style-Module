@@ -149,9 +149,14 @@ class Article extends Article_parent
             return;
         }
 
-        $dbRecord['oxid'] = $dbRecord['oxartnum'];
+        foreach ($dbRecord as $name => $value) {
+            Registry::getLogger()->error($name);
+            if(strtolower($name)=='oxlongdesc'){
+                parent::setArticleLongDesc($value);
+                unset($dbRecord[$name]);
+            }
+        }
 
         parent::assign($dbRecord);
-        parent::setArticleLongDesc($dbRecord['oxlongdesc']);
     }
 }
