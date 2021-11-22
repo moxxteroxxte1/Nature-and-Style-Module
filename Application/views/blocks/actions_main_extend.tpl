@@ -104,7 +104,7 @@
         <b>[{oxmultilang ident="PROMOTIONS_SLIDER_COLOR"}]</b>
     </td>
     <td class="edittext">
-        <input type="hidden" id="oxcolor" name=editval[oxactions__oxcolor]" value="">
+        <input type="hidden" id="oxcolor" name=editval[oxactions__oxcolor]" [{if $edit->oxactions__oxcolor->value != ""}] value="[{$edit->oxactions__oxcolor->value}]" [{/if}]>
         <input type="color" id="oxcolorinput" class="editinput" [{if $edit->oxactions__oxcolor->value != ""}] value="[{$edit->oxactions__oxcolor->value}]" [{/if}] onchange="colorUpdated(event)">
     </td>
     <td nowrap="nowrap">

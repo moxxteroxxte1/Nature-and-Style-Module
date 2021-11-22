@@ -47,23 +47,6 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
         }
     }
 
-    public function onInsert(Event $event)
-    {
-        $model = $event->getModel();
-
-        if (is_a($model, "OxidEsales\Eshop\Application\Model\Article") && isset($model->oxarticles__oxartnum) && $model->oxarticles__oxartnum->value != "") {
-
-            $model->setId($model->oxarticles__oxartnum->value);
-            $model->save();
-
-            $oDb = DatabaseProvider::getDb();
-            $sQ = 'delete from oxarticles where oxartnum=' . $oDb->quote($model->oxarticles__oxartnum->value) . " and oxartnum != oxid";
-            $oDb->execute($sQ);
-
-            $this->articleToCategory($model->oxarticles__oxartnum->value, $this->category_new);
-        }
-    }
-
     private function articleToCategory($sAId, $sCid)
     {
         $oArticle = oxNew('oxarticle');
@@ -91,7 +74,6 @@ class ModelInsertEventSubscriber extends AbstractShopAwareEventSubscriber
 
     public static function getSubscribedEvents()
     {
-        return [AfterModelUpdateEvent::NAME => 'onUpdate',
-            AfterModelInsertEvent::NAME => 'onInsert'];
+        return [AfterModelUpdateEvent::NAME => 'onUpdate'];
     }
 }
