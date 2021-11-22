@@ -57,7 +57,7 @@ $aModule = array(
         'en' => 'Nature and Style extension.',
     ],
     'thumbnail' => 'out/pictures/logo.png',
-    'version' => '1.0.0',
+    'version' => '1.0.1',
     'author' => 'Nature and Style',
     'url' => 'https://www.natureandstyle.com/',
     'email' => 'info@natureandstyle.de',
