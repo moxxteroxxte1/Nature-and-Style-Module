@@ -126,7 +126,7 @@ class Article extends Article_parent
 
     public function isCarrierShipping()
     {
-        if($this->hasMinDelivery()){
+        if ($this->hasMinDelivery()) {
             $oDeliver = oxNew(Delivery::class);
             $oDeliver->load($this->getMinDelivery());
             return $oDeliver->isMarkedShipping();
@@ -149,12 +149,8 @@ class Article extends Article_parent
             return;
         }
 
-        foreach ($dbRecord as $name => $value) {
-            if(strtolower($name)=='oxlongdesc'){
-                parent::setArticleLongDesc($value);
-                unset($dbRecord[$name]);
-            }
-        }
+        $dbRecord['oxid'] = $dbRecord['oxartnum'];
+        parent::setArticleLongDesc($dbRecord['oxlongdesc']);
 
         parent::assign($dbRecord);
     }
