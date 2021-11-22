@@ -150,8 +150,8 @@ class Article extends Article_parent
         }
 
         $dbRecord['oxid'] = $dbRecord['oxartnum'];
-        parent::setArticleLongDesc($dbRecord['oxlongdesc']);
 
         parent::assign($dbRecord);
+        parent::setArticleLongDesc($dbRecord['oxlongdesc']);
     }
 }
