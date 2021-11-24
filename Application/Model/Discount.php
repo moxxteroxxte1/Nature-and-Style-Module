@@ -25,7 +25,7 @@ class Discount extends Discount_parent
                     }
                 }
             }
-            return true;
+            return false;
         }
         return parent::isForBasketAmount($oBasket);
     }
