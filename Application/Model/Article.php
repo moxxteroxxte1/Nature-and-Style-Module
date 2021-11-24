@@ -9,10 +9,10 @@ use OxidEsales\Eshop\Core\Registry;
 class Article extends Article_parent
 {
 
-    public function getDiscounts(): array
+    public function getDiscounts()
     {
         $oDiscountList = oxNew(DiscountList::class);
-        return $oDiscountList->getArticleDiscounts($this, $this->getUser());
+        return $oDiscountList->getArticleDiscounts($this, $this->getArticleUser());
     }
 
     public function getTitle()
