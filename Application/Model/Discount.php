@@ -30,11 +30,14 @@ class Discount extends Discount_parent
         return parent::isForBasketAmount($oBasket);
     }
 
-    public
-    function getShortDesc()
+    public function getShortDesc()
     {
         return $this->oxdiscount__oxshortdesc->value;
     }
 
+    public function fitPackagingUnit()
+    {
+        return $this->oxdiscount__oxamountpackageunit->value;
+    }
 }
 
