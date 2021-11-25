@@ -10,7 +10,7 @@ use function React\Promise\all;
 class Article extends Article_parent
 {
 
-    public function getDiscounts(): array
+    public function getDiscounts()
     {
         return $this->fetchDiscounts();
     }
@@ -101,14 +101,14 @@ class Article extends Article_parent
 
         $resultSet = $oDb->select($sQ);
         $allResults = $resultSet->fetchAll();
-        $aDiscounts = [];
+        $aDiscounts = false;
         foreach ($allResults as $row) {
             $oDiscount = oxNew('oxdiscount');
             $oDiscount->load($row[0]);
             if (($oDiscount->oxdiscount__oxamountpackageunit->value && $this->oxarticles__oxpackagingunit->value <= 1) || (!$oDiscount->isArticleAssigned($this) && !$oDiscount->isCategoriesAssigned($this->getCategoryIds()))) {
                 continue;
             }
-            $aDiscounts[] = $oDiscount;
+            $aDiscounts[$oDiscount->oxdiscount__oxid] = $oDiscount;
         }
         return $aDiscounts;
     }
