@@ -10,12 +10,12 @@ use function React\Promise\all;
 class Article extends Article_parent
 {
 
-    public function getDiscounts()
+    public function getDiscounts(): array
     {
         $oDiscountList = oxNew(DiscountList::class);
-        $oArticle = oxNew(Article::class);
-        $oArticle->load($this->getId());
-        return $oDiscountList->getArticleDiscounts($oArticle, $this->getUser());
+        $aDiscounts = $oDiscountList->getArticleDiscounts($this, $this->getArticleUser());
+        Registry::getLogger()->error(count($aDiscounts));
+        return $aDiscounts;
     }
 
     public function getTitle()
@@ -46,74 +46,6 @@ class Article extends Article_parent
             }
         }
         return false;
-    }
-
-    private function fetchDiscounts()
-    {
-        $aDiscountList = new DiscountList();
-        $oBaseObject = $aDiscountList->getBaseObject();
-
-        $sTable = $oBaseObject->getViewName();
-        $sQ = "select $sTable.oxid from $sTable ";
-        $sQ .= "where " . $oBaseObject->getSqlActiveSnippet() . ' ';
-
-
-        // defining initial filter parameters
-        $sUserId = null;
-        $sGroupIds = null;
-        $oUser = Registry::getSession()->getUser();
-        $sCountryId = $aDiscountList->getCountryId($oUser);
-        $oDb = DatabaseProvider::getDb();
-
-        // checking for current session user which gives additional restrictions for user itself, users group and country
-        if ($oUser) {
-            // user ID
-            $sUserId = $oUser->getId();
-
-            // user group ids
-            foreach ($oUser->getUserGroups() as $oGroup) {
-                if ($sGroupIds) {
-                    $sGroupIds .= ', ';
-                }
-                $sGroupIds .= $oDb->quote($oGroup->getId());
-            }
-        }
-
-        $sUserTable = getViewName('oxuser');
-        $sGroupTable = getViewName('oxgroups');
-        $sCountryTable = getViewName('oxcountry');
-
-        $sCountrySql = $sCountryId ? "EXISTS(select oxobject2discount.oxid from oxobject2discount where oxobject2discount.OXDISCOUNTID=$sTable.OXID and oxobject2discount.oxtype='oxcountry' and oxobject2discount.OXOBJECTID=" . $oDb->quote($sCountryId) . ")" : '0';
-        $sUserSql = $sUserId ? "EXISTS(select oxobject2discount.oxid from oxobject2discount where oxobject2discount.OXDISCOUNTID=$sTable.OXID and oxobject2discount.oxtype='oxuser' and oxobject2discount.OXOBJECTID=" . $oDb->quote($sUserId) . ")" : '0';
-        $sGroupSql = $sGroupIds ? "EXISTS(select oxobject2discount.oxid from oxobject2discount where oxobject2discount.OXDISCOUNTID=$sTable.OXID and oxobject2discount.oxtype='oxgroups' and oxobject2discount.OXOBJECTID in ($sGroupIds) )" : '0';
-
-        $sQ .= " and (
-            select
-                if(EXISTS(select 1 from oxobject2discount, $sCountryTable where $sCountryTable.oxid=oxobject2discount.oxobjectid and oxobject2discount.OXDISCOUNTID=$sTable.OXID and oxobject2discount.oxtype='oxcountry' LIMIT 1),
-                        $sCountrySql,
-                        1) &&
-                if(EXISTS(select 1 from oxobject2discount, $sUserTable where $sUserTable.oxid=oxobject2discount.oxobjectid and oxobject2discount.OXDISCOUNTID=$sTable.OXID and oxobject2discount.oxtype='oxuser' LIMIT 1),
-                        $sUserSql,
-                        1) &&
-                if(EXISTS(select 1 from oxobject2discount, $sGroupTable where $sGroupTable.oxid=oxobject2discount.oxobjectid and oxobject2discount.OXDISCOUNTID=$sTable.OXID and oxobject2discount.oxtype='oxgroups' LIMIT 1),
-                        $sGroupSql,
-                        1)
-            )";
-
-        $sQ .= " order by $sTable.oxsort ";
-
-        $resultSet = $oDb->select($sQ);
-        $allResults = $resultSet->fetchAll();
-        $aDiscounts = false;
-        foreach ($allResults as $row) {
-            $oDiscount = oxNew('oxdiscount');
-            $oDiscount->load($row[0]);
-            if ($oDiscount->oxdiscount__oxamountpackageunit->value && $this->oxarticles__oxpackagingunit->value <= 1) {
-                continue;
-            }
-            $aDiscounts[$oDiscount->oxdiscount__oxid] = $oDiscount;
-        }
-        return $aDiscounts;
     }
 
     public function getMinDelivery()
@@ -155,7 +87,7 @@ class Article extends Article_parent
         parent::assign($dbRecord);
 
         $key = 'OXLONGDESC';
-        if(isset($dbRecord[$key])){
+        if (isset($dbRecord[$key])) {
             parent::setArticleLongDesc($dbRecord[$key]);
             unset($dbRecord[$key]);
         }
