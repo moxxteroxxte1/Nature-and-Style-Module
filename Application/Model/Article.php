@@ -149,14 +149,12 @@ class Article extends Article_parent
             return;
         }
 
-        foreach ($dbRecord as $name => $value) {
-            Registry::getLogger()->error($name);
-            if(strtolower($name)=='oxlongdesc'){
-                parent::setArticleLongDesc($value);
-                unset($dbRecord[$name]);
-            }
-        }
-
         parent::assign($dbRecord);
+
+        $key = 'OXLONGDESC';
+        if(isset($dbRecord[$key])){
+            parent::setArticleLongDesc($dbRecord[$key]);
+            unset($dbRecord[$key]);
+        }
     }
 }
