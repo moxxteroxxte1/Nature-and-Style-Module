@@ -13,7 +13,7 @@ class Article extends Article_parent
     public function getDiscounts(): array
     {
         $oDiscountList = oxNew(DiscountList::class);
-        $aDiscounts = $oDiscountList->getArticleDiscounts($this, $this->getArticleUser());
+        $aDiscounts = $oDiscountList->getArticleDiscounts($this->load($this->getId()), $this->getArticleUser());
         Registry::getLogger()->error(count($aDiscounts));
         return $aDiscounts;
     }
