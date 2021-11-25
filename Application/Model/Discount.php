@@ -42,7 +42,7 @@ class Discount extends Discount_parent
 
     public function checkArticle($oArticle)
     {
-        return ($this->isArticleAssigned($this) || $this->isCategoriesAssigned($this->getCategoryIds()));
+        return ($this->isArticleAssigned($oArticle) || $this->isCategoriesAssigned($oArticle->getCategoryIds()));
     }
 
     protected function isArticleAssigned($oArticle)
