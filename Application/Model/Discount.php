@@ -39,5 +39,10 @@ class Discount extends Discount_parent
     {
         return $this->oxdiscount__oxamountpackageunit->value;
     }
+
+    public function checkArticle($oArticle)
+    {
+        return ($this->isArticleAssigned($this) || $this->isCategoriesAssigned($this->getCategoryIds()));
+    }
 }
 
