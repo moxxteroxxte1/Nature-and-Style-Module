@@ -30,37 +30,6 @@ class Discount extends Discount_parent
         return parent::isForBasketAmount($oBasket);
     }
 
-    public function isForArticle($oArticle)
-    {
-        $logger = Registry::getLogger();
-        // item discounts may only be applied for basket
-        if ($this->oxdiscount__oxaddsumtype->value == 'itm') {
-            return false;
-        }
-
-        if (($this->oxdiscount__oxamount->value || $this->oxdiscount__oxprice->value) && !$this->oxdiscount__oxamountpackageunit->value) {
-            return false;
-        }
-
-        if ($this->oxdiscount__oxpriceto->value && ($this->oxdiscount__oxpriceto->value < $oArticle->getBasePrice())) {
-            return false;
-        }
-
-        if ($this->isGlobalDiscount()) {
-            return true;
-        }
-
-        $sArticleId = $oArticle->getProductId();
-
-        if (!isset($this->_aHasArticleDiscounts[$sArticleId])) {
-            $blResult = $this->isArticleAssigned($oArticle) || $this->isCategoriesAssigned($oArticle->getCategoryIds());
-
-            $this->_aHasArticleDiscounts[$sArticleId] = $blResult;
-        }
-
-        return $this->_aHasArticleDiscounts[$sArticleId];
-    }
-
     public function getShortDesc()
     {
         return $this->oxdiscount__oxshortdesc->value;
