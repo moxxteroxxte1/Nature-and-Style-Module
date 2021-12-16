@@ -53,7 +53,7 @@ class Discount extends Discount_parent
         $sArticleId = $oArticle->getProductId();
 
         if (!isset($this->_aHasArticleDiscounts[$sArticleId])) {
-            $blResult = $this->isArticleAssigned($oArticle) || $this->isCategoriesAssigned($oArticle->getCategoryIds());
+            $blResult = $this->_isArticleAssigned($oArticle) || $this->_isCategoriesAssigned($oArticle->getCategoryIds());
 
             $this->_aHasArticleDiscounts[$sArticleId] = $blResult;
         }
