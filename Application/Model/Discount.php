@@ -38,7 +38,7 @@ class Discount extends Discount_parent
             return false;
         }
 
-        if (($this->oxdiscount__oxamount->value || $this->oxdiscount__oxprice->value) && !$this->oxdiscount__oxamountpackageunit->value) {
+        if (($this->oxdiscount__oxamount->value || $this->oxdiscount__oxprice->value)) {
             return false;
         }
 
