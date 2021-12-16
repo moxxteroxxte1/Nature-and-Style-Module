@@ -11,7 +11,7 @@ use OxidEsales\Eshop\Core\Registry;
  */
 class Events
 {
-    static var $aCategories = [
+    static $aCategories = [
         'new_articles' => array(
             'oxid' => 'new_articles',
             'oxtitle' => 'Unsere Neuheiten',
@@ -20,7 +20,7 @@ class Events
             'oxsort' => 0)
     ];
 
-    static var $aContents = [
+    static $aContents = [
         'oxinactive' => array(
             'oxloadid' => 'oxinactive',
             'oxsnippet' => 1,
