@@ -1,6 +1,5 @@
 <?php
 
-
 namespace NatureAndStyle\CoreModule\Application\Controller\Admin;
 
 use OxidEsales\Eshop\Core\DatabaseProvider;

@@ -2,6 +2,7 @@
 
 namespace NatureAndStyle\CoreModule\Application\Model;
 
+use NatureAndStyle\CoreModule\Application\Model\DiscountList;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Registry;
 
