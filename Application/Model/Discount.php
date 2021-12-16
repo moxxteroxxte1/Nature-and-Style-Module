@@ -30,35 +30,19 @@ class Discount extends Discount_parent
         return parent::isForBasketAmount($oBasket);
     }
 
-    public function getArticleDiscounts($oArticle, $oUser = null)
-    {
-        $aList = [];
-        $aDiscList = $this->_getList($oUser)->getArray();
-        foreach ($aDiscList as $oDiscount) {
-            if ($oDiscount->isForArticle($oArticle)) {
-                $aList[$oDiscount->getId()] = $oDiscount;
-            }
-        }
-
-        return $aList;
-    }
-
     public function isForArticle($oArticle)
     {
         $logger = Registry::getLogger();
         // item discounts may only be applied for basket
         if ($this->oxdiscount__oxaddsumtype->value == 'itm') {
-            $logger->error('1');
             return false;
         }
 
         if (($this->oxdiscount__oxamount->value || $this->oxdiscount__oxprice->value) && !$this->oxdiscount__oxamountpackageunit->value) {
-            $logger->error('2');
             return false;
         }
 
         if ($this->oxdiscount__oxpriceto->value && ($this->oxdiscount__oxpriceto->value < $oArticle->getBasePrice())) {
-            $logger->error('3');
             return false;
         }
 
