@@ -30,6 +30,19 @@ class Discount extends Discount_parent
         return parent::isForBasketAmount($oBasket);
     }
 
+    public function getArticleDiscounts($oArticle, $oUser = null)
+    {
+        $aList = [];
+        $aDiscList = $this->_getList($oUser)->getArray();
+        foreach ($aDiscList as $oDiscount) {
+            if ($oDiscount->isForArticle($oArticle)) {
+                $aList[$oDiscount->getId()] = $oDiscount;
+            }
+        }
+
+        return $aList;
+    }
+
     public function isForArticle($oArticle)
     {
         $logger = Registry::getLogger();
