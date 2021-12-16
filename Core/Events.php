@@ -58,7 +58,7 @@ class Events
     public static function onActivate()
     {
         $sType = 'oxcategory';
-        foreach (Events::$aContents as $key => $value) {
+        foreach (Events::$aCategories as $key => $value) {
             Events::createObject($sType, $key, $value);
         }
 
