@@ -2,7 +2,6 @@
 
 namespace NatureAndStyle\CoreModule\Application\Model;
 
-use OxidEsales\Eshop\Application\Model\DiscountList;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Registry;
 
@@ -12,7 +11,7 @@ class Article extends Article_parent
     public function getDiscounts()
     {
         $oDeliveryList = oxNew(DiscountList::class);
-        return $oDeliveryList->getArticleDiscounts($this, $this->getUser());
+        return $oDeliveryList->getPotenzialDiscounts($this, $this->getUser());
     }
 
     public function getTitle()
