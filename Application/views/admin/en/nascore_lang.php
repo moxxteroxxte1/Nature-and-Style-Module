@@ -41,4 +41,6 @@ $aLang = array(
     'GENIMPORT_AUTOFILL'                            => ' Automatically map CSV fields',
     'DELIVERYSET_TELVAIS_ACTIVE'                    => 'Telephone notification',
     'DELIVERYSET_TELVAIS_PRICE'                     => 'Costs for telephone notification',
+    'SHOP_OPTIONS_GROUP_SHIPPING_CALCULATOR'        => 'Shipping costs calculator',
+    'SHOP_CONFIG_PAYMENT_SHIPSET_DEFAULT'           => 'Default',
 );

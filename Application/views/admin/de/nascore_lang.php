@@ -43,4 +43,6 @@ $aLang = array(
     'GENIMPORT_AUTOFILL'                            => ' CSV Felder automatisch zuordnen',
     'DELIVERYSET_TELVAIS_ACTIVE'                    => 'Telefonische Avisierung',
     'DELIVERYSET_TELVAIS_PRICE'                     => 'Kosten für telefonische Avisierung',
+    'SHOP_OPTIONS_GROUP_SHIPPING_CALCULATOR'        => 'Versandkostenrechner',
+    'SHOP_CONFIG_PAYMENT_SHIPSET_DEFAULT'           => 'Standardwert',
 );

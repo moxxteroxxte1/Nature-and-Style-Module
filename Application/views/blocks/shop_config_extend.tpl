@@ -30,7 +30,7 @@
 </div>
 <div class="groupExp">
     <div>
-        <a href="#" onclick="_groupExp(this);return false;" class="rc"><b>[{oxmultilang ident="SHOP_OPTIONS_GROUP_SHIPPING"}]</b></a>
+        <a href="#" onclick="_groupExp(this);return false;" class="rc"><b>[{oxmultilang ident="SHOP_OPTIONS_GROUP_SHIPPING_CALCULATOR"}]</b></a>
         <dl>
             <dt>
                 <select class="select" size="4" name=confstrs[nasdefaultshipset] [{$readonly}]>
@@ -40,7 +40,7 @@
                 </select>
             </dt>
             <dd>
-                [{oxmultilang ident="SHOP_CONFIG_DELIVERY_MAX"}]
+                [{oxmultilang ident="SHOP_CONFIG_PAYMENT_SHIPSET_DEFAULT"}]
             </dd>
             <div class="spacer"></div>
         </dl>
