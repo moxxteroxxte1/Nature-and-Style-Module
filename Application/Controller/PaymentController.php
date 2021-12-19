@@ -63,7 +63,7 @@ class PaymentController extends PaymentController_parent
             if (empty($aPaymentList) || !$aPaymentList) {
                 $dPrice = $oBasket->getPrice()->getPrice();
                 $session->setVariable("hasNoShipSet", true);
-                $aPaymentList = oxNew(PaymentList::class)->getPaymentList(Registry::getConfig()->getConfigParam('nascargodelivery'), $dPrice, $this->getUser());
+                $aPaymentList = oxNew(PaymentList::class)->getPaymentList(Registry::getConfig()->getConfigParam('nasdefaultshipset'), $dPrice, $this->getUser());
             }
 
             $oBasket->setShipping($sActShipSet);
@@ -91,7 +91,7 @@ class PaymentController extends PaymentController_parent
         }
 
         if (!($sShipSetId = Registry::getRequest()->getRequestEscapedParameter('sShipSet'))) {
-            $sShipSetId = ($session->getVariable('hasNoShipSet') ? $myConfig->getConfigParam('nascargodelivery') : $session->getVariable('sShipSet'));
+            $sShipSetId = ($session->getVariable('hasNoShipSet') ? $myConfig->getConfigParam('nasdefaultshipset') : $session->getVariable('sShipSet'));
         }
         if (!($sPaymentId = Registry::getRequest()->getRequestEscapedParameter('paymentid'))) {
             $sPaymentId = $session->getVariable('paymentid');

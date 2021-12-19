@@ -70,7 +70,7 @@ class Order extends Order_parent
             $shopId,
             $oUser,
             $basket->getPriceForPayment(),
-            ($session->getVariable('hasNoShipSet') ? Registry::getConfig()->getConfigParam('nascargodelivery') : $session->getVariable('sShipSet'))
+            ($session->getVariable('hasNoShipSet') ? Registry::getConfig()->getConfigParam('nasdefaultshipset') : $session->getVariable('sShipSet'))
         );
     }
 

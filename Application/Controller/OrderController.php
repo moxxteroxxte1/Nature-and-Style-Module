@@ -34,7 +34,7 @@ class OrderController extends OrderController_parent
                     $config->getShopId(),
                     $oUser,
                     $oBasket->getPriceForPayment(),
-                    ($session->getVariable('hasNoShipSet') ? $config->getConfigParam('nascargodelivery') : $session->getVariable('sShipSet'))
+                    ($session->getVariable('hasNoShipSet') ? $config->getConfigParam('nasdefaultshipset') : $session->getVariable('sShipSet'))
                 )
             ) {
                 $this->_oPayment = $oPayment;

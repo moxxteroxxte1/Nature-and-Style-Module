@@ -28,3 +28,21 @@
         </dl>
     </div>
 </div>
+<div class="groupExp">
+    <div>
+        <a href="#" onclick="_groupExp(this);return false;" class="rc"><b>[{oxmultilang ident="SHOP_OPTIONS_GROUP_SHIPPING"}]</b></a>
+        <dl>
+            <dt>
+                <select class="select" size="4" name=confstrs[nasdefaultshipset] [{$readonly}]>
+                    [{foreach from=$shipsets item=oShipSet}]
+                    <option value="[{$oShipSet[0]}]" [{$oShipSet[1]}]>[{$oShipSet[2]}]</option>
+                    [{/foreach}]
+                </select>
+            </dt>
+            <dd>
+                [{oxmultilang ident="SHOP_CONFIG_DELIVERY_MAX"}]
+            </dd>
+            <div class="spacer"></div>
+        </dl>
+    </div>
+</div>
