@@ -6,7 +6,6 @@ use OxidEsales\Eshop\Core\Registry;
 
 class OrderController extends OrderController_parent
 {
-    var $sShipSet = "74dbcdc315fde44ef79ca43038fe803f";
 
     public function getDeliveryPrice()
     {
@@ -26,15 +25,16 @@ class OrderController extends OrderController_parent
             $oPayment = oxNew(\OxidEsales\Eshop\Application\Model\Payment::class);
 
             $session = Registry::getSession();
+            $config = Registry::getConfig();
 
             if (
                 $sPaymentid && $oPayment->load($sPaymentid) &&
                 $oPayment->isValidPayment(
                     Registry::getSession()->getVariable('dynvalue'),
-                    Registry::getConfig()->getShopId(),
+                    $config->getShopId(),
                     $oUser,
                     $oBasket->getPriceForPayment(),
-                    ($session->getVariable('hasNoShipSet') ? $this->sShipSet : $session->getVariable('sShipSet'))
+                    ($session->getVariable('hasNoShipSet') ? $config->getConfigParam('nascargodelivery') : $session->getVariable('sShipSet'))
                 )
             ) {
                 $this->_oPayment = $oPayment;

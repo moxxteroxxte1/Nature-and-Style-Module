@@ -11,7 +11,6 @@ use OxidEsales\Eshop\Core\Registry;
 
 class PaymentController extends PaymentController_parent
 {
-    var $sShipSet = "74dbcdc315fde44ef79ca43038fe803f";
 
     public function changeshipping()
     {
@@ -69,7 +68,7 @@ class PaymentController extends PaymentController_parent
             if (empty($aPaymentList) || !$aPaymentList) {
                 $dPrice = $oBasket->getPrice()->getPrice();
                 $session->setVariable("hasNoShipSet", true);
-                $aPaymentList = oxNew(PaymentList::class)->getPaymentList($this->sShipSet, $dPrice, $this->getUser());
+                $aPaymentList = oxNew(PaymentList::class)->getPaymentList(Registry::getConfig()->getConfigParam('nascargodelivery'), $dPrice, $this->getUser());
             }
 
             $oBasket->setShipping($sActShipSet);
@@ -97,7 +96,7 @@ class PaymentController extends PaymentController_parent
         }
 
         if (!($sShipSetId = Registry::getRequest()->getRequestEscapedParameter('sShipSet'))) {
-            $sShipSetId = ($session->getVariable('hasNoShipSet') ? $this->sShipSet : $session->getVariable('sShipSet'));
+            $sShipSetId = ($session->getVariable('hasNoShipSet') ? $myConfig->getConfigParam('nascargodelivery') : $session->getVariable('sShipSet'));
         }
         if (!($sPaymentId = Registry::getRequest()->getRequestEscapedParameter('paymentid'))) {
             $sPaymentId = $session->getVariable('paymentid');

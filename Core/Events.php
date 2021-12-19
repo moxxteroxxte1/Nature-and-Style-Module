@@ -4,6 +4,7 @@ namespace NatureAndStyle\CoreModule\Core;
 
 use Composer\Script\Event;
 use NatureAndStyle\CoreModule\Application\Model\Article;
+use OxidEsales\Eshop\Core\Exception\StandardException;
 use OxidEsales\Eshop\Core\Registry;
 
 /**
@@ -70,10 +71,14 @@ class Events
 
 
     private static function createObject($type, $key, $value){
-        $oObject = oxNew($type);
-        if(!$oObject->load($key)){
-            $oObject->assign($value);
-            $oObject->save();
+        try{
+            $oObject = oxNew($type);
+            if(!$oObject->load($key)){
+                $oObject->assign($value);
+                $oObject->save();
+            }
+        }catch (StandardException $exception){
+            Registry::getLogger()->error($exception->getString());
         }
     }
 
