@@ -17,11 +17,6 @@ class PaymentController extends PaymentController_parent
         $session = Registry::getSession();
 
         $oBasket = $session->getBasket();
-        /*$oBasket->setShipping(null);
-        $oBasket->setSurcharge(false);
-        $oBasket->setFindCheapest(false);
-        $oBasket->onUpdate();
-        $oBasket->setShipping('sShipSet', Registry::getRequest()->getRequestEscapedParameter('sShipSet'));*/
         $oBasket->handleTelAvis(boolval(Registry::getRequest()->getRequestEscapedParameter('blTelAvis')));
         $this->render();
     }
@@ -113,7 +108,6 @@ class PaymentController extends PaymentController_parent
         //#1308C - check if we have paymentID, and it really exists
         if (!$sPaymentId) {
             $session->setVariable('payerror', 1);
-
             return;
         }
 

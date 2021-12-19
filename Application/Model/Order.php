@@ -8,7 +8,6 @@ use OxidEsales\Eshop\Core\DatabaseProvider;
 
 class Order extends Order_parent
 {
-    var $sShipSet = "74dbcdc315fde44ef79ca43038fe803f";
 
     public function validateDelivery($oBasket)
     {
@@ -71,7 +70,7 @@ class Order extends Order_parent
             $shopId,
             $oUser,
             $basket->getPriceForPayment(),
-            ($session->getVariable('hasNoShipSet') ? $this->sShipSet : $session->getVariable('sShipSet'))
+            ($session->getVariable('hasNoShipSet') ? Registry::getConfig()->getConfigParam('nascargodelivery') : $session->getVariable('sShipSet'))
         );
     }
 
