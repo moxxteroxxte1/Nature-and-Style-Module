@@ -38,9 +38,7 @@ class ContentList extends ContentList_parent
     protected function loadFromDb($iType, $CatId = null)
     {
         $sSql = $this->getSQLByType($iType, $CatId);
-        $aData = DatabaseProvider::getDb(DatabaseProvider::FETCH_MODE_ASSOC)->getAll($sSql);
-
-        return $aData;
+        return DatabaseProvider::getDb(DatabaseProvider::FETCH_MODE_ASSOC)->getAll($sSql);
     }
 
     protected function getSQLByType($iType, $CatId = null)
@@ -64,9 +62,7 @@ class ContentList extends ContentList_parent
             $sSQLType = '';
         }
         $sViewName = $this->getBaseObject()->getViewName();
-        $sSql = "SELECT * FROM {$sViewName} WHERE `oxactive` = '1' $sSQLType AND `oxshopid` = " . $oDb->quote($this->_sShopID) . " $sSQLAdd ORDER BY `oxloadid`";
-
-        return $sSql;
+        return"SELECT * FROM {$sViewName} WHERE `oxactive` = '1' $sSQLType AND `oxshopid` = " . $oDb->quote($this->_sShopID) . " $sSQLAdd ORDER BY `oxloadid`";
     }
 
     public function getAsArray()

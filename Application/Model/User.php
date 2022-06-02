@@ -166,9 +166,7 @@ class User extends User_parent
 
     private function formQueryPartForUserName($user, DatabaseInterface $database): string
     {
-        $condition = 'oxuser.oxusername = ' . $database->quote($user);
-
-        return $condition;
+        return ('oxuser.oxusername = ' . $database->quote($user));
     }
 
     protected function formQueryPartForAdminView($sShopID, $blAdmin)

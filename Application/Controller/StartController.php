@@ -44,6 +44,23 @@ class StartController extends StartController_parent
         }
         return null;
     }
+
+    public function getBargainTitle()
+    {
+        $oDb = DatabaseProvider::getDb();
+        $sQ = "SELECT oxtitle FROM oxactions WHERE oxid = 'oxbargain'";
+        $resultSet = $oDb->select($sQ);
+
+        if ($resultSet && $resultSet->count() > 0) {
+            while (!$resultSet->EOF) {
+                $row = $resultSet->getFields();
+                return (string)$row[0];
+
+            }
+        }
+        return null;
+    }
+
     public function getAllDeliverys()
     {
         $data = [];

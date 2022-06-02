@@ -14,12 +14,9 @@ class ArticleDetails extends ArticleDetails_parent
         $sQ = "SELECT oxlongdesc FROM oxactions WHERE oxid = 'oxbargain'";
         $resultSet = $oDb->select($sQ);
 
-        if ($resultSet && $resultSet->count() > 0) {
-            while (!$resultSet->EOF) {
-                $row = $resultSet->getFields();
-                return (string)$row[0];
-
-            }
+        if ($resultSet && $resultSet->count() > 0 && !$resultSet->EOF) {
+            $row = $resultSet->getFields();
+            return (string)$row[0];
         }
         return null;
     }

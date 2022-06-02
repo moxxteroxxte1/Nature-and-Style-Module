@@ -13,10 +13,6 @@ class ContentMain extends ContentMain_parent
     public function render()
     {
         parent::render();
-
-        $logger = Registry::getLogger();
-
-        $aArray = [];
         $oDb = DatabaseProvider::getDb();
 
         $sSQL = "SELECT oxid, oxtitle FROM oxcontents WHERE  `oxactive` = '1' AND oxtype = '2' AND `oxcatid` IS NOT NULL AND `oxsnippet` = '0' ORDER BY `oxloadid`";
@@ -33,8 +29,6 @@ class ContentMain extends ContentMain_parent
 
     public function getSubCats()
     {
-        $logger = Registry::getLogger();
-        $aArray = [];
         $oDb = DatabaseProvider::getDb();
 
         $sSQL = "SELECT oxid, oxtitle FROM oxcontents WHERE `oxactive` = '1' AND oxtype = '2' AND `oxcatid` IS NOT NULL AND `oxsnippet` = '0' ORDER BY `oxloadid`";
