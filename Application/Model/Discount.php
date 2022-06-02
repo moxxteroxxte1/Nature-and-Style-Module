@@ -2,6 +2,7 @@
 
 namespace NatureAndStyle\CoreModule\Application\Model;
 
+use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Registry;
 
 class Discount extends Discount_parent
@@ -17,7 +18,7 @@ class Discount extends Discount_parent
                 $oBasketArticle = $oBasketItem->getArticle(false);
 
                 $blForBasketItem = ($this->oxdiscount__oxaddsumtype->value != 'itm' ?
-                    $this->isForBasketItem($oBasketArticle) :
+                    $this->isForBasketItem($oBasketArticle):
                     $this->isForBundleItem($oBasketArticle));
 
 
@@ -36,6 +37,62 @@ class Discount extends Discount_parent
         }
         return parent::isForBasketAmount($oBasket);
     }
+
+
+    public function isForBasketItem($oArticle)
+    {
+        if ($this->oxdiscount__oxamount->value == 0 && $this->oxdiscount__oxprice->value == 0 && $this->oxdiscount__oxamountpackageunit->value == 0) {
+            return false;
+        }
+
+        // skipping bundle discounts
+        if ($this->oxdiscount__oxaddsumtype->value == 'itm') {
+            return false;
+        }
+
+        $oDb = DatabaseProvider::getDb();
+
+        // check if this article is assigned
+        $sQ = "select 1 from oxobject2discount 
+            where oxdiscountid = :oxdiscountid and oxtype = :oxtype ";
+        $sQ .= $this->getProductCheckQuery($oArticle);
+        $params = [
+            ':oxdiscountid' => $this->oxdiscount__oxid->value,
+            ':oxtype' => 'oxarticles'
+        ];
+
+        if (!($blOk = (bool)$oDb->getOne($sQ, $params))) {
+            // checking article category
+            $blOk = $this->checkForArticleCategories($oArticle);
+        }
+
+        return $blOk;
+    }
+
+    protected function checkForArticleCategories($oArticle)
+    {
+        // check if article is in some assigned category
+        $aCatIds = $oArticle->getCategoryIds();
+        if (!$aCatIds || !count($aCatIds)) {
+            // no categories are set for article, so no discounts from categories..
+            return false;
+        }
+
+        $sCatIds = "(" . implode(",", DatabaseProvider::getDb()->quoteArray($aCatIds)) . ")";
+
+        $oDb = DatabaseProvider::getDb();
+        // getOne appends limit 1, so this one should be fast enough
+        $sQ = "select oxobjectid from oxobject2discount 
+            where oxdiscountid = :oxdiscountid 
+                and oxobjectid in $sCatIds 
+                and oxtype = :oxtype";
+
+        return $oDb->getOne($sQ, [
+            ':oxdiscountid' => $this->oxdiscount__oxid->value,
+            ':oxtype' => 'oxcategories'
+        ]);
+    }
+
 
     public function getShortDesc()
     {
