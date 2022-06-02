@@ -17,6 +17,9 @@ class Discount extends Discount_parent
                     $this->isForBasketItem($oBasketArticle) :
                     $this->isForBundleItem($oBasketArticle));
 
+                $logger = Registry::getLogger();
+                $logger->debug($blForBasketItem);
+
                 if ($blForBasketItem) {
                     $dAmount = $oBasketItem->getAmount();
                     $dPackUnit = $oBasketArticle->getPackagingUnit();
