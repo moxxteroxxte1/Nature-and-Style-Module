@@ -20,14 +20,11 @@ class Discount extends Discount_parent
                     !is_null($this->isForBasketItem($oBasketArticle)):
                     $this->isForBundleItem($oBasketArticle));
 
-
-                $logger->info($blForBasketItem);
-
-
                 if ($blForBasketItem) {
                     $dAmount = $oBasketItem->getAmount();
                     $dPackUnit = $oBasketArticle->getPackagingUnit();
                     if ($dPackUnit > 1 && ($dAmount % $dPackUnit == 0)) {
+                        $logger->info($blForBasketItem);
                         $oBasketItem->addDiscount($this->getAddSum(), $this->getAddSumType(), $this->getId());
                     }
                 }
