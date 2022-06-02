@@ -203,9 +203,6 @@ class DynamicExportBaseController extends DynamicExportBaseController_parent
 
         $insertQuery .= " group by {$sArticleTable}.oxid";
 
-        $logger = Registry::getLogger();
-        $logger->info($insertQuery);
-
         return $oDB->execute($insertQuery) ? true : false;
     }
 
