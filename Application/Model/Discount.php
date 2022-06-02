@@ -93,6 +93,18 @@ class Discount extends Discount_parent
         ]);
     }
 
+    protected function getProductCheckQuery($oProduct)
+    {
+        $oDb = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
+        // check if this article is assigned
+        if (($sParentId = $oProduct->getParentId())) {
+            $sArticleId = " and ( oxobjectid = " . $oDb->quote($oProduct->getProductId()) . " or oxobjectid = " . $oDb->quote($sParentId) . " )";
+        } else {
+            $sArticleId = " and oxobjectid = " . $oDb->quote($oProduct->getProductId());
+        }
+
+        return $sArticleId;
+    }
 
     public function getShortDesc()
     {
