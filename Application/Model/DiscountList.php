@@ -5,7 +5,7 @@ namespace NatureAndStyle\CoreModule\Application\Model;
 class DiscountList extends DiscountList_parent
 {
 
-    public function getPotenzialDiscounts($oArticle, $oUser = null)
+    public function getPotentialDiscounts($oArticle, $oUser = null)
     {
         $aList = [];
         $aDiscList = $this->_getList($oUser)->getArray();

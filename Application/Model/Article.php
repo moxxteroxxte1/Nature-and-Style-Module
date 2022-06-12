@@ -12,7 +12,7 @@ class Article extends Article_parent
     public function getDiscounts()
     {
         $oDiscountList = oxNew(DiscountList::class);
-        return $oDiscountList->getArticleDiscounts($this, $this->getUser());
+        return $oDiscountList->getPotentialDiscounts($this, $this->getUser());
     }
 
     public function getTitle()
