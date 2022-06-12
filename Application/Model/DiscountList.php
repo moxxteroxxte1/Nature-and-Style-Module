@@ -11,6 +11,9 @@ class DiscountList extends DiscountList_parent
         $aDiscList = $this->_getList($oUser)->getArray();
         foreach ($aDiscList as $oDiscount) {
             if ($oDiscount->checkArticle($oArticle)) {
+                if ($oDiscount->fitPackagingUnit() && $oArticle->getPackagingUnit<=1){
+                    continue;
+                }
                 $aList[$oDiscount->getId()] = $oDiscount;
             }
         }
