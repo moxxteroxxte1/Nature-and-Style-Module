@@ -9,15 +9,13 @@ class Discount extends Discount_parent
 {
     public function isForBasketAmount($oBasket)
     {
-        $logger = Registry::getLogger();
-
         if ($this->oxdiscount__oxamountpackageunit->value) {
             $aBasketContents = $oBasket->getContents();
             foreach ($aBasketContents as $oBasketItem) {
                 $oBasketArticle = $oBasketItem->getArticle(false);
 
                 $blForBasketItem = ($this->oxdiscount__oxaddsumtype->value != 'itm' ?
-                    !is_null($this->isForBasketItem($oBasketArticle)):
+                    $this->isForBasketItem($oBasketArticle):
                     $this->isForBundleItem($oBasketArticle));
 
                 if ($blForBasketItem) {
