@@ -95,8 +95,7 @@ class Basket extends Basket_parent
     public function getPrice()
     {
         if (is_null($this->_oPrice)) {
-            $price = oxNew(Price::class);
-            $this->setPrice($price);
+            $this->_calcTotalPrice();
         }
         return $this->_oPrice;
     }
@@ -126,20 +125,20 @@ class Basket extends Basket_parent
 
         // 2.3 add delivery cost
         if (isset($this->_aCosts['oxdelivery'])) {
-            $oTotalPrice->add($this->_aCosts['oxdelivery']->getPrice());
+            $oTotalPrice->add($this->_aCosts['oxdelivery']->getBruttoPrice());
         }
 
         // 2.4 add wrapping price
         if (isset($this->_aCosts['oxwrapping'])) {
-            $oTotalPrice->add($this->_aCosts['oxwrapping']->getPrice());
+            $oTotalPrice->add($this->_aCosts['oxwrapping']->getBruttoPrice());
         }
         if (isset($this->_aCosts['oxgiftcard'])) {
-            $oTotalPrice->add($this->_aCosts['oxgiftcard']->getPrice());
+            $oTotalPrice->add($this->_aCosts['oxgiftcard']->getBruttoPrice());
         }
 
         // 2.5 add payment price
         if (isset($this->_aCosts['oxpayment'])) {
-            $oTotalPrice->add($this->_aCosts['oxpayment']->getPrice());
+            $oTotalPrice->add($this->_aCosts['oxpayment']->getBruttoPrice());
         }
 
         $this->setPrice($oTotalPrice);
@@ -147,24 +146,15 @@ class Basket extends Basket_parent
 
     public function getGrandTotalNetto()
     {
-        $oPrice = oxNew(Price::class);
+        /*$oPrice = oxNew(Price::class);
         $oPrice->setNettoPriceMode();
         $oPrice->add($this->getNettoSum());
-        if(is_null($this->getDeliveryCost)){
-            $this->_calcDeliveryCost();
-        }
-        $oPrice->add($this->getDeliveryCost()->getNettoPrice());
-        return $oPrice;
-    }
-
-    public function getGrandTotal() {
+        if(!$this->getDeliveryCost()){
+            $oPrice->add($this->getDeliveryCost()->getNettoPrice());
+        }*/
         $oPrice = oxNew(Price::class);
-        $oPrice->setBruttoPriceMode();
-        $oPrice->add($this->getBruttoSum());
-        if(is_null($this->getDeliveryCost)){
-            $this->_calcDeliveryCost();
-        }
-        $oPrice->add($this->getDeliveryCost()->getBruttoPrice());
+        $oPrice->setNettoPriceMode();
+        $oPrice->add($this->getPrice()->getNettoPrice());
         return $oPrice;
     }
 
