@@ -59,7 +59,7 @@ class Delivery extends Delivery_parent
         }
     }
 
-    protected function _getCostSum()
+    protected function getCostSum()
     {
         return (parent::_getCostSum() + $this->getCargoPrice());
     }
@@ -194,7 +194,7 @@ class Delivery extends Delivery_parent
 
             // if article is free shipping, price for delivery will be not calculated
             if (!$this->_blFreeShipping) {
-                $oPrice->add($this->_getCostSum());
+                $oPrice->add($this->getCostSum());
             }
             $this->setDeliveryPrice($oPrice);
         }
