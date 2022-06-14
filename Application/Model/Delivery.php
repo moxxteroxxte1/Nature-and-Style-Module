@@ -166,9 +166,9 @@ class Delivery extends Delivery_parent
     {
         $dCargoPrice = 0;
         $logger = Registry::getLogger();
-        $logger->warning("includeCargo: " . $this->includeCargo() . " includesCargo: " .  $this->blIncludesCargo);
         if (!$this->includeCargo() && $this->blIncludesCargo) {
             $dCargoPrice = doubleval(Registry::getConfig()->getConfigParam('nascargoprice')) * $this->iCargoMultiplier;
+            $logger->warning("$dCargoPrice");
         }
         return $dCargoPrice;
     }
