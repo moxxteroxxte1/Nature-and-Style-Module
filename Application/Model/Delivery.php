@@ -77,7 +77,7 @@ class Delivery extends Delivery_parent
 
                 if ($this->checkArticleRestriction($oArticle)) {
                     $dAmount = $oContent->getAmount();
-                    if ($oArticle->oxarticles__oxbulkygood->value && !$this->includeCargo()) {
+                    if ($oArticle->isBulkyGood() && !$this->includeCargo()) {
                         $this->_blFreeShipping = false;
                         $this->iCargoMultiplier += ($oArticle->getBulkyGoodMultiplier() * $dAmount);
                         $this->blIncludesCargo = true;
