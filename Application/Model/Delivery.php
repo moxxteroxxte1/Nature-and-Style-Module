@@ -61,13 +61,19 @@ class Delivery extends Delivery_parent
 
     protected function getCostSum()
     {
+        $dPrice = $this->getBasePrice();
+        $dPrice += $this->getCargoPrice();
+        return $dPrice;
+    }
+
+    protected function getBasePrice()
+    {
         if ($this->getAddSumType() == 'abs') {
             $oCur = Registry::getConfig()->getActShopCurrencyObject();
             $dPrice = $this->getAddSum() * $oCur->rate * $this->getMultiplier();
         } else {
             $dPrice = $this->_dPrice / 100 * $this->getAddSum();
         }
-        $dPrice += $this->getCargoPrice();
         return $dPrice;
     }
 
@@ -84,7 +90,7 @@ class Delivery extends Delivery_parent
 
                 if ($this->checkArticleRestriction($oArticle)) {
                     $dAmount = $oContent->getAmount();
-                    if ($oArticle->oxarticles__oxbulkygood->value && !$this->includeCargo() && $this->getCostSum() > 0) {
+                    if ($oArticle->oxarticles__oxbulkygood->value && !$this->includeCargo() && $this->getBasePrice() > 0) {
                         $this->_blFreeShipping = false;
                         $this->iCargoMultiplier += ($oArticle->oxarticles__oxbulkygoodmultiplier->value * ($oArticle->oxarticles__oxbulkygoodmultiplier->value > 1 ? $dAmount : 1));
                         $this->blIncludesCargo = true;
