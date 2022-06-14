@@ -61,7 +61,14 @@ class Delivery extends Delivery_parent
 
     protected function getCostSum()
     {
-        return (parent::_getCostSum() + $this->getCargoPrice());
+        if ($this->getAddSumType() == 'abs') {
+            $oCur = Registry::getConfig()->getActShopCurrencyObject();
+            $dPrice = $this->getAddSum() * $oCur->rate * $this->getMultiplier();
+        } else {
+            $dPrice = $this->_dPrice / 100 * $this->getAddSum();
+        }
+        $dPrice += $this->getCargoPrice();
+        return $dPrice;
     }
 
 
