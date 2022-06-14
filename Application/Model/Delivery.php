@@ -94,9 +94,8 @@ class Delivery extends Delivery_parent
                         $this->_blFreeShipping = false;
                         $this->iCargoMultiplier += ($oArticle->oxarticles__oxbulkygoodmultiplier->value * ($oArticle->oxarticles__oxbulkygoodmultiplier->value > 1 ? $dAmount : 1));
                         $this->blIncludesCargo = true;
-                    } else {
-                        $iAllPoints += ($dAmount * $this->getDeliveryAmount($oContent));
                     }
+                    $iAllPoints += ($dAmount * $this->getDeliveryAmount($oContent));
                 } else {
                     return false;
                 }
