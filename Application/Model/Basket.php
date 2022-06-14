@@ -157,6 +157,17 @@ class Basket extends Basket_parent
         return $oPrice;
     }
 
+    public function getGrandTotal() {
+        $oPrice = oxNew(Price::class);
+        $oPrice->setBruttoPriceMode();
+        $oPrice->add($this->getBruttoSum());
+        if(!$this->getDeliveryCost){
+            $this->_calcDeliveryCost();
+        }
+        $oPrice->add($this->getDeliveryCost()->getBruttoPrice());
+        return $oPrice;
+    }
+
     public function hasTelAvis()
     {
         $oDeliverySet = oxNew(DeliverySet::class);
