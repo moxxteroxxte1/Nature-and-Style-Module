@@ -79,7 +79,7 @@ class Delivery extends Delivery_parent
                     $dAmount = $oContent->getAmount();
                     if ($oArticle->oxarticles__oxbulkygood->value && !$this->includeCargo()) {
                         $this->_blFreeShipping = false;
-                        $this->iCargoMultiplier += ($oArticle->oxarticles__oxbulkygoodmultiplier->value * $dAmount);
+                        $this->iCargoMultiplier += ($oArticle->getBulkyGoodMultiplier() * $dAmount);
                         $this->blIncludesCargo = true;
                     } else {
                         $iAllPoints += ($dAmount * $this->getDeliveryAmount($oContent));
@@ -168,7 +168,7 @@ class Delivery extends Delivery_parent
         $logger = Registry::getLogger();
         if (!$this->includeCargo() && $this->blIncludesCargo) {
             $dCargoPrice = doubleval(Registry::getConfig()->getConfigParam('nascargoprice')) * $this->iCargoMultiplier;
-            $logger->warning(doubleval(Registry::getConfig()->getConfigParam('nascargoprice')));
+            $logger->warning($this->iCargoMultiplier);
         }
         return $dCargoPrice;
     }
